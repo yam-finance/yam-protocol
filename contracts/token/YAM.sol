@@ -288,7 +288,7 @@ contract YAM is YAMToken {
         require(initial_owners.length != 0, "0 init owners");
         require(initial_owners.length == amounts.length, "bad initial ownership");
         require(init_supply_ > 0, "0 init supply");
-        // CToken initialize does the bulk of the work
+
         super.initialize(name_, symbol_, decimals_);
 
         init_supply = init_supply_;

@@ -105,18 +105,19 @@ contract Rebaser {
           reservesContract = reservesContract_;
           (address token0, address token1) = sortTokens(yamAddress_, reserveToken_);
 
+          // used for interacting with uniswap
           if (token0 == yamAddress_) {
               isToken0 = true;
           } else {
               isToken0 = false;
           }
-
+          // uniswap YAM<>Reserve pair
           uniswap_pair = pairFor(uniswap_factory, token0, token1);
 
-          // Reserves contract is upgradable
+          // Reserves contract is mutable
           reservesContract = reservesContract_;
 
-          // Reserve token is not. Must deploy a new rebaser to update it
+          // Reserve token is not mutable. Must deploy a new rebaser to update it
           reserveToken = reserveToken_;
 
           yamAddress = yamAddress_;

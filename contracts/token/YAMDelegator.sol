@@ -67,7 +67,7 @@ contract YAMDelegator is YAM, YAMDelegatorInterface {
      * @param becomeImplementationData The encoded bytes data to be passed to _becomeImplementation
      */
     function _setImplementation(address implementation_, bool allowResign, bytes memory becomeImplementationData) public {
-        require(msg.sender == gov, "CErc20Delegator::_setImplementation: Caller must be gov");
+        require(msg.sender == gov, "YAMDelegator::_setImplementation: Caller must be gov");
 
         if (allowResign) {
             delegateToImplementation(abi.encodeWithSignature("_resignImplementation()"));
@@ -291,7 +291,7 @@ contract YAMDelegator is YAM, YAMDelegatorInterface {
      * @dev It returns to the external caller whatever the implementation returns or forwards reverts
      */
     function () external payable {
-        require(msg.value == 0,"CErc20Delegator:fallback: cannot send value to fallback");
+        require(msg.value == 0,"YAMDelegator:fallback: cannot send value to fallback");
 
         // delegate all other functions to current implementation
         delegateAndReturn();
