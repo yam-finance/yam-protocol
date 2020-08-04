@@ -288,8 +288,7 @@ contract YAM is YAMToken {
         string memory name_,
         string memory symbol_,
         uint8 decimals_,
-        address[] memory initial_owners,
-        uint256[] memory amounts,
+        address memory initial_owner,
         uint256 init_supply_,
         address rebaser_,
         address incentivizer_,
@@ -297,8 +296,6 @@ contract YAM is YAMToken {
     )
         public
     {
-        require(initial_owners.length != 0, "0 init owners");
-        require(initial_owners.length == amounts.length, "bad initial ownership");
         require(init_supply_ > 0, "0 init supply");
 
         super.initialize(name_, symbol_, decimals_);
@@ -308,12 +305,7 @@ contract YAM is YAMToken {
         rebaser = rebaser_;
         incentivizer = incentivizer_;
         yamsScalingFactor = 10**18;
-        uint256 ownership_total;
-        for (uint256 i = 0; i < initial_owners.length; i++) {
-          _yamBalances[initial_owners[i]] = amounts[i];
-          ownership_total += amounts[i];
-        }
-        require(ownership_total == totalSupply, "entire supply not distributed");
+        _yamBalances[initial_owner] = init_supply_;
 
         // owner renounces ownership after deployment as they need to set
         // rebaser and incentivizer
