@@ -1,4 +1,4 @@
-# YAM Protocol
+# 🍠  YAM Protocol  🍠
 ## The Protocol
 YAM protocol is a cryptocurrency built on the Ethereum blockchain. It is designed to be create a soft price peg against any reserve asset by leveraging an elastic monetary supply to reward holders and a protocol governed treasury.
 
