@@ -1,3 +1,5 @@
+var fs = require('fs')
+
 // ============ Contracts ============
 
 // Governance
