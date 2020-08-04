@@ -96,7 +96,8 @@ contract Rebaser {
         address reserveToken_,
         address uniswap_factory,
         address reservesContract_,
-        uint256 max_slippage_factor_
+        uint256 maxSlippageFactor_,
+        address gov_
     )
         public
     {
@@ -121,18 +122,20 @@ contract Rebaser {
           reserveToken = reserveToken_;
 
           yamAddress = yamAddress_;
+
+          gov = gov_;
     }
 
     /** @notice Updates slippage factor
     *
     */
-    function setMaxSlippageFactor(uint256 max_slippage_factor_)
+    function setMaxSlippageFactor(uint256 maxSlippageFactor_)
         public
         onlyGov
     {
-        uint256 oldSlippageFactor = max_slippage_factor;
-        max_slippage_factor = max_slippage_factor_;
-        emit NewSlippageFactor(oldSlippageFactor, max_slippage_factor_);
+        uint256 oldSlippageFactor = maxSlippageFactor_;
+        maxSlippageFactor = maxSlippageFactor_;
+        emit NewSlippageFactor(oldSlippageFactor, maxSlippageFactor_);
     }
 
 
@@ -202,22 +205,27 @@ contract Rebaser {
         // get twap from uniswap v2;
         uint256 exchangeRate = getTWAP();
 
-        int256 supplyDelta = computeSupplyDelta(exchangeRate);
+        // calculates % change to supply
+        (uint256 indexDelta, bool positive) = computeSupplyDelta(exchangeRate);
 
         // Apply the Dampening factor.
-        supplyDelta = supplyDelta.div(rebaseLag.toInt256Safe());
+        indexDelta = supplyDelta.div(rebaseLag);
 
-        if (supplyDelta > 0 && yamFrags.totalSupply().add(uint256(supplyDelta)) > MAX_SUPPLY) {
-            supplyDelta = (MAX_SUPPLY.sub(yamFrags.totalSupply())).toInt256Safe();
+        // cap to max scaling
+        if (positive && yamFrags.yamsScalingFactor() + indexDelta < MAX_SCALING) {
+            indexDelta = MAX_SCALING - yamFrags.yamsScalingFactor();
         }
 
-        beforeRebase(supplyDelta, exchangeRate);
+        // preform actions before rebase
+        beforeRebase(indexDelta, positive, exchangeRate);
 
+        // rebase
         uint256 supplyAfterRebase = yamFrags.rebase(epoch, supplyDelta);
-        assert(supplyAfterRebase <= MAX_SUPPLY);
+        assert(yamFrags.yamsScalingFactor() <= MAX_SCALING);
         emit Rebase(epoch, exchangeRate, supplyDelta, now);
 
-        afterRebase(supplyAfterRebase, supplyDelta, exchangeRate);
+        // perform actions after rebase
+        afterRebase(supplyAfterRebase, indexDelta, positive, exchangeRate);
     }
 
 
@@ -381,17 +389,19 @@ contract Rebaser {
     function computeSupplyDelta(uint256 rate)
         private
         view
-        returns (int256)
+        returns (uint256, bool)
     {
         if (withinDeviationThreshold(rate, targetRate)) {
             return 0;
         }
 
-        // supplyDelta = totalSupply * (rate - targetRate) / targetRate
+        // indexDelta =  (rate - targetRate) / targetRate
         int256 targetRateSigned = targetRate.toInt256Safe();
-        return yamFrags.totalSupply().toInt256Safe()
-            .mul(rate.toInt256Safe().sub(targetRateSigned))
-            .div(targetRateSigned);
+        if (rate > targetRate) {
+          return (rate.sub(targetRate).mul(10**18).div(targetRate), true);
+        } else {
+          return (targetRate.sub(rate).mul(10**18).div(targetRate), false);
+        }
     }
 
     /**

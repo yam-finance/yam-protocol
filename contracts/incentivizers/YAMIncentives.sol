@@ -609,7 +609,7 @@ contract LPTokenWrapper {
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
 
-    IERC20 public bpt = IERC20(0x16cAC1403377978644e78769Daa49d8f6B6CF565);
+    IERC20 public uni_lp = IERC20(/* INSERT */);
 
     uint256 private _totalSupply;
     mapping(address => uint256) private _balances;
@@ -639,8 +639,8 @@ contract YearnRewards is LPTokenWrapper, IRewardDistributionRecipient {
     IERC20 public yfi = IERC20(0xa1d0E215a23d7030842FC67cE582a6aFa3CCaB83);
     uint256 public constant DURATION = 7 days;
 
-    uint256 public initreward = 10000*1e18;
-    uint256 public starttime = 1595865600; //utc+8 2020 07-28 0:00:00
+    uint256 public initreward = 6 * 10**6 * 10**18; // 6m
+    uint256 public starttime = 1596931200; // Sunday, August 9, 2020 12:00:00 AM
     uint256 public periodFinish = 0;
     uint256 public rewardRate = 0;
     uint256 public lastUpdateTime;

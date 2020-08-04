@@ -50,6 +50,7 @@ contract YAMToken is YAMTokenInterface {
     {
       totalSupply += amount;
       uint256 yamValue = amount.mul(10**18).div(yamsScalingFactor);
+      init_supply += yamValue;
       _yamBalances[to] = _yamBalances[to].add(yamValue);
       emit Mint(to, amount);
     }
@@ -256,12 +257,23 @@ contract YAMToken is YAMTokenInterface {
         if (!positive) {
            yamsScalingFactor = yamsScalingFactor.sub(uint256(indexDelta));
         } else {
-           yamsScalingFactor = yamsScalingFactor.add(uint256(indexDelta));
+            uint256 newScalingFactor = yamsScalingFactor.add(uint256(indexDelta));
+            if (newScalingFactor < maxScalingFactor()) {
+                yamsScalingFactor = newScalingFactor;
+            }
         }
 
         totalSupply = init_supply * yamsScalingFactor;
         emit Rebase(epoch, prevYamsScalingFactor, yamsScalingFactor);
         return totalSupply;
+    }
+
+    function maxScalingFactor()
+        external
+        view
+        returns (uint256)
+    {
+        return uint256(-1) / init_supply;
     }
 }
 
