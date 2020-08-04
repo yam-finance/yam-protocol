@@ -1,6 +1,6 @@
 # 🍠  YAM Protocol  🍠
 ## The Protocol
-YAM protocol is a cryptocurrency built on the Ethereum blockchain. It is designed to be create a soft price peg against any reserve asset by leveraging an elastic monetary supply to reward holders and a protocol governed treasury.
+YAM protocol is a cryptocurrency built on the Ethereum blockchain. It is designed to create a soft price peg against any reserve asset by leveraging an elastic monetary supply to reward holders and a protocol governed treasury.
 
 The token inflates and deflates its monetary supply in order to stabilze its peg (called a rebase). It is innovative by adding a treasury building mechanism into the rebase.
 
