@@ -42,10 +42,10 @@ $ ganache-cli --fork <eth_rpc_url>@latest --networkId 1001 --gasPrice 0x1312D00 
 #### Attributions
 Much of this code base is modified from existing works, including:
 
-[Compound](compound.finance) - Jumping off point for token code and governance
+[Compound](https://compound.finance) - Jumping off point for token code and governance
 
-[Ampleforth](ampleforth.org) - Initial rebasing mechanism, modified to better suit the YAM protocol
+[Ampleforth](https://ampleforth.org) - Initial rebasing mechanism, modified to better suit the YAM protocol
 
-[Synthetix](synthetix.io) - Rewards staking contract
+[Synthetix](https://synthetix.io) - Rewards staking contract
 
-[YEarn](yearn.finance)/[YFI](ygov.finance) - Initial fair distribution implementation
+[YEarn](https://yearn.finance)/[YFI](https://ygov.finance) - Initial fair distribution implementation
