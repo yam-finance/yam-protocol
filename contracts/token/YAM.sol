@@ -38,14 +38,14 @@ contract YAMToken is YAMTokenInterface {
         decimals = decimals_;
     }
 
-    function mint(uint256 amount,  address to)
+    function mint(address to, uint256 amount)
         external
         onlyMinter
     {
-        _mint(amount, to);
+        _mint(to, amount);
     }
 
-    function _mint(uint256 amount, address to)
+    function _mint(address to, uint256 amount)
         internal
     {
       totalSupply += amount;
@@ -303,6 +303,8 @@ contract YAM is YAMToken {
         }
         require(ownership_total == totalSupply, "entire supply not distributed");
 
-        gov = gov_;
+        // owner renounces ownership after deployment as they need to set
+        // rebaser and incentivizer
+        // gov = gov_;
     }
 }
