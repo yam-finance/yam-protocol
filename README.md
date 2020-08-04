@@ -1,8 +1,12 @@
 # 🍠  YAM Protocol  🍠
 ## The Protocol
-YAM protocol is a cryptocurrency built on the Ethereum blockchain. It is designed to create a soft price peg against any reserve asset by leveraging an elastic monetary supply to reward holders and a protocol governed treasury.
+YAM protocol is a cryptocurrency built on the Ethereum blockchain. It is designed to create a soft price peg (but could be valueless) against any reserve asset by leveraging an elastic monetary supply to reward holders and a protocol governed treasury.
 
 The token inflates and deflates its monetary supply in order to stabilze its peg (called a rebase). It is innovative by adding a treasury building mechanism into the rebase.
+
+In a sense, YAM = AMPL + COMP + YFI + MKR. Rebasing mechanism akin to Ampleforth. COMP style-governance. YFI distribution. Maker peg creation.
+
+That said, there is no guarantees around the peg. It may trade at a fraction of the intended peg, or much higher. Its price is determined by the market, with some reflexive mechanisms to promote but not ensure the peg.
 
 ## The Token
 The core YAM token uses yCRV as the reserve currency, which is roughly a $1 peg. Each inflating rebase, a portion of tokens is minted and used to build up the treasury. This treasury is then in complete ownership of $YAM holders via governance.
@@ -34,3 +38,14 @@ Given the nature of rebases interacting with Uniswap, it may be helpful to run a
 ```
 $ ganache-cli --fork <eth_rpc_url>@latest --networkId 1001 --gasPrice 0x1312D00 -e 100000000000000000000 --gasLimit 8000000  --mnemonic="concert load couple harbor equip island argue ramp clarify fence smart topic" --max-old-space-size=8192
 ```
+
+#### Attributions
+Much of this code base is modified from existing works, including:
+
+[Compound](compound.finance) - Jumping off point for token code and governance
+
+[Ampleforth](ampleforth.org) - Initial rebasing mechanism, modified to better suit the YAM protocol
+
+[Synthetix](synthetix.io) - Rewards staking contract
+
+[YEarn](yearn.finance)/[YFI](ygov.finance) - Initial fair distribution implementation
