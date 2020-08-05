@@ -91,6 +91,7 @@ contract YAMToken is YAMGovernanceToken {
        uint256 yamValue = value.mul(10**18).div(yamsScalingFactor);
        _yamBalances[msg.sender] = _yamBalances[msg.sender].sub(yamValue);
        _yamBalances[to] = _yamBalances[to].add(yamValue);
+       emit Transfer(msg.sender, to, value);
        return true;
     }
 
