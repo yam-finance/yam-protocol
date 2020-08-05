@@ -14,7 +14,9 @@ address that controls every permissioned function, or is primed to.
 ###### File: `YAM.sol`
 `_setPendingGov(address)`: sets `pendingGov` to new address. To complete the change of governance, the new governance contract has to call `_acceptGov()`.
 
-
+<br />
+<br />
+<br />
 
 #### `rebaser`
 ##### File: `YAMTokenStorage.sol`
@@ -24,6 +26,10 @@ address that controls the rebasing functionality. This contract is one of two co
 ###### File: `YAM.sol`
 `_setRebaser(address)`: sets `rebaser` to new address.
 
+<br />
+<br />
+<br />
+
 #### `incentivizer`
 ##### File: `YAMTokenStorage.sol`
 ##### Description
@@ -31,3 +37,7 @@ address that controls the incentivizer pool. This contract is one of two contrac
 ##### Setting
 ###### File: `YAM.sol`
 `_setIncentivizer(address)`: sets `incentivzer` to new address.
+
+<br />
+<br />
+<br />
