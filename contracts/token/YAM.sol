@@ -237,7 +237,7 @@ contract YAMToken is YAMGovernanceToken {
         emit NewPendingGov(oldPendingGov, pendingGov_);
     }
 
-    /** @notice lets msg.sender accept governacne
+    /** @notice lets msg.sender accept governance
      *
      */
     function _acceptGov()

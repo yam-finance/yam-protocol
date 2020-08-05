@@ -12,7 +12,7 @@ contract YAMDelegator is YAM, YAMDelegatorInterface {
      * @param initial_owners List of initial YAM holders
      * @param amounts Amounts to send to corresponding initial owners
      * @param init_supply_ Initial token amount
-     * @param gov_ Address of the governacne of this token
+     * @param gov_ Address of the governance of this token
      * @param implementation_ The address of the implementation the contract delegates to
      * @param becomeImplementationData The encoded args for becomeImplementation
      */
