@@ -1,8 +1,9 @@
 pragma solidity 0.5.17;
 
 import "./YAMTokenInterface.sol";
+import "./YAMGovernance.sol";
 
-contract YAMToken is YAMTokenInterface {
+contract YAMToken is YAMGovernanceToken {
     // Modifiers
     modifier onlyGov() {
         require(msg.sender == gov);
