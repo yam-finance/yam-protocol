@@ -49,6 +49,7 @@ contract YAMReserve {
     {
         gov = gov_;
         reserveToken = reserveToken_;
+        yamAddress = yamAddress_;
     }
 
     function _setRebaser(address rebaser_)

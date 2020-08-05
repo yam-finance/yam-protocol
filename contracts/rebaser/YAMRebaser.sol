@@ -370,10 +370,7 @@ contract Rebaser {
                     uint256 buyTokens = getAmountOut(tokens_to_max_slippage, token0Reserves, token1Reserves);
 
                     // swap up to slippage limit, taking entire yam reserves, and minting part of total
-                    uniVars.amountFromReserves = excess;
                     uniVars.mintToReserves = mintAmount - (tokens_to_max_slippage - excess);
-                    // uint256 fromMint = tokens_to_max_slippage - excess;
-                    // ^ do inline to prevent stack too deep
                     pair.swap(0, buyTokens, address(this), abi.encode(uniVars));
                 } else {
                     // uniswap cant handle all of excess
@@ -398,7 +395,6 @@ contract Rebaser {
                     // uniswap can handle entire reserves
                     uint256 buyTokens = getAmountOut(tokens_to_max_slippage, token1Reserves, token0Reserves);
                     // swap up to slippage limit, taking entire yam reserves, and minting part of total
-                    uniVars.amountFromReserves = excess;
                     uniVars.mintToReserves = mintAmount - (tokens_to_max_slippage - excess);
 
                     // swap up to slippage limit, taking entire yam reserves, and minting part of total
