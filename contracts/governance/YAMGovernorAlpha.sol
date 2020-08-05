@@ -20,15 +20,18 @@ pragma experimental ABIEncoderV2;
 //    Since YAM supply changes, updated quorum & proposal requirements
 //    If any uint96, changed to uint256 to match YAM as opposed to comp
 
+
+import "../lib/SafeMath.sol";
+
 contract GovernorAlpha {
     /// @notice The name of this contract
     string public constant name = "YAM Governor Alpha";
 
     /// @notice The number of votes in support of a proposal required in order for a quorum to be reached and for a vote to succeed
-    function quorumVotes() public pure returns (uint256) { return yam.totalSupply().mul(4).div(100); } // 4% of YAM
+    function quorumVotes() public view returns (uint256) { return SafeMath.div(SafeMath.mul(yam.totalSupply(), 4), 100); } // 4% of YAM
 
     /// @notice The number of votes required in order for a voter to become a proposer
-    function proposalThreshold() public pure returns (uint256) { return yam.totalSupply().div(100); } // 1% of YAM
+    function proposalThreshold() public view returns (uint256) { return SafeMath.div(yam.totalSupply(), 100); } // 1% of YAM
 
     /// @notice The maximum number of actions that can be included in a proposal
     function proposalMaxOperations() public pure returns (uint256) { return 10; } // 10 actions
@@ -43,7 +46,7 @@ contract GovernorAlpha {
     TimelockInterface public timelock;
 
     /// @notice The address of the Compound governance token
-    YAM public yam;
+    YAMInterface public yam;
 
     /// @notice The address of the Governor Guardian
     address public guardian;
@@ -469,4 +472,5 @@ interface TimelockInterface {
 
 interface YAMInterface {
     function getPriorVotes(address account, uint256 blockNumber) external view returns (uint256);
+    function totalSupply() external view returns (uint256);
 }

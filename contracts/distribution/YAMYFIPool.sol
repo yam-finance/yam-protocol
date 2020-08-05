@@ -628,7 +628,7 @@ contract LPTokenWrapper {
 }
 
 contract YAMYFIPool is LPTokenWrapper, IRewardDistributionRecipient {
-    IERC20 public yam = IERC20(/**/);
+    IERC20 public yam = IERC20(address(0));
     uint256 public constant DURATION = 7 days;
 
     uint256 public periodFinish = 0;
@@ -701,7 +701,7 @@ contract YAMYFIPool is LPTokenWrapper, IRewardDistributionRecipient {
         uint256 reward = earned(msg.sender);
         if (reward > 0) {
             rewards[msg.sender] = 0;
-            uint256 scalingFactor = YAM(yam).yamsScalingFactor();
+            uint256 scalingFactor = YAM(address(yam)).yamsScalingFactor();
             uint256 trueReward = reward.mul(scalingFactor).div(10**18);
             yam.safeTransfer(msg.sender, trueReward);
             emit RewardPaid(msg.sender, trueReward);

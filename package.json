@@ -10,5 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "dotenv-flow": "^3.2.0"
+  },
+  "devDependencies": {
+    "@truffle/hdwallet-provider": "^1.0.40"
   }
 }

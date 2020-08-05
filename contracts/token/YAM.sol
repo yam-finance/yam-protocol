@@ -39,6 +39,24 @@ contract YAMToken is YAMGovernanceToken {
         decimals = decimals_;
     }
 
+
+    function maxScalingFactor()
+        external
+        view
+        returns (uint256)
+    {
+        return _maxScalingFactor();
+    }
+
+    function _maxScalingFactor()
+        internal
+        view
+        returns (uint256)
+    {
+        return uint256(-1) / init_supply;
+    }
+
+
     function mint(address to, uint256 amount)
         external
         onlyMinter
@@ -52,6 +70,7 @@ contract YAMToken is YAMGovernanceToken {
       totalSupply += amount;
       uint256 yamValue = amount.mul(10**18).div(yamsScalingFactor);
       init_supply += yamValue;
+      require(yamsScalingFactor <= _maxScalingFactor(), "scaling factor too high");
       _yamBalances[to] = _yamBalances[to].add(yamValue);
       emit Mint(to, amount);
     }
@@ -259,7 +278,7 @@ contract YAMToken is YAMGovernanceToken {
            yamsScalingFactor = yamsScalingFactor.sub(uint256(indexDelta));
         } else {
             uint256 newScalingFactor = yamsScalingFactor.add(uint256(indexDelta));
-            if (newScalingFactor < maxScalingFactor()) {
+            if (newScalingFactor < _maxScalingFactor()) {
                 yamsScalingFactor = newScalingFactor;
             }
         }
@@ -267,14 +286,6 @@ contract YAMToken is YAMGovernanceToken {
         totalSupply = init_supply * yamsScalingFactor;
         emit Rebase(epoch, prevYamsScalingFactor, yamsScalingFactor);
         return totalSupply;
-    }
-
-    function maxScalingFactor()
-        external
-        view
-        returns (uint256)
-    {
-        return uint256(-1) / init_supply;
     }
 }
 
@@ -289,7 +300,7 @@ contract YAM is YAMToken {
         string memory name_,
         string memory symbol_,
         uint8 decimals_,
-        address memory initial_owner,
+        address initial_owner,
         uint256 init_supply_,
         address rebaser_,
         address incentivizer_,

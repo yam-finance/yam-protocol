@@ -2,6 +2,7 @@ pragma solidity 0.5.17;
 
 import "../lib/IERC20.sol";
 import "../lib/SafeERC20.sol";
+import "../token/YAMTokenInterface.sol";
 
 contract YAMReserve {
 
@@ -55,9 +56,9 @@ contract YAMReserve {
         onlyGov
     {
         address oldRebaser = rebaser;
-        YAM(yamAddress).decreaseAllowance(oldRebaser, uint256(-1));
+        YAMTokenInterface(yamAddress).decreaseAllowance(oldRebaser, uint256(-1));
         rebaser = rebaser_;
-        YAM(yamAddress).approve(rebaser_, uint256(-1));
+        YAMTokenInterface(yamAddress).approve(rebaser_, uint256(-1));
         emit NewRebaser(oldRebaser, rebaser_);
     }
 

@@ -1,15 +1,32 @@
 pragma solidity 0.5.17;
+pragma experimental ABIEncoderV2;
 
+import "../lib/SafeERC20.sol";
 import "../lib/SafeMath.sol";
+import '../lib/IUniswapV2Pair.sol';
+import "../lib/UniswapV2OracleLibrary.sol";
+import "../token/YAMTokenInterface.sol";
+
 
 contract Rebaser {
 
     using SafeMath for uint256;
 
+    modifier onlyGov() {
+        require(msg.sender == gov);
+        _;
+    }
+
     struct Transaction {
         bool enabled;
         address destination;
         bytes data;
+    }
+
+    struct UniVars {
+      uint256 yamsToUni;
+      uint256 amountFromReserves;
+      uint256 mintToReserves;
     }
 
     event TransactionFailed(address indexed destination, uint index, bytes data);
@@ -25,12 +42,26 @@ contract Rebaser {
      */
     event NewReserveContract(address oldReserveContract, address newReserveContract);
 
+    /**
+     * @notice Sets the reserve contract
+     */
+    event TreasuryIncreased(uint256 reservesAdded, uint256 yamsSold, uint256 yamsFromReserves, uint256 yamsToReserves);
+
     // Stable ordering is not guaranteed.
     Transaction[] public transactions;
 
 
     /// @notice Governance address
     address public gov;
+
+    // Spreads out getting to the target price
+    uint256 public rebaseLag;
+
+    // Peg target
+    uint256 public targetRate;
+
+    // Percent of rebase that goes to minting for treasury building
+    uint256 public rebaseMintPerc;
 
     // If the current exchange rate is within this fractional distance from the target, no supply
     // update is performed. Fixed point number--same format as the rate.
@@ -127,6 +158,16 @@ contract Rebaser {
 
           // target 10% slippage
           maxSlippageFactor = 5409258 * 10**10;
+
+          // 1 YCRV
+          targetRate = 10**18;
+
+          // twice daily rebase, with targeting reaching peg in 5 days
+          rebaseLag = 10;
+
+          // 10%
+          rebaseMintPerc = 10**17;
+
     }
 
     /** @notice Updates slippage factor
@@ -138,7 +179,7 @@ contract Rebaser {
     {
         uint256 oldSlippageFactor = maxSlippageFactor_;
         maxSlippageFactor = maxSlippageFactor_;
-        emit NewSlippageFactor(oldSlippageFactor, maxSlippageFactor_);
+        emit NewMaxSlippageFactor(oldSlippageFactor, maxSlippageFactor_);
     }
 
 
@@ -149,7 +190,7 @@ contract Rebaser {
         public
         onlyGov
     {
-        uint256 oldReservesContract = reservesContract;
+        address oldReservesContract = reservesContract;
         reservesContract = reservesContract_;
         emit NewReserveContract(oldReservesContract, reservesContract_);
     }
@@ -178,7 +219,7 @@ contract Rebaser {
         // cannot enable prior to end of rebaseDelay
         require(now >= timeOfTWAPInit + rebaseDelay, "!end_delay");
         // sanity check in case liquidity hasn't entered or no trades
-        require(IUniswapV2Pair(uniswap_pair).price0CumulativeLast() > 0, "!liquid");
+        require(UniswapPair(uniswap_pair).price0CumulativeLast() > 0, "!liquid");
         // init price
 
         rebasingActive = true;
@@ -210,11 +251,12 @@ contract Rebaser {
 
         // calculates % change to supply
         (uint256 offPegPerc, bool positive) = computeOffPegPerc(exchangeRate);
+
         uint256 indexDelta = offPegPerc;
         // Apply the Dampening factor.
-        indexDelta = supplyDelta.div(rebaseLag);
+        indexDelta = indexDelta.div(rebaseLag);
 
-        YAM yam = YAM(yamAddress);
+        YAMTokenInterface yam = YAMTokenInterface(yamAddress);
 
         // cap to max scaling
         if (positive && yam.yamsScalingFactor() + indexDelta < yam.maxScalingFactor()) {
@@ -234,9 +276,8 @@ contract Rebaser {
 
 
         // rebase
-        uint256 supplyAfterRebase = yam.rebase(epoch, supplyDelta);
-        assert(yam.yamsScalingFactor() <= MAX_SCALING);
-        emit Rebase(epoch, exchangeRate, supplyDelta, now);
+        uint256 supplyAfterRebase = yam.rebase(epoch, indexDelta, positive);
+        assert(yam.yamsScalingFactor() <= yam.maxScalingFactor());
 
         // perform actions after rebase
         afterRebase(mintAmount, offPegPerc);
@@ -247,38 +288,41 @@ contract Rebaser {
         address sender,
         uint256 amount0,
         uint256 amount1,
-        bytes calldata data
+        bytes memory data
     )
         public
     {
         // enforce that it is coming from uniswap
-        require(msg.sender == pair, "bad msg.sender");
-        // enforce that this contract call uniswap
+        require(msg.sender == uniswap_pair, "bad msg.sender");
+        // enforce that this contract called uniswap
         require(sender == address(this), "bad origin");
-        (uint256 yamsToUni, uint256 amountFromReserves, uint256 mintToReserves) = abi.decode(data, (uint256, uint256, uint256));
+        (UniVars memory uniVars) = abi.decode(data, (UniVars));
 
-        YAM yam = YAM(yamAddress);
+        YAMTokenInterface yam = YAMTokenInterface(yamAddress);
 
-        if (amountFromReserves > 0) {
+        if (uniVars.amountFromReserves > 0) {
             // transfer from reserves and mint to uniswap
-            yam.transferFrom(reservesContract, uniswap_pair, amountFromReserves);
-            yam.mint(pair, yamsToUni - amountFromReserves);
+            yam.transferFrom(reservesContract, uniswap_pair, uniVars.amountFromReserves);
+            yam.mint(uniswap_pair, uniVars.yamsToUni - uniVars.amountFromReserves);
         } else {
             // mint to uniswap
-            yam.mint(pair, yamsToUni);
+            yam.mint(uniswap_pair, uniVars.yamsToUni);
         }
 
         // mint unsold to reserves
-        if (mintToReserves > 0) {
-            yam.mint(reservesContract, mintToReserves);
+        if (uniVars.mintToReserves > 0) {
+            yam.mint(reservesContract, uniVars.mintToReserves);
         }
 
         // transfer reserve token to reserves
         if (isToken0) {
-            SafeERC20.safeTransfer(reserveToken, reservesContract, amount0);
+            SafeERC20.safeTransfer(IERC20(reserveToken), reservesContract, amount1);
+            emit TreasuryIncreased(amount1, uniVars.yamsToUni, uniVars.amountFromReserves, uniVars.mintToReserves);
         } else {
-            SafeERC20.safeTransfer(reserveToken, reservesContract, amount1);
+            SafeERC20.safeTransfer(IERC20(reserveToken), reservesContract, amount0);
+            emit TreasuryIncreased(amount0, uniVars.yamsToUni, uniVars.amountFromReserves, uniVars.mintToReserves);
         }
+
 
     }
 
@@ -292,8 +336,7 @@ contract Rebaser {
 
         pair.sync();
 
-
-        YAM yam = YAM(yamAddress);
+        YAMTokenInterface yam = YAMTokenInterface(yamAddress);
 
         // get reserves
         (uint256 token0Reserves, uint256 token1Reserves, ) = pair.getReserves();
@@ -302,7 +345,13 @@ contract Rebaser {
         uint256 excess = yam.balanceOf(reservesContract);
 
 
-        uint256 tokens_to_max_slippage = uniswapMaxSlippage(token0Reserves, token1Reserves, indexDelta);
+        uint256 tokens_to_max_slippage = uniswapMaxSlippage(token0Reserves, token1Reserves, offPegPerc);
+
+        UniVars memory uniVars = UniVars({
+          yamsToUni: tokens_to_max_slippage,
+          amountFromReserves: excess,
+          mintToReserves: 0
+        });
 
         // tries to sell all mint + excess
         // falls back to selling some of mint and all of excess
@@ -311,49 +360,57 @@ contract Rebaser {
             if (tokens_to_max_slippage > mintAmount + excess) {
                 // can handle all of reserves and mint
                 uint256 buyTokens = getAmountOut(mintAmount + excess, token0Reserves, token1Reserves);
-
+                uniVars.yamsToUni = mintAmount + excess;
+                uniVars.amountFromReserves = excess;
                 // call swap using entire mint amount and excess; mint 0 to reserves
-                pair.swap(0, buyTokens, address(this), abi.encode(mintAmount + excess, excess, 0));
+                pair.swap(0, buyTokens, address(this), abi.encode(uniVars));
             } else {
                 if (tokens_to_max_slippage > excess) {
                     // uniswap can handle entire reserves
-                    uint256 fromMint = tokens_to_max_slippage - excess;
                     uint256 buyTokens = getAmountOut(tokens_to_max_slippage, token0Reserves, token1Reserves);
 
                     // swap up to slippage limit, taking entire yam reserves, and minting part of total
-                    pair.swap(0, buyTokens, address(this), abi.encode(tokens_to_max_slippage, excess, mintAmount - fromMint));
+                    uniVars.amountFromReserves = excess;
+                    uniVars.mintToReserves = mintAmount - (tokens_to_max_slippage - excess);
+                    // uint256 fromMint = tokens_to_max_slippage - excess;
+                    // ^ do inline to prevent stack too deep
+                    pair.swap(0, buyTokens, address(this), abi.encode(uniVars));
                 } else {
                     // uniswap cant handle all of excess
-                    uint256 remainingExcess = excess - tokens_to_max_slippage;
                     uint256 buyTokens = getAmountOut(tokens_to_max_slippage, token0Reserves, token1Reserves);
-
+                    uniVars.amountFromReserves = tokens_to_max_slippage;
+                    uniVars.mintToReserves = mintAmount;
                     // swap up to slippage limit, taking excess - remainingExcess from reserves, and minting full amount
                     // to reserves
-                    pair.swap(0, buyTokens, address(this), abi.encode(tokens_to_max_slippage, excess - remainingExcess, mintAmount));
+                    pair.swap(0, buyTokens, address(this), abi.encode(uniVars));
                 }
             }
         } else {
             if (tokens_to_max_slippage > mintAmount + excess) {
                 // can handle all of reserves and mint
                 uint256 buyTokens = getAmountOut(mintAmount + excess, token1Reserves, token0Reserves);
-
+                uniVars.yamsToUni = mintAmount + excess;
+                uniVars.amountFromReserves = excess;
                 // call swap using entire mint amount and excess; mint 0 to reserves
-                pair.swap(buyTokens, 0, address(this), abi.encode(mintAmount + excess, excess, 0));
+                pair.swap(buyTokens, 0, address(this), abi.encode(uniVars));
             } else {
                 if (tokens_to_max_slippage > excess) {
                     // uniswap can handle entire reserves
-                    uint256 fromMint = tokens_to_max_slippage - excess;
                     uint256 buyTokens = getAmountOut(tokens_to_max_slippage, token1Reserves, token0Reserves);
+                    // swap up to slippage limit, taking entire yam reserves, and minting part of total
+                    uniVars.amountFromReserves = excess;
+                    uniVars.mintToReserves = mintAmount - (tokens_to_max_slippage - excess);
 
                     // swap up to slippage limit, taking entire yam reserves, and minting part of total
-                    pair.swap(buyTokens, 0, address(this), abi.encode(tokens_to_max_slippage, excess, mintAmount - fromMint));
+                    pair.swap(buyTokens, 0, address(this), abi.encode(uniVars));
                 } else {
                     // uniswap cant handle all of excess
-                    uint256 remainingExcess = excess - tokens_to_max_slippage;
                     uint256 buyTokens = getAmountOut(tokens_to_max_slippage, token1Reserves, token0Reserves);
+                    uniVars.amountFromReserves = tokens_to_max_slippage;
+                    uniVars.mintToReserves = mintAmount;
                     // swap up to slippage limit, taking excess - remainingExcess from reserves, and minting full amount
                     // to reserves
-                    pair.swap(buyTokens, 0, address(this), abi.encode(tokens_to_max_slippage, excess - remainingExcess, mintAmount));
+                    pair.swap(buyTokens, 0, address(this), abi.encode(uniVars));
                 }
             }
         }
@@ -370,19 +427,19 @@ contract Rebaser {
         if (isToken0) {
           if (offPegPerc > maxSlippageFactor) {
               // cap slippage
-              return token0.mul(maxSlippageFactor).div(10**18)
+              return token0.mul(maxSlippageFactor).div(10**18);
           } else {
               // in the 5-10% off peg range, slippage is essentially 2*x (where x is percentage of pool to buy).
               // all we care about is not pushing below the peg, so underestimate
               // the amount we can sell by dividing by 3. resulting price impact
               // should be ~= offPegPerc * 2 / 3, which will keep us above the peg
-              return token0.mul(offPegPerc / 3).div(10**18)
+              return token0.mul(offPegPerc / 3).div(10**18);
           }
         } else {
             if (offPegPerc > maxSlippageFactor) {
-                return token1.mul(maxSlippageFactor).div(10**18)
+                return token1.mul(maxSlippageFactor).div(10**18);
             } else {
-                return token1.mul(offPegPerc / 3).div(10**18)
+                return token1.mul(offPegPerc / 3).div(10**18);
             }
         }
     }
@@ -455,10 +512,10 @@ contract Rebaser {
         // cumulative price is in (uq112x112 price * seconds) units so we simply wrap it after division by time elapsed
         FixedPoint.uq112x112 memory priceAverage = FixedPoint.uq112x112(uint224((priceCumulative - priceCumulativeLast) / timeElapsed));
 
-        priceCumulativeLast = price0Cumulative;
+        priceCumulativeLast = priceCumulative;
         blockTimestampLast = blockTimestamp;
 
-        return priceAverage.decode();
+        return FixedPoint.decode(priceAverage);
     }
 
     /**
@@ -488,6 +545,18 @@ contract Rebaser {
     {
         require(rebaseLag_ > 0);
         rebaseLag = rebaseLag_;
+    }
+
+    /**
+     * @notice Sets the targetRate parameter.
+     * @param targetRate_ The new target rate parameter.
+     */
+    function setTargetRate(uint256 targetRate_)
+        external
+        onlyGov
+    {
+        require(targetRate_ > 0);
+        targetRate = targetRate_;
     }
 
     /**
@@ -543,8 +612,8 @@ contract Rebaser {
         view
         returns (uint256, bool)
     {
-        if (withinDeviationThreshold(rate, targetRate)) {
-            return 0;
+        if (withinDeviationThreshold(rate)) {
+            return (0, false);
         }
 
         // indexDelta =  (rate - targetRate) / targetRate
@@ -557,7 +626,6 @@ contract Rebaser {
 
     /**
      * @param rate The current exchange rate, an 18 decimal fixed point number.
-     * @param targetRate The target exchange rate, an 18 decimal fixed point number.
      * @return If the rate is within the deviation threshold from the target rate, returns true.
      *         Otherwise, returns false.
      */
@@ -567,7 +635,7 @@ contract Rebaser {
         returns (bool)
     {
         uint256 absoluteDeviationThreshold = targetRate.mul(deviationThreshold)
-            .div(10 ** DECIMALS);
+            .div(10 ** 18);
 
         return (rate >= targetRate && rate.sub(targetRate) < absoluteDeviationThreshold)
             || (rate < targetRate && targetRate.sub(rate) < absoluteDeviationThreshold);
@@ -614,7 +682,7 @@ contract Rebaser {
      * @param destination Address of contract destination
      * @param data Transaction data payload
      */
-    function addTransaction(address destination, bytes data)
+    function addTransaction(address destination, bytes calldata data)
         external
         onlyGov
     {
@@ -661,7 +729,7 @@ contract Rebaser {
      * @param data The encoded data payload.
      * @return True on success
      */
-    function externalCall(address destination, bytes data)
+    function externalCall(address destination, bytes memory data)
         internal
         returns (bool)
     {

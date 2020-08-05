@@ -602,7 +602,7 @@ contract LPTokenWrapper {
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
 
-    IERC20 public ampl_eth_uni_lp = IERC20(0xc5be99a02c6857f9eac67bbce58df5572498f40c);
+    IERC20 public ampl_eth_uni_lp = IERC20(0xc5be99A02C6857f9Eac67BbCE58DF5572498F40c);
 
     uint256 private _totalSupply;
     mapping(address => uint256) private _balances;
@@ -629,7 +629,7 @@ contract LPTokenWrapper {
 }
 
 contract YAMETHPool is LPTokenWrapper, IRewardDistributionRecipient {
-    IERC20 public yam = IERC20(/**/);
+    IERC20 public yam = IERC20(address(0));
     uint256 public constant DURATION = 7 days;
 
     uint256 public periodFinish = 0;
@@ -702,7 +702,7 @@ contract YAMETHPool is LPTokenWrapper, IRewardDistributionRecipient {
         uint256 reward = earned(msg.sender);
         if (reward > 0) {
             rewards[msg.sender] = 0;
-            uint256 scalingFactor = YAM(yam).yamsScalingFactor();
+            uint256 scalingFactor = YAM(address(yam)).yamsScalingFactor();
             uint256 trueReward = reward.mul(scalingFactor).div(10**18);
             yam.safeTransfer(msg.sender, trueReward);
             emit RewardPaid(msg.sender, trueReward);

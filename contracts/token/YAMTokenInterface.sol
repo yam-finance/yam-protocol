@@ -56,11 +56,11 @@ contract YAMTokenInterface is YAMTokenStorage {
     function approve(address spender, uint256 value) external returns (bool);
     function increaseAllowance(address spender, uint256 addedValue) external returns (bool);
     function decreaseAllowance(address spender, uint256 subtractedValue) external returns (bool);
-    function yamsScalingFactor() external returns (uint256);
-    function maxScalingFactor() external returns (uint256);
+    function maxScalingFactor() external view returns (uint256);
 
     /* - Permissioned/Governance functions - */
-    function mint(uint256 amount, address to) external;
+    function mint(address to, uint256 amount) external;
+    function rebase(uint256 epoch, uint256 indexDelta, bool positive) external returns (uint256);
     function _setRebaser(address rebaser_) external;
     function _setIncentivizer(address incentivizer_) external;
     function _setPendingGov(address pendingGov_) external;
