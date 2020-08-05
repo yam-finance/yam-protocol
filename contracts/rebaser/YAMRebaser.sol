@@ -31,10 +31,14 @@ contract Rebaser {
 
     event TransactionFailed(address indexed destination, uint index, bytes data);
 
-    /**
-     * @notice Sets the market buy slippage max
-     */
     event NewMaxSlippageFactor(uint256 oldSlippageFactor, uint256 newSlippageFactor);
+
+    event NewDeviationThreshold(uint256 oldDeviationThreshold, uint256 newDeviationThreshold);
+
+    /**
+     * @notice Sets the treasury mint percentage of rebase
+     */
+    event NewRebaseMintPercent(uint256 oldRebaseMintPerc, uint256 newRebaseMintPerc);
 
 
     /**
@@ -47,12 +51,26 @@ contract Rebaser {
      */
     event TreasuryIncreased(uint256 reservesAdded, uint256 yamsSold, uint256 yamsFromReserves, uint256 yamsToReserves);
 
+
+    /**
+     * @notice Event emitted when pendingGov is changed
+     */
+    event NewPendingGov(address oldPendingGov, address newPendingGov);
+
+    /**
+     * @notice Event emitted when gov is changed
+     */
+    event NewGov(address oldGov, address newGov);
+
     // Stable ordering is not guaranteed.
     Transaction[] public transactions;
 
 
     /// @notice Governance address
     address public gov;
+
+    /// @notice Pending Governance address
+    address public pendingGov;
 
     // Spreads out getting to the target price
     uint256 public rebaseLag;
@@ -168,6 +186,12 @@ contract Rebaser {
           // 10%
           rebaseMintPerc = 10**17;
 
+          // 5%
+          deviationThreshold = 5 * 10**16;
+
+          // 15 minutes
+          rebaseWindowLengthSec = 60 * 15;
+
     }
 
     /** @notice Updates slippage factor
@@ -182,6 +206,18 @@ contract Rebaser {
         emit NewMaxSlippageFactor(oldSlippageFactor, maxSlippageFactor_);
     }
 
+    /** @notice Updates slippage factor
+    *
+    */
+    function setRebaseMintPerc(uint256 rebaseMintPerc_)
+        public
+        onlyGov
+    {
+        uint256 oldPerc = rebaseMintPerc_;
+        rebaseMintPerc = rebaseMintPerc_;
+        emit NewRebaseMintPercent(oldPerc, v);
+    }
+
 
     /** @notice Updates reserve contract
     *
@@ -193,6 +229,32 @@ contract Rebaser {
         address oldReservesContract = reservesContract;
         reservesContract = reservesContract_;
         emit NewReserveContract(oldReservesContract, reservesContract_);
+    }
+
+
+    /** @notice sets the pendingGov
+     * @param pendingGov_ The address of the rebaser contract to use for authentication.
+     */
+    function _setPendingGov(address pendingGov_)
+        external
+        onlyGov
+    {
+        address oldPendingGov = pendingGov;
+        pendingGov = pendingGov_;
+        emit NewPendingGov(oldPendingGov, pendingGov_);
+    }
+
+    /** @notice lets msg.sender accept governance
+     *
+     */
+    function _acceptGov()
+        external
+    {
+        require(msg.sender == pendingGov, "!pending");
+        address oldGov = gov;
+        gov = pendingGov;
+        pendingGov = address(0);
+        emit NewGov(oldGov, gov);
     }
 
     /** @notice Initializes TWAP start point, starts countdown to first rebase
@@ -216,6 +278,7 @@ contract Rebaser {
     function activate_rebasing()
         public
     {
+        require(timeOfTWAPInit > 0, "twap wasnt intitiated, call init_twap()");
         // cannot enable prior to end of rebaseDelay
         require(now >= timeOfTWAPInit + rebaseDelay, "!end_delay");
         // sanity check in case liquidity hasn't entered or no trades
@@ -524,7 +587,10 @@ contract Rebaser {
         external
         onlyGov
     {
+        require(deviationThreshold > 0);
+        oldDeviationThreshold = deviationThreshold;
         deviationThreshold = deviationThreshold_;
+        NewDeviationThreshold( oldDeviationThreshold, deviationThreshold_)
     }
 
     /**
