@@ -12,6 +12,10 @@ contract YAMReserve {
 
     address public pendingGov;
 
+    address public rebaser;
+
+    address public yamAddress;
+
     /*** Gov Events ***/
 
     /**
@@ -24,6 +28,11 @@ contract YAMReserve {
      */
     event NewGov(address oldGov, address newGov);
 
+    /**
+     * @notice Event emitted when rebaser is changed
+     */
+    event NewRebaser(address oldRebaser, address newRebaser);
+
 
     modifier onlyGov() {
         require(msg.sender == gov);
@@ -32,12 +41,24 @@ contract YAMReserve {
 
     constructor(
         address gov_,
-        address reserveToken_
+        address reserveToken_,
+        address yamAddress_
     )
         public
     {
         gov = gov_;
         reserveToken = reserveToken_;
+    }
+
+    function _setRebaser(address rebaser_)
+        external
+        onlyGov
+    {
+        address oldRebaser = rebaser;
+        YAM(yamAddress).decreaseAllowance(oldRebaser, uint256(-1));
+        rebaser = rebaser_;
+        YAM(yamAddress).approve(rebaser_, uint256(-1));
+        emit NewRebaser(oldRebaser, rebaser_);
     }
 
     /** @notice sets the pendingGov

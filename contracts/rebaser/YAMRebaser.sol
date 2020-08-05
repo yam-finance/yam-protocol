@@ -96,7 +96,7 @@ contract Rebaser {
         address reserveToken_,
         address uniswap_factory,
         address reservesContract_,
-        uint256 maxSlippageFactor_,
+        /* uint256 maxSlippageFactor_, */
         address gov_
     )
         public
@@ -124,6 +124,9 @@ contract Rebaser {
           yamAddress = yamAddress_;
 
           gov = gov_;
+
+          // target 2.5% slippage
+          maxSlippageFactor = 1273937 * 10**10;
     }
 
     /** @notice Updates slippage factor
@@ -212,16 +215,16 @@ contract Rebaser {
         indexDelta = supplyDelta.div(rebaseLag);
 
         // cap to max scaling
-        if (positive && yamFrags.yamsScalingFactor() + indexDelta < MAX_SCALING) {
-            indexDelta = MAX_SCALING - yamFrags.yamsScalingFactor();
+        if (positive && YAM(yamAddress).yamsScalingFactor() + indexDelta < YAM(yamAddress).maxScalingFactor()) {
+            indexDelta = YAM(yamAddress).maxScalingFactor() - YAM(yamAddress).yamsScalingFactor();
         }
 
         // preform actions before rebase
         beforeRebase(indexDelta, positive, exchangeRate);
 
         // rebase
-        uint256 supplyAfterRebase = yamFrags.rebase(epoch, supplyDelta);
-        assert(yamFrags.yamsScalingFactor() <= MAX_SCALING);
+        uint256 supplyAfterRebase = YAM(yamAddress).rebase(epoch, supplyDelta);
+        assert(YAM(yamAddress).yamsScalingFactor() <= MAX_SCALING);
         emit Rebase(epoch, exchangeRate, supplyDelta, now);
 
         // perform actions after rebase
@@ -229,33 +232,166 @@ contract Rebaser {
     }
 
 
-    function buyReserveAndTransfer()
-        internal
+    function uniswapV2Call(
+        address sender,
+        uint256 amount0,
+        uint256 amount1,
+        bytes calldata data
+    )
+        public
     {
-        UniswapPair pair = UniswapPair(uniswap_pair);
-        (uint256 token0Reserves, uint256 token1Reserves, ) = pair.getReserves();
-        if (isToken0) {
-          uint256 max_rebase_buy = _totalSupply * rebase_buy_factor;
-          uint256 excess = YAM(yamAddress).balanceOf(reserveContract);
-          if (excess > 0) {
-              max_rebase_buy += excess;
-          }
-          uint256 max_uni_buy = token0Reserves * maxSlippageFactor;
-          uint256 rebase_amt = min(max_rebase_buy, max_uni_buy);
-          uint256 excess_to_reserves = max_rebase_buy - rebase_amt - excess;
-        } else {
+        // enforce that it is coming from uniswap
+        require(msg.sender == pair, "bad msg.sender");
+        // enforce that this contract call uniswap
+        require(sender == address(this), "bad origin");
+        (uint256 yamsToUni, uint256 amountFromReserves, uint256 mintToReserves) = abi.decode(data, (uint256, uint256, uint256));
 
+        YAM yam = YAM(yamAddress);
+
+        if (amountFromReserves > 0) {
+            // transfer from reserves and mint to uniswap
+            yam.transferFrom(reservesContract, uniswap_pair, amountFromReserves);
+            yam.mint(pair, yamsToUni - amountFromReserves);
+        } else {
+            // mint to uniswap
+            yam.mint(pair, yamsToUni);
+        }
+
+        // mint unsold to reserves
+        if (mintToReserves > 0) {
+            yam.mint(reservesContract, mintToReserves);
         }
     }
 
-    function beforeRebase(
-        int256 supplyDelta,
+    function buyReserveAndTransfer(
+        uint256 indexDelta,
+        bool positive,
         uint256 exchangeRate
     )
         internal
     {
-        buyReserveAndTransfer();
+        UniswapPair pair = UniswapPair(uniswap_pair);
 
+        YAM yam = YAM(yamAddress);
+
+        // get reserves
+        (uint256 token0Reserves, uint256 token1Reserves, ) = pair.getReserves();
+
+        // % of % change
+        uint256 perc_mint = indexDelta.mul(rebaseMintPerc).div(10**18);
+
+        uint256 totalSupply = yam.totalSupply();
+
+        uint256 mintAmount = totalSupply.mul(perc_mint).div(10**18);
+
+        // check if protocol has excess yam in the reserve
+        uint256 excess = yam.balanceOf(reservesContract);
+
+        uint256 tokens_to_max_slippage = uniswapMaxSlippage(token0Reserves, token1Reserves);
+
+
+        // tries to sell all mint + excess
+        // falls back to selling some of mint and all of excess
+        // sells portion of excess
+        if (isToken0) {
+            if (tokens_to_max_slippage > mintAmount + excess) {
+                // can handle all of reserves and mint
+                uint256 buyTokens = getAmountOut(mintAmount + excess, token0Reserves, token1Reserves);
+
+                // call swap using entire mint amount and excess; mint 0 to reserves
+                pair.swap(0, buyTokens, abi.encode(mintAmount + excess, excess, 0));
+            } else {
+                if (tokens_to_max_slippage > excess) {
+                    // uniswap can handle entire reserves
+                    uint256 fromMint = tokens_to_max_slippage - excess;
+                    uint256 buyTokens = getAmountOut(tokens_to_max_slippage, token0Reserves, token1Reserves);
+
+                    // swap up to slippage limit, taking entire yam reserves, and minting part of total
+                    pair.swap(0, buyTokens, abi.encode(tokens_to_max_slippage, excess, mintAmount - fromMint));
+                } else {
+                    // uniswap cant handle all of excess
+                    uint256 remainingExcess = excess - tokens_to_max_slippage;
+                    uint256 buyTokens = getAmountOut(tokens_to_max_slippage, token0Reserves, token1Reserves);
+
+                    // swap up to slippage limit, taking excess - remainingExcess from reserves, and minting full amount
+                    // to reserves
+                    pair.swap(0, buyTokens, abi.encode(tokens_to_max_slippage, excess - remainingExcess, mintAmount));
+                }
+            }
+        } else {
+            if (tokens_to_max_slippage > mintAmount + excess) {
+                // can handle all of reserves and mint
+                uint256 buyTokens = getAmountOut(mintAmount + excess, token1Reserves, token0Reserves);
+
+                // call swap using entire mint amount and excess; mint 0 to reserves
+                pair.swap(buyTokens, 0, abi.encode(mintAmount + excess, excess, 0));
+            } else {
+                if (tokens_to_max_slippage > excess) {
+                    // uniswap can handle entire reserves
+                    uint256 fromMint = tokens_to_max_slippage - excess;
+                    uint256 buyTokens = getAmountOut(tokens_to_max_slippage, token1Reserves, token0Reserves);
+
+                    // swap up to slippage limit, taking entire yam reserves, and minting part of total
+                    pair.swap(buyTokens, 0, abi.encode(tokens_to_max_slippage, excess, mintAmount - fromMint));
+                } else {
+                    // uniswap cant handle all of excess
+                    uint256 remainingExcess = excess - tokens_to_max_slippage;
+                    uint256 buyTokens = getAmountOut(tokens_to_max_slippage, token1Reserves, token0Reserves);
+                    // swap up to slippage limit, taking excess - remainingExcess from reserves, and minting full amount
+                    // to reserves
+                    pair.swap(buyTokens, 0, abi.encode(tokens_to_max_slippage, excess - remainingExcess, mintAmount));
+                }
+            }
+        }
+    }
+
+    function uniswapMaxSlippage(
+        uint256 token0,
+        uint256 token1
+    )
+      internal
+      returns (uint256)
+    {
+        if (isToken0) {
+          return token0.mul(maxSlippageFactor).div(10**18)
+        } else {
+          return token1.mul(maxSlippageFactor).div(10**18)
+        }
+    }
+
+    // given an input amount of an asset and pair reserves, returns the maximum output amount of the other asset
+   function getAmountOut(
+        uint amountIn,
+        uint reserveIn,
+        uint reserveOut
+    )
+        internal
+        pure
+        returns (uint amountOut)
+    {
+       require(amountIn > 0, 'UniswapV2Library: INSUFFICIENT_INPUT_AMOUNT');
+       require(reserveIn > 0 && reserveOut > 0, 'UniswapV2Library: INSUFFICIENT_LIQUIDITY');
+       uint amountInWithFee = amountIn.mul(997);
+       uint numerator = amountInWithFee.mul(reserveOut);
+       uint denominator = reserveIn.mul(1000).add(amountInWithFee);
+       amountOut = numerator / denominator;
+   }
+
+
+    function beforeRebase(
+        uint256 indexDelta,
+        bool positive,
+        uint256 exchangeRate
+    )
+        internal
+    {
+        if (positive) {
+            buyReserveAndTransfer(
+                supplyDelta,
+                positive,
+                exchangeRate
+            );
+        }
     }
 
 

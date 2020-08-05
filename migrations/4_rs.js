@@ -31,7 +31,7 @@ async function deployRs(deployer, network) {
   let reserveToken = "";
   let uniswap_factory = "";
   let max_slippage_factor_ = /* TBD */;
-  await deployer.deploy(YAMReserves, reserveToken, Gov.address);
+  let reserves = await deployer.deploy(YAMReserves, reserveToken, Gov.address);
   await deployer.deploy(YAMRebaser,
       YAMProxy.address,
       reserveToken,
@@ -43,5 +43,5 @@ async function deployRs(deployer, network) {
 
   let yam = await YAMProxy.deployed();
   yam.setRebaser(YAMRebaser.address);
-
+  reserves.setRebaser(YAMRebaser.address);
 }

@@ -46,7 +46,7 @@ async function deployDistribution(deployer, network) {
   let yfi = await deployer.deploy(YAM_YFIPool);
   let ycrv = await deployer.deploy(YAMIncentivizer);
   let one_mil = 1 * 10**6 * 10**18;
-  let three_mil = one_mil * 3;
+  let two_mil = one_mil * 2;
   yam.transfer(YAM_ETHPool.address, one_mil.toString());
   eth.notifyRewardAmount(one_mil.toString());
   yam.transfer(YAM_uAMPLPool.address, one_mil.toString());
@@ -54,5 +54,5 @@ async function deployDistribution(deployer, network) {
   yam.transfer(YAM_YFIPool.address, one_mil.toString());
   yfi.notifyRewardAmount(one_mil.toString());
 
-  yam.transfer(YAMIncentivizer.address, three_mil.toString());
+  yam.transfer(YAMIncentivizer.address, two_mil.toString());
 }
