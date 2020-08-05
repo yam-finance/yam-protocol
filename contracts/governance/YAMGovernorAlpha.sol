@@ -4,6 +4,22 @@ pragma experimental ABIEncoderV2;
 // Original work from Compound: https://github.com/yamound-finance/yamound-protocol/blob/master/contracts/Governance/GovernorAlpha.sol
 // Modified to work in the YAM system
 
+// Original audit: https://blog.openzeppelin.com/compound-alpha-governance-system-audit/
+// Overview:
+//    No Critical
+//    High:
+//      Issue:
+//        Approved proposal may be impossible to queue, cancel or execute
+//        Fixed with `proposalMaxOperations`
+//      Issue:
+//        Queued proposal with repeated actions cannot be executed
+//        Fixed by explicitly disallow proposals with repeated actions to be queued in the Timelock contract.
+//
+// Changes made by YAM after audit:
+//    Formatting, naming, & uint256 instead of uint
+//    Since YAM supply changes, updated quorum & proposal requirements
+//    If any uint96, changed to uint256 to match YAM as opposed to comp
+
 contract GovernorAlpha {
     /// @notice The name of this contract
     string public constant name = "YAM Governor Alpha";

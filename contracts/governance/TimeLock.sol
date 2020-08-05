@@ -3,6 +3,14 @@ pragma solidity ^0.5.17;
 // Original file came from Compound: https://github.com/compound-finance/compound-protocol/blob/master/contracts/Timelock.sol
 
 
+// Original audit: https://blog.openzeppelin.com/compound-finance-patch-audit/
+// Overview:
+//    No Critical
+//    No High
+//
+// Changes made by YAM after audit:
+//    Formatting, naming, & uint256 instead of uint
+
 import "../lib/SafeMath.sol";
 
 contract Timelock {
