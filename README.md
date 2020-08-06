@@ -29,14 +29,19 @@ Then, to build the contracts run:
 $ truffle compile
 ```
 
+
+
 To run tests:
 ```
-$ truffle test
+$ truffle migrate --network test
+$ python scripts/clean.py
+$ cd jsLib
+$ jest
 ```
 
-Given the nature of rebases interacting with Uniswap, it may be helpful to run a fork of mainnet in ganache.
+Given the nature of rebases interacting with Uniswap, it may be helpful to run a fork of mainnet in ganache. This also unlocks largest yCRV holders account for running tests.
 ```
-$ ganache-cli --fork <eth_rpc_url>@latest --networkId 1001 --gasPrice 0x1312D00 -e 100000000000000000000 --gasLimit 8000000  --mnemonic="concert load couple harbor equip island argue ramp clarify fence smart topic" --max-old-space-size=8192
+$ ganache-cli --fork <eth_rpc_url> --networkId 1001 --gasPrice 0x1312D00 -e 100000000000000000000 --gasLimit 12500000  --mnemonic="concert load couple harbor equip island argue ramp clarify fence smart topic" --max-old-space-size=8192 -u 0x0eb4add4ba497357546da7f5d12d39587ca24606
 ```
 
 #### Attributions
