@@ -75,7 +75,7 @@ contract YAMToken is YAMGovernanceToken {
         internal
     {
       totalSupply += amount;
-      uint256 yamValue = amount.mul(10**24).div(yamsScalingFactor);
+      uint256 yamValue = amount.mul(internalDecimals).div(yamsScalingFactor);
       initSupply += yamValue;
       require(yamsScalingFactor <= _maxScalingFactor(), "scaling factor too high");
       _yamBalances[to] = _yamBalances[to].add(yamValue);
@@ -102,7 +102,7 @@ contract YAMToken is YAMGovernanceToken {
 
         // the tradeoff here is that as we decrease initial scaling factor,
         // the more rounding errors we have elsewhere.
-        uint256 yamValue = value.mul(10**24).div(yamsScalingFactor);
+        uint256 yamValue = value.mul(internalDecimals).div(yamsScalingFactor);
         _yamBalances[msg.sender] = _yamBalances[msg.sender].sub(yamValue);
         _yamBalances[to] = _yamBalances[to].add(yamValue);
         emit Transfer(msg.sender, to, value);
@@ -122,7 +122,7 @@ contract YAMToken is YAMGovernanceToken {
     {
         _allowedFragments[from][msg.sender] = _allowedFragments[from][msg.sender].sub(value);
 
-        uint256 yamValue = value.mul(10**24).div(yamsScalingFactor);
+        uint256 yamValue = value.mul(internalDecimals).div(yamsScalingFactor);
         _yamBalances[from] = _yamBalances[from].sub(yamValue);
         _yamBalances[to] = _yamBalances[to].add(yamValue);
         emit Transfer(from, to, value);
@@ -139,7 +139,7 @@ contract YAMToken is YAMGovernanceToken {
       view
       returns (uint256)
     {
-      return _yamBalances[who].mul(yamsScalingFactor).div(10**24);
+      return _yamBalances[who].mul(yamsScalingFactor).div(internalDecimals);
     }
 
     /**
@@ -331,7 +331,7 @@ contract YAM is YAMToken {
         totalSupply = initSupply_;
         rebaser = rebaser_;
         incentivizer = incentivizer_;
-        yamsScalingFactor = 10**12;
+        yamsScalingFactor = 10**18;
         _yamBalances[initial_owner] = initSupply_;
 
         // owner renounces ownership after deployment as they need to set

@@ -53,6 +53,11 @@ contract YAMTokenStorage {
     uint256 public totalSupply;
 
     /**
+     * @notice Internal decimals used to handle scaling factor
+     */
+    uint256 public constant internalDecimals = 10**24;
+
+    /**
      * @notice Scaling factor that adjusts everyone's balances
      */
     uint256 public yamsScalingFactor;
