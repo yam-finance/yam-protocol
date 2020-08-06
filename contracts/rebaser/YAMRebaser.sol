@@ -215,7 +215,7 @@ contract Rebaser {
     {
         uint256 oldPerc = rebaseMintPerc_;
         rebaseMintPerc = rebaseMintPerc_;
-        emit NewRebaseMintPercent(oldPerc, v);
+        emit NewRebaseMintPercent(oldPerc, rebaseMintPerc_);
     }
 
 
@@ -588,9 +588,9 @@ contract Rebaser {
         onlyGov
     {
         require(deviationThreshold > 0);
-        oldDeviationThreshold = deviationThreshold;
+        uint256 oldDeviationThreshold = deviationThreshold;
         deviationThreshold = deviationThreshold_;
-        NewDeviationThreshold( oldDeviationThreshold, deviationThreshold_)
+        emit NewDeviationThreshold(oldDeviationThreshold, deviationThreshold_);
     }
 
     /**

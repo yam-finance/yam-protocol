@@ -40,6 +40,9 @@ contract YAMToken is YAMGovernanceToken {
     }
 
 
+    /**
+    * @notice Computes the current max scaling factor
+    */
     function maxScalingFactor()
         external
         view
@@ -53,10 +56,14 @@ contract YAMToken is YAMGovernanceToken {
         view
         returns (uint256)
     {
-        return uint256(-1) / init_supply;
+        // scaling factor can only go up to 2**256-1 = initSupply * yamsScalingFactor
+        // this is used to check if yamsScalingFactor will be too high to compute balances when rebasing.
+        return uint256(-1) / initSupply;
     }
 
-
+    /**
+    * @notice Mints new tokens, increasing totalSupply, initSupply, and a users balance.
+    */
     function mint(address to, uint256 amount)
         external
         onlyMinter
@@ -68,8 +75,8 @@ contract YAMToken is YAMGovernanceToken {
         internal
     {
       totalSupply += amount;
-      uint256 yamValue = amount.mul(10**18).div(yamsScalingFactor);
-      init_supply += yamValue;
+      uint256 yamValue = amount.mul(10**24).div(yamsScalingFactor);
+      initSupply += yamValue;
       require(yamsScalingFactor <= _maxScalingFactor(), "scaling factor too high");
       _yamBalances[to] = _yamBalances[to].add(yamValue);
       emit Mint(to, amount);
@@ -84,15 +91,22 @@ contract YAMToken is YAMGovernanceToken {
     * @return True on success, false otherwise.
     */
     function transfer(address to, uint256 value)
-       external
-       validRecipient(to)
-       returns (bool)
+        external
+        validRecipient(to)
+        returns (bool)
     {
-       uint256 yamValue = value.mul(10**18).div(yamsScalingFactor);
-       _yamBalances[msg.sender] = _yamBalances[msg.sender].sub(yamValue);
-       _yamBalances[to] = _yamBalances[to].add(yamValue);
-       emit Transfer(msg.sender, to, value);
-       return true;
+        // underlying balance is stored in yams, so divide by current scaling factor
+
+        // note, this means as scaling factor grows, dust will be untransferrable.
+        // minimum transfer value == yamsScalingFactor / 1e24;
+
+        // the tradeoff here is that as we decrease initial scaling factor,
+        // the more rounding errors we have elsewhere.
+        uint256 yamValue = value.mul(10**24).div(yamsScalingFactor);
+        _yamBalances[msg.sender] = _yamBalances[msg.sender].sub(yamValue);
+        _yamBalances[to] = _yamBalances[to].add(yamValue);
+        emit Transfer(msg.sender, to, value);
+        return true;
     }
 
     /**
@@ -108,7 +122,7 @@ contract YAMToken is YAMGovernanceToken {
     {
         _allowedFragments[from][msg.sender] = _allowedFragments[from][msg.sender].sub(value);
 
-        uint256 yamValue = value.mul(10**18).div(yamsScalingFactor);
+        uint256 yamValue = value.mul(10**24).div(yamsScalingFactor);
         _yamBalances[from] = _yamBalances[from].sub(yamValue);
         _yamBalances[to] = _yamBalances[to].add(yamValue);
         emit Transfer(from, to, value);
@@ -125,7 +139,7 @@ contract YAMToken is YAMGovernanceToken {
       view
       returns (uint256)
     {
-      return _yamBalances[who].mul(yamsScalingFactor).div(10**18);
+      return _yamBalances[who].mul(yamsScalingFactor).div(10**24);
     }
 
     /**
@@ -284,7 +298,7 @@ contract YAMToken is YAMGovernanceToken {
             }
         }
 
-        totalSupply = init_supply * yamsScalingFactor;
+        totalSupply = initSupply * yamsScalingFactor;
         emit Rebase(epoch, prevYamsScalingFactor, yamsScalingFactor);
         return totalSupply;
     }
@@ -302,23 +316,23 @@ contract YAM is YAMToken {
         string memory symbol_,
         uint8 decimals_,
         address initial_owner,
-        uint256 init_supply_,
+        uint256 initSupply_,
         address rebaser_,
         address incentivizer_,
         address gov_
     )
         public
     {
-        require(init_supply_ > 0, "0 init supply");
+        require(initSupply_ > 0, "0 init supply");
 
         super.initialize(name_, symbol_, decimals_);
 
-        init_supply = init_supply_;
-        totalSupply = init_supply_;
+        initSupply = initSupply_;
+        totalSupply = initSupply_;
         rebaser = rebaser_;
         incentivizer = incentivizer_;
-        yamsScalingFactor = 10**18;
-        _yamBalances[initial_owner] = init_supply_;
+        yamsScalingFactor = 10**12;
+        _yamBalances[initial_owner] = initSupply_;
 
         // owner renounces ownership after deployment as they need to set
         // rebaser and incentivizer

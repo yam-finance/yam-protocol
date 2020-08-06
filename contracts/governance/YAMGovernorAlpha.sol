@@ -4,6 +4,8 @@ pragma experimental ABIEncoderV2;
 // Original work from Compound: https://github.com/yamound-finance/yamound-protocol/blob/master/contracts/Governance/GovernorAlpha.sol
 // Modified to work in the YAM system
 
+// all votes work on underlying _yamBalances[address], not balanceOf(address)
+
 // Original audit: https://blog.openzeppelin.com/compound-alpha-governance-system-audit/
 // Overview:
 //    No Critical
@@ -28,10 +30,10 @@ contract GovernorAlpha {
     string public constant name = "YAM Governor Alpha";
 
     /// @notice The number of votes in support of a proposal required in order for a quorum to be reached and for a vote to succeed
-    function quorumVotes() public view returns (uint256) { return SafeMath.div(SafeMath.mul(yam.init_supply(), 4), 100); } // 4% of YAM
+    function quorumVotes() public view returns (uint256) { return SafeMath.div(SafeMath.mul(yam.initSupply(), 4), 100); } // 4% of YAM
 
     /// @notice The number of votes required in order for a voter to become a proposer
-    function proposalThreshold() public view returns (uint256) { return SafeMath.div(yam.init_supply(), 100); } // 1% of YAM
+    function proposalThreshold() public view returns (uint256) { return SafeMath.div(yam.initSupply(), 100); } // 1% of YAM
 
     /// @notice The maximum number of actions that can be included in a proposal
     function proposalMaxOperations() public pure returns (uint256) { return 10; } // 10 actions
@@ -472,5 +474,5 @@ interface TimelockInterface {
 
 interface YAMInterface {
     function getPriorVotes(address account, uint256 blockNumber) external view returns (uint256);
-    function totalSupply() external view returns (uint256);
+    function initSupply() external view returns (uint256);
 }

@@ -11,7 +11,7 @@ contract YAMDelegator is YAM, YAMDelegatorInterface {
      * @param decimals_ ERC-20 decimal precision of this token
      * @param initial_owners List of initial YAM holders
      * @param amounts Amounts to send to corresponding initial owners
-     * @param init_supply_ Initial token amount
+     * @param initSupply_ Initial token amount
      * @param gov_ Address of the governance of this token
      * @param implementation_ The address of the implementation the contract delegates to
      * @param becomeImplementationData The encoded args for becomeImplementation
@@ -22,7 +22,7 @@ contract YAMDelegator is YAM, YAMDelegatorInterface {
         uint8 decimals_,
         address[] memory initial_owners,
         uint256[] memory amounts,
-        uint256 init_supply_,
+        uint256 initSupply_,
         address rebaser_,
         address incentivizer_,
         address gov_,
@@ -46,7 +46,7 @@ contract YAMDelegator is YAM, YAMDelegatorInterface {
                 decimals_,
                 initial_owners,
                 amounts,
-                init_supply_,
+                initSupply_,
                 rebaser_,
                 incentivizer_,
                 gov_
