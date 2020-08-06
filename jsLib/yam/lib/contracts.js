@@ -12,6 +12,7 @@ import YAMTimelockJson from '../../../clean_build/contracts/Timelock.json';
 import WETHJson from './weth.json';
 import UNIFactJson from './unifact2.json';
 import UNIPairJson from './uni2.json';
+import UNIRouterJson from './uniR.json';
 
 export class Contracts {
   constructor(
@@ -27,8 +28,9 @@ export class Contracts {
     this.defaultGas = options.defaultGas;
     this.defaultGasPrice = options.defaultGasPrice;
 
-    this.uni_pair = new this.web3.eth.Contract(UNIPairJson)
-    this.uni_fact = new this.web3.eth.Contract(UNIFactJson)
+    this.uni_pair = new this.web3.eth.Contract(UNIPairJson);
+    this.uni_router = new this.web3.eth.Contract(UNIRouterJson);
+    this.uni_fact = new this.web3.eth.Contract(UNIFactJson);
     this.yfi = new this.web3.eth.Contract(ERC20Json.abi);
     this.UNIAmpl = new this.web3.eth.Contract(ERC20Json.abi);
     this.ycrv = new this.web3.eth.Contract(ERC20Json.abi);
@@ -79,6 +81,7 @@ export class Contracts {
     this.weth.options.address = addressMap["WETH"];
     this.UNIAmpl.options.address = addressMap["UNIAmpl"];
     this.uni_fact.options.address = addressMap["uniswapFactoryV2"];
+    this.uni_router.options.address = addressMap["UNIRouter"];
 
   }
 

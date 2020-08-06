@@ -126,7 +126,7 @@ contract YAMRebaser {
     address public uniswap_pair;
 
     // last TWAP update time
-    uint32 private blockTimestampLast;
+    uint32 public blockTimestampLast;
 
     // last TWAP cumulative price;
     uint256 public priceCumulativeLast;
@@ -281,8 +281,6 @@ contract YAMRebaser {
         require(timeOfTWAPInit > 0, "twap wasnt intitiated, call init_twap()");
         // cannot enable prior to end of rebaseDelay
         require(now >= timeOfTWAPInit + rebaseDelay, "!end_delay");
-        // sanity check in case liquidity hasn't entered or no trades
-        require(UniswapPair(uniswap_pair).price0CumulativeLast() > 0, "!liquid");
         // init price
 
         rebasingActive = true;
@@ -298,7 +296,7 @@ contract YAMRebaser {
     function rebase()
         public
     {
-        require(inRebaseWindow());
+        require(inRebaseWindow(), "not in window");
 
         // This comparison also ensures there is no reentrancy.
         require(lastRebaseTimestampSec.add(minRebaseTimeIntervalSec) < now);
@@ -322,7 +320,7 @@ contract YAMRebaser {
         YAMTokenInterface yam = YAMTokenInterface(yamAddress);
 
         // cap to max scaling
-        if (positive && yam.yamsScalingFactor() + indexDelta < yam.maxScalingFactor()) {
+        if (positive && yam.yamsScalingFactor() + indexDelta > yam.maxScalingFactor()) {
             indexDelta = yam.maxScalingFactor() - yam.yamsScalingFactor();
         }
 
@@ -336,7 +334,6 @@ contract YAMRebaser {
             indexDelta = indexDelta.sub(mintPerc);
             mintAmount = currSupply.mul(mintPerc).div(10**18);
         }
-
 
         // rebase
         uint256 supplyAfterRebase = yam.rebase(epoch, indexDelta, positive);
@@ -574,7 +571,7 @@ contract YAMRebaser {
         priceCumulativeLast = priceCumulative;
         blockTimestampLast = blockTimestamp;
 
-        return FixedPoint.decode(priceAverage);
+        return FixedPoint.decode144(FixedPoint.mul(priceAverage, 10**18));
     }
 
     /**
@@ -655,15 +652,11 @@ contract YAMRebaser {
     function inRebaseWindow() public view returns (bool) {
 
         // rebasing is delayed until there is a liquid market
-        if (!rebasingActive) {
-          return false;
-        }
+        require(rebasingActive, "rebasing not active");
 
-        return (
-             now.mod(minRebaseTimeIntervalSec) >= rebaseWindowOffsetSec
-             && now.mod(minRebaseTimeIntervalSec) < (rebaseWindowOffsetSec.add(rebaseWindowLengthSec))
-
-        );
+        require(now.mod(minRebaseTimeIntervalSec) >= rebaseWindowOffsetSec, "too early");
+        require(now.mod(minRebaseTimeIntervalSec) < (rebaseWindowOffsetSec.add(rebaseWindowLengthSec)), "too late");
+        return true;
     }
 
     /**
