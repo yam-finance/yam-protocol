@@ -316,10 +316,7 @@ contract YAM is YAMToken {
         string memory symbol_,
         uint8 decimals_,
         address initial_owner,
-        uint256 initSupply_,
-        address rebaser_,
-        address incentivizer_,
-        address gov_
+        uint256 initSupply_
     )
         public
     {
@@ -327,12 +324,10 @@ contract YAM is YAMToken {
 
         super.initialize(name_, symbol_, decimals_);
 
-        initSupply = initSupply_;
+        initSupply = initSupply_ * (10**24/ (10**18));
         totalSupply = initSupply_;
-        rebaser = rebaser_;
-        incentivizer = incentivizer_;
         yamsScalingFactor = 10**18;
-        _yamBalances[initial_owner] = initSupply_;
+        _yamBalances[initial_owner] = initSupply_ * (10**24 / (10**18));
 
         // owner renounces ownership after deployment as they need to set
         // rebaser and incentivizer

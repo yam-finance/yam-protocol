@@ -1,11 +1,7 @@
 // ============ Contracts ============
 
-// Governance
-// deployed first
-const Gov = artifacts.require("YAMGovernance");
-
 // Token
-// deployed second
+// deployed first
 const YAMImplementation = artifacts.require("YAMDelegate");
 const YAMProxy = artifacts.require("YAMDelegator");
 
@@ -24,5 +20,12 @@ module.exports = migration;
 
 async function deployToken(deployer, network) {
   await deployer.deploy(YAMImplementation);
-  await deployer.deploy(YAMProxy, /*myAddr*/, YAMImplementation.address);
+  await deployer.deploy(YAMProxy,
+    "YAM",
+    "YAM",
+    18,
+    "6000000000000000000000000",
+    YAMImplementation.address,
+    "0x"
+  );
 }

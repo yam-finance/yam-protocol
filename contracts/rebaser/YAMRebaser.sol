@@ -8,7 +8,7 @@ import "../lib/UniswapV2OracleLibrary.sol";
 import "../token/YAMTokenInterface.sol";
 
 
-contract Rebaser {
+contract YAMRebaser {
 
     using SafeMath for uint256;
 
@@ -144,9 +144,7 @@ contract Rebaser {
         address yamAddress_,
         address reserveToken_,
         address uniswap_factory,
-        address reservesContract_,
-        /* uint256 maxSlippageFactor_, */
-        address gov_
+        address reservesContract_
     )
         public
     {
@@ -172,7 +170,7 @@ contract Rebaser {
 
           yamAddress = yamAddress_;
 
-          gov = gov_;
+          /* pendingGov = gov_; */
 
           // target 10% slippage
           maxSlippageFactor = 5409258 * 10**10;
@@ -191,6 +189,8 @@ contract Rebaser {
 
           // 15 minutes
           rebaseWindowLengthSec = 60 * 15;
+
+          gov = msg.sender;
 
     }
 

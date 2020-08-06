@@ -30,18 +30,20 @@ contract Timelock {
     address public admin;
     address public pendingAdmin;
     uint256 public delay;
+    bool public initialized;
 
     mapping (bytes32 => bool) public queuedTransactions;
 
 
-    constructor(address admin_, uint256 delay_)
+    constructor(uint256 delay_)
         public
     {
         require(delay_ >= MINIMUM_DELAY, "Timelock::constructor: Delay must exceed minimum delay.");
         require(delay_ <= MAXIMUM_DELAY, "Timelock::setDelay: Delay must not exceed maximum delay.");
 
-        admin = admin_;
+        admin = msg.sender;
         delay = delay_;
+        initialized = false;
     }
 
     function() external payable { }
@@ -70,7 +72,12 @@ contract Timelock {
     function setPendingAdmin(address pendingAdmin_)
         public
     {
-        require(msg.sender == address(this), "Timelock::setPendingAdmin: Call must come from Timelock.");
+        // allows one time setting of admin for deployment purposes
+        if (initialized) {
+          require(msg.sender == address(this), "Timelock::setPendingAdmin: Call must come from Timelock.");
+        } else {
+          initialized = true;
+        }
         pendingAdmin = pendingAdmin_;
 
         emit NewPendingAdmin(pendingAdmin);

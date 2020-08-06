@@ -1,0 +1,28 @@
+{
+  "name": "Topo",
+  "version": "1.0.0",
+  "description": "JS library for interacting with Topo smart contracts",
+  "main": "./index.js",
+  "type": "module",
+  "author": {
+    "name": "Topo Co."
+  },
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@babel/cli": "^7.8.3",
+    "@babel/core": "^7.8.3",
+    "@babel/node": "^7.6.3",
+    "@babel/preset-env": "^7.8.3",
+    "ethers": "4.0.38",
+    "web3": "^1.0.0-beta.37"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.8.3",
+    "bnc-notify": "^1.0.11",
+    "node-fetch": "^2.6.0",
+    "scrypt-js": "^2.0.4"
+  },
+  "scripts": {
+    "test": "jest"
+  }
+}

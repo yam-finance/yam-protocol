@@ -151,10 +151,10 @@ contract GovernorAlpha {
     /// @notice An event emitted when a proposal has been executed in the Timelock
     event ProposalExecuted(uint256 id);
 
-    constructor(address timelock_, address yam_, address guardian_) public {
+    constructor(address timelock_, address yam_) public {
         timelock = TimelockInterface(timelock_);
         yam = YAMInterface(yam_);
-        guardian = guardian_;
+        guardian = msg.sender;
     }
 
     function propose(
@@ -417,6 +417,15 @@ contract GovernorAlpha {
         timelock.acceptAdmin();
     }
 
+    function _acceptGov(address[] memory governables)
+        public
+    {
+        require(msg.sender == guardian, "GovernorAlpha::_acceptGov: sender must be gov guardian");
+        for (uint256 i = 0; i < governables.length; i++) {
+            YAMInterface(governables[i])._acceptGov();
+        }
+    }
+
     function __abdicate()
         public
     {
@@ -475,4 +484,5 @@ interface TimelockInterface {
 interface YAMInterface {
     function getPriorVotes(address account, uint256 blockNumber) external view returns (uint256);
     function initSupply() external view returns (uint256);
+    function _acceptGov() external;
 }

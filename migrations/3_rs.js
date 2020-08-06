@@ -1,16 +1,12 @@
 // ============ Contracts ============
 
-// Governance
-// deployed first
-const Gov = artifacts.require("YAMGovernance");
-
 // Token
-// deployed second
+// deployed first
 const YAMImplementation = artifacts.require("YAMDelegate");
 const YAMProxy = artifacts.require("YAMDelegator");
 
 // Rs
-// deployed third
+// deployed second
 const YAMReserves = artifacts.require("YAMReserves");
 const YAMRebaser = artifacts.require("YAMRebaser");
 
@@ -28,20 +24,18 @@ module.exports = migration;
 
 
 async function deployRs(deployer, network) {
-  let reserveToken = "";
-  let uniswap_factory = "";
-  let max_slippage_factor_ = /* TBD */;
-  let reserves = await deployer.deploy(YAMReserves, reserveToken, Gov.address);
+  let reserveToken = "0xdF5e0e81Dff6FAF3A7e52BA697820c5e32D806A8";
+  let uniswap_factory = "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f";
+  await deployer.deploy(YAMReserves, reserveToken, YAMProxy.address);
   await deployer.deploy(YAMRebaser,
       YAMProxy.address,
       reserveToken,
       uniswap_factory,
-      YAMReserves.address,
-      max_slippage_factor_,
-      Gov.address
+      YAMReserves.address
   );
 
   let yam = await YAMProxy.deployed();
-  yam.setRebaser(YAMRebaser.address);
-  reserves.setRebaser(YAMRebaser.address);
+  yam._setRebaser(YAMRebaser.address);
+  let reserves = await YAMReserves.deployed();
+  reserves._setRebaser(YAMRebaser.address)
 }

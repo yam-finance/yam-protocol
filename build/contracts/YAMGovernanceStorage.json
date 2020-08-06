@@ -137,14 +137,14 @@
     "absolutePath": "/Users/brockelmore/YAM/contracts/token/YAMGovernanceStorage.sol",
     "exportedSymbols": {
       "YAMGovernanceStorage": [
-        10412
+        10419
       ]
     },
-    "id": 10413,
+    "id": 10420,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 10377,
+        "id": 10384,
         "literals": [
           "solidity",
           "0.5",
@@ -154,7 +154,7 @@
         "src": "0:23:20"
       },
       {
-        "id": 10378,
+        "id": 10385,
         "literals": [
           "experimental",
           "ABIEncoderV2"
@@ -168,19 +168,19 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 10412,
+        "id": 10419,
         "linearizedBaseContracts": [
-          10412
+          10419
         ],
         "name": "YAMGovernanceStorage",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 10382,
+            "id": 10389,
             "name": "delegates",
             "nodeType": "VariableDeclaration",
-            "scope": 10412,
+            "scope": 10419,
             "src": "146:45:20",
             "stateVariable": true,
             "storageLocation": "default",
@@ -189,9 +189,9 @@
               "typeString": "mapping(address => address)"
             },
             "typeName": {
-              "id": 10381,
+              "id": 10388,
               "keyType": {
-                "id": 10379,
+                "id": 10386,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "155:7:20",
@@ -207,7 +207,7 @@
                 "typeString": "mapping(address => address)"
               },
               "valueType": {
-                "id": 10380,
+                "id": 10387,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "166:7:20",
@@ -223,14 +223,14 @@
           },
           {
             "canonicalName": "YAMGovernanceStorage.Checkpoint",
-            "id": 10387,
+            "id": 10394,
             "members": [
               {
                 "constant": false,
-                "id": 10384,
+                "id": 10391,
                 "name": "fromBlock",
                 "nodeType": "VariableDeclaration",
-                "scope": 10387,
+                "scope": 10394,
                 "src": "302:16:20",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -239,7 +239,7 @@
                   "typeString": "uint32"
                 },
                 "typeName": {
-                  "id": 10383,
+                  "id": 10390,
                   "name": "uint32",
                   "nodeType": "ElementaryTypeName",
                   "src": "302:6:20",
@@ -253,10 +253,10 @@
               },
               {
                 "constant": false,
-                "id": 10386,
+                "id": 10393,
                 "name": "votes",
                 "nodeType": "VariableDeclaration",
-                "scope": 10387,
+                "scope": 10394,
                 "src": "328:13:20",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -265,7 +265,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 10385,
+                  "id": 10392,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "328:7:20",
@@ -280,27 +280,27 @@
             ],
             "name": "Checkpoint",
             "nodeType": "StructDefinition",
-            "scope": 10412,
+            "scope": 10419,
             "src": "274:74:20",
             "visibility": "public"
           },
           {
             "constant": false,
-            "id": 10393,
+            "id": 10400,
             "name": "checkpoints",
             "nodeType": "VariableDeclaration",
-            "scope": 10412,
+            "scope": 10419,
             "src": "427:70:20",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_uint32_$_t_struct$_Checkpoint_$10387_storage_$_$",
+              "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_uint32_$_t_struct$_Checkpoint_$10394_storage_$_$",
               "typeString": "mapping(address => mapping(uint32 => struct YAMGovernanceStorage.Checkpoint))"
             },
             "typeName": {
-              "id": 10392,
+              "id": 10399,
               "keyType": {
-                "id": 10388,
+                "id": 10395,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "436:7:20",
@@ -312,13 +312,13 @@
               "nodeType": "Mapping",
               "src": "427:51:20",
               "typeDescriptions": {
-                "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_uint32_$_t_struct$_Checkpoint_$10387_storage_$_$",
+                "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_uint32_$_t_struct$_Checkpoint_$10394_storage_$_$",
                 "typeString": "mapping(address => mapping(uint32 => struct YAMGovernanceStorage.Checkpoint))"
               },
               "valueType": {
-                "id": 10391,
+                "id": 10398,
                 "keyType": {
-                  "id": 10389,
+                  "id": 10396,
                   "name": "uint32",
                   "nodeType": "ElementaryTypeName",
                   "src": "456:6:20",
@@ -330,18 +330,18 @@
                 "nodeType": "Mapping",
                 "src": "447:30:20",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_mapping$_t_uint32_$_t_struct$_Checkpoint_$10387_storage_$",
+                  "typeIdentifier": "t_mapping$_t_uint32_$_t_struct$_Checkpoint_$10394_storage_$",
                   "typeString": "mapping(uint32 => struct YAMGovernanceStorage.Checkpoint)"
                 },
                 "valueType": {
                   "contractScope": null,
-                  "id": 10390,
+                  "id": 10397,
                   "name": "Checkpoint",
                   "nodeType": "UserDefinedTypeName",
-                  "referencedDeclaration": 10387,
+                  "referencedDeclaration": 10394,
                   "src": "466:10:20",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_Checkpoint_$10387_storage_ptr",
+                    "typeIdentifier": "t_struct$_Checkpoint_$10394_storage_ptr",
                     "typeString": "struct YAMGovernanceStorage.Checkpoint"
                   }
                 }
@@ -352,10 +352,10 @@
           },
           {
             "constant": false,
-            "id": 10397,
+            "id": 10404,
             "name": "numCheckpoints",
             "nodeType": "VariableDeclaration",
-            "scope": 10412,
+            "scope": 10419,
             "src": "563:49:20",
             "stateVariable": true,
             "storageLocation": "default",
@@ -364,9 +364,9 @@
               "typeString": "mapping(address => uint32)"
             },
             "typeName": {
-              "id": 10396,
+              "id": 10403,
               "keyType": {
-                "id": 10394,
+                "id": 10401,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "572:7:20",
@@ -382,7 +382,7 @@
                 "typeString": "mapping(address => uint32)"
               },
               "valueType": {
-                "id": 10395,
+                "id": 10402,
                 "name": "uint32",
                 "nodeType": "ElementaryTypeName",
                 "src": "583:6:20",
@@ -397,10 +397,10 @@
           },
           {
             "constant": true,
-            "id": 10402,
+            "id": 10409,
             "name": "DOMAIN_TYPEHASH",
             "nodeType": "VariableDeclaration",
-            "scope": 10412,
+            "scope": 10419,
             "src": "682:122:20",
             "stateVariable": true,
             "storageLocation": "default",
@@ -409,7 +409,7 @@
               "typeString": "bytes32"
             },
             "typeName": {
-              "id": 10398,
+              "id": 10405,
               "name": "bytes32",
               "nodeType": "ElementaryTypeName",
               "src": "682:7:20",
@@ -424,7 +424,7 @@
                 {
                   "argumentTypes": null,
                   "hexValue": "454950373132446f6d61696e28737472696e67206e616d652c75696e7432353620636861696e49642c6164647265737320766572696679696e67436f6e747261637429",
-                  "id": 10400,
+                  "id": 10407,
                   "isConstant": false,
                   "isLValue": false,
                   "isPure": true,
@@ -447,18 +447,18 @@
                     "typeString": "literal_string \"EIP712Domain(string name,uint256 chainId,address verifyingContract)\""
                   }
                 ],
-                "id": 10399,
+                "id": 10406,
                 "name": "keccak256",
                 "nodeType": "Identifier",
                 "overloadedDeclarations": [],
-                "referencedDeclaration": 10624,
+                "referencedDeclaration": 10631,
                 "src": "724:9:20",
                 "typeDescriptions": {
                   "typeIdentifier": "t_function_keccak256_pure$_t_bytes_memory_ptr_$returns$_t_bytes32_$",
                   "typeString": "function (bytes memory) pure returns (bytes32)"
                 }
               },
-              "id": 10401,
+              "id": 10408,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
@@ -476,10 +476,10 @@
           },
           {
             "constant": true,
-            "id": 10407,
+            "id": 10414,
             "name": "DELEGATION_TYPEHASH",
             "nodeType": "VariableDeclaration",
-            "scope": 10412,
+            "scope": 10419,
             "src": "895:117:20",
             "stateVariable": true,
             "storageLocation": "default",
@@ -488,7 +488,7 @@
               "typeString": "bytes32"
             },
             "typeName": {
-              "id": 10403,
+              "id": 10410,
               "name": "bytes32",
               "nodeType": "ElementaryTypeName",
               "src": "895:7:20",
@@ -503,7 +503,7 @@
                 {
                   "argumentTypes": null,
                   "hexValue": "44656c65676174696f6e28616464726573732064656c6567617465652c75696e74323536206e6f6e63652c75696e743235362065787069727929",
-                  "id": 10405,
+                  "id": 10412,
                   "isConstant": false,
                   "isLValue": false,
                   "isPure": true,
@@ -526,18 +526,18 @@
                     "typeString": "literal_string \"Delegation(address delegatee,uint256 nonce,uint256 expiry)\""
                   }
                 ],
-                "id": 10404,
+                "id": 10411,
                 "name": "keccak256",
                 "nodeType": "Identifier",
                 "overloadedDeclarations": [],
-                "referencedDeclaration": 10624,
+                "referencedDeclaration": 10631,
                 "src": "941:9:20",
                 "typeDescriptions": {
                   "typeIdentifier": "t_function_keccak256_pure$_t_bytes_memory_ptr_$returns$_t_bytes32_$",
                   "typeString": "function (bytes memory) pure returns (bytes32)"
                 }
               },
-              "id": 10406,
+              "id": 10413,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
@@ -555,10 +555,10 @@
           },
           {
             "constant": false,
-            "id": 10411,
+            "id": 10418,
             "name": "nonces",
             "nodeType": "VariableDeclaration",
-            "scope": 10412,
+            "scope": 10419,
             "src": "1090:39:20",
             "stateVariable": true,
             "storageLocation": "default",
@@ -567,9 +567,9 @@
               "typeString": "mapping(address => uint256)"
             },
             "typeName": {
-              "id": 10410,
+              "id": 10417,
               "keyType": {
-                "id": 10408,
+                "id": 10415,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "1099:7:20",
@@ -585,7 +585,7 @@
                 "typeString": "mapping(address => uint256)"
               },
               "valueType": {
-                "id": 10409,
+                "id": 10416,
                 "name": "uint",
                 "nodeType": "ElementaryTypeName",
                 "src": "1110:4:20",
@@ -599,7 +599,7 @@
             "visibility": "public"
           }
         ],
-        "scope": 10413,
+        "scope": 10420,
         "src": "59:1073:20"
       }
     ],
@@ -609,14 +609,14 @@
     "absolutePath": "/Users/brockelmore/YAM/contracts/token/YAMGovernanceStorage.sol",
     "exportedSymbols": {
       "YAMGovernanceStorage": [
-        10412
+        10419
       ]
     },
-    "id": 10413,
+    "id": 10420,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 10377,
+        "id": 10384,
         "literals": [
           "solidity",
           "0.5",
@@ -626,7 +626,7 @@
         "src": "0:23:20"
       },
       {
-        "id": 10378,
+        "id": 10385,
         "literals": [
           "experimental",
           "ABIEncoderV2"
@@ -640,19 +640,19 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 10412,
+        "id": 10419,
         "linearizedBaseContracts": [
-          10412
+          10419
         ],
         "name": "YAMGovernanceStorage",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 10382,
+            "id": 10389,
             "name": "delegates",
             "nodeType": "VariableDeclaration",
-            "scope": 10412,
+            "scope": 10419,
             "src": "146:45:20",
             "stateVariable": true,
             "storageLocation": "default",
@@ -661,9 +661,9 @@
               "typeString": "mapping(address => address)"
             },
             "typeName": {
-              "id": 10381,
+              "id": 10388,
               "keyType": {
-                "id": 10379,
+                "id": 10386,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "155:7:20",
@@ -679,7 +679,7 @@
                 "typeString": "mapping(address => address)"
               },
               "valueType": {
-                "id": 10380,
+                "id": 10387,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "166:7:20",
@@ -695,14 +695,14 @@
           },
           {
             "canonicalName": "YAMGovernanceStorage.Checkpoint",
-            "id": 10387,
+            "id": 10394,
             "members": [
               {
                 "constant": false,
-                "id": 10384,
+                "id": 10391,
                 "name": "fromBlock",
                 "nodeType": "VariableDeclaration",
-                "scope": 10387,
+                "scope": 10394,
                 "src": "302:16:20",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -711,7 +711,7 @@
                   "typeString": "uint32"
                 },
                 "typeName": {
-                  "id": 10383,
+                  "id": 10390,
                   "name": "uint32",
                   "nodeType": "ElementaryTypeName",
                   "src": "302:6:20",
@@ -725,10 +725,10 @@
               },
               {
                 "constant": false,
-                "id": 10386,
+                "id": 10393,
                 "name": "votes",
                 "nodeType": "VariableDeclaration",
-                "scope": 10387,
+                "scope": 10394,
                 "src": "328:13:20",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -737,7 +737,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 10385,
+                  "id": 10392,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "328:7:20",
@@ -752,27 +752,27 @@
             ],
             "name": "Checkpoint",
             "nodeType": "StructDefinition",
-            "scope": 10412,
+            "scope": 10419,
             "src": "274:74:20",
             "visibility": "public"
           },
           {
             "constant": false,
-            "id": 10393,
+            "id": 10400,
             "name": "checkpoints",
             "nodeType": "VariableDeclaration",
-            "scope": 10412,
+            "scope": 10419,
             "src": "427:70:20",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_uint32_$_t_struct$_Checkpoint_$10387_storage_$_$",
+              "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_uint32_$_t_struct$_Checkpoint_$10394_storage_$_$",
               "typeString": "mapping(address => mapping(uint32 => struct YAMGovernanceStorage.Checkpoint))"
             },
             "typeName": {
-              "id": 10392,
+              "id": 10399,
               "keyType": {
-                "id": 10388,
+                "id": 10395,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "436:7:20",
@@ -784,13 +784,13 @@
               "nodeType": "Mapping",
               "src": "427:51:20",
               "typeDescriptions": {
-                "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_uint32_$_t_struct$_Checkpoint_$10387_storage_$_$",
+                "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_uint32_$_t_struct$_Checkpoint_$10394_storage_$_$",
                 "typeString": "mapping(address => mapping(uint32 => struct YAMGovernanceStorage.Checkpoint))"
               },
               "valueType": {
-                "id": 10391,
+                "id": 10398,
                 "keyType": {
-                  "id": 10389,
+                  "id": 10396,
                   "name": "uint32",
                   "nodeType": "ElementaryTypeName",
                   "src": "456:6:20",
@@ -802,18 +802,18 @@
                 "nodeType": "Mapping",
                 "src": "447:30:20",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_mapping$_t_uint32_$_t_struct$_Checkpoint_$10387_storage_$",
+                  "typeIdentifier": "t_mapping$_t_uint32_$_t_struct$_Checkpoint_$10394_storage_$",
                   "typeString": "mapping(uint32 => struct YAMGovernanceStorage.Checkpoint)"
                 },
                 "valueType": {
                   "contractScope": null,
-                  "id": 10390,
+                  "id": 10397,
                   "name": "Checkpoint",
                   "nodeType": "UserDefinedTypeName",
-                  "referencedDeclaration": 10387,
+                  "referencedDeclaration": 10394,
                   "src": "466:10:20",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_Checkpoint_$10387_storage_ptr",
+                    "typeIdentifier": "t_struct$_Checkpoint_$10394_storage_ptr",
                     "typeString": "struct YAMGovernanceStorage.Checkpoint"
                   }
                 }
@@ -824,10 +824,10 @@
           },
           {
             "constant": false,
-            "id": 10397,
+            "id": 10404,
             "name": "numCheckpoints",
             "nodeType": "VariableDeclaration",
-            "scope": 10412,
+            "scope": 10419,
             "src": "563:49:20",
             "stateVariable": true,
             "storageLocation": "default",
@@ -836,9 +836,9 @@
               "typeString": "mapping(address => uint32)"
             },
             "typeName": {
-              "id": 10396,
+              "id": 10403,
               "keyType": {
-                "id": 10394,
+                "id": 10401,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "572:7:20",
@@ -854,7 +854,7 @@
                 "typeString": "mapping(address => uint32)"
               },
               "valueType": {
-                "id": 10395,
+                "id": 10402,
                 "name": "uint32",
                 "nodeType": "ElementaryTypeName",
                 "src": "583:6:20",
@@ -869,10 +869,10 @@
           },
           {
             "constant": true,
-            "id": 10402,
+            "id": 10409,
             "name": "DOMAIN_TYPEHASH",
             "nodeType": "VariableDeclaration",
-            "scope": 10412,
+            "scope": 10419,
             "src": "682:122:20",
             "stateVariable": true,
             "storageLocation": "default",
@@ -881,7 +881,7 @@
               "typeString": "bytes32"
             },
             "typeName": {
-              "id": 10398,
+              "id": 10405,
               "name": "bytes32",
               "nodeType": "ElementaryTypeName",
               "src": "682:7:20",
@@ -896,7 +896,7 @@
                 {
                   "argumentTypes": null,
                   "hexValue": "454950373132446f6d61696e28737472696e67206e616d652c75696e7432353620636861696e49642c6164647265737320766572696679696e67436f6e747261637429",
-                  "id": 10400,
+                  "id": 10407,
                   "isConstant": false,
                   "isLValue": false,
                   "isPure": true,
@@ -919,18 +919,18 @@
                     "typeString": "literal_string \"EIP712Domain(string name,uint256 chainId,address verifyingContract)\""
                   }
                 ],
-                "id": 10399,
+                "id": 10406,
                 "name": "keccak256",
                 "nodeType": "Identifier",
                 "overloadedDeclarations": [],
-                "referencedDeclaration": 10624,
+                "referencedDeclaration": 10631,
                 "src": "724:9:20",
                 "typeDescriptions": {
                   "typeIdentifier": "t_function_keccak256_pure$_t_bytes_memory_ptr_$returns$_t_bytes32_$",
                   "typeString": "function (bytes memory) pure returns (bytes32)"
                 }
               },
-              "id": 10401,
+              "id": 10408,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
@@ -948,10 +948,10 @@
           },
           {
             "constant": true,
-            "id": 10407,
+            "id": 10414,
             "name": "DELEGATION_TYPEHASH",
             "nodeType": "VariableDeclaration",
-            "scope": 10412,
+            "scope": 10419,
             "src": "895:117:20",
             "stateVariable": true,
             "storageLocation": "default",
@@ -960,7 +960,7 @@
               "typeString": "bytes32"
             },
             "typeName": {
-              "id": 10403,
+              "id": 10410,
               "name": "bytes32",
               "nodeType": "ElementaryTypeName",
               "src": "895:7:20",
@@ -975,7 +975,7 @@
                 {
                   "argumentTypes": null,
                   "hexValue": "44656c65676174696f6e28616464726573732064656c6567617465652c75696e74323536206e6f6e63652c75696e743235362065787069727929",
-                  "id": 10405,
+                  "id": 10412,
                   "isConstant": false,
                   "isLValue": false,
                   "isPure": true,
@@ -998,18 +998,18 @@
                     "typeString": "literal_string \"Delegation(address delegatee,uint256 nonce,uint256 expiry)\""
                   }
                 ],
-                "id": 10404,
+                "id": 10411,
                 "name": "keccak256",
                 "nodeType": "Identifier",
                 "overloadedDeclarations": [],
-                "referencedDeclaration": 10624,
+                "referencedDeclaration": 10631,
                 "src": "941:9:20",
                 "typeDescriptions": {
                   "typeIdentifier": "t_function_keccak256_pure$_t_bytes_memory_ptr_$returns$_t_bytes32_$",
                   "typeString": "function (bytes memory) pure returns (bytes32)"
                 }
               },
-              "id": 10406,
+              "id": 10413,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
@@ -1027,10 +1027,10 @@
           },
           {
             "constant": false,
-            "id": 10411,
+            "id": 10418,
             "name": "nonces",
             "nodeType": "VariableDeclaration",
-            "scope": 10412,
+            "scope": 10419,
             "src": "1090:39:20",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1039,9 +1039,9 @@
               "typeString": "mapping(address => uint256)"
             },
             "typeName": {
-              "id": 10410,
+              "id": 10417,
               "keyType": {
-                "id": 10408,
+                "id": 10415,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "1099:7:20",
@@ -1057,7 +1057,7 @@
                 "typeString": "mapping(address => uint256)"
               },
               "valueType": {
-                "id": 10409,
+                "id": 10416,
                 "name": "uint",
                 "nodeType": "ElementaryTypeName",
                 "src": "1110:4:20",
@@ -1071,7 +1071,7 @@
             "visibility": "public"
           }
         ],
-        "scope": 10413,
+        "scope": 10420,
         "src": "59:1073:20"
       }
     ],
@@ -1083,7 +1083,7 @@
   },
   "networks": {},
   "schemaVersion": "3.0.16",
-  "updatedAt": "2020-08-05T20:33:49.299Z",
+  "updatedAt": "2020-08-05T20:41:06.168Z",
   "devdoc": {
     "methods": {}
   },

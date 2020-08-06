@@ -9,10 +9,7 @@ contract YAMDelegator is YAM, YAMDelegatorInterface {
      * @param name_ ERC-20 name of this token
      * @param symbol_ ERC-20 symbol of this token
      * @param decimals_ ERC-20 decimal precision of this token
-     * @param initial_owners List of initial YAM holders
-     * @param amounts Amounts to send to corresponding initial owners
      * @param initSupply_ Initial token amount
-     * @param gov_ Address of the governance of this token
      * @param implementation_ The address of the implementation the contract delegates to
      * @param becomeImplementationData The encoded args for becomeImplementation
      */
@@ -20,12 +17,7 @@ contract YAMDelegator is YAM, YAMDelegatorInterface {
         string memory name_,
         string memory symbol_,
         uint8 decimals_,
-        address[] memory initial_owners,
-        uint256[] memory amounts,
         uint256 initSupply_,
-        address rebaser_,
-        address incentivizer_,
-        address gov_,
         address implementation_,
         bytes memory becomeImplementationData
     )
@@ -40,24 +32,18 @@ contract YAMDelegator is YAM, YAMDelegatorInterface {
         delegateTo(
             implementation_,
             abi.encodeWithSignature(
-                "initialize(string,string,uint8,address[],uint256[],uint256,address,address,address)",
+                "initialize(string,string,uint8,address,uint256)",
                 name_,
                 symbol_,
                 decimals_,
-                initial_owners,
-                amounts,
-                initSupply_,
-                rebaser_,
-                incentivizer_,
-                gov_
+                msg.sender,
+                initSupply_
             )
         );
 
         // New implementations always get set via the settor (post-initialize)
         _setImplementation(implementation_, false, becomeImplementationData);
 
-        // Set the proper gov now that initialization is done
-        gov = gov_;
     }
 
     /**

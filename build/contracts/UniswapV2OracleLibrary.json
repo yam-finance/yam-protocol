@@ -111,7 +111,7 @@
                             "name": "block",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 10620,
+                            "referencedDeclaration": 10627,
                             "src": "443:5:13",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_block",
@@ -1716,7 +1716,7 @@
                             "name": "block",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 10620,
+                            "referencedDeclaration": 10627,
                             "src": "443:5:13",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_block",
@@ -3224,7 +3224,7 @@
   },
   "networks": {},
   "schemaVersion": "3.0.16",
-  "updatedAt": "2020-08-05T20:33:49.207Z",
+  "updatedAt": "2020-08-05T20:41:06.069Z",
   "devdoc": {
     "methods": {}
   },

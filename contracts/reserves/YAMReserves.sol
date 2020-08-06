@@ -4,7 +4,7 @@ import "../lib/IERC20.sol";
 import "../lib/SafeERC20.sol";
 import "../token/YAMTokenInterface.sol";
 
-contract YAMReserve {
+contract YAMReserves {
 
     // Token that serves as a reserve for YAM
     address public reserveToken;
@@ -41,15 +41,14 @@ contract YAMReserve {
     }
 
     constructor(
-        address gov_,
         address reserveToken_,
         address yamAddress_
     )
         public
     {
-        gov = gov_;
         reserveToken = reserveToken_;
         yamAddress = yamAddress_;
+        gov = msg.sender;
     }
 
     function _setRebaser(address rebaser_)
