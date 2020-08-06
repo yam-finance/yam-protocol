@@ -5,6 +5,13 @@ import { SUBTRACT_GAS_LIMIT, addressMap } from './constants.js';
 
 import ERC20Json from '../../../clean_build/contracts/IERC20.json';
 import YAMJson from '../../../clean_build/contracts/YAMDelegator.json';
+import YAMRebaserJson from '../../../clean_build/contracts/YAMRebaser.json';
+import YAMReservesJson from '../../../clean_build/contracts/YAMReserves.json';
+import YAMGovJson from '../../../clean_build/contracts/GovernorAlpha.json';
+import YAMTimelockJson from '../../../clean_build/contracts/Timelock.json';
+import WETHJson from './weth.json';
+import UNIFactJson from './unifact2.json';
+import UNIPairJson from './uni2.json';
 
 export class Contracts {
   constructor(
@@ -20,11 +27,17 @@ export class Contracts {
     this.defaultGas = options.defaultGas;
     this.defaultGasPrice = options.defaultGasPrice;
 
+    this.uni_pair = new this.web3.eth.Contract(UNIPairJson)
+    this.uni_fact = new this.web3.eth.Contract(UNIFactJson)
     this.yfi = new this.web3.eth.Contract(ERC20Json.abi);
     this.UNIAmpl = new this.web3.eth.Contract(ERC20Json.abi);
     this.ycrv = new this.web3.eth.Contract(ERC20Json.abi);
     this.yam = new this.web3.eth.Contract(YAMJson.abi);
-    this.weth = new this.web3.eth.Contract(WETHJson.abi);
+    this.rebaser = new this.web3.eth.Contract(YAMRebaserJson.abi);
+    this.reserves = new this.web3.eth.Contract(YAMReservesJson.abi);
+    this.gov = new this.web3.eth.Contract(YAMGovJson.abi);
+    this.timelock = new this.web3.eth.Contract(YAMTimelockJson.abi);
+    this.weth = new this.web3.eth.Contract(WETHJson);
     this.setProvider(provider, networkId);
     this.setDefaultAccount(this.web3.eth.defaultAccount);
     if (networkId == 1 && options.notifier) {
@@ -41,9 +54,17 @@ export class Contracts {
     provider,
     networkId
   ) {
-    this.yam.Provider(provider);
+    this.yam.setProvider(provider);
+    this.rebaser.setProvider(provider);
+    this.reserves.setProvider(provider);
+    this.gov.setProvider(provider);
+    this.timelock.setProvider(provider);
     const contracts = [
-      { contract: this.yam, json: YAMJson }
+      { contract: this.yam, json: YAMJson },
+      { contract: this.rebaser, json: YAMRebaserJson },
+      { contract: this.reserves, json: YAMReservesJson },
+      { contract: this.gov, json: YAMGovJson },
+      { contract: this.timelock, json: YAMTimelockJson },
     ]
 
     contracts.forEach(contract => this.setContractProvider(
@@ -55,8 +76,9 @@ export class Contracts {
     );
     this.yfi.options.address = addressMap["YFI"];
     this.ycrv.options.address = addressMap["YCRV"];
-    this.yam.options.address = addressMap["YAM"];
     this.weth.options.address = addressMap["WETH"];
+    this.UNIAmpl.options.address = addressMap["UNIAmpl"];
+    this.uni_fact.options.address = addressMap["uniswapFactoryV2"];
 
   }
 

@@ -46829,12 +46829,12 @@
         }
       },
       "links": {},
-      "address": "0x786DB8abB27721811aA3F6C1c99dB7A04854a4cd",
-      "transactionHash": "0x2d954561690bdffd83a82c892fdc1f5e614590298da5fd66779c1dad482d9ad5"
+      "address": "0x26d376fbD67A36122f6c7F20F3A55C7F697aAd4a",
+      "transactionHash": "0x8cd697ae070ecb595204c0bf969b7bc1944faf1a24df8b3956906e4b5faef78e"
     }
   },
   "schemaVersion": "3.0.16",
-  "updatedAt": "2020-08-06T15:33:40.468Z",
+  "updatedAt": "2020-08-06T18:04:18.269Z",
   "devdoc": {
     "methods": {
       "_setPendingGov(address)": {

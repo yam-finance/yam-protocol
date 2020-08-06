@@ -28,25 +28,36 @@ export const yam = new Yam(
 )
 const oneEther = 10 ** 18;
 
-describe("atomics", () => {
+describe("token_tests", () => {
   let snapshotId;
   let user;
+  let new_user;
+  let unlocked_account = "0x0eb4add4ba497357546da7f5d12d39587ca24606";
 
   beforeAll(async () => {
     const accounts = await yam.web3.eth.getAccounts();
     yam.addAccount(accounts[0]);
     user = accounts[0];
+    new_user = accounts[1];
     snapshotId = await yam.testing.snapshot();
   });
 
   beforeEach(async () => {
     await yam.testing.resetEVM("0x2");
+    let a = await yam.contracts.ycrv.methods.transfer(user, "10000000").send({from: unlocked_account});
   });
 
-  describe("initial", () => {
-    test("succeeds", async () => {
-      // let balance = await yam.contracts.yam.methods.balanceOf(user).call();
-      // expect(balance).toBe((6*10**6*10**18).toString())
-    })
-  })
+  describe("rebase", () => {
+    test("user has ycrv", async() => {
+      let bal0 = await yam.contracts.ycrv.methods.balanceOf(user).call();
+      expect(bal0).toBe("10000000");
+    });
+    test("create pair", async () => {
+        await yam.contracts.uni_fact.methods.createPair(
+            yam.contracts.ycrv.options.address,
+            yam.contracts.yam.options.address
+        ).send({from: user, gas: 8000000})
+    });
+  });
+
 })

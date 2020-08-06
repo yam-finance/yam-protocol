@@ -133,7 +133,7 @@ module.exports = {
 
   // The test environment that will be used for testing
   testEnvironment: "node",
-
+  testTimeout: 15000,
   // Options that will be passed to the testEnvironment
   // testEnvironmentOptions: {},
 

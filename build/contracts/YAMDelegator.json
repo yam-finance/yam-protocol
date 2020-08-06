@@ -10324,12 +10324,12 @@
         }
       },
       "links": {},
-      "address": "0x169fAc5b75C23FfD1807488C54056BacBb99D002",
-      "transactionHash": "0x681159960782c2f21470d0c1db36274823f611be2d475298f9e84ff3e2826cc4"
+      "address": "0x4BC6657283f8f24e27EAc1D21D1deE566C534A9A",
+      "transactionHash": "0x3d2dffc0be38320352d987ef2a67792944226385bc4aa9fb5e86441cb5317df6"
     }
   },
   "schemaVersion": "3.0.16",
-  "updatedAt": "2020-08-06T15:33:40.432Z",
+  "updatedAt": "2020-08-06T18:04:18.241Z",
   "devdoc": {
     "methods": {
       "_acceptGov()": {

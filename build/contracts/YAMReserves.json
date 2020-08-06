@@ -6123,12 +6123,12 @@
         }
       },
       "links": {},
-      "address": "0xd3771D58F901C5d50b093501f38659016863Eb6C",
-      "transactionHash": "0xee756f1653793c5dfdf6afbb66ebeb7d84714366f543b63e5a9fdbd55a18b4c7"
+      "address": "0x1B073A8F94d4677E9651f51135AeeA103d1A3E85",
+      "transactionHash": "0x08dce78c93ac78945bc0bf065e9cdd4006afb79f9c90fc43ef93fe0817554539"
     }
   },
   "schemaVersion": "3.0.16",
-  "updatedAt": "2020-08-06T15:33:40.440Z",
+  "updatedAt": "2020-08-06T18:04:18.248Z",
   "devdoc": {
     "methods": {
       "_setPendingGov(address)": {
