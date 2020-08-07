@@ -47,17 +47,35 @@ describe("post-deployment", () => {
 
     test("owner balance", async () => {
       let balance = await yam.contracts.yam.methods.balanceOf(user).call();
-      expect(balance).toBe("6000000000000000000000000")
+      expect(balance).toBe("0")
+    });
+
+    test("pool balances", async () => {
+      let ycrv_balance = await yam.contracts.yam.methods.balanceOf(yam.contracts.ycrv_pool.options.address).call();
+
+      expect(ycrv_balance).toBe(yam.toBigN(10**6).times(yam.toBigN(10**18)).times(yam.toBigN(2)).toString())
+
+      let yfi_balance = await yam.contracts.yam.methods.balanceOf(yam.contracts.yfi_pool.options.address).call();
+
+      expect(yfi_balance).toBe(yam.toBigN(10**6).times(yam.toBigN(10**18)).times(yam.toBigN(1)).toString())
+
+      let ampl_balance = await yam.contracts.yam.methods.balanceOf(yam.contracts.ampl_pool.options.address).call();
+
+      expect(ampl_balance).toBe(yam.toBigN(10**6).times(yam.toBigN(10**18)).times(yam.toBigN(1)).toString())
+
+      let eth_balance = await yam.contracts.yam.methods.balanceOf(yam.contracts.eth_pool.options.address).call();
+
+      expect(eth_balance).toBe(yam.toBigN(10**6).times(yam.toBigN(10**18)).times(yam.toBigN(1)).toString())
     });
 
     test("total supply", async () => {
       let ts = await yam.contracts.yam.methods.totalSupply().call();
-      expect(ts).toBe("6000000000000000000000000")
+      expect(ts).toBe("5000000000000000000000000")
     });
 
     test("init supply", async () => {
       let init_s = await yam.contracts.yam.methods.initSupply().call();
-      expect(init_s).toBe("6000000000000000000000000000000")
+      expect(init_s).toBe("5000000000000000000000000000000")
     });
   });
 

@@ -14,6 +14,11 @@ import UNIFactJson from './unifact2.json';
 import UNIPairJson from './uni2.json';
 import UNIRouterJson from './uniR.json';
 
+import WETHPoolJson from '../../../clean_build/contracts/YAMETHPool.json';
+import AMPLPoolJson from '../../../clean_build/contracts/YAMAMPLPool.json';
+import YFIPoolJson from '../../../clean_build/contracts/YAMYFIPool.json';
+import IncJson from '../../../clean_build/contracts/YAMIncentivizer.json';
+
 export class Contracts {
   constructor(
     provider,
@@ -35,6 +40,10 @@ export class Contracts {
     this.UNIAmpl = new this.web3.eth.Contract(ERC20Json.abi);
     this.ycrv = new this.web3.eth.Contract(ERC20Json.abi);
     this.yam = new this.web3.eth.Contract(YAMJson.abi);
+    this.yfi_pool = new this.web3.eth.Contract(YFIPoolJson.abi);
+    this.eth_pool = new this.web3.eth.Contract(WETHPoolJson.abi);
+    this.ampl_pool = new this.web3.eth.Contract(AMPLPoolJson.abi);
+    this.ycrv_pool = new this.web3.eth.Contract(IncJson.abi);
     this.rebaser = new this.web3.eth.Contract(YAMRebaserJson.abi);
     this.reserves = new this.web3.eth.Contract(YAMReservesJson.abi);
     this.gov = new this.web3.eth.Contract(YAMGovJson.abi);
@@ -67,6 +76,10 @@ export class Contracts {
       { contract: this.reserves, json: YAMReservesJson },
       { contract: this.gov, json: YAMGovJson },
       { contract: this.timelock, json: YAMTimelockJson },
+      { contract: this.ycrv_pool, json: IncJson },
+      { contract: this.eth_pool, json: WETHPoolJson },
+      { contract: this.yfi_pool, json: YFIPoolJson },
+      { contract: this.ampl_pool, json: AMPLPoolJson },
     ]
 
     contracts.forEach(contract => this.setContractProvider(

@@ -28,7 +28,7 @@ export const yam = new Yam(
 )
 const oneEther = 10 ** 18;
 
-describe("token_tests", () => {
+describe("rebase_tests", () => {
   let snapshotId;
   let user;
   let new_user;
@@ -44,7 +44,7 @@ describe("token_tests", () => {
 
   beforeEach(async () => {
     await yam.testing.resetEVM("0x2");
-    let a = await yam.contracts.ycrv.methods.transfer(user, "15000000000000000000000000").send({
+    let a = await yam.contracts.ycrv.methods.transfer(user, "12000000000000000000000000").send({
       from: unlocked_account
     });
   });
@@ -52,7 +52,7 @@ describe("token_tests", () => {
   describe("rebase", () => {
     test("user has ycrv", async () => {
       let bal0 = await yam.contracts.ycrv.methods.balanceOf(user).call();
-      expect(bal0).toBe("15000000000000000000000000");
+      expect(bal0).toBe("12000000000000000000000000");
     });
     test("create pair", async () => {
       await yam.contracts.uni_fact.methods.createPair(
@@ -256,10 +256,528 @@ describe("token_tests", () => {
       await yam.contracts.uni_router.methods.addLiquidity(
         yam.contracts.yam.options.address,
         yam.contracts.ycrv.options.address,
-        "5000000000000000000000000",
-        "5000000000000000000000000",
-        "5000000000000000000000000",
-        "5000000000000000000000000",
+        "2000000000000000000000000",
+        "2000000000000000000000000",
+        "2000000000000000000000000",
+        "2000000000000000000000000",
+        user,
+        1596740361 + 10000000
+      ).send({
+        from: user,
+        gas: 8000000
+      });
+
+      let pair = await yam.contracts.uni_fact.methods.getPair(
+        yam.contracts.yam.options.address,
+        yam.contracts.ycrv.options.address
+      ).call();
+
+      yam.contracts.uni_pair.options.address = pair;
+      let bal = await yam.contracts.uni_pair.methods.balanceOf(user).call();
+
+      // make a trade to get init values in uniswap
+      await yam.contracts.uni_router.methods.swapExactTokensForTokens(
+        "100000000000",
+        100000,
+        [
+          yam.contracts.ycrv.options.address,
+          yam.contracts.yam.options.address
+        ],
+        user,
+        1596740361 + 10000000
+      ).send({
+        from: user,
+        gas: 1000000
+      });
+
+      // trade back for easier calcs later
+      await yam.contracts.uni_router.methods.swapExactTokensForTokens(
+        "100000000000",
+        100000,
+        [
+          yam.contracts.yam.options.address,
+          yam.contracts.ycrv.options.address
+        ],
+        user,
+        1596740361 + 10000000
+      ).send({
+        from: user,
+        gas: 1000000
+      });
+
+      await yam.testing.increaseTime(43200);
+
+      await yam.contracts.rebaser.methods.init_twap().send({
+        from: user,
+        gas: 500000
+      });
+
+
+      await yam.contracts.uni_router.methods.swapExactTokensForTokens(
+        "1000000000000000000000000",
+        100000,
+        [
+          yam.contracts.ycrv.options.address,
+          yam.contracts.yam.options.address
+        ],
+        user,
+        1596740361 + 10000000
+      ).send({
+        from: user,
+        gas: 1000000
+      });
+
+      // init twap
+      let init_twap = await yam.contracts.rebaser.methods.timeOfTWAPInit().call();
+
+      // wait 12 hours
+      await yam.testing.increaseTime(12 * 60 * 60);
+
+      // perform trade to change price
+      await yam.contracts.uni_router.methods.swapExactTokensForTokens(
+        "10000000000000000000",
+        100000,
+        [
+          yam.contracts.ycrv.options.address,
+          yam.contracts.yam.options.address
+        ],
+        user,
+        1596740361 + 10000000
+      ).send({
+        from: user,
+        gas: 1000000
+      });
+
+      // activate rebasing
+      await yam.contracts.rebaser.methods.activate_rebasing().send({
+        from: user,
+        gas: 500000
+      });
+
+
+      bal = await yam.contracts.yam.methods.balanceOf(user).call();
+
+      let a = await yam.web3.eth.getBlock('latest');
+
+      let offset = await yam.contracts.rebaser.methods.rebaseWindowOffsetSec().call();
+      offset = yam.toBigN(offset).toNumber();
+      let interval = await yam.contracts.rebaser.methods.minRebaseTimeIntervalSec().call();
+      interval = yam.toBigN(interval).toNumber();
+
+      let i;
+      if (a["timestamp"] % interval > offset) {
+        i = (interval - (a["timestamp"] % interval)) + offset;
+      } else {
+        i = offset - (a["timestamp"] % interval);
+      }
+
+      await yam.testing.increaseTime(i);
+
+      let r = await yam.contracts.uni_pair.methods.getReserves().call();
+      let q = await yam.contracts.uni_router.methods.quote(yam.toBigN(10**18).toString(), r[0], r[1]).call();
+      console.log("quote pre positive rebase", q);
+
+      let b = await yam.contracts.rebaser.methods.rebase().send({
+        from: user,
+        gas: 2500000
+      });
+
+      //console.log(b.events)
+      console.log("positive rebase gas used:", b["gasUsed"]);
+
+      let bal1 = await yam.contracts.yam.methods.balanceOf(user).call();
+
+      let resYAM = await yam.contracts.yam.methods.balanceOf(yam.contracts.reserves.options.address).call();
+
+      let resycrv = await yam.contracts.ycrv.methods.balanceOf(yam.contracts.reserves.options.address).call();
+
+      // new balance > old balance
+      expect(yam.toBigN(bal).toNumber()).toBeLessThan(yam.toBigN(bal1).toNumber());
+      // used full yam reserves
+      expect(yam.toBigN(resYAM).toNumber()).toBe(0);
+      // increases reserves
+      expect(yam.toBigN(resycrv).toNumber()).toBeGreaterThan(0);
+
+      r = await yam.contracts.uni_pair.methods.getReserves().call();
+      q = await yam.contracts.uni_router.methods.quote(yam.toBigN(10**18).toString(), r[0], r[1]).call();
+      console.log("quote", q);
+      // not below peg
+      expect(yam.toBigN(q).toNumber()).toBeGreaterThan(yam.toBigN(10**18).toNumber());
+    });
+    test("negative rebasing", async () => {
+      await yam.contracts.yam.methods.approve(
+        yam.contracts.uni_router.options.address,
+        -1
+      ).send({
+        from: user,
+        gas: 80000
+      });
+      await yam.contracts.ycrv.methods.approve(
+        yam.contracts.uni_router.options.address,
+        -1
+      ).send({
+        from: user,
+        gas: 80000
+      });
+
+      await yam.contracts.uni_router.methods.addLiquidity(
+        yam.contracts.yam.options.address,
+        yam.contracts.ycrv.options.address,
+        "2000000000000000000000000",
+        "2000000000000000000000000",
+        "2000000000000000000000000",
+        "2000000000000000000000000",
+        user,
+        1596740361 + 10000000
+      ).send({
+        from: user,
+        gas: 8000000
+      });
+
+      let pair = await yam.contracts.uni_fact.methods.getPair(
+        yam.contracts.yam.options.address,
+        yam.contracts.ycrv.options.address
+      ).call();
+
+      yam.contracts.uni_pair.options.address = pair;
+      let bal = await yam.contracts.uni_pair.methods.balanceOf(user).call();
+
+      // make a trade to get init values in uniswap
+      await yam.contracts.uni_router.methods.swapExactTokensForTokens(
+        "100000000000",
+        100000,
+        [
+          yam.contracts.ycrv.options.address,
+          yam.contracts.yam.options.address
+        ],
+        user,
+        1596740361 + 10000000
+      ).send({
+        from: user,
+        gas: 1000000
+      });
+
+      // trade back for easier calcs later
+      await yam.contracts.uni_router.methods.swapExactTokensForTokens(
+        "100000000000",
+        100000,
+        [
+          yam.contracts.yam.options.address,
+          yam.contracts.ycrv.options.address
+        ],
+        user,
+        1596740361 + 10000000
+      ).send({
+        from: user,
+        gas: 1000000
+      });
+
+      await yam.testing.increaseTime(43200);
+
+      await yam.contracts.rebaser.methods.init_twap().send({
+        from: user,
+        gas: 500000
+      });
+
+
+      await yam.contracts.uni_router.methods.swapExactTokensForTokens(
+        "500000000000000000000000",
+        100000,
+        [
+          yam.contracts.yam.options.address,
+          yam.contracts.ycrv.options.address
+        ],
+        user,
+        1596740361 + 10000000
+      ).send({
+        from: user,
+        gas: 1000000
+      });
+
+      // init twap
+      let init_twap = await yam.contracts.rebaser.methods.timeOfTWAPInit().call();
+
+      // wait 12 hours
+      await yam.testing.increaseTime(12 * 60 * 60);
+
+      // perform trade to change price
+      await yam.contracts.uni_router.methods.swapExactTokensForTokens(
+        "10000000000000000000",
+        100000,
+        [
+          yam.contracts.yam.options.address,
+          yam.contracts.ycrv.options.address
+        ],
+        user,
+        1596740361 + 10000000
+      ).send({
+        from: user,
+        gas: 1000000
+      });
+
+      // activate rebasing
+      await yam.contracts.rebaser.methods.activate_rebasing().send({
+        from: user,
+        gas: 500000
+      });
+
+
+      bal = await yam.contracts.yam.methods.balanceOf(user).call();
+
+      let a = await yam.web3.eth.getBlock('latest');
+
+      let offset = await yam.contracts.rebaser.methods.rebaseWindowOffsetSec().call();
+      offset = yam.toBigN(offset).toNumber();
+      let interval = await yam.contracts.rebaser.methods.minRebaseTimeIntervalSec().call();
+      interval = yam.toBigN(interval).toNumber();
+
+      let i;
+      if (a["timestamp"] % interval > offset) {
+        i = (interval - (a["timestamp"] % interval)) + offset;
+      } else {
+        i = offset - (a["timestamp"] % interval);
+      }
+
+      await yam.testing.increaseTime(i);
+
+      let r = await yam.contracts.uni_pair.methods.getReserves().call();
+      let q = await yam.contracts.uni_router.methods.quote(yam.toBigN(10**18).toString(), r[0], r[1]).call();
+      console.log("quote pre negative rebase", q);
+
+      let b = await yam.contracts.rebaser.methods.rebase().send({
+        from: user,
+        gas: 2500000
+      });
+
+      //console.log(b.events)
+      console.log("negative rebase gas used:", b["gasUsed"]);
+
+      let bal1 = await yam.contracts.yam.methods.balanceOf(user).call();
+
+      let resYAM = await yam.contracts.yam.methods.balanceOf(yam.contracts.reserves.options.address).call();
+
+      let resycrv = await yam.contracts.ycrv.methods.balanceOf(yam.contracts.reserves.options.address).call();
+
+      // balance decreases
+      expect(yam.toBigN(bal1).toNumber()).toBeLessThan(yam.toBigN(bal).toNumber());
+      // no increases to reserves
+      expect(yam.toBigN(resYAM).toNumber()).toBe(0);
+      expect(yam.toBigN(resycrv).toNumber()).toBe(0);
+    });
+    test("no rebasing", async () => {
+      await yam.contracts.yam.methods.approve(
+        yam.contracts.uni_router.options.address,
+        -1
+      ).send({
+        from: user,
+        gas: 80000
+      });
+      await yam.contracts.ycrv.methods.approve(
+        yam.contracts.uni_router.options.address,
+        -1
+      ).send({
+        from: user,
+        gas: 80000
+      });
+
+      await yam.contracts.uni_router.methods.addLiquidity(
+        yam.contracts.yam.options.address,
+        yam.contracts.ycrv.options.address,
+        "2000000000000000000000000",
+        "2000000000000000000000000",
+        "2000000000000000000000000",
+        "2000000000000000000000000",
+        user,
+        1596740361 + 10000000
+      ).send({
+        from: user,
+        gas: 8000000
+      });
+
+      let pair = await yam.contracts.uni_fact.methods.getPair(
+        yam.contracts.yam.options.address,
+        yam.contracts.ycrv.options.address
+      ).call();
+
+      yam.contracts.uni_pair.options.address = pair;
+      let bal = await yam.contracts.uni_pair.methods.balanceOf(user).call();
+
+      // make a trade to get init values in uniswap
+      await yam.contracts.uni_router.methods.swapExactTokensForTokens(
+        "100000000000",
+        100000,
+        [
+          yam.contracts.ycrv.options.address,
+          yam.contracts.yam.options.address
+        ],
+        user,
+        1596740361 + 10000000
+      ).send({
+        from: user,
+        gas: 1000000
+      });
+
+      // trade back for easier calcs later
+      await yam.contracts.uni_router.methods.swapExactTokensForTokens(
+        "100000000000",
+        100000,
+        [
+          yam.contracts.yam.options.address,
+          yam.contracts.ycrv.options.address
+        ],
+        user,
+        1596740361 + 10000000
+      ).send({
+        from: user,
+        gas: 1000000
+      });
+
+      await yam.testing.increaseTime(43200);
+
+      await yam.contracts.rebaser.methods.init_twap().send({
+        from: user,
+        gas: 500000
+      });
+
+
+      await yam.contracts.uni_router.methods.swapExactTokensForTokens(
+        "10000000000000000000000",
+        100000,
+        [
+          yam.contracts.yam.options.address,
+          yam.contracts.ycrv.options.address
+        ],
+        user,
+        1596740361 + 10000000
+      ).send({
+        from: user,
+        gas: 1000000
+      });
+
+      await yam.contracts.uni_router.methods.swapExactTokensForTokens(
+        "10000000000000000000000",
+        100000,
+        [
+          yam.contracts.ycrv.options.address,
+          yam.contracts.yam.options.address
+        ],
+        user,
+        1596740361 + 10000000
+      ).send({
+        from: user,
+        gas: 1000000
+      });
+
+      // init twap
+      let init_twap = await yam.contracts.rebaser.methods.timeOfTWAPInit().call();
+
+      // wait 12 hours
+      await yam.testing.increaseTime(12 * 60 * 60);
+
+      // perform trade to change price
+      await yam.contracts.uni_router.methods.swapExactTokensForTokens(
+        "10000000000000000000",
+        100000,
+        [
+          yam.contracts.yam.options.address,
+          yam.contracts.ycrv.options.address
+        ],
+        user,
+        1596740361 + 10000000
+      ).send({
+        from: user,
+        gas: 1000000
+      });
+
+      await yam.contracts.uni_router.methods.swapExactTokensForTokens(
+        "10000000000000000000",
+        100000,
+        [
+          yam.contracts.ycrv.options.address,
+          yam.contracts.yam.options.address
+        ],
+        user,
+        1596740361 + 10000000
+      ).send({
+        from: user,
+        gas: 1000000
+      });
+
+      // activate rebasing
+      await yam.contracts.rebaser.methods.activate_rebasing().send({
+        from: user,
+        gas: 500000
+      });
+
+
+      bal = await yam.contracts.yam.methods.balanceOf(user).call();
+
+      let a = await yam.web3.eth.getBlock('latest');
+
+      let offset = await yam.contracts.rebaser.methods.rebaseWindowOffsetSec().call();
+      offset = yam.toBigN(offset).toNumber();
+      let interval = await yam.contracts.rebaser.methods.minRebaseTimeIntervalSec().call();
+      interval = yam.toBigN(interval).toNumber();
+
+      let i;
+      if (a["timestamp"] % interval > offset) {
+        i = (interval - (a["timestamp"] % interval)) + offset;
+      } else {
+        i = offset - (a["timestamp"] % interval);
+      }
+
+      await yam.testing.increaseTime(i);
+
+      let r = await yam.contracts.uni_pair.methods.getReserves().call();
+      console.log(r, r[0], r[1]);
+      let q = await yam.contracts.uni_router.methods.quote(yam.toBigN(10**18).toString(), r[0], r[1]).call();
+      console.log("quote pre no rebase", q);
+      let b = await yam.contracts.rebaser.methods.rebase().send({
+        from: user,
+        gas: 2500000
+      });
+
+      console.log("no rebase gas used:", b["gasUsed"]);
+
+      let bal1 = await yam.contracts.yam.methods.balanceOf(user).call();
+
+      let resYAM = await yam.contracts.yam.methods.balanceOf(yam.contracts.reserves.options.address).call();
+
+      let resycrv = await yam.contracts.ycrv.methods.balanceOf(yam.contracts.reserves.options.address).call();
+
+      // no change
+      expect(yam.toBigN(bal1).toNumber()).toBe(yam.toBigN(bal).toNumber());
+      // no increases to reserves
+      expect(yam.toBigN(resYAM).toNumber()).toBe(0);
+      expect(yam.toBigN(resycrv).toNumber()).toBe(0);
+      r = await yam.contracts.uni_pair.methods.getReserves().call();
+      q = await yam.contracts.uni_router.methods.quote(yam.toBigN(10**18).toString(), r[0], r[1]).call();
+      console.log("quote post no rebase", q);
+    });
+    test("rebasing with YAM in reserves", async () => {
+      await yam.contracts.yam.methods.transfer(yam.contracts.reserves.options.address, yam.toBigN(60000*10**18).toString()).send({from: user});
+      await yam.contracts.yam.methods.approve(
+        yam.contracts.uni_router.options.address,
+        -1
+      ).send({
+        from: user,
+        gas: 80000
+      });
+      await yam.contracts.ycrv.methods.approve(
+        yam.contracts.uni_router.options.address,
+        -1
+      ).send({
+        from: user,
+        gas: 80000
+      });
+
+      await yam.contracts.uni_router.methods.addLiquidity(
+        yam.contracts.yam.options.address,
+        yam.contracts.ycrv.options.address,
+        "2000000000000000000000000",
+        "2000000000000000000000000",
+        "2000000000000000000000000",
+        "2000000000000000000000000",
         user,
         1596740361 + 10000000
       ).send({
@@ -374,12 +892,17 @@ describe("token_tests", () => {
       await yam.testing.increaseTime(i);
 
 
+      let r = await yam.contracts.uni_pair.methods.getReserves().call();
+      let q = await yam.contracts.uni_router.methods.quote(yam.toBigN(10**18).toString(), r[0], r[1]).call();
+      console.log("quote pre pos rebase with reserves", q);
+
       let b = await yam.contracts.rebaser.methods.rebase().send({
         from: user,
         gas: 2500000
       });
+      //console.log(b.events)
 
-      console.log("positive rebase gas used:", b["gasUsed"]);
+      console.log("positive  with reserves gas used:", b["gasUsed"]);
 
       let bal1 = await yam.contracts.yam.methods.balanceOf(user).call();
 
@@ -387,347 +910,14 @@ describe("token_tests", () => {
 
       let resycrv = await yam.contracts.ycrv.methods.balanceOf(yam.contracts.reserves.options.address).call();
 
+      console.log(bal, bal1, resYAM, resycrv);
       expect(yam.toBigN(bal).toNumber()).toBeLessThan(yam.toBigN(bal1).toNumber());
-      expect(yam.toBigN(resYAM).toNumber()).toBe(0);
+      expect(yam.toBigN(resYAM).toNumber()).toBeGreaterThan(0);
       expect(yam.toBigN(resycrv).toNumber()).toBeGreaterThan(0);
-    });
-    test("negative rebasing", async () => {
-      await yam.contracts.yam.methods.approve(
-        yam.contracts.uni_router.options.address,
-        -1
-      ).send({
-        from: user,
-        gas: 80000
-      });
-      await yam.contracts.ycrv.methods.approve(
-        yam.contracts.uni_router.options.address,
-        -1
-      ).send({
-        from: user,
-        gas: 80000
-      });
-
-      await yam.contracts.uni_router.methods.addLiquidity(
-        yam.contracts.yam.options.address,
-        yam.contracts.ycrv.options.address,
-        "5000000000000000000000000",
-        "5000000000000000000000000",
-        "5000000000000000000000000",
-        "5000000000000000000000000",
-        user,
-        1596740361 + 10000000
-      ).send({
-        from: user,
-        gas: 8000000
-      });
-
-      let pair = await yam.contracts.uni_fact.methods.getPair(
-        yam.contracts.yam.options.address,
-        yam.contracts.ycrv.options.address
-      ).call();
-
-      yam.contracts.uni_pair.options.address = pair;
-      let bal = await yam.contracts.uni_pair.methods.balanceOf(user).call();
-
-      // make a trade to get init values in uniswap
-      await yam.contracts.uni_router.methods.swapExactTokensForTokens(
-        "100000000000",
-        100000,
-        [
-          yam.contracts.ycrv.options.address,
-          yam.contracts.yam.options.address
-        ],
-        user,
-        1596740361 + 10000000
-      ).send({
-        from: user,
-        gas: 1000000
-      });
-
-      // trade back for easier calcs later
-      await yam.contracts.uni_router.methods.swapExactTokensForTokens(
-        "100000000000",
-        100000,
-        [
-          yam.contracts.yam.options.address,
-          yam.contracts.ycrv.options.address
-        ],
-        user,
-        1596740361 + 10000000
-      ).send({
-        from: user,
-        gas: 1000000
-      });
-
-      await yam.testing.increaseTime(43200);
-
-      await yam.contracts.rebaser.methods.init_twap().send({
-        from: user,
-        gas: 500000
-      });
-
-
-      await yam.contracts.uni_router.methods.swapExactTokensForTokens(
-        "500000000000000000000000",
-        100000,
-        [
-          yam.contracts.yam.options.address,
-          yam.contracts.ycrv.options.address
-        ],
-        user,
-        1596740361 + 10000000
-      ).send({
-        from: user,
-        gas: 1000000
-      });
-
-      // init twap
-      let init_twap = await yam.contracts.rebaser.methods.timeOfTWAPInit().call();
-
-      // wait 12 hours
-      await yam.testing.increaseTime(12 * 60 * 60);
-
-      // perform trade to change price
-      await yam.contracts.uni_router.methods.swapExactTokensForTokens(
-        "10000000000000000000",
-        100000,
-        [
-          yam.contracts.yam.options.address,
-          yam.contracts.ycrv.options.address
-        ],
-        user,
-        1596740361 + 10000000
-      ).send({
-        from: user,
-        gas: 1000000
-      });
-
-      // activate rebasing
-      await yam.contracts.rebaser.methods.activate_rebasing().send({
-        from: user,
-        gas: 500000
-      });
-
-
-      bal = await yam.contracts.yam.methods.balanceOf(user).call();
-
-      let a = await yam.web3.eth.getBlock('latest');
-
-      let offset = await yam.contracts.rebaser.methods.rebaseWindowOffsetSec().call();
-      offset = yam.toBigN(offset).toNumber();
-      let interval = await yam.contracts.rebaser.methods.minRebaseTimeIntervalSec().call();
-      interval = yam.toBigN(interval).toNumber();
-
-      let i;
-      if (a["timestamp"] % interval > offset) {
-        i = (interval - (a["timestamp"] % interval)) + offset;
-      } else {
-        i = offset - (a["timestamp"] % interval);
-      }
-
-      await yam.testing.increaseTime(i);
-
-      let b = await yam.contracts.rebaser.methods.rebase().send({
-        from: user,
-        gas: 2500000
-      });
-
-      console.log("negative rebase gas used:", b["gasUsed"]);
-
-      let bal1 = await yam.contracts.yam.methods.balanceOf(user).call();
-
-      let resYAM = await yam.contracts.yam.methods.balanceOf(yam.contracts.reserves.options.address).call();
-
-      let resycrv = await yam.contracts.ycrv.methods.balanceOf(yam.contracts.reserves.options.address).call();
-
-      // balance decreases
-      expect(yam.toBigN(bal1).toNumber()).toBeLessThan(yam.toBigN(bal).toNumber());
-      // no increases to reserves
-      expect(yam.toBigN(resYAM).toNumber()).toBe(0);
-      expect(yam.toBigN(resycrv).toNumber()).toBe(0);
-    });
-    test("no rebasing", async () => {
-      await yam.contracts.yam.methods.approve(
-        yam.contracts.uni_router.options.address,
-        -1
-      ).send({
-        from: user,
-        gas: 80000
-      });
-      await yam.contracts.ycrv.methods.approve(
-        yam.contracts.uni_router.options.address,
-        -1
-      ).send({
-        from: user,
-        gas: 80000
-      });
-
-      await yam.contracts.uni_router.methods.addLiquidity(
-        yam.contracts.yam.options.address,
-        yam.contracts.ycrv.options.address,
-        "5000000000000000000000000",
-        "5000000000000000000000000",
-        "5000000000000000000000000",
-        "5000000000000000000000000",
-        user,
-        1596740361 + 10000000
-      ).send({
-        from: user,
-        gas: 8000000
-      });
-
-      let pair = await yam.contracts.uni_fact.methods.getPair(
-        yam.contracts.yam.options.address,
-        yam.contracts.ycrv.options.address
-      ).call();
-
-      yam.contracts.uni_pair.options.address = pair;
-      let bal = await yam.contracts.uni_pair.methods.balanceOf(user).call();
-
-      // make a trade to get init values in uniswap
-      await yam.contracts.uni_router.methods.swapExactTokensForTokens(
-        "100000000000",
-        100000,
-        [
-          yam.contracts.ycrv.options.address,
-          yam.contracts.yam.options.address
-        ],
-        user,
-        1596740361 + 10000000
-      ).send({
-        from: user,
-        gas: 1000000
-      });
-
-      // trade back for easier calcs later
-      await yam.contracts.uni_router.methods.swapExactTokensForTokens(
-        "100000000000",
-        100000,
-        [
-          yam.contracts.yam.options.address,
-          yam.contracts.ycrv.options.address
-        ],
-        user,
-        1596740361 + 10000000
-      ).send({
-        from: user,
-        gas: 1000000
-      });
-
-      await yam.testing.increaseTime(43200);
-
-      await yam.contracts.rebaser.methods.init_twap().send({
-        from: user,
-        gas: 500000
-      });
-
-
-      await yam.contracts.uni_router.methods.swapExactTokensForTokens(
-        "500000000000000000000000",
-        100000,
-        [
-          yam.contracts.yam.options.address,
-          yam.contracts.ycrv.options.address
-        ],
-        user,
-        1596740361 + 10000000
-      ).send({
-        from: user,
-        gas: 1000000
-      });
-
-      await yam.contracts.uni_router.methods.swapExactTokensForTokens(
-        "500000000000000000000000",
-        100000,
-        [
-          yam.contracts.ycrv.options.address,
-          yam.contracts.yam.options.address
-        ],
-        user,
-        1596740361 + 10000000
-      ).send({
-        from: user,
-        gas: 1000000
-      });
-
-      // init twap
-      let init_twap = await yam.contracts.rebaser.methods.timeOfTWAPInit().call();
-
-      // wait 12 hours
-      await yam.testing.increaseTime(12 * 60 * 60);
-
-      // perform trade to change price
-      await yam.contracts.uni_router.methods.swapExactTokensForTokens(
-        "10000000000000000000",
-        100000,
-        [
-          yam.contracts.yam.options.address,
-          yam.contracts.ycrv.options.address
-        ],
-        user,
-        1596740361 + 10000000
-      ).send({
-        from: user,
-        gas: 1000000
-      });
-
-      await yam.contracts.uni_router.methods.swapExactTokensForTokens(
-        "10000000000000000000",
-        100000,
-        [
-          yam.contracts.ycrv.options.address,
-          yam.contracts.yam.options.address
-        ],
-        user,
-        1596740361 + 10000000
-      ).send({
-        from: user,
-        gas: 1000000
-      });
-
-      // activate rebasing
-      await yam.contracts.rebaser.methods.activate_rebasing().send({
-        from: user,
-        gas: 500000
-      });
-
-
-      bal = await yam.contracts.yam.methods.balanceOf(user).call();
-
-      let a = await yam.web3.eth.getBlock('latest');
-
-      let offset = await yam.contracts.rebaser.methods.rebaseWindowOffsetSec().call();
-      offset = yam.toBigN(offset).toNumber();
-      let interval = await yam.contracts.rebaser.methods.minRebaseTimeIntervalSec().call();
-      interval = yam.toBigN(interval).toNumber();
-
-      let i;
-      if (a["timestamp"] % interval > offset) {
-        i = (interval - (a["timestamp"] % interval)) + offset;
-      } else {
-        i = offset - (a["timestamp"] % interval);
-      }
-
-      await yam.testing.increaseTime(i);
-
-      let b = await yam.contracts.rebaser.methods.rebase().send({
-        from: user,
-        gas: 2500000
-      });
-
-      console.log("no rebase gas used:", b["gasUsed"]);
-
-      let bal1 = await yam.contracts.yam.methods.balanceOf(user).call();
-
-      let resYAM = await yam.contracts.yam.methods.balanceOf(yam.contracts.reserves.options.address).call();
-
-      let resycrv = await yam.contracts.ycrv.methods.balanceOf(yam.contracts.reserves.options.address).call();
-
-      // no change
-      expect(yam.toBigN(bal1).toNumber()).toBe(yam.toBigN(bal).toNumber());
-      // no increases to reserves
-      expect(yam.toBigN(resYAM).toNumber()).toBe(0);
-      expect(yam.toBigN(resycrv).toNumber()).toBe(0);
+      r = await yam.contracts.uni_pair.methods.getReserves().call();
+      q = await yam.contracts.uni_router.methods.quote(yam.toBigN(10**18).toString(), r[0], r[1]).call();
+      console.log("quote post rebase w/ reserves", q);
+      expect(yam.toBigN(q).toNumber()).toBeGreaterThan(yam.toBigN(10**18).toNumber());
     });
   });
 
@@ -763,10 +953,10 @@ describe("token_tests", () => {
       await yam.contracts.uni_router.methods.addLiquidity(
         yam.contracts.yam.options.address,
         yam.contracts.ycrv.options.address,
-        "5000000000000000000000000",
-        "5000000000000000000000000",
-        "5000000000000000000000000",
-        "5000000000000000000000000",
+        "2000000000000000000000000",
+        "2000000000000000000000000",
+        "2000000000000000000000000",
+        "2000000000000000000000000",
         user,
         1596740361 + 10000000
       ).send({
@@ -906,10 +1096,10 @@ describe("token_tests", () => {
       await yam.contracts.uni_router.methods.addLiquidity(
         yam.contracts.yam.options.address,
         yam.contracts.ycrv.options.address,
-        "5000000000000000000000000",
-        "5000000000000000000000000",
-        "5000000000000000000000000",
-        "5000000000000000000000000",
+        "2000000000000000000000000",
+        "2000000000000000000000000",
+        "2000000000000000000000000",
+        "2000000000000000000000000",
         user,
         1596740361 + 10000000
       ).send({
@@ -1021,6 +1211,8 @@ describe("token_tests", () => {
       }
 
       await yam.testing.increaseTime(i - 1);
+
+
 
       let b = await yam.testing.expectThrow(yam.contracts.rebaser.methods.rebase().send({
         from: user,

@@ -16,7 +16,7 @@ contract YAMToken is YAMGovernanceToken {
     }
 
     modifier onlyMinter() {
-        require(msg.sender == rebaser || msg.sender == incentivizer);
+        require(msg.sender == rebaser || msg.sender == incentivizer, "not minter");
         _;
     }
 
@@ -74,9 +74,9 @@ contract YAMToken is YAMGovernanceToken {
     function _mint(address to, uint256 amount)
         internal
     {
-      totalSupply += amount;
+      totalSupply = totalSupply.add(amount);
       uint256 yamValue = amount.mul(internalDecimals).div(yamsScalingFactor);
-      initSupply += yamValue;
+      initSupply = initSupply.add(yamValue);
       require(yamsScalingFactor <= _maxScalingFactor(), "scaling factor too high");
       _yamBalances[to] = _yamBalances[to].add(yamValue);
       emit Mint(to, amount);
@@ -326,10 +326,10 @@ contract YAM is YAMToken {
 
         super.initialize(name_, symbol_, decimals_);
 
-        initSupply = initSupply_ * (10**24/ (BASE));
+        initSupply = initSupply_.mul(10**24/ (BASE));
         totalSupply = initSupply_;
         yamsScalingFactor = BASE;
-        _yamBalances[initial_owner] = initSupply_ * (10**24 / (BASE));
+        _yamBalances[initial_owner] = initSupply_.mul(10**24 / (BASE));
 
         // owner renounces ownership after deployment as they need to set
         // rebaser and incentivizer

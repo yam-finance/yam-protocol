@@ -628,7 +628,7 @@ contract LPTokenWrapper {
     }
 
     modifier locked() {
-        require(block.timestamp >= lockedUntil(who), "locked");
+        require(block.timestamp >= lockedUntil(msg.sender), "locked");
         _;
     }
 
@@ -637,7 +637,7 @@ contract LPTokenWrapper {
     }
 
     modifier updateLock {
-        enterTimes[who] = block.timestamp;
+        enterTimes[msg.sender] = block.timestamp;
         _;
     }
 
@@ -746,7 +746,7 @@ contract YAMIncentivizer is LPTokenWrapper, IRewardDistributionRecipient {
             initreward = initreward.mul(50).div(100);
             uint256 scalingFactor = YAM(address(yam)).yamsScalingFactor();
             uint256 trueReward = initreward.mul(scalingFactor).div(10**24);
-            yam.mint(address(this), initreward);
+            yam.mint(address(this), trueReward);
 
             rewardRate = initreward.div(DURATION);
             periodFinish = block.timestamp.add(DURATION);

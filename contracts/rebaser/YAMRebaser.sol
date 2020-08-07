@@ -320,7 +320,8 @@ contract YAMRebaser {
         YAMTokenInterface yam = YAMTokenInterface(yamAddress);
 
         // cap to max scaling
-        if (positive && yam.yamsScalingFactor() + indexDelta > yam.maxScalingFactor()) {
+        if (positive
+          && yam.yamsScalingFactor().mul(uint256(10**18).add(indexDelta)).div(uint256(10**18)) > yam.maxScalingFactor()) {
             indexDelta = yam.maxScalingFactor() - yam.yamsScalingFactor();
         }
 
@@ -363,7 +364,7 @@ contract YAMRebaser {
         if (uniVars.amountFromReserves > 0) {
             // transfer from reserves and mint to uniswap
             yam.transferFrom(reservesContract, uniswap_pair, uniVars.amountFromReserves);
-            yam.mint(uniswap_pair, uniVars.yamsToUni - uniVars.amountFromReserves);
+            yam.mint(uniswap_pair, uniVars.yamsToUni.sub( uniVars.amountFromReserves));
         } else {
             // mint to uniswap
             yam.mint(uniswap_pair, uniVars.yamsToUni);
@@ -415,7 +416,7 @@ contract YAMRebaser {
         // falls back to selling some of mint and all of excess
         // sells portion of excess
         if (isToken0) {
-            if (tokens_to_max_slippage > mintAmount + excess) {
+            if (tokens_to_max_slippage > mintAmount.add(excess)) {
                 // can handle all of reserves and mint
                 uint256 buyTokens = getAmountOut(mintAmount + excess, token0Reserves, token1Reserves);
                 uniVars.yamsToUni = mintAmount + excess;
@@ -428,7 +429,7 @@ contract YAMRebaser {
                     uint256 buyTokens = getAmountOut(tokens_to_max_slippage, token0Reserves, token1Reserves);
 
                     // swap up to slippage limit, taking entire yam reserves, and minting part of total
-                    uniVars.mintToReserves = mintAmount - (tokens_to_max_slippage - excess);
+                    uniVars.mintToReserves = mintAmount.sub( (tokens_to_max_slippage - excess));
                     pair.swap(0, buyTokens, address(this), abi.encode(uniVars));
                 } else {
                     // uniswap cant handle all of excess
@@ -441,7 +442,7 @@ contract YAMRebaser {
                 }
             }
         } else {
-            if (tokens_to_max_slippage > mintAmount + excess) {
+            if (tokens_to_max_slippage > mintAmount.add(excess)) {
                 // can handle all of reserves and mint
                 uint256 buyTokens = getAmountOut(mintAmount + excess, token1Reserves, token0Reserves);
                 uniVars.yamsToUni = mintAmount + excess;
@@ -453,7 +454,7 @@ contract YAMRebaser {
                     // uniswap can handle entire reserves
                     uint256 buyTokens = getAmountOut(tokens_to_max_slippage, token1Reserves, token0Reserves);
                     // swap up to slippage limit, taking entire yam reserves, and minting part of total
-                    uniVars.mintToReserves = mintAmount - (tokens_to_max_slippage - excess);
+                    uniVars.mintToReserves = mintAmount.sub( (tokens_to_max_slippage - excess));
 
                     // swap up to slippage limit, taking entire yam reserves, and minting part of total
                     pair.swap(buyTokens, 0, address(this), abi.encode(uniVars));
