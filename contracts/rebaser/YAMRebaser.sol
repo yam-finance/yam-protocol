@@ -394,8 +394,6 @@ contract YAMRebaser {
     {
         UniswapPair pair = UniswapPair(uniswap_pair);
 
-        pair.sync();
-
         YAMTokenInterface yam = YAMTokenInterface(yamAddress);
 
         // get reserves
@@ -525,6 +523,8 @@ contract YAMRebaser {
     )
         internal
     {
+        pair.sync();
+        
         if (mintAmount > 0) {
             buyReserveAndTransfer(
                 mintAmount,
