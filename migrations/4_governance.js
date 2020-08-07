@@ -36,21 +36,9 @@ module.exports = migration;
 // contract
 
 async function deployGovernance(deployer, network) {
-  let yam = await YAMProxy.deployed()
-  let yReserves = await YAMReserves.deployed()
-  let yRebaser = await YAMRebaser.deployed()
   await deployer.deploy(Timelock, 172800);
   await deployer.deploy(Gov,
       Timelock.address,
       YAMProxy.address
   );
-  let tl = await Timelock.deployed();
-  let gov = await Gov.deployed();
-  tl.setPendingAdmin(Gov.address);
-  gov.__acceptAdmin();
-  yam._setPendingGov(Gov.address);
-  yReserves._setPendingGov(Gov.address);
-  yRebaser._setPendingGov(Gov.address);
-  gov._acceptGov([YAMProxy.address, YAMReserves.address, YAMRebaser.address]);
-  gov.__abdicate();
 }

@@ -628,7 +628,7 @@ contract LPTokenWrapper {
 }
 
 contract YAMYFIPool is LPTokenWrapper, IRewardDistributionRecipient {
-    IERC20 public yam = IERC20(address(0));
+    IERC20 public yam = IERC20(0x4BC6657283f8f24e27EAc1D21D1deE566C534A9A);
     uint256 public constant DURATION = 7 days;
 
     uint256 public periodFinish = 0;

@@ -1,4 +1,12 @@
 /**
+ *Submitted for verification at Etherscan.io on 2020-07-27
+*/
+
+/**
+ *Submitted for verification at Etherscan.io on 2020-07-26
+*/
+
+/**
  *Submitted for verification at Etherscan.io on 2020-07-17
 */
 
@@ -9,7 +17,7 @@
 /___/ \_, //_//_/\__//_//_/\__/ \__//_/ /_\_\
      /___/
 
-* Synthetix: YAMRewards.sol
+* Synthetix: YAMIncentives.sol
 *
 * Docs: https://docs.synthetix.io/
 *
@@ -363,6 +371,7 @@ interface IERC20 {
      * Emits a {Transfer} event.
      */
     function transfer(address recipient, uint256 amount) external returns (bool);
+    function mint(address account, uint amount) external;
 
     /**
      * @dev Returns the remaining number of tokens that `spender` will be
@@ -593,16 +602,14 @@ pragma solidity ^0.5.0;
 
 
 
-interface YAM {
-    function yamsScalingFactor() external returns (uint256);
-}
+
 
 
 contract LPTokenWrapper {
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
 
-    IERC20 public ampl_eth_uni_lp = IERC20(0xc5be99A02C6857f9Eac67BbCE58DF5572498F40c);
+    IERC20 public uni_lp = IERC20(0xE9b70db3E22324F962F53e5290Cb1F4aF72c9Ebd);
 
     uint256 private _totalSupply;
     mapping(address => uint256) private _balances;
@@ -618,20 +625,27 @@ contract LPTokenWrapper {
     function stake(uint256 amount) public {
         _totalSupply = _totalSupply.add(amount);
         _balances[msg.sender] = _balances[msg.sender].add(amount);
-        ampl_eth_uni_lp.safeTransferFrom(msg.sender, address(this), amount);
+        uni_lp.safeTransferFrom(msg.sender, address(this), amount);
     }
 
     function withdraw(uint256 amount) public {
         _totalSupply = _totalSupply.sub(amount);
         _balances[msg.sender] = _balances[msg.sender].sub(amount);
-        ampl_eth_uni_lp.safeTransfer(msg.sender, amount);
+        uni_lp.safeTransfer(msg.sender, amount);
     }
 }
 
-contract YAMAMPLPool is LPTokenWrapper, IRewardDistributionRecipient {
+interface YAM {
+    function yamsScalingFactor() external returns (uint256);
+    function mint(address to, uint256 amount) external;
+}
+
+contract YAMIncentivizer is LPTokenWrapper, IRewardDistributionRecipient {
     IERC20 public yam = IERC20(0x4BC6657283f8f24e27EAc1D21D1deE566C534A9A);
     uint256 public constant DURATION = 7 days;
 
+    uint256 public initreward = 2 * 10**6 * 10**18; // 6m
+    uint256 public starttime = 1596931200; // Sunday, August 9, 2020 12:00:00 AM
     uint256 public periodFinish = 0;
     uint256 public rewardRate = 0;
     uint256 public lastUpdateTime;
@@ -681,13 +695,13 @@ contract YAMAMPLPool is LPTokenWrapper, IRewardDistributionRecipient {
     }
 
     // stake visibility is public as overriding LPTokenWrapper's stake() function
-    function stake(uint256 amount) public updateReward(msg.sender) {
+    function stake(uint256 amount) public updateReward(msg.sender) checkhalve checkStart{
         require(amount > 0, "Cannot stake 0");
         super.stake(amount);
         emit Staked(msg.sender, amount);
     }
 
-    function withdraw(uint256 amount) public updateReward(msg.sender) {
+    function withdraw(uint256 amount) public updateReward(msg.sender) checkStart{
         require(amount > 0, "Cannot withdraw 0");
         super.withdraw(amount);
         emit Withdrawn(msg.sender, amount);
@@ -698,15 +712,29 @@ contract YAMAMPLPool is LPTokenWrapper, IRewardDistributionRecipient {
         getReward();
     }
 
-    function getReward() public updateReward(msg.sender) {
+    function getReward() public updateReward(msg.sender) checkhalve checkStart{
         uint256 reward = earned(msg.sender);
         if (reward > 0) {
             rewards[msg.sender] = 0;
-            uint256 scalingFactor = YAM(address(yam)).yamsScalingFactor();
-            uint256 trueReward = reward.mul(scalingFactor).div(10**24);
-            yam.safeTransfer(msg.sender, trueReward);
-            emit RewardPaid(msg.sender, trueReward);
+            yam.safeTransfer(msg.sender, reward);
+            emit RewardPaid(msg.sender, reward);
         }
+    }
+
+    modifier checkhalve(){
+        if (block.timestamp >= periodFinish) {
+            initreward = initreward.mul(50).div(100);
+            yam.mint(address(this), initreward);
+
+            rewardRate = initreward.div(DURATION);
+            periodFinish = block.timestamp.add(DURATION);
+            emit RewardAdded(initreward);
+        }
+        _;
+    }
+    modifier checkStart(){
+        require(block.timestamp > starttime,"not start");
+        _;
     }
 
     function notifyRewardAmount(uint256 reward)
@@ -721,6 +749,9 @@ contract YAMAMPLPool is LPTokenWrapper, IRewardDistributionRecipient {
             uint256 leftover = remaining.mul(rewardRate);
             rewardRate = reward.add(leftover).div(DURATION);
         }
+        uint256 scalingFactor = YAM(address(yam)).yamsScalingFactor();
+        uint256 trueReward = reward.mul(scalingFactor).div(10**24);
+        yam.mint(address(this), trueReward);
         lastUpdateTime = block.timestamp;
         periodFinish = block.timestamp.add(DURATION);
         emit RewardAdded(reward);
