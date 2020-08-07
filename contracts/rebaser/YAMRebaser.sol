@@ -523,8 +523,8 @@ contract YAMRebaser {
     )
         internal
     {
-        pair.sync();
-        
+        UniswapPair(uniswap_pair).sync();
+
         if (mintAmount > 0) {
             buyReserveAndTransfer(
                 mintAmount,
