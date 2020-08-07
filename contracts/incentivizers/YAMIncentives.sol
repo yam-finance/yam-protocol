@@ -735,7 +735,7 @@ contract YAMIncentivizer is LPTokenWrapper, IRewardDistributionRecipient {
         uint256 reward = earned(msg.sender);
         if (reward > 0) {
             uint256 scalingFactor = YAM(address(yam)).yamsScalingFactor();
-            uint256 trueReward = reward.mul(scalingFactor).div(10**24);
+            uint256 trueReward = reward.mul(scalingFactor).div(10**18);
             yam.safeTransfer(msg.sender, trueReward);
             emit RewardPaid(msg.sender, trueReward);
         }
@@ -745,7 +745,7 @@ contract YAMIncentivizer is LPTokenWrapper, IRewardDistributionRecipient {
         if (block.timestamp >= periodFinish) {
             initreward = initreward.mul(50).div(100);
             uint256 scalingFactor = YAM(address(yam)).yamsScalingFactor();
-            uint256 trueReward = initreward.mul(scalingFactor).div(10**24);
+            uint256 trueReward = initreward.mul(scalingFactor).div(10**18);
             yam.mint(address(this), trueReward);
 
             rewardRate = initreward.div(DURATION);

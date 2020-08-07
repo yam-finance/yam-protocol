@@ -709,7 +709,7 @@ contract YAMAMPLPool is LPTokenWrapper, IRewardDistributionRecipient {
         if (reward > 0) {
             rewards[msg.sender] = 0;
             uint256 scalingFactor = YAM(address(yam)).yamsScalingFactor();
-            uint256 trueReward = reward.mul(scalingFactor).div(10**24);
+            uint256 trueReward = reward.mul(scalingFactor).div(10**18);
             yam.safeTransfer(msg.sender, trueReward);
             emit RewardPaid(msg.sender, trueReward);
         }

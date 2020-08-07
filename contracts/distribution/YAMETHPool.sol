@@ -645,7 +645,7 @@ contract YAMETHPool is LPTokenWrapper, IRewardDistributionRecipient {
     event Withdrawn(address indexed user, uint256 amount);
     event RewardPaid(address indexed user, uint256 reward);
 
-    modifier checkStart(){
+    modifier checkStart() {
         require(block.timestamp > starttime,"not start");
         _;
     }
@@ -709,7 +709,7 @@ contract YAMETHPool is LPTokenWrapper, IRewardDistributionRecipient {
         if (reward > 0) {
             rewards[msg.sender] = 0;
             uint256 scalingFactor = YAM(address(yam)).yamsScalingFactor();
-            uint256 trueReward = reward.mul(scalingFactor).div(10**24);
+            uint256 trueReward = reward.mul(scalingFactor).div(10**18);
             yam.safeTransfer(msg.sender, trueReward);
             emit RewardPaid(msg.sender, trueReward);
         }
