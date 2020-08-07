@@ -58,6 +58,11 @@ contract YAMTokenStorage {
     uint256 public constant internalDecimals = 10**24;
 
     /**
+     * @notice Used for percentage maths
+     */
+    uint256 public constant BASE = 10**18;
+
+    /**
      * @notice Scaling factor that adjusts everyone's balances
      */
     uint256 public yamsScalingFactor;

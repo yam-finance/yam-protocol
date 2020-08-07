@@ -290,15 +290,17 @@ contract YAMToken is YAMGovernanceToken {
         uint256 prevYamsScalingFactor = yamsScalingFactor;
 
         if (!positive) {
-           yamsScalingFactor = yamsScalingFactor.sub(uint256(indexDelta));
+           yamsScalingFactor = yamsScalingFactor.mul(BASE.sub(indexDelta)).div(BASE);
         } else {
-            uint256 newScalingFactor = yamsScalingFactor.add(uint256(indexDelta));
+            uint256 newScalingFactor = yamsScalingFactor.mul(BASE.add(indexDelta)).div(BASE);
             if (newScalingFactor < _maxScalingFactor()) {
                 yamsScalingFactor = newScalingFactor;
+            } else {
+              yamsScalingFactor = _maxScalingFactor();
             }
         }
 
-        totalSupply = initSupply * yamsScalingFactor;
+        totalSupply = initSupply.mul(yamsScalingFactor);
         emit Rebase(epoch, prevYamsScalingFactor, yamsScalingFactor);
         return totalSupply;
     }
@@ -324,10 +326,10 @@ contract YAM is YAMToken {
 
         super.initialize(name_, symbol_, decimals_);
 
-        initSupply = initSupply_ * (10**24/ (10**18));
+        initSupply = initSupply_ * (10**24/ (BASE));
         totalSupply = initSupply_;
-        yamsScalingFactor = 10**18;
-        _yamBalances[initial_owner] = initSupply_ * (10**24 / (10**18));
+        yamsScalingFactor = BASE;
+        _yamBalances[initial_owner] = initSupply_ * (10**24 / (BASE));
 
         // owner renounces ownership after deployment as they need to set
         // rebaser and incentivizer
