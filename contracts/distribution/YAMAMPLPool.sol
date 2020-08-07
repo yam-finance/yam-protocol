@@ -632,6 +632,7 @@ contract YAMAMPLPool is LPTokenWrapper, IRewardDistributionRecipient {
     IERC20 public yam = IERC20(0x4BC6657283f8f24e27EAc1D21D1deE566C534A9A);
     uint256 public constant DURATION = 7 days;
 
+    uint256 public starttime = 1596931200; // Sunday, August 9, 2020 12:00:00 AM
     uint256 public periodFinish = 0;
     uint256 public rewardRate = 0;
     uint256 public lastUpdateTime;
@@ -643,6 +644,11 @@ contract YAMAMPLPool is LPTokenWrapper, IRewardDistributionRecipient {
     event Staked(address indexed user, uint256 amount);
     event Withdrawn(address indexed user, uint256 amount);
     event RewardPaid(address indexed user, uint256 reward);
+
+    modifier checkStart(){
+        require(block.timestamp > starttime,"not start");
+        _;
+    }
 
     modifier updateReward(address account) {
         rewardPerTokenStored = rewardPerToken();

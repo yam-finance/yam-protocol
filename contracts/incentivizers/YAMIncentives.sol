@@ -612,7 +612,12 @@ contract LPTokenWrapper {
     IERC20 public uni_lp = IERC20(0xE9b70db3E22324F962F53e5290Cb1F4aF72c9Ebd);
 
     uint256 private _totalSupply;
+
+    uint256 public constant lockTime = 3 days;
+
     mapping(address => uint256) private _balances;
+
+    mapping(address => uint256) private enterTimes;
 
     function totalSupply() public view returns (uint256) {
         return _totalSupply;
@@ -622,13 +627,27 @@ contract LPTokenWrapper {
         return _balances[account];
     }
 
-    function stake(uint256 amount) public {
+    modifier locked() {
+        require(block.timestamp >= lockedUntil(who), "locked");
+        _;
+    }
+
+    function lockedUntil(address who) public returns (uint256) {
+        return enterTimes[who] + lockTime;
+    }
+
+    modifier updateLock {
+        enterTimes[who] = block.timestamp;
+        _;
+    }
+
+    function stake(uint256 amount) public updateLock {
         _totalSupply = _totalSupply.add(amount);
         _balances[msg.sender] = _balances[msg.sender].add(amount);
         uni_lp.safeTransferFrom(msg.sender, address(this), amount);
     }
 
-    function withdraw(uint256 amount) public {
+    function withdraw(uint256 amount) public locked {
         _totalSupply = _totalSupply.sub(amount);
         _balances[msg.sender] = _balances[msg.sender].sub(amount);
         uni_lp.safeTransfer(msg.sender, amount);
@@ -644,7 +663,7 @@ contract YAMIncentivizer is LPTokenWrapper, IRewardDistributionRecipient {
     IERC20 public yam = IERC20(0x4BC6657283f8f24e27EAc1D21D1deE566C534A9A);
     uint256 public constant DURATION = 7 days;
 
-    uint256 public initreward = 2 * 10**6 * 10**18; // 6m
+    uint256 public initreward = 2 * 10**6 * 10**18; // 2m
     uint256 public starttime = 1596931200; // Sunday, August 9, 2020 12:00:00 AM
     uint256 public periodFinish = 0;
     uint256 public rewardRate = 0;
@@ -695,13 +714,13 @@ contract YAMIncentivizer is LPTokenWrapper, IRewardDistributionRecipient {
     }
 
     // stake visibility is public as overriding LPTokenWrapper's stake() function
-    function stake(uint256 amount) public updateReward(msg.sender) checkhalve checkStart{
+    function stake(uint256 amount) public updateReward(msg.sender) checkhalve checkStart {
         require(amount > 0, "Cannot stake 0");
         super.stake(amount);
         emit Staked(msg.sender, amount);
     }
 
-    function withdraw(uint256 amount) public updateReward(msg.sender) checkStart{
+    function withdraw(uint256 amount) public updateReward(msg.sender) checkStart {
         require(amount > 0, "Cannot withdraw 0");
         super.withdraw(amount);
         emit Withdrawn(msg.sender, amount);
@@ -712,18 +731,21 @@ contract YAMIncentivizer is LPTokenWrapper, IRewardDistributionRecipient {
         getReward();
     }
 
-    function getReward() public updateReward(msg.sender) checkhalve checkStart{
+    function getReward() public updateReward(msg.sender) checkhalve checkStart {
         uint256 reward = earned(msg.sender);
         if (reward > 0) {
-            rewards[msg.sender] = 0;
-            yam.safeTransfer(msg.sender, reward);
-            emit RewardPaid(msg.sender, reward);
+            uint256 scalingFactor = YAM(address(yam)).yamsScalingFactor();
+            uint256 trueReward = reward.mul(scalingFactor).div(10**24);
+            yam.safeTransfer(msg.sender, trueReward);
+            emit RewardPaid(msg.sender, trueReward);
         }
     }
 
-    modifier checkhalve(){
+    modifier checkhalve() {
         if (block.timestamp >= periodFinish) {
             initreward = initreward.mul(50).div(100);
+            uint256 scalingFactor = YAM(address(yam)).yamsScalingFactor();
+            uint256 trueReward = initreward.mul(scalingFactor).div(10**24);
             yam.mint(address(this), initreward);
 
             rewardRate = initreward.div(DURATION);
@@ -732,6 +754,7 @@ contract YAMIncentivizer is LPTokenWrapper, IRewardDistributionRecipient {
         }
         _;
     }
+
     modifier checkStart(){
         require(block.timestamp > starttime,"not start");
         _;
@@ -749,9 +772,7 @@ contract YAMIncentivizer is LPTokenWrapper, IRewardDistributionRecipient {
             uint256 leftover = remaining.mul(rewardRate);
             rewardRate = reward.add(leftover).div(DURATION);
         }
-        uint256 scalingFactor = YAM(address(yam)).yamsScalingFactor();
-        uint256 trueReward = reward.mul(scalingFactor).div(10**24);
-        yam.mint(address(this), trueReward);
+        yam.mint(address(this), reward);
         lastUpdateTime = block.timestamp;
         periodFinish = block.timestamp.add(DURATION);
         emit RewardAdded(reward);
