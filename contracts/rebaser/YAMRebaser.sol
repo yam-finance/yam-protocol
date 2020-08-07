@@ -296,7 +296,7 @@ contract YAMRebaser {
     function rebase()
         public
     {
-        require(inRebaseWindow(), "not in window");
+        _inRebaseWindow();
 
         // This comparison also ensures there is no reentrancy.
         require(lastRebaseTimestampSec.add(minRebaseTimeIntervalSec) < now);
@@ -652,11 +652,17 @@ contract YAMRebaser {
     function inRebaseWindow() public view returns (bool) {
 
         // rebasing is delayed until there is a liquid market
+        _inRebaseWindow();
+        return true;
+    }
+
+    function _inRebaseWindow() internal view {
+
+        // rebasing is delayed until there is a liquid market
         require(rebasingActive, "rebasing not active");
 
         require(now.mod(minRebaseTimeIntervalSec) >= rebaseWindowOffsetSec, "too early");
         require(now.mod(minRebaseTimeIntervalSec) < (rebaseWindowOffsetSec.add(rebaseWindowLengthSec)), "too late");
-        return true;
     }
 
     /**

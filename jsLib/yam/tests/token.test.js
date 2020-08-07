@@ -45,25 +45,22 @@ describe("token_tests", () => {
   });
 
   describe("expected fail transfers", () => {
-
-    test("cannot transfer from a 0 balance", async () => {
+    test("cant transfer from a 0 balance", async () => {
       await yam.testing.expectThrow(yam.contracts.yam.methods.transfer(user, "100").send({from: new_user}), "SafeMath: subtraction overflow");
     });
-
-    test("cannot transferFrom without allowance", async () => {
+    test("cant transferFrom without allowance", async () => {
       await yam.testing.expectThrow(yam.contracts.yam.methods.transferFrom(user, new_user, "100").send({from: new_user}), "SafeMath: subtraction overflow");
     });
+
   });
 
   describe("non-failing transfers", () => {
-
     test("transfer to self doesnt inflate", async () => {
       let bal0 = await yam.contracts.yam.methods.balanceOf(user).call();
       await yam.contracts.yam.methods.transfer(user, "100").send({from: user});
       let bal1 = await yam.contracts.yam.methods.balanceOf(user).call();
       expect(bal0).toBe(bal1);
     });
-
     test("transferFrom works", async () => {
       let bal00 = await yam.contracts.yam.methods.balanceOf(user).call();
       let bal01 = await yam.contracts.yam.methods.balanceOf(new_user).call();
@@ -71,10 +68,32 @@ describe("token_tests", () => {
       await yam.contracts.yam.methods.transferFrom(user, new_user, "100").send({from: new_user});
       let bal10 = await yam.contracts.yam.methods.balanceOf(user).call();
       let bal11 = await yam.contracts.yam.methods.balanceOf(new_user).call();
-      expect((parseFloat(bal01) + 100).toString()).toBe(bal11);
+      expect((yam.toBigN(bal01).plus(yam.toBigN(100))).toString()).toBe(bal11);
       expect((yam.toBigN(bal00).minus(yam.toBigN(100))).toString()).toBe(bal10);
     });
-
+    test("approve", async () => {
+      await yam.contracts.yam.methods.approve(new_user, "100").send({from: user});
+      let allowance = await yam.contracts.yam.methods.allowance(user, new_user).call();
+      expect(allowance).toBe("100")
+    });
+    test("increaseAllowance", async () => {
+      await yam.contracts.yam.methods.increaseAllowance(new_user, "100").send({from: user});
+      let allowance = await yam.contracts.yam.methods.allowance(user, new_user).call();
+      expect(allowance).toBe("100")
+    });
+    test("decreaseAllowance", async () => {
+      await yam.contracts.yam.methods.increaseAllowance(new_user, "100").send({from: user});
+      let allowance = await yam.contracts.yam.methods.allowance(user, new_user).call();
+      expect(allowance).toBe("100")
+      await yam.contracts.yam.methods.decreaseAllowance(new_user, "100").send({from: user});
+      allowance = await yam.contracts.yam.methods.allowance(user, new_user).call();
+      expect(allowance).toBe("0")
+    });
+    test("decreaseAllowance from 0", async () => {
+      await yam.contracts.yam.methods.decreaseAllowance(new_user, "100").send({from: user});
+      let allowance = await yam.contracts.yam.methods.allowance(user, new_user).call();
+      expect(allowance).toBe("0")
+    });
   })
 
 })

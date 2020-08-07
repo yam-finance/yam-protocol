@@ -54,12 +54,3 @@ async function deployGovernance(deployer, network) {
   gov._acceptGov([YAMProxy.address, YAMReserves.address, YAMRebaser.address]);
   gov.__abdicate();
 }
-
-// let accounts = [];
-// web3.eth.getAccounts().then(e => accounts = e);
-// let yamImpl = new web3.eth.Contract(YAMDelegate.abi, YAMDelegate.address)
-// let yam = new web3.eth.Contract(YAMDelegator.abi, YAMDelegator.address)
-// let reserves = new web3.eth.Contract(YAMReserves.abi, YAMReserves.address)
-// let rebaser = new web3.eth.Contract(YAMRebaser.abi, YAMRebaser.address)
-// let gov = new web3.eth.Contract(GovernorAlpha.abi, GovernorAlpha.address)
-// let tl = new web3.eth.Contract(Timelock.abi, Timelock.address)

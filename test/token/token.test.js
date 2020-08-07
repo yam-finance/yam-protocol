@@ -5,23 +5,13 @@ const YAMProxy = require("YAMProxy");
 const provider = new Web3("http://localhost:8454");
 
 describe('YAMToken', async accounts => {
-  let root, accounts;
   let impl;
   let yam;
   beforeEach(async () => {
     [root, ...accounts] = saddle.accounts;
     impl = await deployer.deploy(YAMDelegate);
     yam = await deployer.deploy(YAMProxy,
-      "YAM",
-      "YAM",
-      18,
-      accounts[0],
-      uint256 initSupply_,
-      address rebaser_,
-      address incentivizer_,
-      address gov_,
-      address implementation_,
-      bytes memory becomeImplementationData
+    
     );
   });
 
