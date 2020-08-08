@@ -163,6 +163,21 @@ contract YAMDelegator is YAM, YAMDelegatorInterface {
         owner; // Shh
         delegateToViewAndReturn();
     }
+
+    /**
+     * @notice Currently unused. For future compatability
+     * @param owner The address of the account to query
+     * @return The number of underlying tokens owned by `owner`
+     */
+    function balanceOfUnderlying(address owner)
+        external
+        view
+        returns (uint256)
+    {
+        owner; // Shh
+        delegateToViewAndReturn();
+    }
+
     /*** Gov Functions ***/
 
     /**

@@ -142,6 +142,18 @@ contract YAMToken is YAMGovernanceToken {
       return _yamBalances[who].mul(yamsScalingFactor).div(internalDecimals);
     }
 
+    /** @notice Currently unused and not different from balanceOf
+    * @param who The address to query.
+    * @return The balance of the specified address.
+    */
+    function balanceOfUnderlying(address who)
+      external
+      view
+      returns (uint256)
+    {
+      return _yamBalances[who].mul(yamsScalingFactor).div(internalDecimals);
+    }
+
     /**
      * @dev Function to check the amount of tokens that an owner has allowed to a spender.
      * @param owner_ The address which owns the funds.
