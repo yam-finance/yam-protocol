@@ -72,4 +72,5 @@ contract YAMTokenStorage {
     mapping (address => mapping (address => uint256)) internal _allowedFragments;
 
     uint256 public initSupply;
+
 }

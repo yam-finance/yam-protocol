@@ -13,6 +13,8 @@
     "ganache-core": "^2.11.2"
   },
   "devDependencies": {
-    "@truffle/hdwallet-provider": "^1.0.40"
+    "@truffle/hdwallet-provider": "^1.0.40",
+    "ethereumjs-abi": "^0.6.8",
+    "ethereumjs-util": "^7.0.4"
   }
 }

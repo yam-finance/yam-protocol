@@ -4,7 +4,7 @@ pragma experimental ABIEncoderV2;
 import "./YAMGovernanceStorage.sol";
 import "./YAMTokenInterface.sol";
 
-contract YAMGovernanceToken is YAMGovernanceStorage, YAMTokenInterface {
+contract YAMGovernanceToken is YAMTokenInterface {
 
       /// @notice An event thats emitted when an account changes its delegate
     event DelegateChanged(address indexed delegator, address indexed fromDelegate, address indexed toDelegate);
@@ -16,7 +16,7 @@ contract YAMGovernanceToken is YAMGovernanceStorage, YAMTokenInterface {
     * @notice Delegate votes from `msg.sender` to `delegatee`
     * @param delegatee The address to delegate votes to
     */
-    function delegate(address delegatee) public {
+    function delegate(address delegatee) external {
         return _delegate(msg.sender, delegatee);
     }
 
@@ -37,7 +37,7 @@ contract YAMGovernanceToken is YAMGovernanceStorage, YAMTokenInterface {
         bytes32 r,
         bytes32 s
     )
-        public
+        external
     {
         bytes32 domainSeparator = keccak256(
             abi.encode(
@@ -94,7 +94,7 @@ contract YAMGovernanceToken is YAMGovernanceStorage, YAMTokenInterface {
      * @return The number of votes the account had as of the given block
      */
     function getPriorVotes(address account, uint blockNumber)
-        public
+        external
         view
         returns (uint256)
     {

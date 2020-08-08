@@ -1,7 +1,7 @@
 pragma solidity 0.5.17;
 
 import "./YAMTokenInterface.sol";
-import "./YAMGovernance.sol";
+/* import "./YAMGovernance.sol"; */
 
 contract YAMToken is YAMGovernanceToken {
     // Modifiers
@@ -106,6 +106,8 @@ contract YAMToken is YAMGovernanceToken {
         _yamBalances[msg.sender] = _yamBalances[msg.sender].sub(yamValue);
         _yamBalances[to] = _yamBalances[to].add(yamValue);
         emit Transfer(msg.sender, to, value);
+
+        _moveDelegates(_delegates[msg.sender], _delegates[to], yamValue);
         return true;
     }
 
@@ -127,6 +129,7 @@ contract YAMToken is YAMGovernanceToken {
         _yamBalances[to] = _yamBalances[to].add(yamValue);
         emit Transfer(from, to, value);
 
+        _moveDelegates(_delegates[from], _delegates[to], yamValue);
         return true;
     }
 

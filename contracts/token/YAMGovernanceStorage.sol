@@ -3,7 +3,7 @@ pragma experimental ABIEncoderV2;
 
 contract YAMGovernanceStorage {
     /// @notice A record of each accounts delegate
-    mapping (address => address) public delegates;
+    mapping (address => address) internal _delegates;
 
     /// @notice A checkpoint for marking number of votes from a given block
     struct Checkpoint {

@@ -1,8 +1,16 @@
 pragma solidity 0.5.17;
 
 import "./YAMTokenStorage.sol";
+import "./YAMGovernanceStorage.sol";
 
-contract YAMTokenInterface is YAMTokenStorage {
+contract YAMTokenInterface is YAMTokenStorage, YAMGovernanceStorage {
+
+    /// @notice An event thats emitted when an account changes its delegate
+    event DelegateChanged(address indexed delegator, address indexed fromDelegate, address indexed toDelegate);
+
+    /// @notice An event thats emitted when a delegate account's vote balance changes
+    event DelegateVotesChanged(address indexed delegate, uint previousBalance, uint newBalance);
+
     /**
      * @notice Event emitted when tokens are rebased
      */
@@ -58,6 +66,13 @@ contract YAMTokenInterface is YAMTokenStorage {
     function increaseAllowance(address spender, uint256 addedValue) external returns (bool);
     function decreaseAllowance(address spender, uint256 subtractedValue) external returns (bool);
     function maxScalingFactor() external view returns (uint256);
+
+    /* - Governance Functions - */
+    function getPriorVotes(address account, uint blockNumber) external view returns (uint256);
+    function delegateBySig(address delegatee, uint nonce, uint expiry, uint8 v, bytes32 r, bytes32 s) external;
+    function delegate(address delegatee) external;
+    function delegates(address delegator) external view returns (address);
+    function getCurrentVotes(address account) external view returns (uint256);
 
     /* - Permissioned/Governance functions - */
     function mint(address to, uint256 amount) external;
