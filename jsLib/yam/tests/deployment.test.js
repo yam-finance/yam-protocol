@@ -131,5 +131,15 @@ describe("post-deployment", () => {
       let grd = await yam.contracts.gov.methods.guardian().call();
       expect(grd).toBe("0x0000000000000000000000000000000000000000")
     });
+
+    test("pool owner", async () => {
+      let owner = await yam.contracts.eth_pool.methods.owner().call();
+      expect(owner).toBe(yam.contracts.gov.options.address)
+    });
+
+    test("pool rewarder", async () => {
+      let rewarder = await yam.contracts.eth_pool.methods.rewardDistribution().call();
+      expect(rewarder).toBe(yam.contracts.gov.options.address)
+    });
   });
 })

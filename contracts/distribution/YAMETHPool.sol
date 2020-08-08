@@ -570,7 +570,7 @@ pragma solidity ^0.5.0;
 
 
 contract IRewardDistributionRecipient is Ownable {
-    address rewardDistribution;
+    address public rewardDistribution;
 
     function notifyRewardAmount(uint256 reward) external;
 

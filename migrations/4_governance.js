@@ -36,7 +36,7 @@ module.exports = migration;
 // contract
 
 async function deployGovernance(deployer, network) {
-  await deployer.deploy(Timelock, 172800);
+  await deployer.deploy(Timelock);
   await deployer.deploy(Gov,
       Timelock.address,
       YAMProxy.address

@@ -122,11 +122,32 @@ async function deployDistribution(deployer, network, accounts) {
     console.log("link");
     await yam.transfer(YAM_LINKPool.address, two_fifty.toString());
     await link_pool.methods.notifyRewardAmount(two_fifty.toString()).send({from:accounts[0]});
-    
+
     await yam._setIncentivizer(YAMIncentivizer.address);
 
     let a = await ycrv_pool.methods.notifyRewardAmount(one_five.toString()).send({from: accounts[0], gas: 500000});
     console.log(a)
+
+
+    await eth_pool.methods.setRewardDistribution(Gov.address).send({from: accounts[0], gas: 100000});
+    await ampl_pool.methods.setRewardDistribution(Gov.address).send({from: accounts[0], gas: 100000});
+    await yfi_pool.methods.setRewardDistribution(Gov.address).send({from: accounts[0], gas: 100000});
+    await lend_pool.methods.setRewardDistribution(Gov.address).send({from: accounts[0], gas: 100000});
+    await mkr_pool.methods.setRewardDistribution(Gov.address).send({from: accounts[0], gas: 100000});
+    await snx_pool.methods.setRewardDistribution(Gov.address).send({from: accounts[0], gas: 100000});
+    await comp_pool.methods.setRewardDistribution(Gov.address).send({from: accounts[0], gas: 100000});
+    await link_pool.methods.setRewardDistribution(Gov.address).send({from: accounts[0], gas: 100000});
+    await ycrv_pool.methods.setRewardDistribution(Gov.address).send({from: accounts[0], gas: 100000});
+
+    await eth_pool.methods.transferOwnership(Gov.address).send({from: accounts[0], gas: 100000});
+    await ampl_pool.methods.transferOwnership(Gov.address).send({from: accounts[0], gas: 100000});
+    await yfi_pool.methods.transferOwnership(Gov.address).send({from: accounts[0], gas: 100000});
+    await lend_pool.methods.transferOwnership(Gov.address).send({from: accounts[0], gas: 100000});
+    await mkr_pool.methods.transferOwnership(Gov.address).send({from: accounts[0], gas: 100000});
+    await snx_pool.methods.transferOwnership(Gov.address).send({from: accounts[0], gas: 100000});
+    await comp_pool.methods.transferOwnership(Gov.address).send({from: accounts[0], gas: 100000});
+    await link_pool.methods.transferOwnership(Gov.address).send({from: accounts[0], gas: 100000});
+    await ycrv_pool.methods.transferOwnership(Gov.address).send({from: accounts[0], gas: 100000});
   }
 
 
