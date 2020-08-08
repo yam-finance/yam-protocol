@@ -10,6 +10,7 @@ import YAMReservesJson from '../../../clean_build/contracts/YAMReserves.json';
 import YAMGovJson from '../../../clean_build/contracts/GovernorAlpha.json';
 import YAMTimelockJson from '../../../clean_build/contracts/Timelock.json';
 import WETHJson from './weth.json';
+import SNXJson from './snx.json';
 import UNIFactJson from './unifact2.json';
 import UNIPairJson from './uni2.json';
 import UNIRouterJson from './uniR.json';

@@ -53,29 +53,50 @@ describe("post-deployment", () => {
     test("pool balances", async () => {
       let ycrv_balance = await yam.contracts.yam.methods.balanceOf(yam.contracts.ycrv_pool.options.address).call();
 
-      expect(ycrv_balance).toBe(yam.toBigN(10**6).times(yam.toBigN(10**18)).times(yam.toBigN(2)).toString())
+      expect(ycrv_balance).toBe(yam.toBigN(1500000).times(yam.toBigN(10**18)).times(yam.toBigN(1)).toString())
 
       let yfi_balance = await yam.contracts.yam.methods.balanceOf(yam.contracts.yfi_pool.options.address).call();
 
-      expect(yfi_balance).toBe(yam.toBigN(10**6).times(yam.toBigN(10**18)).times(yam.toBigN(1)).toString())
+      expect(yfi_balance).toBe(yam.toBigN(250000).times(yam.toBigN(10**18)).times(yam.toBigN(1)).toString())
 
       let ampl_balance = await yam.contracts.yam.methods.balanceOf(yam.contracts.ampl_pool.options.address).call();
 
-      expect(ampl_balance).toBe(yam.toBigN(10**6).times(yam.toBigN(10**18)).times(yam.toBigN(1)).toString())
+      expect(ampl_balance).toBe(yam.toBigN(250000).times(yam.toBigN(10**18)).times(yam.toBigN(1)).toString())
 
       let eth_balance = await yam.contracts.yam.methods.balanceOf(yam.contracts.eth_pool.options.address).call();
 
-      expect(eth_balance).toBe(yam.toBigN(10**6).times(yam.toBigN(10**18)).times(yam.toBigN(1)).toString())
+      expect(eth_balance).toBe(yam.toBigN(250000).times(yam.toBigN(10**18)).times(yam.toBigN(1)).toString())
+
+      let snx_balance = await yam.contracts.yam.methods.balanceOf(yam.contracts.snx_pool.options.address).call();
+
+      expect(snx_balance).toBe(yam.toBigN(250000).times(yam.toBigN(10**18)).times(yam.toBigN(1)).toString())
+
+      let comp_balance = await yam.contracts.yam.methods.balanceOf(yam.contracts.comp_pool.options.address).call();
+
+      expect(comp_balance).toBe(yam.toBigN(250000).times(yam.toBigN(10**18)).times(yam.toBigN(1)).toString())
+
+      let lend_balance = await yam.contracts.yam.methods.balanceOf(yam.contracts.lend_pool.options.address).call();
+
+      expect(lend_balance).toBe(yam.toBigN(250000).times(yam.toBigN(10**18)).times(yam.toBigN(1)).toString())
+
+      let link_balance = await yam.contracts.yam.methods.balanceOf(yam.contracts.link_pool.options.address).call();
+
+      expect(link_balance).toBe(yam.toBigN(250000).times(yam.toBigN(10**18)).times(yam.toBigN(1)).toString())
+
+      let mkr_balance = await yam.contracts.yam.methods.balanceOf(yam.contracts.mkr_pool.options.address).call();
+
+      expect(mkr_balance).toBe(yam.toBigN(250000).times(yam.toBigN(10**18)).times(yam.toBigN(1)).toString())
+
     });
 
     test("total supply", async () => {
       let ts = await yam.contracts.yam.methods.totalSupply().call();
-      expect(ts).toBe("5000000000000000000000000")
+      expect(ts).toBe("3500000000000000000000000")
     });
 
     test("init supply", async () => {
       let init_s = await yam.contracts.yam.methods.initSupply().call();
-      expect(init_s).toBe("5000000000000000000000000000000")
+      expect(init_s).toBe("3500000000000000000000000000000")
     });
   });
 
