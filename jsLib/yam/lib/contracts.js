@@ -17,6 +17,13 @@ import UNIRouterJson from './uniR.json';
 import WETHPoolJson from '../../../clean_build/contracts/YAMETHPool.json';
 import AMPLPoolJson from '../../../clean_build/contracts/YAMAMPLPool.json';
 import YFIPoolJson from '../../../clean_build/contracts/YAMYFIPool.json';
+
+import MKRPoolJson from '../../../clean_build/contracts/YAMMKRPool.json';
+import LENDPoolJson from '../../../clean_build/contracts/YAMLENDPool.json';
+import COMPPoolJson from '../../../clean_build/contracts/YAMCOMPPool.json';
+import SNXPoolJson from '../../../clean_build/contracts/YAMSNXPool.json';
+import LINKPoolJson from '../../../clean_build/contracts/YAMLINKPool.json';
+
 import IncJson from '../../../clean_build/contracts/YAMIncentivizer.json';
 
 export class Contracts {
@@ -44,6 +51,19 @@ export class Contracts {
     this.eth_pool = new this.web3.eth.Contract(WETHPoolJson.abi);
     this.ampl_pool = new this.web3.eth.Contract(AMPLPoolJson.abi);
     this.ycrv_pool = new this.web3.eth.Contract(IncJson.abi);
+
+    this.comp_pool = new this.web3.eth.Contract(COMPPoolJson.abi);
+    this.link_pool = new this.web3.eth.Contract(LINKPoolJson.abi);
+    this.lend_pool = new this.web3.eth.Contract(LENDPoolJson.abi);
+    this.snx_pool = new this.web3.eth.Contract(SNXPoolJson.abi);
+    this.mkr_pool = new this.web3.eth.Contract(MKRPoolJson.abi);
+
+    this.comp = new this.web3.eth.Contract(ERC20Json.abi);
+    this.link = new this.web3.eth.Contract(ERC20Json.abi);
+    this.lend = new this.web3.eth.Contract(ERC20Json.abi);
+    this.snx = new this.web3.eth.Contract(ERC20Json.abi);
+    this.mkr = new this.web3.eth.Contract(ERC20Json.abi);
+
     this.rebaser = new this.web3.eth.Contract(YAMRebaserJson.abi);
     this.reserves = new this.web3.eth.Contract(YAMReservesJson.abi);
     this.gov = new this.web3.eth.Contract(YAMGovJson.abi);
@@ -80,6 +100,11 @@ export class Contracts {
       { contract: this.eth_pool, json: WETHPoolJson },
       { contract: this.yfi_pool, json: YFIPoolJson },
       { contract: this.ampl_pool, json: AMPLPoolJson },
+      { contract: this.snx_pool, json: SNXPoolJson },
+      { contract: this.mkr_pool, json: MKRPoolJson },
+      { contract: this.lend_pool, json: LENDPoolJson },
+      { contract: this.link_pool, json: LINKPoolJson },
+      { contract: this.comp_pool, json: COMPPoolJson },
     ]
 
     contracts.forEach(contract => this.setContractProvider(
@@ -92,6 +117,11 @@ export class Contracts {
     this.yfi.options.address = addressMap["YFI"];
     this.ycrv.options.address = addressMap["YCRV"];
     this.weth.options.address = addressMap["WETH"];
+    this.snx.options.address = addressMap["SNX"];
+    this.comp.options.address = addressMap["COMP"];
+    this.link.options.address = addressMap["LINK"];
+    this.lend.options.address = addressMap["LEND"];
+    this.mkr.options.address = addressMap["MKR"];
     this.UNIAmpl.options.address = addressMap["UNIAmpl"];
     this.uni_fact.options.address = addressMap["uniswapFactoryV2"];
     this.uni_router.options.address = addressMap["UNIRouter"];

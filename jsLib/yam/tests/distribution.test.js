@@ -402,6 +402,362 @@ describe("Distribution", () => {
         expect(yam.toBigN(yam_bal2).minus(yam.toBigN(yam_bal)).toString()).toBe(two_fity.times(1).toString())
     });
 
+    test("rewards from pool 1s link", async () => {
+        let a = await yam.web3.eth.getBlock('latest');
+
+        let starttime = await yam.contracts.link_pool.methods.starttime().call();
+
+        let waittime = starttime - a["timestamp"];
+        if (waittime > 0) {
+          await yam.testing.increaseTime(waittime);
+        } else {
+          console.log("late entry")
+        }
+
+        await yam.contracts.link.methods.approve(yam.contracts.link_pool.options.address, -1).send({from: user});
+
+        await yam.contracts.link_pool.methods.stake(
+          "10000000000000000000000000"
+        ).send({
+          from: user,
+          gas: 300000
+        });
+
+        let earned = await yam.contracts.link_pool.methods.earned(user).call();
+
+        let rr = await yam.contracts.link_pool.methods.rewardRate().call();
+
+        let rpt = await yam.contracts.link_pool.methods.rewardPerToken().call();
+        console.log(earned, rr, rpt);
+        await yam.testing.increaseTime(625000 + 10);
+        // await yam.testing.mineBlock();
+
+        earned = await yam.contracts.link_pool.methods.earned(user).call();
+
+        rpt = await yam.contracts.link_pool.methods.rewardPerToken().call();
+
+        let ysf = await yam.contracts.yam.methods.yamsScalingFactor().call();
+
+        console.log(earned, ysf, rpt);
+
+
+        let yam_bal = await yam.contracts.yam.methods.balanceOf(user).call()
+
+        let j = await yam.contracts.link_pool.methods.exit().send({
+          from: user,
+          gas: 300000
+        });
+
+        console.log(j.events)
+
+        let weth_bal = await yam.contracts.link.methods.balanceOf(user).call()
+
+        expect(weth_bal).toBe("10000000000000000000000000")
+
+
+        let yam_bal2 = await yam.contracts.yam.methods.balanceOf(user).call()
+
+        let two_fity = yam.toBigN(250).times(yam.toBigN(10**3)).times(yam.toBigN(10**18))
+        expect(yam.toBigN(yam_bal2).minus(yam.toBigN(yam_bal)).toString()).toBe(two_fity.times(1).toString())
+    });
+
+    test("rewards from pool 1s mkr", async () => {
+        let a = await yam.web3.eth.getBlock('latest');
+
+        let starttime = await yam.contracts.mkr_pool.methods.starttime().call();
+
+        let waittime = starttime - a["timestamp"];
+        if (waittime > 0) {
+          await yam.testing.increaseTime(waittime);
+        } else {
+          console.log("late entry")
+        }
+
+        await yam.contracts.mkr.methods.approve(yam.contracts.mkr_pool.options.address, -1).send({from: user});
+
+        await yam.contracts.mkr_pool.methods.stake(
+          "10000000000000000000000"
+        ).send({
+          from: user,
+          gas: 300000
+        });
+
+        let earned = await yam.contracts.mkr_pool.methods.earned(user).call();
+
+        let rr = await yam.contracts.mkr_pool.methods.rewardRate().call();
+
+        let rpt = await yam.contracts.mkr_pool.methods.rewardPerToken().call();
+        console.log(earned, rr, rpt);
+        await yam.testing.increaseTime(625000 + 10);
+        // await yam.testing.mineBlock();
+
+        earned = await yam.contracts.mkr_pool.methods.earned(user).call();
+
+        rpt = await yam.contracts.mkr_pool.methods.rewardPerToken().call();
+
+        let ysf = await yam.contracts.yam.methods.yamsScalingFactor().call();
+
+        console.log(earned, ysf, rpt);
+
+
+        let yam_bal = await yam.contracts.yam.methods.balanceOf(user).call()
+
+        let j = await yam.contracts.mkr_pool.methods.exit().send({
+          from: user,
+          gas: 300000
+        });
+
+        console.log(j.events)
+
+        let weth_bal = await yam.contracts.mkr.methods.balanceOf(user).call()
+
+        expect(weth_bal).toBe("10000000000000000000000")
+
+
+        let yam_bal2 = await yam.contracts.yam.methods.balanceOf(user).call()
+
+        let two_fity = yam.toBigN(250).times(yam.toBigN(10**3)).times(yam.toBigN(10**18))
+        expect(yam.toBigN(yam_bal2).minus(yam.toBigN(yam_bal)).toString()).toBe(two_fity.times(1).toString())
+    });
+
+    test("rewards from pool 1s lend", async () => {
+        let a = await yam.web3.eth.getBlock('latest');
+
+        let starttime = await yam.contracts.lend_pool.methods.starttime().call();
+
+        let waittime = starttime - a["timestamp"];
+        if (waittime > 0) {
+          await yam.testing.increaseTime(waittime);
+        } else {
+          console.log("late entry")
+        }
+
+        await yam.contracts.lend.methods.approve(yam.contracts.lend_pool.options.address, -1).send({from: user});
+
+        await yam.contracts.lend_pool.methods.stake(
+          "10000000000000000000000000"
+        ).send({
+          from: user,
+          gas: 300000
+        });
+
+        let earned = await yam.contracts.lend_pool.methods.earned(user).call();
+
+        let rr = await yam.contracts.lend_pool.methods.rewardRate().call();
+
+        let rpt = await yam.contracts.lend_pool.methods.rewardPerToken().call();
+        console.log(earned, rr, rpt);
+        await yam.testing.increaseTime(625000 + 10);
+        // await yam.testing.mineBlock();
+
+        earned = await yam.contracts.lend_pool.methods.earned(user).call();
+
+        rpt = await yam.contracts.lend_pool.methods.rewardPerToken().call();
+
+        let ysf = await yam.contracts.yam.methods.yamsScalingFactor().call();
+
+        console.log(earned, ysf, rpt);
+
+
+        let yam_bal = await yam.contracts.yam.methods.balanceOf(user).call()
+
+        let j = await yam.contracts.lend_pool.methods.exit().send({
+          from: user,
+          gas: 300000
+        });
+
+        console.log(j.events)
+
+        let weth_bal = await yam.contracts.lend.methods.balanceOf(user).call()
+
+        expect(weth_bal).toBe("10000000000000000000000000")
+
+
+        let yam_bal2 = await yam.contracts.yam.methods.balanceOf(user).call()
+
+        let two_fity = yam.toBigN(250).times(yam.toBigN(10**3)).times(yam.toBigN(10**18))
+        expect(yam.toBigN(yam_bal2).minus(yam.toBigN(yam_bal)).toString()).toBe(two_fity.times(1).toString())
+    });
+
+    test("rewards from pool 1s yfi", async () => {
+        let a = await yam.web3.eth.getBlock('latest');
+
+        let starttime = await yam.contracts.yfi_pool.methods.starttime().call();
+
+        let waittime = starttime - a["timestamp"];
+        if (waittime > 0) {
+          await yam.testing.increaseTime(waittime);
+        } else {
+          console.log("late entry")
+        }
+
+        await yam.contracts.yfi.methods.approve(yam.contracts.yfi_pool.options.address, -1).send({from: user});
+
+        await yam.contracts.yfi_pool.methods.stake(
+          "500000000000000000000"
+        ).send({
+          from: user,
+          gas: 300000
+        });
+
+        let earned = await yam.contracts.yfi_pool.methods.earned(user).call();
+
+        let rr = await yam.contracts.yfi_pool.methods.rewardRate().call();
+
+        let rpt = await yam.contracts.yfi_pool.methods.rewardPerToken().call();
+        console.log(earned, rr, rpt);
+        await yam.testing.increaseTime(625000 + 10);
+        // await yam.testing.mineBlock();
+
+        earned = await yam.contracts.yfi_pool.methods.earned(user).call();
+
+        rpt = await yam.contracts.yfi_pool.methods.rewardPerToken().call();
+
+        let ysf = await yam.contracts.yam.methods.yamsScalingFactor().call();
+
+        console.log(earned, ysf, rpt);
+
+
+        let yam_bal = await yam.contracts.yam.methods.balanceOf(user).call()
+
+        let j = await yam.contracts.yfi_pool.methods.exit().send({
+          from: user,
+          gas: 300000
+        });
+
+        console.log(j.events)
+
+        let weth_bal = await yam.contracts.yfi.methods.balanceOf(user).call()
+
+        expect(weth_bal).toBe("500000000000000000000")
+
+
+        let yam_bal2 = await yam.contracts.yam.methods.balanceOf(user).call()
+
+        let two_fity = yam.toBigN(250).times(yam.toBigN(10**3)).times(yam.toBigN(10**18))
+        expect(yam.toBigN(yam_bal2).minus(yam.toBigN(yam_bal)).toString()).toBe(two_fity.times(1).toString())
+    });
+
+    test("rewards from pool 1s snx", async () => {
+        let a = await yam.web3.eth.getBlock('latest');
+
+        let starttime = await yam.contracts.snx_pool.methods.starttime().call();
+
+        let waittime = starttime - a["timestamp"];
+        if (waittime > 0) {
+          await yam.testing.increaseTime(waittime);
+        } else {
+          console.log("late entry")
+        }
+
+        await yam.contracts.snx.methods.approve(yam.contracts.snx_pool.options.address, -1).send({from: user});
+
+        await yam.contracts.snx_pool.methods.stake(
+          "3000000000000000000000000"
+        ).send({
+          from: user,
+          gas: 300000
+        });
+
+        let earned = await yam.contracts.snx_pool.methods.earned(user).call();
+
+        let rr = await yam.contracts.snx_pool.methods.rewardRate().call();
+
+        let rpt = await yam.contracts.snx_pool.methods.rewardPerToken().call();
+        console.log(earned, rr, rpt);
+        await yam.testing.increaseTime(625000 + 10);
+        // await yam.testing.mineBlock();
+
+        earned = await yam.contracts.snx_pool.methods.earned(user).call();
+
+        rpt = await yam.contracts.snx_pool.methods.rewardPerToken().call();
+
+        let ysf = await yam.contracts.yam.methods.yamsScalingFactor().call();
+
+        console.log(earned, ysf, rpt);
+
+
+        let yam_bal = await yam.contracts.yam.methods.balanceOf(user).call()
+
+        let j = await yam.contracts.snx_pool.methods.exit().send({
+          from: user,
+          gas: 300000
+        });
+
+        console.log(j.events)
+
+        let weth_bal = await yam.contracts.snx.methods.balanceOf(user).call()
+
+        expect(weth_bal).toBe("3000000000000000000000000")
+
+
+        let yam_bal2 = await yam.contracts.yam.methods.balanceOf(user).call()
+
+        let two_fity = yam.toBigN(250).times(yam.toBigN(10**3)).times(yam.toBigN(10**18))
+        expect(yam.toBigN(yam_bal2).minus(yam.toBigN(yam_bal)).toString()).toBe(two_fity.times(1).toString())
+    });
+
+    test("rewards from pool 1s comp", async () => {
+        let a = await yam.web3.eth.getBlock('latest');
+
+        let starttime = await yam.contracts.comp_pool.methods.starttime().call();
+
+        let waittime = starttime - a["timestamp"];
+        if (waittime > 0) {
+          await yam.testing.increaseTime(waittime);
+        } else {
+          console.log("late entry")
+        }
+
+        await yam.contracts.comp.methods.approve(yam.contracts.comp_pool.options.address, -1).send({from: user});
+
+        await yam.contracts.comp_pool.methods.stake(
+          "50000000000000000000000"
+        ).send({
+          from: user,
+          gas: 300000
+        });
+
+        let earned = await yam.contracts.comp_pool.methods.earned(user).call();
+
+        let rr = await yam.contracts.comp_pool.methods.rewardRate().call();
+
+        let rpt = await yam.contracts.comp_pool.methods.rewardPerToken().call();
+        console.log(earned, rr, rpt);
+        await yam.testing.increaseTime(625000 + 10);
+        // await yam.testing.mineBlock();
+
+        earned = await yam.contracts.comp_pool.methods.earned(user).call();
+
+        rpt = await yam.contracts.comp_pool.methods.rewardPerToken().call();
+
+        let ysf = await yam.contracts.yam.methods.yamsScalingFactor().call();
+
+        console.log(earned, ysf, rpt);
+
+
+        let yam_bal = await yam.contracts.yam.methods.balanceOf(user).call()
+
+        let j = await yam.contracts.comp_pool.methods.exit().send({
+          from: user,
+          gas: 300000
+        });
+
+        console.log(j.events)
+
+        let weth_bal = await yam.contracts.comp.methods.balanceOf(user).call()
+
+        expect(weth_bal).toBe("50000000000000000000000")
+
+
+        let yam_bal2 = await yam.contracts.yam.methods.balanceOf(user).call()
+
+        let two_fity = yam.toBigN(250).times(yam.toBigN(10**3)).times(yam.toBigN(10**18))
+        expect(yam.toBigN(yam_bal2).minus(yam.toBigN(yam_bal)).toString()).toBe(two_fity.times(1).toString())
+    });
+
+
+
     // test("rewards from pool 1s with rebase", async () => {
     //
     // });

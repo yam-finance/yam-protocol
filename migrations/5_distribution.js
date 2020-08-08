@@ -19,6 +19,12 @@ const Timelock = artifacts.require("Timelock");
 const YAM_ETHPool = artifacts.require("YAMETHPool");
 const YAM_uAMPLPool = artifacts.require("YAMAMPLPool");
 const YAM_YFIPool = artifacts.require("YAMYFIPool");
+const YAM_LINKPool = artifacts.require("YAMLINKPool");
+const YAM_MKRPool = artifacts.require("YAMMKRPool");
+const YAM_LENDPool = artifacts.require("YAMLENDPool");
+const YAM_COMPPool = artifacts.require("YAMCOMPPool");
+const YAM_SNXPool = artifacts.require("YAMSNXPool");
+
 
 // deployed fifth
 const YAMIncentivizer = artifacts.require("YAMIncentivizer");
@@ -50,10 +56,20 @@ async function deployDistribution(deployer, network, accounts) {
     await deployer.deploy(YAM_uAMPLPool);
     await deployer.deploy(YAM_YFIPool);
     await deployer.deploy(YAMIncentivizer);
+    await deployer.deploy(YAM_LINKPool);
+    await deployer.deploy(YAM_MKRPool);
+    await deployer.deploy(YAM_LENDPool);
+    await deployer.deploy(YAM_COMPPool);
+    await deployer.deploy(YAM_SNXPool);
 
     let eth_pool = new web3.eth.Contract(YAM_ETHPool.abi, YAM_ETHPool.address);
     let ampl_pool = new web3.eth.Contract(YAM_uAMPLPool.abi, YAM_uAMPLPool.address);
     let yfi_pool = new web3.eth.Contract(YAM_YFIPool.abi, YAM_YFIPool.address);
+    let lend_pool = new web3.eth.Contract(YAM_LENDPool.abi, YAM_LENDPool.address);
+    let mkr_pool = new web3.eth.Contract(YAM_MKRPool.abi, YAM_MKRPool.address);
+    let snx_pool = new web3.eth.Contract(YAM_SNXPool.abi, YAM_SNXPool.address);
+    let comp_pool = new web3.eth.Contract(YAM_COMPPool.abi, YAM_COMPPool.address);
+    let link_pool = new web3.eth.Contract(YAM_LINKPool.abi, YAM_LINKPool.address);
     let ycrv_pool = new web3.eth.Contract(YAMIncentivizer.abi, YAMIncentivizer.address);
 
     console.log("setting distributor");
@@ -62,26 +78,54 @@ async function deployDistribution(deployer, network, accounts) {
     await yfi_pool.methods.setRewardDistribution(accounts[0]).send({from: accounts[0], gas: 100000});
     await ycrv_pool.methods.setRewardDistribution(accounts[0]).send({from: accounts[0], gas: 100000});
 
+    await lend_pool.methods.setRewardDistribution(accounts[0]).send({from: accounts[0], gas: 100000});
+    await mkr_pool.methods.setRewardDistribution(accounts[0]).send({from: accounts[0], gas: 100000});
+    await snx_pool.methods.setRewardDistribution(accounts[0]).send({from: accounts[0], gas: 100000});
+    await comp_pool.methods.setRewardDistribution(accounts[0]).send({from: accounts[0], gas: 100000});
+    await link_pool.methods.setRewardDistribution(accounts[0]).send({from: accounts[0], gas: 100000});
+    await ycrv_pool.methods.setRewardDistribution(accounts[0]).send({from: accounts[0], gas: 100000});
 
-    let one_mil = web3.utils.toBN(10**6).mul(web3.utils.toBN(10**18));
-    let two_mil = one_mil.mul(web3.utils.toBN(2));
+
+    let two_fifty = web3.utils.toBN(10**3).mul(web3.utils.toBN(10**18)).mul(web3.utils.toBN(250));
+    let one_five = two_fifty.mul(web3.utils.toBN(6));
 
     console.log("transfering and notifying");
     console.log("eth");
-    await yam.transfer(YAM_ETHPool.address, one_mil.toString());
-    await eth_pool.methods.notifyRewardAmount(one_mil.toString()).send({from:accounts[0]});
+    await yam.transfer(YAM_ETHPool.address, two_fifty.toString());
+    await eth_pool.methods.notifyRewardAmount(two_fifty.toString()).send({from:accounts[0]});
 
     console.log("ampl");
-    await yam.transfer(YAM_uAMPLPool.address, one_mil.toString());
-    await ampl_pool.methods.notifyRewardAmount(one_mil.toString()).send({from:accounts[0]});
+    await yam.transfer(YAM_uAMPLPool.address, two_fifty.toString());
+    await ampl_pool.methods.notifyRewardAmount(two_fifty.toString()).send({from:accounts[0]});
 
     console.log("yfi");
-    await yam.transfer(YAM_YFIPool.address, one_mil.toString());
-    await yfi_pool.methods.notifyRewardAmount(one_mil.toString()).send({from:accounts[0]});
+    await yam.transfer(YAM_YFIPool.address, two_fifty.toString());
+    await yfi_pool.methods.notifyRewardAmount(two_fifty.toString()).send({from:accounts[0]});
 
+
+    console.log("lend");
+    await yam.transfer(YAM_LENDPool.address, two_fifty.toString());
+    await lend_pool.methods.notifyRewardAmount(two_fifty.toString()).send({from:accounts[0]});
+
+    console.log("mkr");
+    await yam.transfer(YAM_MKRPool.address, two_fifty.toString());
+    await mkr_pool.methods.notifyRewardAmount(two_fifty.toString()).send({from:accounts[0]});
+
+    console.log("snx");
+    await yam.transfer(YAM_SNXPool.address, two_fifty.toString());
+    await snx_pool.methods.notifyRewardAmount(two_fifty.toString()).send({from:accounts[0]});
+
+    console.log("COMP");
+    await yam.transfer(YAM_COMPPool.address, two_fifty.toString());
+    await comp_pool.methods.notifyRewardAmount(two_fifty.toString()).send({from:accounts[0]});
+
+    console.log("link");
+    await yam.transfer(YAM_LINKPool.address, two_fifty.toString());
+    await link_pool.methods.notifyRewardAmount(two_fifty.toString()).send({from:accounts[0]});
+    
     await yam._setIncentivizer(YAMIncentivizer.address);
 
-    let a = await ycrv_pool.methods.notifyRewardAmount(two_mil.toString()).send({from: accounts[0], gas: 500000});
+    let a = await ycrv_pool.methods.notifyRewardAmount(one_five.toString()).send({from: accounts[0], gas: 500000});
     console.log(a)
   }
 
