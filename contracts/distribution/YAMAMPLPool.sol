@@ -630,7 +630,7 @@ contract LPTokenWrapper {
 
 contract YAMAMPLPool is LPTokenWrapper, IRewardDistributionRecipient {
     IERC20 public yam = IERC20(0x4BC6657283f8f24e27EAc1D21D1deE566C534A9A);
-    uint256 public constant DURATION = 7 days;
+    uint256 public constant DURATION = 625000; // ~7 1/4 days
 
     uint256 public starttime = 1596931200; // Sunday, August 9, 2020 12:00:00 AM
     uint256 public periodFinish = 0;
@@ -646,7 +646,7 @@ contract YAMAMPLPool is LPTokenWrapper, IRewardDistributionRecipient {
     event RewardPaid(address indexed user, uint256 reward);
 
     modifier checkStart(){
-        require(block.timestamp > starttime,"not start");
+        require(block.timestamp >= starttime,"not start");
         _;
     }
 
@@ -687,13 +687,13 @@ contract YAMAMPLPool is LPTokenWrapper, IRewardDistributionRecipient {
     }
 
     // stake visibility is public as overriding LPTokenWrapper's stake() function
-    function stake(uint256 amount) public updateReward(msg.sender) {
+    function stake(uint256 amount) public updateReward(msg.sender) checkStart {
         require(amount > 0, "Cannot stake 0");
         super.stake(amount);
         emit Staked(msg.sender, amount);
     }
 
-    function withdraw(uint256 amount) public updateReward(msg.sender) {
+    function withdraw(uint256 amount) public updateReward(msg.sender) checkStart {
         require(amount > 0, "Cannot withdraw 0");
         super.withdraw(amount);
         emit Withdrawn(msg.sender, amount);
@@ -704,7 +704,7 @@ contract YAMAMPLPool is LPTokenWrapper, IRewardDistributionRecipient {
         getReward();
     }
 
-    function getReward() public updateReward(msg.sender) {
+    function getReward() public updateReward(msg.sender) checkStart {
         uint256 reward = earned(msg.sender);
         if (reward > 0) {
             rewards[msg.sender] = 0;
@@ -720,15 +720,22 @@ contract YAMAMPLPool is LPTokenWrapper, IRewardDistributionRecipient {
         onlyRewardDistribution
         updateReward(address(0))
     {
-        if (block.timestamp >= periodFinish) {
-            rewardRate = reward.div(DURATION);
+        if (block.timestamp > starttime) {
+          if (block.timestamp >= periodFinish) {
+              rewardRate = reward.div(DURATION);
+          } else {
+              uint256 remaining = periodFinish.sub(block.timestamp);
+              uint256 leftover = remaining.mul(rewardRate);
+              rewardRate = reward.add(leftover).div(DURATION);
+          }
+          lastUpdateTime = block.timestamp;
+          periodFinish = block.timestamp.add(DURATION);
+          emit RewardAdded(reward);
         } else {
-            uint256 remaining = periodFinish.sub(block.timestamp);
-            uint256 leftover = remaining.mul(rewardRate);
-            rewardRate = reward.add(leftover).div(DURATION);
+          rewardRate = reward.div(DURATION);
+          lastUpdateTime = starttime;
+          periodFinish = starttime.add(DURATION);
+          emit RewardAdded(reward);
         }
-        lastUpdateTime = block.timestamp;
-        periodFinish = block.timestamp.add(DURATION);
-        emit RewardAdded(reward);
     }
 }

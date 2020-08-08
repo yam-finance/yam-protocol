@@ -1,12 +1,4 @@
 /**
- *Submitted for verification at Etherscan.io on 2020-07-27
-*/
-
-/**
- *Submitted for verification at Etherscan.io on 2020-07-26
-*/
-
-/**
  *Submitted for verification at Etherscan.io on 2020-07-17
 */
 
@@ -17,7 +9,7 @@
 /___/ \_, //_//_/\__//_//_/\__/ \__//_/ /_\_\
      /___/
 
-* Synthetix: YAMIncentives.sol
+* Synthetix: YAMRewards.sol
 *
 * Docs: https://docs.synthetix.io/
 *
@@ -371,7 +363,6 @@ interface IERC20 {
      * Emits a {Transfer} event.
      */
     function transfer(address recipient, uint256 amount) external returns (bool);
-    function mint(address account, uint amount) external;
 
     /**
      * @dev Returns the remaining number of tokens that `spender` will be
@@ -601,7 +592,9 @@ contract IRewardDistributionRecipient is Ownable {
 pragma solidity ^0.5.0;
 
 
-
+interface YAM {
+    function yamsScalingFactor() external returns (uint256);
+}
 
 
 
@@ -609,10 +602,9 @@ contract LPTokenWrapper {
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
 
-    IERC20 public uni_lp = IERC20(0xE9b70db3E22324F962F53e5290Cb1F4aF72c9Ebd);
+    IERC20 public mkr = IERC20(0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2);
 
     uint256 private _totalSupply;
-
     mapping(address => uint256) private _balances;
 
     function totalSupply() public view returns (uint256) {
@@ -626,27 +618,21 @@ contract LPTokenWrapper {
     function stake(uint256 amount) public {
         _totalSupply = _totalSupply.add(amount);
         _balances[msg.sender] = _balances[msg.sender].add(amount);
-        uni_lp.safeTransferFrom(msg.sender, address(this), amount);
+        mkr.safeTransferFrom(msg.sender, address(this), amount);
     }
 
     function withdraw(uint256 amount) public {
         _totalSupply = _totalSupply.sub(amount);
         _balances[msg.sender] = _balances[msg.sender].sub(amount);
-        uni_lp.safeTransfer(msg.sender, amount);
+        mkr.safeTransfer(msg.sender, amount);
     }
 }
 
-interface YAM {
-    function yamsScalingFactor() external returns (uint256);
-    function mint(address to, uint256 amount) external;
-}
-
-contract YAMIncentivizer is LPTokenWrapper, IRewardDistributionRecipient {
+contract YAMMKRPool is LPTokenWrapper, IRewardDistributionRecipient {
     IERC20 public yam = IERC20(0x4BC6657283f8f24e27EAc1D21D1deE566C534A9A);
-    uint256 public constant DURATION = 625000;
+    uint256 public constant DURATION = 625000; // ~7 1/4 days
 
-    uint256 public initreward = 2 * 10**6 * 10**18; // 2m
-    uint256 public starttime = 1596931200 + 12 hours; // Sunday, August 9, 2020 12:00:00 AM
+    uint256 public starttime = 1596931200; // Sunday, August 9, 2020 12:00:00 AM
     uint256 public periodFinish = 0;
     uint256 public rewardRate = 0;
     uint256 public lastUpdateTime;
@@ -654,11 +640,15 @@ contract YAMIncentivizer is LPTokenWrapper, IRewardDistributionRecipient {
     mapping(address => uint256) public userRewardPerTokenPaid;
     mapping(address => uint256) public rewards;
 
-
     event RewardAdded(uint256 reward);
     event Staked(address indexed user, uint256 amount);
     event Withdrawn(address indexed user, uint256 amount);
     event RewardPaid(address indexed user, uint256 reward);
+
+    modifier checkStart() {
+        require(block.timestamp >= starttime,"not start");
+        _;
+    }
 
     modifier updateReward(address account) {
         rewardPerTokenStored = rewardPerToken();
@@ -697,7 +687,7 @@ contract YAMIncentivizer is LPTokenWrapper, IRewardDistributionRecipient {
     }
 
     // stake visibility is public as overriding LPTokenWrapper's stake() function
-    function stake(uint256 amount) public updateReward(msg.sender) checkhalve checkStart {
+    function stake(uint256 amount) public updateReward(msg.sender) checkStart {
         require(amount > 0, "Cannot stake 0");
         super.stake(amount);
         emit Staked(msg.sender, amount);
@@ -714,9 +704,10 @@ contract YAMIncentivizer is LPTokenWrapper, IRewardDistributionRecipient {
         getReward();
     }
 
-    function getReward() public updateReward(msg.sender) checkhalve checkStart {
+    function getReward() public updateReward(msg.sender) checkStart {
         uint256 reward = earned(msg.sender);
         if (reward > 0) {
+            rewards[msg.sender] = 0;
             uint256 scalingFactor = YAM(address(yam)).yamsScalingFactor();
             uint256 trueReward = reward.mul(scalingFactor).div(10**18);
             yam.safeTransfer(msg.sender, trueReward);
@@ -724,40 +715,27 @@ contract YAMIncentivizer is LPTokenWrapper, IRewardDistributionRecipient {
         }
     }
 
-    modifier checkhalve() {
-        if (block.timestamp >= periodFinish) {
-            initreward = initreward.mul(50).div(100);
-            uint256 scalingFactor = YAM(address(yam)).yamsScalingFactor();
-            uint256 trueReward = initreward.mul(scalingFactor).div(10**18);
-            yam.mint(address(this), trueReward);
-
-            rewardRate = initreward.div(DURATION);
-            periodFinish = block.timestamp.add(DURATION);
-            emit RewardAdded(initreward);
-        }
-        _;
-    }
-
-    modifier checkStart(){
-        require(block.timestamp > starttime,"not start");
-        _;
-    }
-
     function notifyRewardAmount(uint256 reward)
         external
         onlyRewardDistribution
         updateReward(address(0))
     {
-        if (block.timestamp >= periodFinish) {
-            rewardRate = reward.div(DURATION);
+        if (block.timestamp > starttime) {
+          if (block.timestamp >= periodFinish) {
+              rewardRate = reward.div(DURATION);
+          } else {
+              uint256 remaining = periodFinish.sub(block.timestamp);
+              uint256 leftover = remaining.mul(rewardRate);
+              rewardRate = reward.add(leftover).div(DURATION);
+          }
+          lastUpdateTime = block.timestamp;
+          periodFinish = block.timestamp.add(DURATION);
+          emit RewardAdded(reward);
         } else {
-            uint256 remaining = periodFinish.sub(block.timestamp);
-            uint256 leftover = remaining.mul(rewardRate);
-            rewardRate = reward.add(leftover).div(DURATION);
+          rewardRate = reward.div(DURATION);
+          lastUpdateTime = starttime;
+          periodFinish = starttime.add(DURATION);
+          emit RewardAdded(reward);
         }
-        yam.mint(address(this), reward);
-        lastUpdateTime = block.timestamp;
-        periodFinish = block.timestamp.add(DURATION);
-        emit RewardAdded(reward);
     }
 }
