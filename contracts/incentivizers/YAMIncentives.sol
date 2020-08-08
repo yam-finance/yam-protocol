@@ -645,8 +645,8 @@ contract YAMIncentivizer is LPTokenWrapper, IRewardDistributionRecipient {
     IERC20 public yam = IERC20(0x4BC6657283f8f24e27EAc1D21D1deE566C534A9A);
     uint256 public constant DURATION = 625000;
 
-    uint256 public initreward = 2 * 10**6 * 10**18; // 2m
-    uint256 public starttime = 1596931200 + 12 hours; // Sunday, August 9, 2020 12:00:00 AM
+    uint256 public initreward = 15 * 10**5 * 10**18; // 1.5m
+    uint256 public starttime = 1596931200 + 24 hours; // Sunday, August 9, 2020 12:00:00 AM
     uint256 public periodFinish = 0;
     uint256 public rewardRate = 0;
     uint256 public lastUpdateTime;
@@ -739,25 +739,33 @@ contract YAMIncentivizer is LPTokenWrapper, IRewardDistributionRecipient {
     }
 
     modifier checkStart(){
-        require(block.timestamp > starttime,"not start");
+        require(block.timestamp >= starttime,"not start");
         _;
     }
+
 
     function notifyRewardAmount(uint256 reward)
         external
         onlyRewardDistribution
         updateReward(address(0))
     {
-        if (block.timestamp >= periodFinish) {
-            rewardRate = reward.div(DURATION);
+        if (block.timestamp > starttime) {
+          if (block.timestamp >= periodFinish) {
+              rewardRate = reward.div(DURATION);
+          } else {
+              uint256 remaining = periodFinish.sub(block.timestamp);
+              uint256 leftover = remaining.mul(rewardRate);
+              rewardRate = reward.add(leftover).div(DURATION);
+          }
+          lastUpdateTime = block.timestamp;
+          periodFinish = block.timestamp.add(DURATION);
+          emit RewardAdded(reward);
         } else {
-            uint256 remaining = periodFinish.sub(block.timestamp);
-            uint256 leftover = remaining.mul(rewardRate);
-            rewardRate = reward.add(leftover).div(DURATION);
+          yam.mint(address(this), reward);
+          rewardRate = reward.div(DURATION);
+          lastUpdateTime = starttime;
+          periodFinish = starttime.add(DURATION);
+          emit RewardAdded(reward);
         }
-        yam.mint(address(this), reward);
-        lastUpdateTime = block.timestamp;
-        periodFinish = block.timestamp.add(DURATION);
-        emit RewardAdded(reward);
     }
 }

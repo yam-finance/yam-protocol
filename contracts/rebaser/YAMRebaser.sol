@@ -321,7 +321,7 @@ contract YAMRebaser {
 
         // cap to max scaling
         if (positive
-          && yam.yamsScalingFactor().mul(uint256(10**18).add(indexDelta)).div(uint256(10**18)) > yam.maxScalingFactor()) {
+          && yam.yamsScalingFactor().mul(uint256(10**18).add(indexDelta)).div(10**18) > yam.maxScalingFactor()) {
             indexDelta = yam.maxScalingFactor() - yam.yamsScalingFactor();
         }
 

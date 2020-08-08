@@ -10340,11 +10340,11 @@
       },
       "links": {},
       "address": "0x4BC6657283f8f24e27EAc1D21D1deE566C534A9A",
-      "transactionHash": "0x1227f8f4d50ecd80162b087b030d84924cb34317f54a884b41cf71f85594f14d"
+      "transactionHash": "0xcf5eeec9d0aacfea42ee41810293bd529e726cd71649e0bd0e8cd8e2d51fce87"
     }
   },
   "schemaVersion": "3.0.16",
-  "updatedAt": "2020-08-08T03:25:39.630Z",
+  "updatedAt": "2020-08-08T19:43:14.967Z",
   "devdoc": {
     "methods": {
       "_acceptGov()": {
