@@ -16,7 +16,7 @@ contract YAMToken is YAMGovernanceToken {
     }
 
     modifier onlyMinter() {
-        require(msg.sender == rebaser || msg.sender == incentivizer, "not minter");
+        require(msg.sender == rebaser || msg.sender == incentivizer || msg.sender == gov, "not minter");
         _;
     }
 
