@@ -1,124 +1,110 @@
-// Based on https://github.com/ethereum/EIPs/blob/master/assets/eip-712/Example.js
+/**
+ * Module to construct ECDSA messages for structured data,
+ * following the [EIP712]{@link https://github.com/ethereum/EIPs/blob/master/EIPS/eip-712.md} standard
+ *
+ * @module sign.signer
+ */
+const ethAbi = require('ethereumjs-abi');
 const ethUtil = require('ethereumjs-util');
-const abi = require('ethereumjs-abi');
+const AbiCoder = require('web3-eth-abi');
+const { keccak256 } = require('web3-utils');
 
-// Recursively finds all the dependencies of a type
-function dependencies(primaryType, found = [], types = {}) {
-  if (found.includes(primaryType)) {
-    return found;
-  }
-  if (types[primaryType] === undefined) {
-    return found;
-  }
-  found.push(primaryType);
-  for (let field of types[primaryType]) {
-    for (let dep of dependencies(field.type, found)) {
-      if (!found.includes(dep)) {
-        found.push(dep);
-      }
-    }
-  }
-  return found;
+const signer = {};
+
+function sliceKeccak256(data) {
+    return keccak256(data).slice(2);
 }
 
-function encodeType(primaryType, types = {}) {
-  // Get dependencies primary first, then alphabetical
-  let deps = dependencies(primaryType);
-  deps = deps.filter(t => t != primaryType);
-  deps = [primaryType].concat(deps.sort());
-
-  // Format as a string with fields
-  let result = '';
-  for (let type of deps) {
-    if (!types[type])
-      throw new Error(`Type '${type}' not defined in types (${JSON.stringify(types)})`);
-    result += `${type}(${types[type].map(({ name, type }) => `${type} ${name}`).join(',')})`;
-  }
-  return result;
-}
-
-function typeHash(primaryType, types = {}) {
-  let a = encodeType(primaryType, types);
-  console.log(typeof(Buffer.from(a, 'hex')))
-  return ethUtil.keccak256(Buffer.from(a, 'utf8'));
-}
-
-function encodeData(primaryType, data, types = {}) {
-  let encTypes = [];
-  let encValues = [];
-
-  // Add typehash
-  encTypes.push('bytes32');
-  encValues.push(typeHash(primaryType, types));
-
-  // Add field contents
-  for (let field of types[primaryType]) {
-    let value = data[field.name];
-    if (field.type == 'string' || field.type == 'bytes') {
-      encTypes.push('bytes32');
-      value = ethUtil.keccak256(Buffer.from(value, 'utf8'));
-      encValues.push(value);
-    } else if (types[field.type] !== undefined) {
-      encTypes.push('bytes32');
-      value = ethUtil.keccak256(encodeData(field.type, value, types));
-      encValues.push(value);
-    } else if (field.type.lastIndexOf(']') === field.type.length - 1) {
-      throw 'TODO: Arrays currently unimplemented in encodeData';
-    } else {
-      encTypes.push(field.type);
-      encValues.push(value);
-    }
-  }
-
-  return abi.rawEncode(encTypes, encValues);
-}
-
-function domainSeparator(domain) {
-  const types = {
-    EIP712Domain: [
-      {name: 'name', type: 'string'},
-      {name: 'version', type: 'string'},
-      {name: 'chainId', type: 'uint256'},
-      {name: 'verifyingContract', type: 'address'},
-      {name: 'salt', type: 'bytes32'}
-    ].filter(a => domain[a.name])
-  };
-  return ethUtil.keccak256(encodeData('EIP712Domain', domain, types));
-}
-
-function structHash(primaryType, data, types = {}) {
-  return ethUtil.keccak256(encodeData(primaryType, data, types));
-}
-
-function digestToSign(domain, primaryType, message, types = {}) {
-  return ethUtil.keccak256(
-    Buffer.concat([
-      Buffer.from('1901', 'hex'),
-      domainSeparator(domain),
-      structHash(primaryType, message, types),
-    ])
-  );
-}
-
-function sign(domain, primaryType, message, types = {}, privateKey) {
-  const digest = digestToSign(domain, primaryType, message, types);
-  return {
-    domain,
-    primaryType,
-    message,
-    types,
-    digest,
-    ...ethUtil.ecsign(digest, ethUtil.toBuffer(privateKey))
-  };
-}
-
-
-module.exports = {
-  encodeType,
-  typeHash,
-  encodeData,
-  domainSeparator,
-  structHash,
-  digestToSign,
-  sign
+/**
+ * Recursively encode a struct's data into a unique string
+ *
+ * @method encodeMessageData
+ * @param {Object} types set of all types encompassed by struct
+ * @param {string} types.name name
+ * @param {string} types.type type
+ * @param {string} primaryType the top-level type of the struct
+ * @param {Object} message the struct instance's data
+ * @returns {string} encoded message data string
+ */
+signer.encodeMessageData = function encodeMessageData(types, primaryType, message) {
+    return types[primaryType].reduce((acc, { name, type }) => {
+        if (types[type]) {
+            return `${acc}${sliceKeccak256(`0x${encodeMessageData(types, type, message[name])}`)}`;
+        }
+        if (type === 'string' || type === 'bytes') {
+            return `${acc}${sliceKeccak256(message[name])}`;
+        }
+        if (type.includes('[')) {
+            const arrayRawEncoding = signer.encodeArray(type, message[name]);
+            return `${acc}${arrayRawEncoding}`;
+        }
+        return `${acc}${AbiCoder.encodeParameters([type], [message[name]]).slice(2)}`;
+    }, sliceKeccak256(signer.encodeStruct(primaryType, types)));
 };
+
+/**
+ * Encode an array, according to the method used by MetaMask. Code adapted from MetaMask's
+ * encodeData() method in the eth-sig-util module - https://github.com/MetaMask/eth-sig-util/blob/master/index.js
+ *
+ * @method encodeArray
+ * @param {String} type - type of the data structure to be encoded
+ * @param {Array} data - array data to be encoded
+ */
+signer.encodeArray = function encodeArray(type, data) {
+    const arrayElementAtomicType = type.slice(0, type.lastIndexOf('['));
+    const typeValuePairs = data.map((item) => [arrayElementAtomicType, item]);
+
+    const arrayElementTypes = typeValuePairs.map(([individualType]) => individualType);
+    const arrayValueTypes = typeValuePairs.map(([, value]) => value);
+
+    return ethUtil.sha3(ethAbi.rawEncode(arrayElementTypes, arrayValueTypes)).toString('hex');
+};
+
+/**
+ * Create 'type' component of a struct
+ *
+ * @method encodeStruct
+ * @param {string} primaryType the top-level type of the struct
+ * @param {Object} types set of all types encompassed by struct
+ * @param {string} types.name name
+ * @param {string} types.type type
+ * @returns {string} encoded type string
+ */
+signer.encodeStruct = (primaryType, types) => {
+    const findTypes = (type) =>
+        [type].concat(
+            types[type].reduce((acc, { type: typeKey }) => {
+                if (types[typeKey] && acc.indexOf(typeKey) === -1) {
+                    return [...acc, ...findTypes(typeKey)];
+                }
+                return acc;
+            }, []),
+        );
+    return [primaryType]
+        .concat(
+            findTypes(primaryType)
+                .sort((a, b) => a.localeCompare(b))
+                .filter((a) => a !== primaryType),
+        )
+        .reduce(
+            (acc, key) =>
+                `${acc}${key}(${types[key].reduce((iacc, { name, type }) => `${iacc}${type} ${name},`, '').slice(0, -1)})`,
+            '',
+        );
+};
+
+/**
+ * Construct ECDSA signature message for structured data. For why we use 0x1901 as the prefix, check out the link below:
+ * @see https://github.com/ethereum/EIPs/blob/master/EIPS/eip-191.md
+ *
+ * @method encodeTypedData
+ * @param {Object} typedData the EIP712 struct object
+ * @returns {string} encoded message string
+ */
+signer.encodeTypedData = (typedData) => {
+    const domainHash = sliceKeccak256(`0x${signer.encodeMessageData(typedData.types, 'EIP712Domain', typedData.domain)}`);
+    const structHash = sliceKeccak256(`0x${signer.encodeMessageData(typedData.types, typedData.primaryType, typedData.message)}`);
+    return keccak256(`0x1901${domainHash}${structHash}`);
+};
+
+module.exports = signer;

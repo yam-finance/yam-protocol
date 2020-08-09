@@ -47,7 +47,7 @@ describe("post-deployment", () => {
 
     test("owner balance", async () => {
       let balance = await yam.contracts.yam.methods.balanceOf(user).call();
-      expect(balance).toBe("0")
+      expect(balance).toBe(yam.toBigN(1000000).times(yam.toBigN(10**18).toString())
     });
 
     test("pool balances", async () => {

@@ -137,9 +137,13 @@ contract YAMToken is YAMGovernanceToken {
         validRecipient(to)
         returns (bool)
     {
+        // decrease allowance
         _allowedFragments[from][msg.sender] = _allowedFragments[from][msg.sender].sub(value);
 
+        // get value in yams
         uint256 yamValue = value.mul(internalDecimals).div(yamsScalingFactor);
+
+        // sub from from
         _yamBalances[from] = _yamBalances[from].sub(yamValue);
         _yamBalances[to] = _yamBalances[to].add(yamValue);
         emit Transfer(from, to, value);

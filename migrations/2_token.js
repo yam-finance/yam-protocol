@@ -20,12 +20,24 @@ module.exports = migration;
 
 async function deployToken(deployer, network) {
   await deployer.deploy(YAMImplementation);
-  await deployer.deploy(YAMProxy,
-    "YAM",
-    "YAM",
-    18,
-    "2000000000000000000000000",
-    YAMImplementation.address,
-    "0x"
-  );
+  if (network != "mainnet") {
+    await deployer.deploy(YAMProxy,
+      "YAM",
+      "YAM",
+      18,
+      "3000000000000000000000000", // print extra mil for user
+      YAMImplementation.address,
+      "0x"
+    );
+  } else {
+    await deployer.deploy(YAMProxy,
+      "YAM",
+      "YAM",
+      18,
+      "2000000000000000000000000",
+      YAMImplementation.address,
+      "0x"
+    );
+  }
+
 }
