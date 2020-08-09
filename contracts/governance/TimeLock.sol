@@ -16,15 +16,23 @@ import "../lib/SafeMath.sol";
 contract Timelock {
     using SafeMath for uint256;
 
+    /// @notice An event emitted when the timelock admin changes
     event NewAdmin(address indexed newAdmin);
+    /// @notice An event emitted when a new admin is staged in the timelock
     event NewPendingAdmin(address indexed newPendingAdmin);
     event NewDelay(uint indexed newDelay);
+    /// @notice An event emitted when a queued transaction is cancelled
     event CancelTransaction(bytes32 indexed txHash, address indexed target, uint256 value, string signature,  bytes data, uint256 eta);
+    /// @notice An event emitted when a queued transaction is executed
     event ExecuteTransaction(bytes32 indexed txHash, address indexed target, uint256 value, string signature,  bytes data, uint256 eta);
+    /// @notice An event emitted when a new transaction is queued
     event QueueTransaction(bytes32 indexed txHash, address indexed target, uint256 value, string signature, bytes data, uint256 eta);
 
+    /// @notice the length of time after the delay has passed that a transaction can be executed
     uint256 public constant GRACE_PERIOD = 14 days;
+    /// @notice the minimum length of the timelock delay
     uint256 public constant MINIMUM_DELAY = 12 hours + 2*60*15; // have to be present for 2 rebases
+    /// @notice the maximum length of the timelock delay
     uint256 public constant MAXIMUM_DELAY = 30 days;
 
     address public admin;
@@ -48,6 +56,11 @@ contract Timelock {
 
     function() external payable { }
 
+
+    /**
+    @notice sets the delay
+    @param delay_ the new delay
+     */
     function setDelay(uint256 delay_)
         public
     {
@@ -59,6 +72,8 @@ contract Timelock {
         emit NewDelay(delay);
     }
 
+
+    /// @notice sets the new admin address
     function acceptAdmin()
         public
     {
@@ -69,6 +84,10 @@ contract Timelock {
         emit NewAdmin(admin);
     }
 
+    /**
+    @notice queues a new pendingAdmin
+    @param pendingAdmin_ the new pendingAdmin address
+     */
     function setPendingAdmin(address pendingAdmin_)
         public
     {
@@ -82,6 +101,7 @@ contract Timelock {
 
         emit NewPendingAdmin(pendingAdmin);
     }
+
 
     function queueTransaction(
         address target,
