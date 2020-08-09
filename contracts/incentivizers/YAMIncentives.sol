@@ -762,6 +762,7 @@ contract YAMIncentivizer is LPTokenWrapper, IRewardDistributionRecipient {
           periodFinish = block.timestamp.add(DURATION);
           emit RewardAdded(reward);
         } else {
+          require(yam.balanceOf(address(this)) == 0, "already initialized");
           yam.mint(address(this), reward);
           rewardRate = reward.div(DURATION);
           lastUpdateTime = starttime;
