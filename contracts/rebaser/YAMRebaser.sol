@@ -84,7 +84,6 @@ contract YAMRebaser {
     // If the current exchange rate is within this fractional distance from the target, no supply
     // update is performed. Fixed point number--same format as the rate.
     // (ie) abs(rate - targetRate) / targetRate < deviationThreshold, then no supply change.
-    // DECIMALS Fixed point number.
     uint256 public deviationThreshold;
 
     // More than this much time must pass between rebase operations.
@@ -170,8 +169,6 @@ contract YAMRebaser {
 
           yamAddress = yamAddress_;
 
-          /* pendingGov = gov_; */
-
           // target 10% slippage
           maxSlippageFactor = 5409258 * 10**10;
 
@@ -190,6 +187,7 @@ contract YAMRebaser {
           // 15 minutes
           rebaseWindowLengthSec = 60 * 15;
 
+          // Changed in deployment scripts to facilitate protocol initiation
           gov = msg.sender;
 
     }
@@ -201,19 +199,19 @@ contract YAMRebaser {
         public
         onlyGov
     {
-        uint256 oldSlippageFactor = maxSlippageFactor_;
+        uint256 oldSlippageFactor = maxSlippageFactor;
         maxSlippageFactor = maxSlippageFactor_;
         emit NewMaxSlippageFactor(oldSlippageFactor, maxSlippageFactor_);
     }
 
-    /** @notice Updates slippage factor
+    /** @notice Updates rebase mint percentage
     *
     */
     function setRebaseMintPerc(uint256 rebaseMintPerc_)
         public
         onlyGov
     {
-        uint256 oldPerc = rebaseMintPerc_;
+        uint256 oldPerc = rebaseMintPerc;
         rebaseMintPerc = rebaseMintPerc_;
         emit NewRebaseMintPercent(oldPerc, rebaseMintPerc_);
     }
@@ -281,7 +279,6 @@ contract YAMRebaser {
         require(timeOfTWAPInit > 0, "twap wasnt intitiated, call init_twap()");
         // cannot enable prior to end of rebaseDelay
         require(now >= timeOfTWAPInit + rebaseDelay, "!end_delay");
-        // init price
 
         rebasingActive = true;
     }
@@ -291,11 +288,12 @@ contract YAMRebaser {
      *
      * @dev The supply adjustment equals (_totalSupply * DeviationFromTargetRate) / rebaseLag
      *      Where DeviationFromTargetRate is (MarketOracleRate - targetRate) / targetRate
-     *      and targetRate is CpiOracleRate / baseCpi
+     *      and targetRate is 1e18
      */
     function rebase()
         public
     {
+        // ensure rebasing at correct time
         _inRebaseWindow();
 
         // This comparison also ensures there is no reentrancy.
@@ -314,12 +312,16 @@ contract YAMRebaser {
         (uint256 offPegPerc, bool positive) = computeOffPegPerc(exchangeRate);
 
         uint256 indexDelta = offPegPerc;
+
         // Apply the Dampening factor.
         indexDelta = indexDelta.div(rebaseLag);
 
         YAMTokenInterface yam = YAMTokenInterface(yamAddress);
 
         // cap to max scaling
+        // computes next scaling factor: yam.yamsScalingFactor().mul(uint256(10**18).add(indexDelta)).div(10**18)
+        // compares that to max scaling factor
+        // caps delta to bring scaling factor up to max
         if (positive
           && yam.yamsScalingFactor().mul(uint256(10**18).add(indexDelta)).div(10**18) > yam.maxScalingFactor()) {
             indexDelta = yam.maxScalingFactor() - yam.yamsScalingFactor();
@@ -407,17 +409,21 @@ contract YAMRebaser {
         uint256 tokens_to_max_slippage = uniswapMaxSlippage(token0Reserves, token1Reserves, offPegPerc);
 
         UniVars memory uniVars = UniVars({
-          yamsToUni: tokens_to_max_slippage,
-          amountFromReserves: excess,
-          mintToReserves: 0
+          yamsToUni: tokens_to_max_slippage, // how many yams uniswap needs
+          amountFromReserves: excess, // how much of yamsToUni comes from reserves
+          mintToReserves: 0 // how much yams protocol mints to reserves
         });
 
         // tries to sell all mint + excess
         // falls back to selling some of mint and all of excess
-        // sells portion of excess
+        // if all else fails, sells portion of excess
+        // upon pair.swap, `uniswapV2Call` is called by the uniswap pair contract
         if (isToken0) {
             if (tokens_to_max_slippage > mintAmount.add(excess)) {
-                // can handle all of reserves and mint
+                // we already have performed a safemath check on mintAmount+excess
+                // so we dont need to continue using it in this code path
+
+                // can handle selling all of reserves and mint
                 uint256 buyTokens = getAmountOut(mintAmount + excess, token0Reserves, token1Reserves);
                 uniVars.yamsToUni = mintAmount + excess;
                 uniVars.amountFromReserves = excess;
@@ -429,7 +435,7 @@ contract YAMRebaser {
                     uint256 buyTokens = getAmountOut(tokens_to_max_slippage, token0Reserves, token1Reserves);
 
                     // swap up to slippage limit, taking entire yam reserves, and minting part of total
-                    uniVars.mintToReserves = mintAmount.sub( (tokens_to_max_slippage - excess));
+                    uniVars.mintToReserves = mintAmount.sub((tokens_to_max_slippage - excess));
                     pair.swap(0, buyTokens, address(this), abi.encode(uniVars));
                 } else {
                     // uniswap cant handle all of excess
@@ -453,9 +459,9 @@ contract YAMRebaser {
                 if (tokens_to_max_slippage > excess) {
                     // uniswap can handle entire reserves
                     uint256 buyTokens = getAmountOut(tokens_to_max_slippage, token1Reserves, token0Reserves);
+
                     // swap up to slippage limit, taking entire yam reserves, and minting part of total
                     uniVars.mintToReserves = mintAmount.sub( (tokens_to_max_slippage - excess));
-
                     // swap up to slippage limit, taking entire yam reserves, and minting part of total
                     pair.swap(buyTokens, 0, address(this), abi.encode(uniVars));
                 } else {
@@ -520,19 +526,21 @@ contract YAMRebaser {
 
     function afterRebase(
         uint256 mintAmount,
-        uint256 indexDelta
+        uint256 offPegPerc
     )
         internal
     {
+        // update uniswap
         UniswapPair(uniswap_pair).sync();
 
         if (mintAmount > 0) {
             buyReserveAndTransfer(
                 mintAmount,
-                indexDelta
+                offPegPerc
             );
         }
 
+        // call any extra functions
         for (uint i = 0; i < transactions.length; i++) {
             Transaction storage t = transactions[i];
             if (t.enabled) {
@@ -578,7 +586,7 @@ contract YAMRebaser {
     /**
      * @notice Sets the deviation threshold fraction. If the exchange rate given by the market
      *         oracle is within this fractional distance from the targetRate, then no supply
-     *         modifications are made. DECIMALS fixed point number.
+     *         modifications are made.
      * @param deviationThreshold_ The new exchange rate threshold fraction.
      */
     function setDeviationThreshold(uint256 deviationThreshold_)

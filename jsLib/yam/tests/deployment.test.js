@@ -104,17 +104,17 @@ describe("post-deployment", () => {
 
     test("yam gov", async () => {
       let gov = await yam.contracts.yam.methods.gov().call();
-      expect(gov).toBe(yam.contracts.gov.options.address)
+      expect(gov).toBe(yam.contracts.timelock.options.address)
     });
 
     test("rebaser gov", async () => {
       let gov = await yam.contracts.rebaser.methods.gov().call();
-      expect(gov).toBe(yam.contracts.gov.options.address)
+      expect(gov).toBe(yam.contracts.timelock.options.address)
     });
 
     test("reserves gov", async () => {
       let gov = await yam.contracts.reserves.methods.gov().call();
-      expect(gov).toBe(yam.contracts.gov.options.address)
+      expect(gov).toBe(yam.contracts.timelock.options.address)
     });
 
     test("timelock admin", async () => {
@@ -134,12 +134,17 @@ describe("post-deployment", () => {
 
     test("pool owner", async () => {
       let owner = await yam.contracts.eth_pool.methods.owner().call();
-      expect(owner).toBe(yam.contracts.gov.options.address)
+      expect(owner).toBe(yam.contracts.timelock.options.address)
     });
 
     test("pool rewarder", async () => {
       let rewarder = await yam.contracts.eth_pool.methods.rewardDistribution().call();
-      expect(rewarder).toBe(yam.contracts.gov.options.address)
+      expect(rewarder).toBe(yam.contracts.timelock.options.address)
     });
   });
+
+  describe("timelock delay initiated", () => {
+      let inited = await yam.contracts.timelock.methods.admin_initialized().call();
+      expect(inited).toBe(true);
+  })
 })

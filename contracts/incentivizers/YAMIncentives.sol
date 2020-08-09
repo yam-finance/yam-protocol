@@ -768,4 +768,24 @@ contract YAMIncentivizer is LPTokenWrapper, IRewardDistributionRecipient {
           emit RewardAdded(reward);
         }
     }
+
+
+    // This function allows governance to take unsupported tokens out of the
+    // contract, since this one exists longer than the other pools.
+    // This is in an effort to make someone whole, should they seriously
+    // mess up. There is no guarantee governance will vote to return these.
+    // It also allows for removal of airdropped tokens.
+    function governanceRecoverUnsupported(IERC20 _token, uint256 amount, address to)
+        external
+    {
+        // only gov
+        require(msg.sender == owner(), "!governance");
+        // cant take staked asset
+        require(_token != uni_lp, "uni_lp");
+        // cant take reward asset
+        require(_token != yam, "yam");
+
+        // transfer to
+        _token.safeTransfer(to, amount);
+    }
 }

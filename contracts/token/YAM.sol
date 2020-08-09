@@ -1,7 +1,7 @@
 pragma solidity 0.5.17;
 
-import "./YAMTokenInterface.sol";
-/* import "./YAMGovernance.sol"; */
+/* import "./YAMTokenInterface.sol"; */
+import "./YAMGovernance.sol";
 
 contract YAMToken is YAMGovernanceToken {
     // Modifiers
@@ -63,21 +63,33 @@ contract YAMToken is YAMGovernanceToken {
 
     /**
     * @notice Mints new tokens, increasing totalSupply, initSupply, and a users balance.
+    * @dev Limited to onlyMinter modifier
     */
     function mint(address to, uint256 amount)
         external
         onlyMinter
+        returns (bool)
     {
         _mint(to, amount);
+        return true;
     }
 
     function _mint(address to, uint256 amount)
         internal
     {
+      // increase totalSupply
       totalSupply = totalSupply.add(amount);
+
+      // get underlying value
       uint256 yamValue = amount.mul(internalDecimals).div(yamsScalingFactor);
+
+      // increase initSupply
       initSupply = initSupply.add(yamValue);
-      require(yamsScalingFactor <= _maxScalingFactor(), "scaling factor too high");
+
+      // make sure the mint didnt push maxScalingFactor too low
+      require(yamsScalingFactor <= _maxScalingFactor(), "max scaling factor too low");
+
+      // add balance
       _yamBalances[to] = _yamBalances[to].add(yamValue);
       emit Mint(to, amount);
     }
@@ -100,10 +112,13 @@ contract YAMToken is YAMGovernanceToken {
         // note, this means as scaling factor grows, dust will be untransferrable.
         // minimum transfer value == yamsScalingFactor / 1e24;
 
-        // the tradeoff here is that as we decrease initial scaling factor,
-        // the more rounding errors we have elsewhere.
+        // get amount in underlying
         uint256 yamValue = value.mul(internalDecimals).div(yamsScalingFactor);
+
+        // sub from balance of sender
         _yamBalances[msg.sender] = _yamBalances[msg.sender].sub(yamValue);
+
+        // add to balance of receiver
         _yamBalances[to] = _yamBalances[to].add(yamValue);
         emit Transfer(msg.sender, to, value);
 
@@ -145,16 +160,16 @@ contract YAMToken is YAMGovernanceToken {
       return _yamBalances[who].mul(yamsScalingFactor).div(internalDecimals);
     }
 
-    /** @notice Currently unused and not different from balanceOf
+    /** @notice Currently returns the internal storage amount
     * @param who The address to query.
-    * @return The balance of the specified address.
+    * @return The underlying balance of the specified address.
     */
     function balanceOfUnderlying(address who)
       external
       view
       returns (uint256)
     {
-      return _yamBalances[who].mul(yamsScalingFactor).div(internalDecimals);
+      return _yamBalances[who];
     }
 
     /**

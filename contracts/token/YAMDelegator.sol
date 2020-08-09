@@ -75,6 +75,7 @@ contract YAMDelegator is YAM, YAMDelegatorInterface {
      */
     function mint(address to, uint256 mintAmount)
         external
+        returns (bool)
     {
         to; mintAmount; // Shh
         delegateAndReturn();

@@ -12,6 +12,18 @@ contract YAMGovernanceToken is YAMTokenInterface {
     /// @notice An event thats emitted when a delegate account's vote balance changes
     event DelegateVotesChanged(address indexed delegate, uint previousBalance, uint newBalance);
 
+    /**
+     * @notice Delegate votes from `msg.sender` to `delegatee`
+     * @param delegator The address to get delegatee for
+     */
+    function delegates(address delegator)
+        external
+        view
+        returns (address)
+    {
+        return _delegates[delegator];
+    }
+
    /**
     * @notice Delegate votes from `msg.sender` to `delegatee`
     * @param delegatee The address to delegate votes to
@@ -134,9 +146,9 @@ contract YAMGovernanceToken is YAMTokenInterface {
     function _delegate(address delegator, address delegatee)
         internal
     {
-        address currentDelegate = delegates[delegator];
+        address currentDelegate = _delegates[delegator];
         uint256 delegatorBalance = _yamBalances[delegator]; // balance of underlying YAMs (not scaled);
-        delegates[delegator] = delegatee;
+        _delegates[delegator] = delegatee;
 
         emit DelegateChanged(delegator, currentDelegate, delegatee);
 

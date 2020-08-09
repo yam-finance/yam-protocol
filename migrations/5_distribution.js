@@ -129,33 +129,58 @@ async function deployDistribution(deployer, network, accounts) {
     console.log(a)
 
 
-    await eth_pool.methods.setRewardDistribution(Gov.address).send({from: accounts[0], gas: 100000});
-    await ampl_pool.methods.setRewardDistribution(Gov.address).send({from: accounts[0], gas: 100000});
-    await yfi_pool.methods.setRewardDistribution(Gov.address).send({from: accounts[0], gas: 100000});
-    await lend_pool.methods.setRewardDistribution(Gov.address).send({from: accounts[0], gas: 100000});
-    await mkr_pool.methods.setRewardDistribution(Gov.address).send({from: accounts[0], gas: 100000});
-    await snx_pool.methods.setRewardDistribution(Gov.address).send({from: accounts[0], gas: 100000});
-    await comp_pool.methods.setRewardDistribution(Gov.address).send({from: accounts[0], gas: 100000});
-    await link_pool.methods.setRewardDistribution(Gov.address).send({from: accounts[0], gas: 100000});
-    await ycrv_pool.methods.setRewardDistribution(Gov.address).send({from: accounts[0], gas: 100000});
+    await eth_pool.methods.setRewardDistribution(Timelock.address).send({from: accounts[0], gas: 100000});
+    await ampl_pool.methods.setRewardDistribution(Timelock.address).send({from: accounts[0], gas: 100000});
+    await yfi_pool.methods.setRewardDistribution(Timelock.address).send({from: accounts[0], gas: 100000});
+    await lend_pool.methods.setRewardDistribution(Timelock.address).send({from: accounts[0], gas: 100000});
+    await mkr_pool.methods.setRewardDistribution(Timelock.address).send({from: accounts[0], gas: 100000});
+    await snx_pool.methods.setRewardDistribution(Timelock.address).send({from: accounts[0], gas: 100000});
+    await comp_pool.methods.setRewardDistribution(Timelock.address).send({from: accounts[0], gas: 100000});
+    await link_pool.methods.setRewardDistribution(Timelock.address).send({from: accounts[0], gas: 100000});
+    await ycrv_pool.methods.setRewardDistribution(Timelock.address).send({from: accounts[0], gas: 100000});
 
-    await eth_pool.methods.transferOwnership(Gov.address).send({from: accounts[0], gas: 100000});
-    await ampl_pool.methods.transferOwnership(Gov.address).send({from: accounts[0], gas: 100000});
-    await yfi_pool.methods.transferOwnership(Gov.address).send({from: accounts[0], gas: 100000});
-    await lend_pool.methods.transferOwnership(Gov.address).send({from: accounts[0], gas: 100000});
-    await mkr_pool.methods.transferOwnership(Gov.address).send({from: accounts[0], gas: 100000});
-    await snx_pool.methods.transferOwnership(Gov.address).send({from: accounts[0], gas: 100000});
-    await comp_pool.methods.transferOwnership(Gov.address).send({from: accounts[0], gas: 100000});
-    await link_pool.methods.transferOwnership(Gov.address).send({from: accounts[0], gas: 100000});
-    await ycrv_pool.methods.transferOwnership(Gov.address).send({from: accounts[0], gas: 100000});
+    await eth_pool.methods.transferOwnership(Timelock.address).send({from: accounts[0], gas: 100000});
+    await ampl_pool.methods.transferOwnership(Timelock.address).send({from: accounts[0], gas: 100000});
+    await yfi_pool.methods.transferOwnership(Timelock.address).send({from: accounts[0], gas: 100000});
+    await lend_pool.methods.transferOwnership(Timelock.address).send({from: accounts[0], gas: 100000});
+    await mkr_pool.methods.transferOwnership(Timelock.address).send({from: accounts[0], gas: 100000});
+    await snx_pool.methods.transferOwnership(Timelock.address).send({from: accounts[0], gas: 100000});
+    await comp_pool.methods.transferOwnership(Timelock.address).send({from: accounts[0], gas: 100000});
+    await link_pool.methods.transferOwnership(Timelock.address).send({from: accounts[0], gas: 100000});
+    await ycrv_pool.methods.transferOwnership(Timelock.address).send({from: accounts[0], gas: 100000});
   }
 
 
+
+
+  await yam._setPendingGov(Timelock.address);
+  await yReserves._setPendingGov(Timelock.address);
+  await yRebaser._setPendingGov(Timelock.address);
+
+  await tl.executeTransaction(
+    YAMProxy.address,
+    0,
+    "_acceptGov()",
+    "0x",
+    0
+  );
+
+  await tl.executeTransaction(
+    YAMReserves.address,
+    0,
+    "_acceptGov()",
+    "0x",
+    0
+  );
+
+  await tl.executeTransaction(
+    YAMRebaser.address,
+    0,
+    "_acceptGov()",
+    "0x",
+    0
+  );
   await tl.setPendingAdmin(Gov.address);
   await gov.__acceptAdmin();
-  await yam._setPendingGov(Gov.address);
-  await yReserves._setPendingGov(Gov.address);
-  await yRebaser._setPendingGov(Gov.address);
-  await gov._acceptGov([YAMProxy.address, YAMReserves.address, YAMRebaser.address]);
   await gov.__abdicate();
 }

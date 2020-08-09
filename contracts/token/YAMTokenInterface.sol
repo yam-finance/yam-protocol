@@ -75,7 +75,7 @@ contract YAMTokenInterface is YAMTokenStorage, YAMGovernanceStorage {
     function getCurrentVotes(address account) external view returns (uint256);
 
     /* - Permissioned/Governance functions - */
-    function mint(address to, uint256 amount) external;
+    function mint(address to, uint256 amount) external returns (bool);
     function rebase(uint256 epoch, uint256 indexDelta, bool positive) external returns (uint256);
     function _setRebaser(address rebaser_) external;
     function _setIncentivizer(address incentivizer_) external;

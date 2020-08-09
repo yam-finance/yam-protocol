@@ -30,7 +30,7 @@ contract Timelock {
     address public admin;
     address public pendingAdmin;
     uint256 public delay;
-    bool public initialized;
+    bool public admin_initialized;
 
     mapping (bytes32 => bool) public queuedTransactions;
 
@@ -43,7 +43,7 @@ contract Timelock {
 
         admin = msg.sender;
         delay = MINIMUM_DELAY;
-        initialized = false;
+        admin_initialized = false;
     }
 
     function() external payable { }
@@ -73,10 +73,10 @@ contract Timelock {
         public
     {
         // allows one time setting of admin for deployment purposes
-        if (initialized) {
+        if (admin_initialized) {
           require(msg.sender == address(this), "Timelock::setPendingAdmin: Call must come from Timelock.");
         } else {
-          initialized = true;
+          admin_initialized = true;
         }
         pendingAdmin = pendingAdmin_;
 
@@ -133,12 +133,17 @@ contract Timelock {
     {
         require(msg.sender == admin, "Timelock::executeTransaction: Call must come from admin.");
 
+        // timelock not enforced prior to updating the admin. This should occur on
+        // deployment.
         bytes32 txHash = keccak256(abi.encode(target, value, signature, data, eta));
-        require(queuedTransactions[txHash], "Timelock::executeTransaction: Transaction hasn't been queued.");
-        require(getBlockTimestamp() >= eta, "Timelock::executeTransaction: Transaction hasn't surpassed time lock.");
-        require(getBlockTimestamp() <= eta.add(GRACE_PERIOD), "Timelock::executeTransaction: Transaction is stale.");
+        if (admin_initialized) {
+          require(queuedTransactions[txHash], "Timelock::executeTransaction: Transaction hasn't been queued.");
+          require(getBlockTimestamp() >= eta, "Timelock::executeTransaction: Transaction hasn't surpassed time lock.");
+          require(getBlockTimestamp() <= eta.add(GRACE_PERIOD), "Timelock::executeTransaction: Transaction is stale.");
 
-        queuedTransactions[txHash] = false;
+          queuedTransactions[txHash] = false;
+        }
+
 
         bytes memory callData;
 

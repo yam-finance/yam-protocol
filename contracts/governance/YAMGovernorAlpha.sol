@@ -417,15 +417,6 @@ contract GovernorAlpha {
         timelock.acceptAdmin();
     }
 
-    function _acceptGov(address[] memory governables)
-        public
-    {
-        require(msg.sender == guardian, "GovernorAlpha::_acceptGov: sender must be gov guardian");
-        for (uint256 i = 0; i < governables.length; i++) {
-            YAMInterface(governables[i])._acceptGov();
-        }
-    }
-
     function __abdicate()
         public
     {
