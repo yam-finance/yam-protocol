@@ -29,10 +29,13 @@ contract YAMRebaser {
       uint256 mintToReserves;
     }
 
+    /// @notice an event emitted when a transaction fails
     event TransactionFailed(address indexed destination, uint index, bytes data);
 
+    /// @notice an event emitted when maxSlippageFactor is changed
     event NewMaxSlippageFactor(uint256 oldSlippageFactor, uint256 newSlippageFactor);
 
+    /// @notice an event emitted when deviationThreshold is changed
     event NewDeviationThreshold(uint256 oldDeviationThreshold, uint256 newDeviationThreshold);
 
     /**
@@ -72,13 +75,13 @@ contract YAMRebaser {
     /// @notice Pending Governance address
     address public pendingGov;
 
-    // Spreads out getting to the target price
+    /// @notice Spreads out getting to the target price
     uint256 public rebaseLag;
 
-    // Peg target
+    /// @notice Peg target
     uint256 public targetRate;
 
-    // Percent of rebase that goes to minting for treasury building
+    /// @notice Percent of rebase that goes to minting for treasury building
     uint256 public rebaseMintPerc;
 
     // If the current exchange rate is within this fractional distance from the target, no supply
@@ -86,57 +89,59 @@ contract YAMRebaser {
     // (ie) abs(rate - targetRate) / targetRate < deviationThreshold, then no supply change.
     uint256 public deviationThreshold;
 
-    // More than this much time must pass between rebase operations.
+    /// @notice More than this much time must pass between rebase operations.
     uint256 public minRebaseTimeIntervalSec;
 
-    // Block timestamp of last rebase operation
+    /// @notice Block timestamp of last rebase operation
     uint256 public lastRebaseTimestampSec;
 
-    // The rebase window begins this many seconds into the minRebaseTimeInterval period.
+    /// @notice The rebase window begins this many seconds into the minRebaseTimeInterval period.
     // For example if minRebaseTimeInterval is 24hrs, it represents the time of day in seconds.
     uint256 public rebaseWindowOffsetSec;
 
-    // The length of the time window where a rebase operation is allowed to execute, in seconds.
+    /// @notice The length of the time window where a rebase operation is allowed to execute, in seconds.
     uint256 public rebaseWindowLengthSec;
 
-    // The number of rebase cycles since inception
+    /// @notice The number of rebase cycles since inception
     uint256 public epoch;
 
     // rebasing is not active initially. It can be activated at T+12 hours from
     // deployment time
+    ///@notice boolean showing rebase activation status
     bool public rebasingActive;
 
-    // delays rebasing activation to facilitate liquidity
+    /// @notice delays rebasing activation to facilitate liquidity
     uint256 public constant rebaseDelay = 12 hours;
 
-    // Time of TWAP initialization
+    /// @notice Time of TWAP initialization
     uint256 public timeOfTWAPInit;
 
-    // YAM token address
+    /// @notice YAM token address
     address public yamAddress;
 
-    // reserve token
+    /// @notice reserve token
     address public reserveToken;
 
-    // Reserves vault contract
+    /// @notice Reserves vault contract
     address public reservesContract;
 
-    // pair for reserveToken <> YAM
+    /// @notice pair for reserveToken <> YAM
     address public uniswap_pair;
 
-    // last TWAP update time
+    /// @notice last TWAP update time
     uint32 public blockTimestampLast;
 
-    // last TWAP cumulative price;
+    /// @notice last TWAP cumulative price;
     uint256 public priceCumulativeLast;
 
     // Max slippage factor when buying reserve token. Magic number based on
     // the fact that uniswap is a constant product. Therefore,
     // targeting a % max slippage can be achieved by using a single precomputed
     // number. i.e. 2.5% slippage is always equal to some f(maxSlippageFactor, reserves)
+    /// @notice the maximum slippage factor when buying reserve token
     uint256 public maxSlippageFactor;
 
-    // This token is first in uniswap YAM<>Reserve pair
+    /// @notice Whether or not this token is first in uniswap YAM<>Reserve pair
     bool public isToken0;
 
     constructor(
@@ -192,7 +197,9 @@ contract YAMRebaser {
 
     }
 
-    /** @notice Updates slippage factor
+    /**
+    @notice Updates slippage factor
+    @param maxSlippageFactor_ the new slippage factor
     *
     */
     function setMaxSlippageFactor(uint256 maxSlippageFactor_)
@@ -204,7 +211,9 @@ contract YAMRebaser {
         emit NewMaxSlippageFactor(oldSlippageFactor, maxSlippageFactor_);
     }
 
-    /** @notice Updates rebase mint percentage
+    /**
+    @notice Updates rebase mint percentage
+    @param rebaseMintPerc_ the new rebase mint percentage
     *
     */
     function setRebaseMintPerc(uint256 rebaseMintPerc_)
@@ -217,7 +226,9 @@ contract YAMRebaser {
     }
 
 
-    /** @notice Updates reserve contract
+    /**
+    @notice Updates reserve contract
+    @param reservesContract_ the new reserve contract
     *
     */
     function setReserveContract(address reservesContract_)
@@ -505,7 +516,14 @@ contract YAMRebaser {
         }
     }
 
-    // given an input amount of an asset and pair reserves, returns the maximum output amount of the other asset
+    /**
+     * @notice given an input amount of an asset and pair reserves, returns the maximum output amount of the other asset
+     *
+     * @param amountIn input amount of the asset
+     * @param reserveIn reserves of the asset being sold
+     * @param reserveOut reserves if the asset being purchased
+     */
+
    function getAmountOut(
         uint amountIn,
         uint reserveIn,
