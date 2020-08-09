@@ -632,7 +632,7 @@ contract YAMAMPLPool is LPTokenWrapper, IRewardDistributionRecipient {
     IERC20 public yam = IERC20(0x4BC6657283f8f24e27EAc1D21D1deE566C534A9A);
     uint256 public constant DURATION = 625000; // ~7 1/4 days
 
-    uint256 public starttime = 1596931200; // Sunday, August 9, 2020 12:00:00 AM
+    uint256 public starttime = 1597931200; // Sunday, August 9, 2020 12:00:00 AM
     uint256 public periodFinish = 0;
     uint256 public rewardRate = 0;
     uint256 public lastUpdateTime;
