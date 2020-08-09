@@ -87,7 +87,7 @@ describe("rebase_tests", () => {
         10000000,
         10000000,
         user,
-        1596740361 + 100000
+        1596740361 + 100000000
       ).send({
         from: user,
         gas: 8000000
@@ -256,10 +256,10 @@ describe("rebase_tests", () => {
       await yam.contracts.uni_router.methods.addLiquidity(
         yam.contracts.yam.options.address,
         yam.contracts.ycrv.options.address,
-        "2000000000000000000000000",
-        "2000000000000000000000000",
-        "2000000000000000000000000",
-        "2000000000000000000000000",
+        "5000000000000000000000000",
+        "5000000000000000000000000",
+        "5000000000000000000000000",
+        "5000000000000000000000000",
         user,
         1596740361 + 10000000
       ).send({
@@ -355,6 +355,12 @@ describe("rebase_tests", () => {
       });
 
 
+      let res_bal = await yam.contracts.yam.methods.balanceOf(
+          yam.contracts.reserves.options.address
+      ).call();
+
+      expect(res_bal).toBe("0");
+
       bal = await yam.contracts.yam.methods.balanceOf(user).call();
 
       let a = await yam.web3.eth.getBlock('latest');
@@ -391,6 +397,11 @@ describe("rebase_tests", () => {
 
       let resycrv = await yam.contracts.ycrv.methods.balanceOf(yam.contracts.reserves.options.address).call();
 
+      console.log("bal user, bal yam res, bal res crv", bal1, resYAM, resycrv);
+      r = await yam.contracts.uni_pair.methods.getReserves().call();
+      q = await yam.contracts.uni_router.methods.quote(yam.toBigN(10**18).toString(), r[0], r[1]).call();
+      console.log("post positive rebase quote", q);
+
       // new balance > old balance
       expect(yam.toBigN(bal).toNumber()).toBeLessThan(yam.toBigN(bal1).toNumber());
       // used full yam reserves
@@ -398,9 +409,7 @@ describe("rebase_tests", () => {
       // increases reserves
       expect(yam.toBigN(resycrv).toNumber()).toBeGreaterThan(0);
 
-      r = await yam.contracts.uni_pair.methods.getReserves().call();
-      q = await yam.contracts.uni_router.methods.quote(yam.toBigN(10**18).toString(), r[0], r[1]).call();
-      console.log("quote", q);
+
       // not below peg
       expect(yam.toBigN(q).toNumber()).toBeGreaterThan(yam.toBigN(10**18).toNumber());
     });

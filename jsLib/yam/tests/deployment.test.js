@@ -47,7 +47,7 @@ describe("post-deployment", () => {
 
     test("owner balance", async () => {
       let balance = await yam.contracts.yam.methods.balanceOf(user).call();
-      expect(balance).toBe(yam.toBigN(1000000).times(yam.toBigN(10**18).toString())
+      expect(balance).toBe(yam.toBigN(7000000).times(yam.toBigN(10**18)).toString())
     });
 
     test("pool balances", async () => {
@@ -91,12 +91,12 @@ describe("post-deployment", () => {
 
     test("total supply", async () => {
       let ts = await yam.contracts.yam.methods.totalSupply().call();
-      expect(ts).toBe("3500000000000000000000000")
+      expect(ts).toBe("10500000000000000000000000")
     });
 
     test("init supply", async () => {
       let init_s = await yam.contracts.yam.methods.initSupply().call();
-      expect(init_s).toBe("3500000000000000000000000000000")
+      expect(init_s).toBe("10500000000000000000000000000000")
     });
   });
 
@@ -137,6 +137,11 @@ describe("post-deployment", () => {
       expect(owner).toBe(yam.contracts.timelock.options.address)
     });
 
+    test("incentives owner", async () => {
+      let owner = await yam.contracts.ycrv_pool.methods.owner().call();
+      expect(owner).toBe(yam.contracts.timelock.options.address)
+    });
+
     test("pool rewarder", async () => {
       let rewarder = await yam.contracts.eth_pool.methods.rewardDistribution().call();
       expect(rewarder).toBe(yam.contracts.timelock.options.address)
@@ -144,7 +149,9 @@ describe("post-deployment", () => {
   });
 
   describe("timelock delay initiated", () => {
+    test("timelock delay initiated", async () => {
       let inited = await yam.contracts.timelock.methods.admin_initialized().call();
       expect(inited).toBe(true);
+    })
   })
 })
