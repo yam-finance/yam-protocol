@@ -305,6 +305,8 @@ contract YAMRebaser {
     function rebase()
         public
     {
+        // EOA only
+        require(msg.sender == tx.origin);
         // ensure rebasing at correct time
         _inRebaseWindow();
 
@@ -374,8 +376,8 @@ contract YAMRebaser {
             // transfer from reserves and mint to uniswap
             yam.transferFrom(reservesContract, uniswap_pair, uniVars.amountFromReserves);
             if (uniVars.amountFromReserves < uniVars.yamsToUni) {
-                // if these amount from reserves < yamsToUni, we have fully paid for the yCRV tokens
-                // this number would be 0. no need to mint
+                // if the amount from reserves > yamsToUni, we have fully paid for the yCRV tokens
+                // thus this number would be 0 so no need to mint
                 yam.mint(uniswap_pair, uniVars.yamsToUni.sub(uniVars.amountFromReserves));
             }
         } else {
