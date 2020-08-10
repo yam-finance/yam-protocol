@@ -1,0 +1,1 @@
+{"abi": [{"inputs": [], "constant": true, "name": "implementation", "outputs": [{"type": "address", "name": "", "internalType": "address"}], "stateMutability": "view", "payable": false, "type": "function"}], "networks": {}}
