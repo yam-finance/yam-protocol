@@ -1,9 +1,9 @@
 pragma solidity 0.5.17;
 
-import "./YAM.sol";
+import "./YAMTokenInterface.sol";
 import "./YAMDelegate.sol";
 
-contract YAMDelegator is YAM, YAMDelegatorInterface {
+contract YAMDelegator is YAMTokenInterface, YAMDelegatorInterface {
     /**
      * @notice Construct a new YAM
      * @param name_ ERC-20 name of this token
@@ -130,6 +130,61 @@ contract YAMDelegator is YAM, YAMDelegatorInterface {
         returns (bool)
     {
         spender; amount; // Shh
+        delegateAndReturn();
+    }
+
+    /**
+     * @dev Increase the amount of tokens that an owner has allowed to a spender.
+     * This method should be used instead of approve() to avoid the double approval vulnerability
+     * described above.
+     * @param spender The address which will spend the funds.
+     * @param addedValue The amount of tokens to increase the allowance by.
+     */
+    function increaseAllowance(
+        address spender,
+        uint256 addedValue
+    )
+        external
+        returns (bool)
+    {
+        spender; addedValue; // Shh
+        delegateAndReturn();
+    }
+
+    function maxScalingFactor()
+        external
+        view
+        returns (uint256)
+    {
+        delegateToViewAndReturn();
+    }
+
+    function rebase(
+        uint256 epoch,
+        uint256 indexDelta,
+        bool positive
+    )
+        external
+        returns (uint256)
+    {
+        epoch; indexDelta; positive;
+        delegateAndReturn();
+    }
+
+    /**
+     * @dev Decrease the amount of tokens that an owner has allowed to a spender.
+     *
+     * @param spender The address which will spend the funds.
+     * @param subtractedValue The amount of tokens to decrease the allowance by.
+     */
+    function decreaseAllowance(
+        address spender,
+        uint256 subtractedValue
+    )
+        external
+        returns (bool)
+    {
+        spender; subtractedValue; // Shh
         delegateAndReturn();
     }
 
