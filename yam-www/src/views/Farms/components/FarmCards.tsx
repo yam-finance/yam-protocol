@@ -6,44 +6,71 @@ import Card from '../../../components/Card'
 import CardContent from '../../../components/CardContent'
 import CardIcon from '../../../components/CardIcon'
 
+import { Farm } from '../../../contexts/Farms'
+
 import useFarms from '../../../hooks/useFarms'
 
 const FarmCards: React.FC = () => {
   const [farms] = useFarms()
+
+  const rows = farms.reduce<Farm[][]>((farmRows, farm) => {
+    const newFarmRows = [...farmRows]
+    if (newFarmRows[newFarmRows.length - 1].length === 3) {
+      newFarmRows.push([farm])
+    } else {
+      newFarmRows[newFarmRows.length - 1].push(farm)
+    }
+    return newFarmRows
+  }, [[]])
+
   return (
     <StyledCards>
-        {farms.map((farm, i) => (
-          <React.Fragment key={i}>
-            <StyledCardWrapper>
-              <Card>
-                <CardContent>
-                  <StyledContent>
-                    <CardIcon>{farm.icon}</CardIcon>
-                    <StyledTitle>{farm.name}</StyledTitle>
-                    <StyledDetails>
-                      <StyledDetail>Deposit {farm.depositToken}</StyledDetail>
-                      <StyledDetail>Earn {farm.earnToken}</StyledDetail>
-                    </StyledDetails>
-                    <Button text="Select" to={`/farms/${farm.id}`} />
-                  </StyledContent>
-                </CardContent>
-              </Card>
-            </StyledCardWrapper>
-            {i < farms.length - 1 && <StyledSpacer />}
-          </React.Fragment>
-        ))}
+      {rows.map((farmRow, i) => (
+        <StyledRow key={i}>
+          {farmRow.map((farm, j) => (
+            <React.Fragment key={j}>
+              <StyledCardWrapper>
+                <Card>
+                  <CardContent>
+                    <StyledContent>
+                      <CardIcon>{farm.icon}</CardIcon>
+                      <StyledTitle>{farm.name}</StyledTitle>
+                      <StyledDetails>
+                        <StyledDetail>Deposit {farm.depositToken}</StyledDetail>
+                        <StyledDetail>Earn {farm.earnToken}</StyledDetail>
+                      </StyledDetails>
+                      <Button text="Select" to={`/farms/${farm.id}`} />
+                    </StyledContent>
+                  </CardContent>
+                </Card>
+              </StyledCardWrapper>
+              {(j === 0 || j === 1) && <StyledSpacer />}
+            </React.Fragment>
+          ))}
+        </StyledRow>
+      ))}
     </StyledCards>
   )
 }
 
 const StyledCards = styled.div`
-  display: flex;
   width: 900px;
 `
 
-const StyledCardWrapper = styled.div`
-  flex: 1;
+const StyledRow = styled.div`
+  display: flex;
+  margin-bottom: ${props => props.theme.spacing[4]}px;
 `
+
+const StyledCardWrapper = styled.div`
+  display: flex;
+  width: calc((900px - ${props => props.theme.spacing[4]}px * 2) / 3);
+`
+/*
+  height: 100%;
+  width: calc((900px - ${props => props.theme.spacing[4]}px * 2) / 3);
+*/
+//width: calc((900px - ${props => props.theme.spacing[4]}px * 2) / 3);
 
 const StyledTitle = styled.h4`
   color: ${props => props.theme.color.grey[600]};
@@ -56,12 +83,8 @@ const StyledTitle = styled.h4`
 const StyledContent = styled.div`
   align-items: center;
   display: flex;
+  flex: 1;
   flex-direction: column;
-`
-
-const StyledIcon = styled.div`
-  font-size: 56px;
-  margin-top: ${props => props.theme.spacing[2]}px;
 `
 
 const StyledSpacer = styled.div`
@@ -70,6 +93,7 @@ const StyledSpacer = styled.div`
 `
 
 const StyledDetails = styled.div`
+  flex: 1;
   margin-bottom: ${props => props.theme.spacing[6]}px;
   margin-top: ${props => props.theme.spacing[2]}px;
   text-align: center;
