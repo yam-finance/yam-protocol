@@ -717,6 +717,7 @@ contract YAMIncentivizer is LPTokenWrapper, IRewardDistributionRecipient {
     function getReward() public updateReward(msg.sender) checkhalve checkStart {
         uint256 reward = earned(msg.sender);
         if (reward > 0) {
+            rewards[msg.sender] = 0;
             uint256 scalingFactor = YAM(address(yam)).yamsScalingFactor();
             uint256 trueReward = reward.mul(scalingFactor).div(10**18);
             yam.safeTransfer(msg.sender, trueReward);
@@ -728,8 +729,8 @@ contract YAMIncentivizer is LPTokenWrapper, IRewardDistributionRecipient {
         if (block.timestamp >= periodFinish) {
             initreward = initreward.mul(50).div(100);
             uint256 scalingFactor = YAM(address(yam)).yamsScalingFactor();
-            uint256 trueReward = initreward.mul(scalingFactor).div(10**18);
-            yam.mint(address(this), trueReward);
+            uint256 newRewards = initreward.mul(scalingFactor).div(10**18);
+            yam.mint(address(this), newRewards);
 
             rewardRate = initreward.div(DURATION);
             periodFinish = block.timestamp.add(DURATION);
@@ -761,8 +762,9 @@ contract YAMIncentivizer is LPTokenWrapper, IRewardDistributionRecipient {
           periodFinish = block.timestamp.add(DURATION);
           emit RewardAdded(reward);
         } else {
-          yam.mint(address(this), reward);
-          rewardRate = reward.div(DURATION);
+          require(yam.balanceOf(address(this)) == 0, "already initialized");
+          yam.mint(address(this), initreward);
+          rewardRate = initreward.div(DURATION);
           lastUpdateTime = starttime;
           periodFinish = starttime.add(DURATION);
           emit RewardAdded(reward);

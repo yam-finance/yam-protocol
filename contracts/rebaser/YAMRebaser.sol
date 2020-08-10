@@ -175,6 +175,7 @@ contract YAMRebaser {
           yamAddress = yamAddress_;
 
           // target 10% slippage
+          // 5.4%
           maxSlippageFactor = 5409258 * 10**10;
 
           // 1 YCRV
@@ -189,8 +190,8 @@ contract YAMRebaser {
           // 5%
           deviationThreshold = 5 * 10**16;
 
-          // 15 minutes
-          rebaseWindowLengthSec = 60 * 15;
+          // 60 minutes
+          rebaseWindowLengthSec = 60 * 60;
 
           // Changed in deployment scripts to facilitate protocol initiation
           gov = msg.sender;
@@ -304,6 +305,8 @@ contract YAMRebaser {
     function rebase()
         public
     {
+        // EOA only
+        require(msg.sender == tx.origin);
         // ensure rebasing at correct time
         _inRebaseWindow();
 
@@ -329,13 +332,8 @@ contract YAMRebaser {
 
         YAMTokenInterface yam = YAMTokenInterface(yamAddress);
 
-        // cap to max scaling
-        // computes next scaling factor: yam.yamsScalingFactor().mul(uint256(10**18).add(indexDelta)).div(10**18)
-        // compares that to max scaling factor
-        // caps delta to bring scaling factor up to max
-        if (positive
-          && yam.yamsScalingFactor().mul(uint256(10**18).add(indexDelta)).div(10**18) > yam.maxScalingFactor()) {
-            indexDelta = yam.maxScalingFactor() - yam.yamsScalingFactor();
+        if (positive) {
+            require(yam.yamsScalingFactor().mul(uint256(10**18).add(indexDelta)).div(10**18) < yam.maxScalingFactor(), "new scaling factor will be too big");
         }
 
 
@@ -377,13 +375,17 @@ contract YAMRebaser {
         if (uniVars.amountFromReserves > 0) {
             // transfer from reserves and mint to uniswap
             yam.transferFrom(reservesContract, uniswap_pair, uniVars.amountFromReserves);
-            yam.mint(uniswap_pair, uniVars.yamsToUni.sub( uniVars.amountFromReserves));
+            if (uniVars.amountFromReserves < uniVars.yamsToUni) {
+                // if the amount from reserves > yamsToUni, we have fully paid for the yCRV tokens
+                // thus this number would be 0 so no need to mint
+                yam.mint(uniswap_pair, uniVars.yamsToUni.sub(uniVars.amountFromReserves));
+            }
         } else {
             // mint to uniswap
             yam.mint(uniswap_pair, uniVars.yamsToUni);
         }
 
-        // mint unsold to reserves
+        // mint unsold to mintAmount
         if (uniVars.mintToReserves > 0) {
             yam.mint(reservesContract, uniVars.mintToReserves);
         }
@@ -396,8 +398,6 @@ contract YAMRebaser {
             SafeERC20.safeTransfer(IERC20(reserveToken), reservesContract, amount0);
             emit TreasuryIncreased(amount0, uniVars.yamsToUni, uniVars.amountFromReserves, uniVars.mintToReserves);
         }
-
-
     }
 
     function buyReserveAndTransfer(
@@ -494,10 +494,11 @@ contract YAMRebaser {
         uint256 offPegPerc
     )
       internal
+      view
       returns (uint256)
     {
         if (isToken0) {
-          if (offPegPerc > maxSlippageFactor) {
+          if (offPegPerc >= 10**17) {
               // cap slippage
               return token0.mul(maxSlippageFactor).div(10**18);
           } else {
@@ -505,10 +506,12 @@ contract YAMRebaser {
               // all we care about is not pushing below the peg, so underestimate
               // the amount we can sell by dividing by 3. resulting price impact
               // should be ~= offPegPerc * 2 / 3, which will keep us above the peg
+              //
+              // this is a conservative heuristic
               return token0.mul(offPegPerc / 3).div(10**18);
           }
         } else {
-            if (offPegPerc > maxSlippageFactor) {
+            if (offPegPerc >= 10**17) {
                 return token1.mul(maxSlippageFactor).div(10**18);
             } else {
                 return token1.mul(offPegPerc / 3).div(10**18);

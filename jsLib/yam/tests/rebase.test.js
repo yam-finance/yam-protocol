@@ -32,7 +32,8 @@ describe("rebase_tests", () => {
   let snapshotId;
   let user;
   let new_user;
-  let unlocked_account = "0x0eb4add4ba497357546da7f5d12d39587ca24606";
+  // let unlocked_account = "0x0eb4add4ba497357546da7f5d12d39587ca24606";
+  let unlocked_account = "0x681148725731f213b0187a3cbef215c291d85a3e";
 
   beforeAll(async () => {
     const accounts = await yam.web3.eth.getAccounts();
@@ -44,7 +45,7 @@ describe("rebase_tests", () => {
 
   beforeEach(async () => {
     await yam.testing.resetEVM("0x2");
-    let a = await yam.contracts.ycrv.methods.transfer(user, "12000000000000000000000000").send({
+    let a = await yam.contracts.ycrv.methods.transfer(user, "2000000000000000000000000").send({
       from: unlocked_account
     });
   });
@@ -52,7 +53,7 @@ describe("rebase_tests", () => {
   describe("rebase", () => {
     test("user has ycrv", async () => {
       let bal0 = await yam.contracts.ycrv.methods.balanceOf(user).call();
-      expect(bal0).toBe("12000000000000000000000000");
+      expect(bal0).toBe("2000000000000000000000000");
     });
     test("create pair", async () => {
       await yam.contracts.uni_fact.methods.createPair(
@@ -256,10 +257,10 @@ describe("rebase_tests", () => {
       await yam.contracts.uni_router.methods.addLiquidity(
         yam.contracts.yam.options.address,
         yam.contracts.ycrv.options.address,
-        "5000000000000000000000000",
-        "5000000000000000000000000",
-        "5000000000000000000000000",
-        "5000000000000000000000000",
+        "1000000000000000000000000",
+        "1000000000000000000000000",
+        "1000000000000000000000000",
+        "1000000000000000000000000",
         user,
         1596740361 + 10000000
       ).send({
@@ -314,7 +315,7 @@ describe("rebase_tests", () => {
 
 
       await yam.contracts.uni_router.methods.swapExactTokensForTokens(
-        "1000000000000000000000000",
+        "100000000000000000000000",
         100000,
         [
           yam.contracts.ycrv.options.address,
@@ -432,10 +433,10 @@ describe("rebase_tests", () => {
       await yam.contracts.uni_router.methods.addLiquidity(
         yam.contracts.yam.options.address,
         yam.contracts.ycrv.options.address,
-        "2000000000000000000000000",
-        "2000000000000000000000000",
-        "2000000000000000000000000",
-        "2000000000000000000000000",
+        "1000000000000000000000000",
+        "1000000000000000000000000",
+        "1000000000000000000000000",
+        "1000000000000000000000000",
         user,
         1596740361 + 10000000
       ).send({
@@ -592,10 +593,10 @@ describe("rebase_tests", () => {
       await yam.contracts.uni_router.methods.addLiquidity(
         yam.contracts.yam.options.address,
         yam.contracts.ycrv.options.address,
-        "2000000000000000000000000",
-        "2000000000000000000000000",
-        "2000000000000000000000000",
-        "2000000000000000000000000",
+        "1000000000000000000000000",
+        "1000000000000000000000000",
+        "1000000000000000000000000",
+        "1000000000000000000000000",
         user,
         1596740361 + 10000000
       ).send({
@@ -783,10 +784,10 @@ describe("rebase_tests", () => {
       await yam.contracts.uni_router.methods.addLiquidity(
         yam.contracts.yam.options.address,
         yam.contracts.ycrv.options.address,
-        "2000000000000000000000000",
-        "2000000000000000000000000",
-        "2000000000000000000000000",
-        "2000000000000000000000000",
+        "1000000000000000000000000",
+        "1000000000000000000000000",
+        "1000000000000000000000000",
+        "1000000000000000000000000",
         user,
         1596740361 + 10000000
       ).send({
@@ -841,7 +842,7 @@ describe("rebase_tests", () => {
 
 
       await yam.contracts.uni_router.methods.swapExactTokensForTokens(
-        "1000000000000000000000000",
+        "500000000000000000000000",
         100000,
         [
           yam.contracts.ycrv.options.address,
@@ -962,10 +963,10 @@ describe("rebase_tests", () => {
       await yam.contracts.uni_router.methods.addLiquidity(
         yam.contracts.yam.options.address,
         yam.contracts.ycrv.options.address,
-        "2000000000000000000000000",
-        "2000000000000000000000000",
-        "2000000000000000000000000",
-        "2000000000000000000000000",
+        "1000000000000000000000000",
+        "1000000000000000000000000",
+        "1000000000000000000000000",
+        "1000000000000000000000000",
         user,
         1596740361 + 10000000
       ).send({
@@ -1020,7 +1021,7 @@ describe("rebase_tests", () => {
 
 
       await yam.contracts.uni_router.methods.swapExactTokensForTokens(
-        "1000000000000000000000000",
+        "500000000000000000000000",
         100000,
         [
           yam.contracts.ycrv.options.address,
@@ -1105,10 +1106,10 @@ describe("rebase_tests", () => {
       await yam.contracts.uni_router.methods.addLiquidity(
         yam.contracts.yam.options.address,
         yam.contracts.ycrv.options.address,
-        "2000000000000000000000000",
-        "2000000000000000000000000",
-        "2000000000000000000000000",
-        "2000000000000000000000000",
+        "1000000000000000000000000",
+        "1000000000000000000000000",
+        "1000000000000000000000000",
+        "1000000000000000000000000",
         user,
         1596740361 + 10000000
       ).send({
@@ -1163,7 +1164,7 @@ describe("rebase_tests", () => {
 
 
       await yam.contracts.uni_router.methods.swapExactTokensForTokens(
-        "1000000000000000000000000",
+        "500000000000000000000000",
         100000,
         [
           yam.contracts.ycrv.options.address,

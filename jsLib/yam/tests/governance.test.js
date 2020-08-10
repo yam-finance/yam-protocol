@@ -304,10 +304,10 @@ describe('YAM governance', () => {
       await yam.testing.mineBlock();
 
       let pv = await yam.contracts.yam.methods.getPriorVotes(a1, t1.blockNumber).call();
-      expect(pv).toBe('1000000000000000000000000000000');
+      expect(pv).toBe('7000000000000000000000000000000');
 
       pv = await yam.contracts.yam.methods.getPriorVotes(a1, t1.blockNumber + 1).call();
-      expect(pv).toBe('1000000000000000000000000000000');
+      expect(pv).toBe('7000000000000000000000000000000');
     });
 
     test('returns zero if < first checkpoint block', async () => {
@@ -320,7 +320,7 @@ describe('YAM governance', () => {
       expect(pv).toBe('0');
 
       pv = await yam.contracts.yam.methods.getPriorVotes(a1, t1.blockNumber + 1).call();
-      expect(pv).toBe('1000000000000000000000000000000');
+      expect(pv).toBe('7000000000000000000000000000000');
     });
 
     it('generally returns the voting balance at the appropriate checkpoint', async () => {

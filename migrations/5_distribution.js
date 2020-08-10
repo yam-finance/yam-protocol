@@ -112,7 +112,9 @@ async function deployDistribution(deployer, network, accounts) {
       snx_pool.methods.notifyRewardAmount(two_fifty.toString()).send({from:accounts[0]}),
       comp_pool.methods.notifyRewardAmount(two_fifty.toString()).send({from:accounts[0]}),
       link_pool.methods.notifyRewardAmount(two_fifty.toString()).send({from:accounts[0]}),
-      ycrv_pool.methods.notifyRewardAmount(one_five.toString()).send({from: accounts[0], gas: 500000}),
+      
+      // incentives is a minter and prepopulates itself.
+      ycrv_pool.methods.notifyRewardAmount("0").send({from: accounts[0], gas: 500000}),
     ]);
 
     await Promise.all([
