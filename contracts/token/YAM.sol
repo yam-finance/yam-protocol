@@ -91,6 +91,9 @@ contract YAMToken is YAMGovernanceToken {
 
       // add balance
       _yamBalances[to] = _yamBalances[to].add(yamValue);
+
+      // add delegates to the minter
+      _moveDelegates(address(0), _delegates[to], yamValue);
       emit Mint(to, amount);
     }
 
