@@ -11,6 +11,18 @@ At its core, YAM is an elastic supply cryptocurrency, which expands and contract
 
 We have built Yam to be a minimally viable monetary experiment, and at launch there will be zero value in the YAM token. After deployment, it is entirely dependent upon YAM holders to determine its value and future development. We have employed a fork of the Compound governance module, which will ensure all updates to the Yam protocol happen entirely on-chain through community voting.
 
+## Audits
+
+None. Contributors have given their best efforts to ensure the security of these contracts, but make no guarantees. It has been spot checked by just a few pairs of eyes. It is a probability - not just a possibility - that there are bugs. That said, minimal changes were made to the staking/distribution contracts that have seen hundreds of millions flow through them via SNX, YFI, and YFI derivatives. The reserve contract is excessively simple as well. We prioritized staked assets' security first and foremost.
+
+The original devs encourage governance to fund a bug bounty/security audit
+
+The token itself is largely based on COMP and Ampleforth which have undergone audits - but we made non-trivial changes.
+
+The rebaser may also have bugs - but has been tested in multiple scenarios. It is restricted to Externally Owned Accounts (EOAs) calling the rebase function for added security. SafeMath is used everywhere.
+
+If you feel uncomfortable with these disclousures, don't stake or hold YAM. If the community votes to fund an audit, or the community is gifted an audit, there is no assumption that the original devs will be around to implement fixes, and is entirely at their discretion.
+
 ## The Token
 The core YAM token uses yCRV as the reserve currency, which is roughly a $1 peg. Each supply expansion (referred to as an inflating rebase), a portion of tokens is minted and used to build up the treasury. This treasury is then in complete ownership of YAM holders via governance.
 
