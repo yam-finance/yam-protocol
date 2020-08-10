@@ -38,7 +38,7 @@ async function deployRs(deployer, network) {
   let pair = await rebase.methods.uniswap_pair().call();
   console.log(pair)
   let yam = await YAMProxy.deployed();
-  yam._setRebaser(YAMRebaser.address);
+  await yam._setRebaser(YAMRebaser.address);
   let reserves = await YAMReserves.deployed();
-  reserves._setRebaser(YAMRebaser.address)
+  await reserves._setRebaser(YAMRebaser.address)
 }
