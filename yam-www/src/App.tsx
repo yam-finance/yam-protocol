@@ -12,7 +12,6 @@ import ModalsProvider from './contexts/Modals'
 import YamProvider from './contexts/YamProvider'
 import TransactionProvider from './contexts/Transactions'
 
-import About from './views/About'
 import Farms from './views/Farms'
 import Home from './views/Home'
 
@@ -24,13 +23,10 @@ const App: React.FC = () => {
       <Router>
         <Switch>
           <Route path="/" exact>
-            <Home />
+            <Farms />
           </Route>
           <Route path="/farms">
             <Farms />
-          </Route>
-          <Route path="/about">
-            <About />
           </Route>
         </Switch>
       </Router>

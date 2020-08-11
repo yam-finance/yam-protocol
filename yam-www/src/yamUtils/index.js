@@ -1,3 +1,15 @@
+import {ethers} from 'ethers'
+
+export const approve = async (tokenContract, poolContract, account) => {
+  return tokenContract.methods
+    .approve(poolContract.options.address, ethers.constants.MaxUint256)
+    .send({ from: account, gas: 80000 })
+    .on('transactionHash', (tx) => {
+      console.log(tx)
+      return tx.transactionHash
+    })
+}
+
 export const getPoolContracts = async (yam) => {
   const pools = Object.keys(yam.contracts)
     .filter(c => c.indexOf('_pool') !== -1)

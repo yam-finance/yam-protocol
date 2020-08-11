@@ -1,10 +1,9 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useMemo } from 'react'
 import styled from 'styled-components'
 
-import BigNumber from 'bignumber.js'
 import { useParams } from 'react-router-dom'
 import { useWallet } from 'use-wallet'
-
+import { provider } from 'web3-core'
 import Button from '../../components/Button'
 import Card from '../../components/Card'
 import CardContent from '../../components/CardContent'
@@ -17,14 +16,15 @@ import PageHeader from '../../components/PageHeader'
 import { AddIcon, RemoveIcon } from '../../components/icons'
 
 import useAllowance from '../../hooks/useAllowance'
+import useApprove from '../../hooks/useApprove'
 import useEarnings from '../../hooks/useEarnings'
 import useFarm from '../../hooks/useFarm'
 import useModal from '../../hooks/useModal'
 import useStakedBalance from '../../hooks/useStakedBalance'
 import useTokenBalance from '../../hooks/useTokenBalance'
-import useYam from '../../hooks/useYam'
 
 import { getDisplayBalance } from '../../utils/formatBalance'
+import { getContract } from '../../utils/erc20'
 
 import DepositModal from './components/DepositModal'
 import WithdrawModal from './components/WithdrawModal'
@@ -47,22 +47,22 @@ const Farm: React.FC = () => {
     icon: ''
   }
 
-  const allowance = useAllowance(depositTokenAddress, contract ? contract.options.address : '')
+  const { ethereum } = useWallet()
+
+  const tokenContract = useMemo(() => {
+    return getContract(ethereum as provider, depositTokenAddress)
+  }, [ethereum, depositTokenAddress])
+
+  const allowance = useAllowance(tokenContract, contract)
+  const { onApprove } = useApprove(tokenContract, contract)
   const earnings = useEarnings(contract)
   const tokenBalance = useTokenBalance(depositTokenAddress)
   const stakedBalance = useStakedBalance(contract)
   const [onPresentDeposit] = useModal(<DepositModal max={tokenBalance} tokenName={depositToken} />)
   const [onPresentWithdraw] = useModal(<WithdrawModal max={stakedBalance} tokenName={depositToken} />)
 
-  const { account } = useWallet()
-  const yam = useYam()
-  
-  useEffect(() => {
-
-  }, [contract, account, yam])
-
   return (
-    <Page>
+    <>
       <PageHeader
         icon={icon}
         subtitle={`Deposit ${depositToken} and earn ${earnToken}`}
@@ -81,7 +81,7 @@ const Farm: React.FC = () => {
                   </StyledCardHeader>
                   <StyledCardActions>
                     {!allowance.toNumber() ? (
-                      <Button text={`Approve ${depositToken}`} />
+                      <Button onClick={onApprove} text={`Approve ${depositToken}`} />
                     ) : (
                       <>
                         <IconButton onClick={onPresentWithdraw}>
@@ -119,7 +119,7 @@ const Farm: React.FC = () => {
           </StyledCardWrapper>
         </StyledCardsWrapper>
       </StyledFarm>
-    </Page>
+    </>
   )
 }
 
