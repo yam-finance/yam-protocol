@@ -5,38 +5,24 @@ import Card from '../../../components/Card'
 import CardContent from '../../../components/CardContent'
 import Label from '../../../components/Label'
 
-import useYam from '../../../hooks/useYam'
-
-import { getStats } from '../utils'
-
-const Stats: React.FC = () => {
-
-  const yam = useYam()
-
-  const [stats, setStats] = useState<{
-    circSupply: number,
-    curPrice: number,
-    targetPrice: number,
-    totalSupply: number
-  }>()
-
-  const fetchStats = useCallback(async () => {
-    const statsData = await getStats(yam)
-    setStats(statsData)
-  }, [yam, setStats])
-
-  useEffect(() => {
-    if (yam) {
-      fetchStats()
-    }
-  }, [fetchStats, yam])
-
+interface StatsProps {
+  circSupply?: number,
+  curPrice?: number,
+  targetPrice?: number,
+  totalSupply?: number
+}
+const Stats: React.FC<StatsProps> = ({
+  circSupply,
+  curPrice,
+  targetPrice,
+  totalSupply,
+}) => {
   return (
     <StyledStats>
       <Card>
         <CardContent>
           <StyledStat>
-            <StyledValue>{stats ? `$${stats.curPrice}` : 'Loading'}</StyledValue>
+            <StyledValue>{curPrice ? `$${curPrice}` : '--'}</StyledValue>
             <Label text="Current Price" />
           </StyledStat>
         </CardContent>
@@ -47,7 +33,7 @@ const Stats: React.FC = () => {
       <Card>
         <CardContent>
           <StyledStat>
-            <StyledValue>{stats ? `$${stats.targetPrice}` : 'Loading'}</StyledValue>
+            <StyledValue>{targetPrice ? `$${targetPrice}` : '--'}</StyledValue>
             <Label text="Target Price" />
           </StyledStat>
         </CardContent>
@@ -59,7 +45,9 @@ const Stats: React.FC = () => {
         <CardContent>
           <StyledStat>
             <StyledValue>
-              {stats ? `${stats.circSupply} / ${stats.totalSupply}` : 'Loading'}
+              {circSupply ? circSupply : '-- '}
+              /
+              {totalSupply ? totalSupply : ' --'}
             </StyledValue>
             <Label text="Circ / Total Supply" />
           </StyledStat>
