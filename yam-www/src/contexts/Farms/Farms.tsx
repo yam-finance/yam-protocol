@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react'
 
+import useYam from '../../hooks/useYam'
+
 import Context from './context'
 import { Farm } from './types'
 
 const Farms: React.FC = ({ children }) => {
   const [farms, setFarms] = useState<Farm[]>([])
+  const yam = useYam()
+
+  /*
   useEffect(() => {
     setFarms([
       {
@@ -18,6 +23,14 @@ const Farms: React.FC = ({ children }) => {
       },
     ])
   }, [setFarms])
+  */
+
+  useEffect(() => {
+    if (yam) {
+      console.log(yam)
+    }
+  }, [yam])
+  
   return (
     <Context.Provider value={{ farms }}>
       {children}
