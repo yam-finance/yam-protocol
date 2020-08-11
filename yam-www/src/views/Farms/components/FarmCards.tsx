@@ -33,10 +33,11 @@ const FarmCards: React.FC = () => {
                 <Card>
                   <CardContent>
                     <StyledContent>
+                      <CardIcon>{farm.icon}</CardIcon>
                       <StyledTitle>{farm.name}</StyledTitle>
                       <StyledDetails>
-                        <StyledDetail>Deposit {farm.depositToken}</StyledDetail>
-                        <StyledDetail>Earn {farm.earnToken}</StyledDetail>
+                        <StyledDetail>Deposit {farm.depositToken.toUpperCase()}</StyledDetail>
+                        <StyledDetail>Earn {farm.earnToken.toUpperCase()}</StyledDetail>
                       </StyledDetails>
                       <Button text="Select" to={`/farms/${farm.id}`} />
                     </StyledContent>
