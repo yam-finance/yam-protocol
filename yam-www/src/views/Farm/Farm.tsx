@@ -137,8 +137,9 @@ const Farm: React.FC = () => {
                     <Label text={`${earnToken.toUpperCase()} Earned`} />
                   </StyledCardHeader>
                   <StyledCardActions>
-                    <Button onClick={onReward} text="Harvest" disabled={!earnings.toNumber()} />
-                    <Button onClick={onRedeem} text="Exit" disabled={!earnings.toNumber()} />
+                      <Button onClick={onReward} text="Harvest" disabled={!earnings.toNumber()} />
+                      <StyledCardSpacer />
+                      <Button onClick={onRedeem} text="Harvest & Exit" disabled={!earnings.toNumber()} />
                   </StyledCardActions>
                 </StyledCardContentInner>
               </CardContent>
@@ -176,6 +177,7 @@ const StyledCardContentInner = styled.div`
 `
 
 const StyledCardSpacer = styled.div`
+  height: ${props => props.theme.spacing[4]}px;
   width: ${props => props.theme.spacing[4]}px;
 `
 
