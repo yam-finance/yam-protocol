@@ -63,16 +63,16 @@ export const getPoolContracts = async (yam) => {
 }
 
 export const getEarned = async (yam, pool, account) => {
-  return yam.toBigN(await pool.methods.earned(account).call()).div(10**18).toFixed(2)
+  return yam.toBigN(await pool.methods.earned(account).call())
 }
 
 export const getStaked = async (yam, pool, account) => {
-  return yam.toBigN(await pool.methods.balanceOf(account).call()).div(10**18).toFixed(2)
+  return yam.toBigN(await pool.methods.balanceOf(account).call())
 }
 
 export const getCurrentPrice = async (yam) => {
   // FORBROCK: get current YAM price
-  return yam.toBigN(await yam.contracts.rebaser.methods.getCurrentTWAP().call()).toFixed(2);
+  return yam.toBigN(await yam.contracts.rebaser.methods.getCurrentTWAP().call())
 }
 
 const getTargetPrice = async (yam) => {
