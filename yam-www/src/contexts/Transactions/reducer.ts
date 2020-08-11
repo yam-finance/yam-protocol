@@ -74,6 +74,7 @@ const reducer = (state: TransactionsState, action: TransactionsActions): Transac
       return {
         ...state,
         transactions: action.transactions,
+        initialized: true,
       }
     default:
       return state
