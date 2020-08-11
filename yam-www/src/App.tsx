@@ -18,8 +18,6 @@ import Home from './views/Home'
 
 import theme from './theme'
 
-import { Yam } from './yam_dist'
-
 const App: React.FC = () => {
   return (
     <Providers>
