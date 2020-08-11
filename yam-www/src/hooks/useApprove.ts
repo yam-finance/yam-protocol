@@ -10,9 +10,13 @@ const useApprove = (tokenContract: Contract, poolContract: Contract) => {
   const { account }: { account: string, ethereum: provider } = useWallet()
 
   const handleApprove = useCallback(async () => {
-    const txHash = await approve(tokenContract, poolContract, account)
-    console.log(txHash)
-  }, [tokenContract, poolContract])
+    try {
+      const tx = await approve(tokenContract, poolContract, account)
+      return tx
+    } catch (e) {
+      return false
+    }
+  }, [account, tokenContract, poolContract])
 
   return { onApprove: handleApprove }
 }

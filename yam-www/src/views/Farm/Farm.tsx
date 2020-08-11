@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import styled from 'styled-components'
 
 import { useParams } from 'react-router-dom'
@@ -32,7 +32,7 @@ import DepositModal from './components/DepositModal'
 import WithdrawModal from './components/WithdrawModal'
 
 const Farm: React.FC = () => {
-  const [userApproved, setUserApproved] = useState(false)
+  const [requestedApproval, setRequestedApproval] = useState(false)
 
   const { farmId } = useParams()
   const {
@@ -68,11 +68,18 @@ const Farm: React.FC = () => {
   const [onPresentDeposit] = useModal(<DepositModal max={tokenBalance} onConfirm={onStake} tokenName={depositToken} />)
   const [onPresentWithdraw] = useModal(<WithdrawModal max={stakedBalance} onConfirm={onUnstake} tokenName={depositToken} />)
 
-  const userApprove = () => {
-    onApprove()
-      .then(() => setUserApproved(true))
-      .catch(() => {})
-  }
+  const handleApprove = useCallback(async () => {
+    try {
+      setRequestedApproval(true)
+      const txHash = await onApprove()
+      // user rejected tx or didn't go thru
+      if (!txHash) {
+        setRequestedApproval(false)
+      }
+    } catch (e) {
+      console.log(e)
+    }
+  }, [onApprove, setRequestedApproval])
 
   return (
     <>
@@ -93,8 +100,12 @@ const Farm: React.FC = () => {
                     <Label text={`${depositToken.toUpperCase()} Staked`} />
                   </StyledCardHeader>
                   <StyledCardActions>
-                    {(!allowance.toNumber() && !userApproved) ? (
-                      <Button onClick={userApprove} text={`Approve ${depositToken.toUpperCase()}`} />
+                    {!allowance.toNumber() ? (
+                      <Button
+                        disabled={requestedApproval}
+                        onClick={handleApprove}
+                        text={`Approve ${depositToken.toUpperCase()}`}
+                      />
                     ) : (
                       <>
                         <IconButton onClick={onPresentWithdraw}>
