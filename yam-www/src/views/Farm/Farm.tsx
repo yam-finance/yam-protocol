@@ -64,6 +64,7 @@ const Farm: React.FC = () => {
   const { onStake } = useStake(contract)
   const { onUnstake } = useUnstake(contract)
   const { onRedeem } = useRedeem(contract)
+  const { onReward } = useReward(contract)
 
   const [onPresentDeposit] = useModal(<DepositModal max={tokenBalance} onConfirm={onStake} tokenName={depositToken} />)
   const [onPresentWithdraw] = useModal(<WithdrawModal max={stakedBalance} onConfirm={onUnstake} tokenName={depositToken} />)
@@ -135,7 +136,8 @@ const Farm: React.FC = () => {
                     <Label text={`${earnToken.toUpperCase()} Earned`} />
                   </StyledCardHeader>
                   <StyledCardActions>
-                    <Button onClick={onRedeem} text="Harvest" disabled={!earnings.toNumber()} />
+                    <Button onClick={onReward} text="Harvest" disabled={!earnings.toNumber()} />
+                    <Button onClick={onRedeem} text="Exit" disabled={!earnings.toNumber()} />
                   </StyledCardActions>
                 </StyledCardContentInner>
               </CardContent>

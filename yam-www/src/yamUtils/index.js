@@ -32,6 +32,21 @@ export const unstake = async (poolContract, amount, account) => {
   }
 }
 
+export const harvest = async (poolContract, account) => {
+  let now = new Date().getTime() / 1000;
+  if (now >= 1597172400) {
+    return poolContract.methods
+      .getReward()
+      .send({ from: account, gas: 200000 })
+      .on('transactionHash', tx => {
+        console.log(tx)
+        return tx.transactionHash
+      })
+  } else {
+    alert("pool not active");
+  }
+}
+
 export const redeem = async (poolContract, account) => {
   let now = new Date().getTime() / 1000;
   if (now >= 1597172400) {
