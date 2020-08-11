@@ -19,7 +19,7 @@ const YamProvider: React.FC = ({ children }) => {
   useEffect(() => {
     if (ethereum) {
       const yamLib = new Yam(
-        'http://localhost:8545/',
+        ethereum,
         "1001",
         true, {
           defaultAccount: "",
