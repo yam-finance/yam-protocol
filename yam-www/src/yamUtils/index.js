@@ -2,6 +2,11 @@ import {ethers} from 'ethers'
 
 import BigNumber from 'bignumber.js'
 
+BigNumber.config({
+  EXPONENTIAL_AT: 1000,
+  DECIMAL_PLACES: 80,
+});
+
 export const stake = async (poolContract, amount,account) => {
   let now = new Date().getTime() / 1000;
   if (now >= 1597172400) {
