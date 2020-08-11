@@ -1,6 +1,19 @@
 import {ethers} from 'ethers'
 
+export const stake = async (poolContract, amount, account) => {
+  return poolContract.methods
+    .stake(amount)
+    .send({ from: account, gas: 200000 })
+    .on('transactionHash', tx => {
+      console.log(tx)
+      return tx.transactionHash
+    })
+}
+
 export const approve = async (tokenContract, poolContract, account) => {
+  console.log(tokenContract)
+  console.log(poolContract)
+  console.log(account)
   return tokenContract.methods
     .approve(poolContract.options.address, ethers.constants.MaxUint256)
     .send({ from: account, gas: 80000 })

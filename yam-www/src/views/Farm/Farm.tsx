@@ -10,7 +10,6 @@ import CardContent from '../../components/CardContent'
 import CardIcon from '../../components/CardIcon'
 import IconButton from '../../components/IconButton'
 import Label from '../../components/Label'
-import Page from '../../components/Page'
 import PageHeader from '../../components/PageHeader'
 
 import { AddIcon, RemoveIcon } from '../../components/icons'
@@ -20,6 +19,7 @@ import useApprove from '../../hooks/useApprove'
 import useEarnings from '../../hooks/useEarnings'
 import useFarm from '../../hooks/useFarm'
 import useModal from '../../hooks/useModal'
+import useStake from '../../hooks/useStake'
 import useStakedBalance from '../../hooks/useStakedBalance'
 import useTokenBalance from '../../hooks/useTokenBalance'
 
@@ -58,7 +58,8 @@ const Farm: React.FC = () => {
   const earnings = useEarnings(contract)
   const tokenBalance = useTokenBalance(depositTokenAddress)
   const stakedBalance = useStakedBalance(contract)
-  const [onPresentDeposit] = useModal(<DepositModal max={tokenBalance} tokenName={depositToken} />)
+  const { onStake } = useStake(contract)
+  const [onPresentDeposit] = useModal(<DepositModal max={tokenBalance} onConfirm={onStake} tokenName={depositToken} />)
   const [onPresentWithdraw] = useModal(<WithdrawModal max={stakedBalance} tokenName={depositToken} />)
 
   return (

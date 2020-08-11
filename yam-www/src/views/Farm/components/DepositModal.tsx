@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 
 import BigNumber from 'bignumber.js'
 
@@ -12,19 +12,28 @@ import { getDisplayBalance } from '../../../utils/formatBalance'
 
 interface DepositModalProps extends ModalProps {
   max: BigNumber,
+  onConfirm: (amount: string) => void,
   tokenName?: string,
 }
 
-const DepositModal: React.FC<DepositModalProps> = ({ max, onDismiss, tokenName = '' }) => (
-  <Modal>
-    <ModalTitle text={`Deposit ${tokenName}`} />
-    <TokenInput max={getDisplayBalance(max)} symbol={tokenName} />
-    <ModalActions>
-      <Button text="Cancel" variant="secondary" onClick={onDismiss} />
-      <Button text="Confirm" />
-    </ModalActions>
-  </Modal>
-)
+const DepositModal: React.FC<DepositModalProps> = ({ max, onConfirm, onDismiss, tokenName = '' }) => {
+  const [val, setVal] = useState('')
+
+  const handleChange = useCallback((e: React.FormEvent<HTMLInputElement>) => {
+    setVal(e.currentTarget.value)
+  }, [setVal])
+
+  return (
+    <Modal>
+      <ModalTitle text={`Deposit ${tokenName}`} />
+      <TokenInput value={val} onChange={handleChange} max={getDisplayBalance(max)} symbol={tokenName} />
+      <ModalActions>
+        <Button text="Cancel" variant="secondary" onClick={onDismiss} />
+        <Button text="Confirm" />
+      </ModalActions>
+    </Modal>
+  )
+}
 
 
 export default DepositModal
