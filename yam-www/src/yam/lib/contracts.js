@@ -3,29 +3,29 @@ import Web3 from 'web3';
 import * as Types from "./types.js";
 import { SUBTRACT_GAS_LIMIT, addressMap } from './constants.js';
 
-import ERC20Json from '../../../clean_build/contracts/IERC20.json';
-import YAMJson from '../../../clean_build/contracts/YAMDelegator.json';
-import YAMRebaserJson from '../../../clean_build/contracts/YAMRebaser.json';
-import YAMReservesJson from '../../../clean_build/contracts/YAMReserves.json';
-import YAMGovJson from '../../../clean_build/contracts/GovernorAlpha.json';
-import YAMTimelockJson from '../../../clean_build/contracts/Timelock.json';
+import ERC20Json from '../clean_build/contracts/IERC20.json';
+import YAMJson from '../clean_build/contracts/YAMDelegator.json';
+import YAMRebaserJson from '../clean_build/contracts/YAMRebaser.json';
+import YAMReservesJson from '../clean_build/contracts/YAMReserves.json';
+import YAMGovJson from '../clean_build/contracts/GovernorAlpha.json';
+import YAMTimelockJson from '../clean_build/contracts/Timelock.json';
 import WETHJson from './weth.json';
 import SNXJson from './snx.json';
 import UNIFactJson from './unifact2.json';
 import UNIPairJson from './uni2.json';
 import UNIRouterJson from './uniR.json';
 
-import WETHPoolJson from '../../../clean_build/contracts/YAMETHPool.json';
-import AMPLPoolJson from '../../../clean_build/contracts/YAMAMPLPool.json';
-import YFIPoolJson from '../../../clean_build/contracts/YAMYFIPool.json';
+import WETHPoolJson from '../clean_build/contracts/YAMETHPool.json';
+import AMPLPoolJson from '../clean_build/contracts/YAMAMPLPool.json';
+import YFIPoolJson from '../clean_build/contracts/YAMYFIPool.json';
 
-import MKRPoolJson from '../../../clean_build/contracts/YAMMKRPool.json';
-import LENDPoolJson from '../../../clean_build/contracts/YAMLENDPool.json';
-import COMPPoolJson from '../../../clean_build/contracts/YAMCOMPPool.json';
-import SNXPoolJson from '../../../clean_build/contracts/YAMSNXPool.json';
-import LINKPoolJson from '../../../clean_build/contracts/YAMLINKPool.json';
+import MKRPoolJson from '../clean_build/contracts/YAMMKRPool.json';
+import LENDPoolJson from '../clean_build/contracts/YAMLENDPool.json';
+import COMPPoolJson from '../clean_build/contracts/YAMCOMPPool.json';
+import SNXPoolJson from '../clean_build/contracts/YAMSNXPool.json';
+import LINKPoolJson from '../clean_build/contracts/YAMLINKPool.json';
 
-import IncJson from '../../../clean_build/contracts/YAMIncentivizer.json';
+import IncJson from '../clean_build/contracts/YAMIncentivizer.json';
 
 export class Contracts {
   constructor(
