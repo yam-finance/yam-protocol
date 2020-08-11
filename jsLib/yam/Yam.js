@@ -9,13 +9,7 @@ import {
 import {
   EVM
 } from "./lib/evm.js";
-import {
-  addressMap,
-  marketIdMap,
-  platformIdMap
-} from "./lib/constants.js";
-import Uni from "./lib/uni.json";
-import Notify from "bnc-notify";
+
 const oneEther = 1000000000000000000;
 
 export class Yam {

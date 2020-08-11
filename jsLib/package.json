@@ -21,7 +21,6 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.8.3",
-    "bnc-notify": "^1.0.11",
     "node-fetch": "^2.6.0",
     "scrypt-js": "^2.0.4"
   },
