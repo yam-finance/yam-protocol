@@ -25,12 +25,12 @@ const Farms: React.FC = () => {
       {!!account ? (
         <>
           <Route exact path={path}>
-              <PageHeader
-                icon={<img src={farmer} height="96" />}
-                subtitle="Earn YAM tokens by providing liquidity."
-                title="Select a farm."
-              />
-              <FarmCards />
+            <PageHeader
+              icon={<img src={farmer} height="96" />}
+              subtitle="Earn YAM tokens by providing liquidity."
+              title="Select a farm."
+            />
+            <FarmCards />
           </Route>
           <Route path={`${path}/:farmId`}>
             <Farm />

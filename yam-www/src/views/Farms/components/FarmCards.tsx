@@ -5,6 +5,7 @@ import Button from '../../../components/Button'
 import Card from '../../../components/Card'
 import CardContent from '../../../components/CardContent'
 import CardIcon from '../../../components/CardIcon'
+import Loader from '../../../components/Loader'
 
 import useFarms from '../../../hooks/useFarms'
 
@@ -25,7 +26,7 @@ const FarmCards: React.FC = () => {
 
   return (
     <StyledCards>
-      {rows.map((farmRow, i) => (
+      {!!rows[0].length ? rows.map((farmRow, i) => (
         <StyledRow key={i}>
           {farmRow.map((farm, j) => (
             <React.Fragment key={j}>
@@ -48,13 +49,24 @@ const FarmCards: React.FC = () => {
             </React.Fragment>
           ))}
         </StyledRow>
-      ))}
+      )) : (
+        <StyledLoadingWrapper>
+          <Loader text="Loading farms" />
+        </StyledLoadingWrapper>
+      )}
     </StyledCards>
   )
 }
 
 const StyledCards = styled.div`
   width: 900px;
+`
+
+const StyledLoadingWrapper = styled.div`
+  align-items: center;
+  display: flex;
+  flex: 1;
+  justify-content: center;
 `
 
 const StyledRow = styled.div`
