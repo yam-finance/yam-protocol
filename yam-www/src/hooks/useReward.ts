@@ -3,9 +3,9 @@ import { useCallback } from 'react'
 import { useWallet } from 'use-wallet'
 import { Contract } from "web3-eth-contract"
 
-import { redeem } from '../yamUtils'
+import { harvest } from '../yamUtils'
 
-const useRedeem = (poolContract: Contract) => {
+const useReward = (poolContract: Contract) => {
   const { account } = useWallet()
 
   const handleReward = useCallback(async () => {
@@ -14,7 +14,7 @@ const useRedeem = (poolContract: Contract) => {
     return txHash
   }, [account, poolContract])
 
-  return { onRedeem: handleReward }
+  return { onReward: handleReward }
 }
 
 export default handleReward
