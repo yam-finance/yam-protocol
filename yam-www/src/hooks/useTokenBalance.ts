@@ -19,7 +19,7 @@ const useTokenBalance = (tokenAddress: string) => {
     if (account && ethereum) {
       fetchBalance()
     }
-  }, [account, ethereum, setBalance])
+  }, [account, ethereum, setBalance, tokenAddress])
 
   return balance
 }

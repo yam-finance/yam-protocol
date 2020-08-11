@@ -1,8 +1,7 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import styled from 'styled-components'
 
-import { provider } from 'web3-core'
-
+import BigNumber from 'bignumber.js'
 import { useParams } from 'react-router-dom'
 import { useWallet } from 'use-wallet'
 
@@ -17,43 +16,57 @@ import PageHeader from '../../components/PageHeader'
 
 import { AddIcon, RemoveIcon } from '../../components/icons'
 
+import useAllowance from '../../hooks/useAllowance'
+import useEarnings from '../../hooks/useEarnings'
 import useFarm from '../../hooks/useFarm'
 import useModal from '../../hooks/useModal'
+import useStakedBalance from '../../hooks/useStakedBalance'
 import useTokenBalance from '../../hooks/useTokenBalance'
-import useTransactionAdder from '../../hooks/useTransactionAdder'
+import useYam from '../../hooks/useYam'
+
+import { getDisplayBalance } from '../../utils/formatBalance'
 
 import DepositModal from './components/DepositModal'
 import WithdrawModal from './components/WithdrawModal'
 
 const Farm: React.FC = () => {
 
-  const [needsApproval, setNeedsApproval] = useState(true)
   const { farmId } = useParams()
-  const farm = useFarm(farmId)
+  const {
+    contract,
+    depositToken,
+    depositTokenAddress,
+    earnToken,
+    name,
+    icon,
+  } = useFarm(farmId) || {
+    depositToken: '',
+    depositTokenAddress: '',
+    earnToken: '',
+    name: '',
+    icon: ''
+  }
 
-  const depositTokenBalance = useTokenBalance(farm.depositTokenAddress)
+  const allowance = useAllowance(depositTokenAddress, contract ? contract.options.address : '')
+  const earnings = useEarnings(contract)
+  const tokenBalance = useTokenBalance(depositTokenAddress)
+  const stakedBalance = useStakedBalance(contract)
+  const [onPresentDeposit] = useModal(<DepositModal max={tokenBalance} tokenName={depositToken} />)
+  const [onPresentWithdraw] = useModal(<WithdrawModal max={stakedBalance} tokenName={depositToken} />)
 
-  const [onPresentDeposit] = useModal(<DepositModal tokenName={farm.depositToken} />)
-  const [onPresentWithdraw] = useModal(<WithdrawModal tokenName={farm.depositToken} />)
+  const { account } = useWallet()
+  const yam = useYam()
   
-  const { onAddTransaction } = useTransactionAdder()
+  useEffect(() => {
 
-  const handleApproveClick = useCallback(async () => {
-    onAddTransaction({
-      description: `Unlock ${farm.depositToken}`,
-      hash: '1234',
-    })
-  }, [farm, onAddTransaction])
-
-  const earnedValue = 0
-  const stakedValue = 500
+  }, [contract, account, yam])
 
   return (
     <Page>
       <PageHeader
-        icon={farm.icon}
-        subtitle={`Stake ${farm.depositToken} and earn ${farm.earnToken}`}
-        title={farm.name}
+        icon={icon}
+        subtitle={`Deposit ${depositToken} and earn ${earnToken}`}
+        title={name}
       />
       <StyledFarm>
         <StyledCardsWrapper>
@@ -63,12 +76,12 @@ const Farm: React.FC = () => {
                 <StyledCardContentInner>
                   <StyledCardHeader>
                     <CardIcon>🌱</CardIcon>
-                    <StyledValue>{stakedValue}</StyledValue>
-                    <Label text={`${farm.depositToken} Staked`} />
+                    <StyledValue>{getDisplayBalance(stakedBalance)}</StyledValue>
+                    <Label text={`${depositToken} Staked`} />
                   </StyledCardHeader>
                   <StyledCardActions>
-                    {needsApproval ? (
-                      <Button onClick={handleApproveClick} text={`Unlock ${farm.depositToken} Staking`} />
+                    {!allowance.toNumber() ? (
+                      <Button text={`Approve ${depositToken}`} />
                     ) : (
                       <>
                         <IconButton onClick={onPresentWithdraw}>
@@ -94,11 +107,11 @@ const Farm: React.FC = () => {
                 <StyledCardContentInner>
                   <StyledCardHeader>
                     <CardIcon>🍠</CardIcon>
-                    <StyledValue>{earnedValue}</StyledValue>
-                    <Label text={`${farm.earnToken} Earned`} />
+                    <StyledValue>{getDisplayBalance(earnings)}</StyledValue>
+                    <Label text={`${earnToken} Earned`} />
                   </StyledCardHeader>
                   <StyledCardActions>
-                    <Button text="Harvest" disabled={!earnedValue} />
+                    <Button text="Harvest" disabled={!earnings.toNumber()} />
                   </StyledCardActions>
                 </StyledCardContentInner>
               </CardContent>

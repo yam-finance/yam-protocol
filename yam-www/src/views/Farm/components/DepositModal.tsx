@@ -1,21 +1,24 @@
 import React from 'react'
-import styled from 'styled-components'
+
+import BigNumber from 'bignumber.js'
 
 import Button from '../../../components/Button'
-import Input from '../../../components/Input'
 import Modal, { ModalProps } from '../../../components/Modal'
 import ModalActions from '../../../components/ModalActions'
 import ModalTitle from '../../../components/ModalTitle'
 import TokenInput from '../../../components/TokenInput'
 
+import { getDisplayBalance } from '../../../utils/formatBalance'
+
 interface DepositModalProps extends ModalProps {
+  max: BigNumber,
   tokenName?: string,
 }
 
-const DepositModal: React.FC<DepositModalProps> = ({ onDismiss, tokenName = '' }) => (
+const DepositModal: React.FC<DepositModalProps> = ({ max, onDismiss, tokenName = '' }) => (
   <Modal>
     <ModalTitle text={`Deposit ${tokenName}`} />
-    <TokenInput max={10000} symbol={tokenName} />
+    <TokenInput max={getDisplayBalance(max)} symbol={tokenName} />
     <ModalActions>
       <Button text="Cancel" variant="secondary" onClick={onDismiss} />
       <Button text="Confirm" />

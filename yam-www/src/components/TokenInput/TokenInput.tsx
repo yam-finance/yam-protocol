@@ -5,7 +5,7 @@ import Button from '../Button'
 import Input from '../Input'
 
 interface TokenInputProps {
-  max: number,
+  max: number | string,
   symbol: string,
 }
 

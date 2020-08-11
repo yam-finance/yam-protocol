@@ -1,6 +1,21 @@
 export const getPoolContracts = async (yam) => {
-  const pools = Object.keys(yam.contracts).filter(c => c.indexOf('_pool') !== -1).map(k => yam.contracts[k])
+  const pools = Object.keys(yam.contracts)
+    .filter(c => c.indexOf('_pool') !== -1)
+    .reduce((acc, cur) => {
+      const newAcc = { ...acc }
+      newAcc[cur] = yam.contracts[cur]
+      return newAcc
+    }, {})
+    //.map(k => yam.contracts[k])
   return pools
+}
+
+export const getEarned = async (yam, pool, account) => {
+  return yam.toBigN(await pool.methods.earned(account).call()).div(10**18).toFixed(2)
+}
+
+export const getStaked = async (yam, pool, account) => {
+  return yam.toBigN(await pool.methods.balanceOf(account).call()).div(10**18).toFixed(2)
 }
 
 export const getCurrentPrice = async (yam) => {

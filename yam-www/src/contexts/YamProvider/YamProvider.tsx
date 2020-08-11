@@ -12,6 +12,12 @@ export const Context = createContext<YamContext>({
   yam: undefined,
 })
 
+declare global {
+  interface Window {
+    yamsauce: any
+  }
+}
+
 const YamProvider: React.FC = ({ children }) => {
   const { ethereum } = useWallet()
   const [yam, setYam] = useState<any>()
@@ -33,6 +39,7 @@ const YamProvider: React.FC = ({ children }) => {
         }
       )
       setYam(yamLib)
+      window.yamsauce = yamLib
     }
   }, [ethereum])
 
