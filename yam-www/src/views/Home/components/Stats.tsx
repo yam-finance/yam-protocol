@@ -1,17 +1,28 @@
-import React from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 import Card from '../../../components/Card'
 import CardContent from '../../../components/CardContent'
 import Label from '../../../components/Label'
 
-const Stats: React.FC = () => {
+interface StatsProps {
+  circSupply?: number,
+  curPrice?: number,
+  targetPrice?: number,
+  totalSupply?: number
+}
+const Stats: React.FC<StatsProps> = ({
+  circSupply,
+  curPrice,
+  targetPrice,
+  totalSupply,
+}) => {
   return (
     <StyledStats>
       <Card>
         <CardContent>
           <StyledStat>
-            <StyledValue>$0.825</StyledValue>
+            <StyledValue>{curPrice ? `$${curPrice}` : '--'}</StyledValue>
             <Label text="Current Price" />
           </StyledStat>
         </CardContent>
@@ -22,7 +33,7 @@ const Stats: React.FC = () => {
       <Card>
         <CardContent>
           <StyledStat>
-            <StyledValue>$1.011</StyledValue>
+            <StyledValue>{targetPrice ? `$${targetPrice}` : '--'}</StyledValue>
             <Label text="Target Price" />
           </StyledStat>
         </CardContent>
@@ -33,7 +44,11 @@ const Stats: React.FC = () => {
       <Card>
         <CardContent>
           <StyledStat>
-            <StyledValue>367M / 754M</StyledValue>
+            <StyledValue>
+              {circSupply ? circSupply : '-- '}
+              /
+              {totalSupply ? totalSupply : ' --'}
+            </StyledValue>
             <Label text="Circ / Total Supply" />
           </StyledStat>
         </CardContent>

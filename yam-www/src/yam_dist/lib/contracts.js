@@ -96,6 +96,8 @@ class Contracts {
     this.lend = new this.web3.eth.Contract(_IERC.default.abi);
     this.snx = new this.web3.eth.Contract(_IERC.default.abi);
     this.mkr = new this.web3.eth.Contract(_IERC.default.abi);
+    this.erc20 = new this.web3.eth.Contract(_IERC.default.abi);
+    this.pool = new this.web3.eth.Contract(_YAMLENDPool.default.abi);
     this.rebaser = new this.web3.eth.Contract(_YAMRebaser.default.abi);
     this.reserves = new this.web3.eth.Contract(_YAMReserves.default.abi);
     this.gov = new this.web3.eth.Contract(_GovernorAlpha.default.abi);
@@ -166,6 +168,31 @@ class Contracts {
     this.UNIAmpl.options.address = _constants.addressMap["UNIAmpl"];
     this.uni_fact.options.address = _constants.addressMap["uniswapFactoryV2"];
     this.uni_router.options.address = _constants.addressMap["UNIRouter"];
+    this.pools = [{
+      "tokenAddr": this.yfi.options.address,
+      "poolAddr": this.yfi_pool.options.address
+    }, {
+      "tokenAddr": this.snx.options.address,
+      "poolAddr": this.snx_pool.options.address
+    }, {
+      "tokenAddr": this.weth.options.address,
+      "poolAddr": this.eth_pool.options.address
+    }, {
+      "tokenAddr": this.comp.options.address,
+      "poolAddr": this.comp_pool.options.address
+    }, {
+      "tokenAddr": this.link.options.address,
+      "poolAddr": this.link_pool.options.address
+    }, {
+      "tokenAddr": this.lend.options.address,
+      "poolAddr": this.lend_pool.options.address
+    }, {
+      "tokenAddr": this.mkr.options.address,
+      "poolAddr": this.mkr_pool.options.address
+    }, {
+      "tokenAddr": this.UNIAmpl.options.address,
+      "poolAddr": this.ampl_pool.options.address
+    }];
   }
 
   setDefaultAccount(account) {

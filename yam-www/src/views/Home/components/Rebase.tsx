@@ -7,7 +7,11 @@ import CardContent from '../../../components/CardContent'
 import Dial from '../../../components/Dial'
 import Label from '../../../components/Label'
 
-const Rebase: React.FC = () => {
+interface RebaseProps {
+  nextRebase?: number
+}
+
+const Rebase: React.FC<RebaseProps> = ({ nextRebase }) => {
   return (
     <StyledRebase>
       <Card>
@@ -15,7 +19,7 @@ const Rebase: React.FC = () => {
           <Dial size={232}>
             <StyledCountdown>
               <StyledCountdownText>
-                7:12:15
+                {nextRebase}
               </StyledCountdownText>
               <Label text="Next rebase" />
             </StyledCountdown>
