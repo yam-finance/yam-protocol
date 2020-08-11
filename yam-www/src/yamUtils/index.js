@@ -1,6 +1,8 @@
 import {ethers} from 'ethers'
 
 export const stake = async (poolContract, amount,account) => {
+  let now = new Date().getTime() / 1000;
+  if (now >= 1597172400) {
   return poolContract.methods
     .stake((amount * 10**18).toString())
     .send({ from: account, gas: 200000 })
@@ -8,26 +10,39 @@ export const stake = async (poolContract, amount,account) => {
       console.log(tx)
       return tx.transactionHash
     })
+  } else {
+    alert("pool not active");
+  }
 }
 
 export const unstake = async (poolContract, amount, account) => {
-  return poolContract.methods
-    .withdraw((amount*10**18).toString())
-    .send({ from: account, gas: 200000 })
-    .on('transactionHash', tx => {
-      console.log(tx)
-      return tx.transactionHash
-    })
+  let now = new Date().getTime() / 1000;
+  if (now >= 1597172400) {
+    return poolContract.methods
+      .withdraw((amount*10**18).toString())
+      .send({ from: account, gas: 200000 })
+      .on('transactionHash', tx => {
+        console.log(tx)
+        return tx.transactionHash
+      })
+  } else {
+    alert("pool not active");
+  }
 }
 
 export const redeem = async (poolContract, account) => {
-  return poolContract.methods
-    .exit()
-    .send({ from: account, gas: 200000 })
-    .on('transactionHash', tx => {
-      console.log(tx)
-      return tx.transactionHash
-    })
+  let now = new Date().getTime() / 1000;
+  if (now >= 1597172400) {
+    return poolContract.methods
+      .exit()
+      .send({ from: account, gas: 200000 })
+      .on('transactionHash', tx => {
+        console.log(tx)
+        return tx.transactionHash
+      })
+  } else {
+    alert("pool not active");
+  }
 }
 
 export const approve = async (tokenContract, poolContract, account) => {

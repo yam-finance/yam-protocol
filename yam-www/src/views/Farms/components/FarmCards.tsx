@@ -33,7 +33,6 @@ const FarmCards: React.FC = () => {
                 <Card>
                   <CardContent>
                     <StyledContent>
-                      <CardIcon>{farm.icon}</CardIcon>
                       <StyledTitle>{farm.name}</StyledTitle>
                       <StyledDetails>
                         <StyledDetail>Deposit {farm.depositToken}</StyledDetail>

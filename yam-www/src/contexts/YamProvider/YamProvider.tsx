@@ -27,7 +27,7 @@ const YamProvider: React.FC = ({ children }) => {
       const yamLib = new Yam(
         ethereum,
         "1",
-        true, {
+        false, {
           defaultAccount: "",
           defaultConfirmations: 1,
           autoGasMultiplier: 1.5,
