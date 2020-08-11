@@ -22,10 +22,21 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({ onConfirm, onDismiss, max
   const handleChange = useCallback((e: React.FormEvent<HTMLInputElement>) => {
     setVal(e.currentTarget.value)
   }, [setVal])
+
+  const handleSelectMax = useCallback(() => {
+    setVal(getDisplayBalance(max))
+  }, [max])
+
   return (
     <Modal>
       <ModalTitle text={`Withdraw ${tokenName}`} />
-      <TokenInput onChange={handleChange} value={val} max={getDisplayBalance(max)} symbol={tokenName} />
+      <TokenInput
+        onSelectMax={handleSelectMax}
+        onChange={handleChange}
+        value={val}
+        max={getDisplayBalance(max)}
+        symbol={tokenName}
+      />
       <ModalActions>
         <Button text="Cancel" variant="secondary" onClick={onDismiss} />
         <Button text="Confirm" onClick={() => onConfirm(val)} />

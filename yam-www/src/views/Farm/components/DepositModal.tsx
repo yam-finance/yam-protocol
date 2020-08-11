@@ -23,10 +23,20 @@ const DepositModal: React.FC<DepositModalProps> = ({ max, onConfirm, onDismiss, 
     setVal(e.currentTarget.value)
   }, [setVal])
 
+  const handleSelectMax = useCallback(() => {
+    setVal(getDisplayBalance(max))
+  }, [max])
+
   return (
     <Modal>
       <ModalTitle text={`Deposit ${tokenName}`} />
-      <TokenInput value={val} onChange={handleChange} max={getDisplayBalance(max)} symbol={tokenName} />
+      <TokenInput
+        value={val}
+        onSelectMax={handleSelectMax}
+        onChange={handleChange}
+        max={getDisplayBalance(max)}
+        symbol={tokenName}
+      />
       <ModalActions>
         <Button text="Cancel" variant="secondary" onClick={onDismiss} />
         <Button text="Confirm" onClick={() => onConfirm(val)} />

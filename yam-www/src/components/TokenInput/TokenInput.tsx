@@ -7,12 +7,14 @@ import Input, { InputProps } from '../Input'
 interface TokenInputProps extends InputProps {
   max: number | string,
   symbol: string,
+  onSelectMax?: () => void,
 }
 
 const TokenInput: React.FC<TokenInputProps> = ({
   max,
   symbol,
   onChange,
+  onSelectMax,
   value,
 }) => {
   return (
@@ -23,6 +25,9 @@ const TokenInput: React.FC<TokenInputProps> = ({
           <StyledTokenAdornmentWrapper>
             <StyledTokenSymbol>{symbol}</StyledTokenSymbol>
             <StyledSpacer />
+            <div>
+              <Button size="sm" text="Max" onClick={onSelectMax} />
+            </div>
           </StyledTokenAdornmentWrapper>
         )}
         onChange={onChange}
