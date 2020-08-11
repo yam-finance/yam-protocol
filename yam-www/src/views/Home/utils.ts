@@ -1,4 +1,4 @@
-import { Yam } from '../../yam_dist'
+import { Yam } from '../../yam'
 
 const getCurrentPrice = async (yam: typeof Yam): Promise<number> => {
   // FORBROCK: get current YAM price

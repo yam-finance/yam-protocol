@@ -1,5 +1,5 @@
 import Web3 from 'web3';
-import BigNumber from 'bignumber.js/bignumber';
+import BigNumber from 'bignumber.js'
 import {
   Contracts
 } from './lib/contracts.js';
