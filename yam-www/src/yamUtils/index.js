@@ -1,8 +1,8 @@
 import {ethers} from 'ethers'
 
-export const stake = async (poolContract, amount, account) => {
+export const stake = async (poolContract, amount,account) => {
   return poolContract.methods
-    .stake(amount)
+    .stake((amount * 10**18).toString())
     .send({ from: account, gas: 200000 })
     .on('transactionHash', tx => {
       console.log(tx)
@@ -11,13 +11,23 @@ export const stake = async (poolContract, amount, account) => {
 }
 
 export const unstake = async (poolContract, amount, account) => {
-  // TODOBROCK
-  return 0
+  return poolContract.methods
+    .withdraw((amount*10**18).toString())
+    .send({ from: account, gas: 200000 })
+    .on('transactionHash', tx => {
+      console.log(tx)
+      return tx.transactionHash
+    })
 }
 
 export const redeem = async (poolContract, account) => {
-  // TODO BROCK
-  return 0
+  return poolContract.methods
+    .exit()
+    .send({ from: account, gas: 200000 })
+    .on('transactionHash', tx => {
+      console.log(tx)
+      return tx.transactionHash
+    })
 }
 
 export const approve = async (tokenContract, poolContract, account) => {
