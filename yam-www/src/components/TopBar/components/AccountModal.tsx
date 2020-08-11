@@ -1,8 +1,11 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import styled from 'styled-components'
 
+import { yam as yamAddress } from '../../../constants/tokenAddresses'
+import useTokenBalance from '../../../hooks/useTokenBalance'
+import { getDisplayBalance } from '../../../utils/formatBalance'
+
 import Button from '../../Button'
-import Card from '../../Card'
 import CardIcon from '../../CardIcon'
 import IconButton from '../../IconButton'
 import { AddIcon, RemoveIcon } from '../../icons'
@@ -16,6 +19,11 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
     onDismiss!()
   }, [onDismiss])
 
+  const yamBalance = useTokenBalance(yamAddress)
+  const displayBalance = useMemo(() => {
+    return getDisplayBalance(yamBalance)
+  }, [yamBalance])
+
   return (
     <Modal>
       <ModalTitle text="My Account" />
@@ -23,7 +31,7 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
       <StyledBalanceWrapper>
         <CardIcon>🍠</CardIcon>
         <StyledBalance>
-          <StyledValue>134.76</StyledValue>
+          <StyledValue>{displayBalance}</StyledValue>
           <Label text="YAM Balance" />
         </StyledBalance>
         <StyledBalanceActions>

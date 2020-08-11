@@ -7,15 +7,19 @@ const Farms: React.FC = ({ children }) => {
   const [farms, setFarms] = useState<Farm[]>([])
   useEffect(() => {
     setFarms([
-      { name: 'Marine Fields', depositToken: 'LINK', earnToken: 'YAM', icon: '🔗', id: 'marine-fields' },
-      { name: 'Spartan Grounds', depositToken: 'SNX', earnToken: 'YAM', icon: '⚔️', id: 'spartan-grounds' },
-      { name: 'Compounding Hills', depositToken: 'COMP', earnToken: 'YAM', icon: '💸', id: 'compounding-hills' },
+      {
+        name: 'Marine Fields',
+        depositToken: 'LINK',
+        depositTokenAddress: '',
+        earnToken: 'YAM',
+        earnTokenAddress: '',
+        icon: '🔗',
+        id: 'marine-fields',
+      },
     ])
   }, [setFarms])
   return (
-    <Context.Provider value={{
-      farms,
-    }}>
+    <Context.Provider value={{ farms }}>
       {children}
     </Context.Provider>
   )
