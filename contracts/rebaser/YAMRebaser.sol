@@ -605,6 +605,28 @@ contract YAMRebaser {
     }
 
     /**
+     * @notice Calculates current TWAP from uniswap
+     *
+     */
+    function getCurrentTWAP()
+        public
+        view
+        returns (uint256)
+    {
+      (uint priceCumulative, uint32 blockTimestamp) =
+         UniswapV2OracleLibrary.currentCumulativePrices(uniswap_pair, isToken0);
+       uint32 timeElapsed = blockTimestamp - blockTimestampLast; // overflow is desired
+
+       // no period check as is done in isRebaseWindow
+
+       // overflow is desired, casting never truncates
+        // cumulative price is in (uq112x112 price * seconds) units so we simply wrap it after division by time elapsed
+        FixedPoint.uq112x112 memory priceAverage = FixedPoint.uq112x112(uint224((priceCumulative - priceCumulativeLast) / timeElapsed));
+
+        return FixedPoint.decode144(FixedPoint.mul(priceAverage, 10**18));
+    }
+
+    /**
      * @notice Sets the deviation threshold fraction. If the exchange rate given by the market
      *         oracle is within this fractional distance from the targetRate, then no supply
      *         modifications are made.
