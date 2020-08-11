@@ -17,4 +17,4 @@ const useReward = (poolContract: Contract) => {
   return { onReward: handleReward }
 }
 
-export default handleReward
+export default useReward
