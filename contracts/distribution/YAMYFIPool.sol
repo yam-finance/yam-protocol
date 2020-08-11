@@ -628,10 +628,10 @@ contract LPTokenWrapper {
 }
 
 contract YAMYFIPool is LPTokenWrapper, IRewardDistributionRecipient {
-    IERC20 public yam = IERC20(0x4BC6657283f8f24e27EAc1D21D1deE566C534A9A);
+    IERC20 public yam = IERC20(0x0e2298E3B3390e3b945a5456fBf59eCc3f55DA16);
     uint256 public constant DURATION = 625000; // ~7 1/4 days
 
-    uint256 public starttime = 1597931200; // Sunday, August 9, 2020 12:00:00 AM
+    uint256 public starttime = 1597172400; // 2020-08-11 19:00:00 (UTC UTC +00:00)
     uint256 public periodFinish = 0;
     uint256 public rewardRate = 0;
     uint256 public lastUpdateTime;
