@@ -6,6 +6,7 @@ import Logo from '../Logo'
 
 import AccountButton from './components/AccountButton'
 import Nav from './components/Nav'
+import TxButton from './components/TxButton'
 
 const TopBar: React.FC = () => {
   return (
@@ -21,6 +22,7 @@ const TopBar: React.FC = () => {
             display: 'flex',
             justifyContent: 'flex-end'
           }}>
+            <TxButton />
             <AccountButton />
           </div>
         </StyledTopBarInner>
