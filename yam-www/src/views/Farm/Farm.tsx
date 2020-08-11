@@ -19,9 +19,11 @@ import useApprove from '../../hooks/useApprove'
 import useEarnings from '../../hooks/useEarnings'
 import useFarm from '../../hooks/useFarm'
 import useModal from '../../hooks/useModal'
+import useRedeem from '../../hooks/useRedeem'
 import useStake from '../../hooks/useStake'
 import useStakedBalance from '../../hooks/useStakedBalance'
 import useTokenBalance from '../../hooks/useTokenBalance'
+import useUnstake from '../../hooks/useUnstake'
 
 import { getDisplayBalance } from '../../utils/formatBalance'
 import { getContract } from '../../utils/erc20'
@@ -59,8 +61,11 @@ const Farm: React.FC = () => {
   const tokenBalance = useTokenBalance(depositTokenAddress)
   const stakedBalance = useStakedBalance(contract)
   const { onStake } = useStake(contract)
+  const { onUnstake } = useUnstake(contract)
+  const { onRedeem } = useRedeem(contract)
+
   const [onPresentDeposit] = useModal(<DepositModal max={tokenBalance} onConfirm={onStake} tokenName={depositToken} />)
-  const [onPresentWithdraw] = useModal(<WithdrawModal max={stakedBalance} tokenName={depositToken} />)
+  const [onPresentWithdraw] = useModal(<WithdrawModal max={stakedBalance} onConfirm={onUnstake} tokenName={depositToken} />)
 
   return (
     <>
@@ -112,7 +117,7 @@ const Farm: React.FC = () => {
                     <Label text={`${earnToken} Earned`} />
                   </StyledCardHeader>
                   <StyledCardActions>
-                    <Button text="Harvest" disabled={!earnings.toNumber()} />
+                    <Button onClick={onRedeem} text="Harvest" disabled={!earnings.toNumber()} />
                   </StyledCardActions>
                 </StyledCardContentInner>
               </CardContent>

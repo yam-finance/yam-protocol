@@ -29,7 +29,7 @@ const DepositModal: React.FC<DepositModalProps> = ({ max, onConfirm, onDismiss, 
       <TokenInput value={val} onChange={handleChange} max={getDisplayBalance(max)} symbol={tokenName} />
       <ModalActions>
         <Button text="Cancel" variant="secondary" onClick={onDismiss} />
-        <Button text="Confirm" />
+        <Button text="Confirm" onClick={() => onConfirm(val)} />
       </ModalActions>
     </Modal>
   )

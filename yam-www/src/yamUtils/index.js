@@ -10,10 +10,17 @@ export const stake = async (poolContract, amount, account) => {
     })
 }
 
+export const unstake = async (poolContract, amount, account) => {
+  // TODOBROCK
+  return 0
+}
+
+export const redeem = async (poolContract, account) => {
+  // TODO BROCK
+  return 0
+}
+
 export const approve = async (tokenContract, poolContract, account) => {
-  console.log(tokenContract)
-  console.log(poolContract)
-  console.log(account)
   return tokenContract.methods
     .approve(poolContract.options.address, ethers.constants.MaxUint256)
     .send({ from: account, gas: 80000 })
@@ -31,7 +38,6 @@ export const getPoolContracts = async (yam) => {
       newAcc[cur] = yam.contracts[cur]
       return newAcc
     }, {})
-    //.map(k => yam.contracts[k])
   return pools
 }
 

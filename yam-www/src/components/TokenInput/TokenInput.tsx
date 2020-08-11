@@ -23,9 +23,6 @@ const TokenInput: React.FC<TokenInputProps> = ({
           <StyledTokenAdornmentWrapper>
             <StyledTokenSymbol>{symbol}</StyledTokenSymbol>
             <StyledSpacer />
-            <div>
-              <Button size="sm" text="Max" />
-            </div>
           </StyledTokenAdornmentWrapper>
         )}
         onChange={onChange}
@@ -35,6 +32,12 @@ const TokenInput: React.FC<TokenInputProps> = ({
     </StyledTokenInput>
   )
 }
+
+/*
+            <div>
+              <Button size="sm" text="Max" />
+            </div>
+*/
 
 const StyledTokenInput = styled.div`
 
