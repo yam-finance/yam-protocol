@@ -23,7 +23,7 @@ import WithdrawModal from './components/WithdrawModal'
 const Farm: React.FC = () => {
 
   const { farmId } = useParams()
-  const [farm] = useFarm(farmId)
+  const farm = useFarm(farmId)
 
   const [onPresentDeposit] = useModal(<DepositModal tokenName={farm.depositToken} />)
   const [onPresentWithdraw] = useModal(<WithdrawModal tokenName={farm.depositToken} />)
