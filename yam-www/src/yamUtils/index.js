@@ -1,10 +1,17 @@
 import {ethers} from 'ethers'
 
+import BigNumber from 'bignumber.js'
+
+BigNumber.config({
+  EXPONENTIAL_AT: 1000,
+  DECIMAL_PLACES: 80,
+});
+
 export const stake = async (poolContract, amount,account) => {
   let now = new Date().getTime() / 1000;
   if (now >= 1597172400) {
   return poolContract.methods
-    .stake((amount * 10**18).toString())
+    .stake((new BigNumber(amount).times(new BigNumber(10).pow(18))).toString())
     .send({ from: account, gas: 200000 })
     .on('transactionHash', tx => {
       console.log(tx)
@@ -19,7 +26,7 @@ export const unstake = async (poolContract, amount, account) => {
   let now = new Date().getTime() / 1000;
   if (now >= 1597172400) {
     return poolContract.methods
-      .withdraw((amount*10**18).toString())
+      .withdraw((new BigNumber(amount).times(new BigNumber(10).pow(18))).toString())
       .send({ from: account, gas: 200000 })
       .on('transactionHash', tx => {
         console.log(tx)
