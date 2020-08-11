@@ -1,1 +1,1 @@
-export { default } from './YamProvider'
+export { default, Context } from './YamProvider'

@@ -8,36 +8,36 @@ export interface YamContext {
   yam?: typeof Yam
 }
 
-const Context = createContext<YamContext>({
+export const Context = createContext<YamContext>({
   yam: undefined,
 })
 
 const YamProvider: React.FC = ({ children }) => {
-  const { account } = useWallet()
-  const [yam, setYam] = useState<typeof Yam>()
+  const { ethereum } = useWallet()
+  const [yam, setYam] = useState<any>()
 
   useEffect(() => {
-    const yam = new Yam(
-      'http://localhost:8545/',
-      "1001",
-      true, {
-        defaultAccount: "",
-        defaultConfirmations: 1,
-        autoGasMultiplier: 1.5,
-        testing: false,
-        defaultGas: "6000000",
-        defaultGasPrice: "1000000000000",
-        accounts: [],
-        ethereumNodeTimeout: 10000
-      }
-    );
-  }, [])
+    if (ethereum) {
+      const yamLib = new Yam(
+        'http://localhost:8545/',
+        "1001",
+        true, {
+          defaultAccount: "",
+          defaultConfirmations: 1,
+          autoGasMultiplier: 1.5,
+          testing: false,
+          defaultGas: "6000000",
+          defaultGasPrice: "1000000000000",
+          accounts: [],
+          ethereumNodeTimeout: 10000
+        }
+      )
+      setYam(yamLib)
+    }
+  }, [ethereum])
 
-  console.log(account)
   return (
-    <Context.Provider value={{
-      yam: undefined
-    }}>
+    <Context.Provider value={{ yam }}>
       {children}
     </Context.Provider>
   )
