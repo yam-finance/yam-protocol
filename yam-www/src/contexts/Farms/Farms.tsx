@@ -1,6 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
+
+import { Contract } from "web3-eth-contract"
 
 import useYam from '../../hooks/useYam'
+import { getPoolContracts } from '../../yamUtils'
 
 import Context from './context'
 import { Farm } from './types'
@@ -25,9 +28,14 @@ const Farms: React.FC = ({ children }) => {
   }, [setFarms])
   */
 
+  const fetchPools = useCallback(async () => {
+    const pools: Contract[] = await getPoolContracts(yam)
+    console.log(pools)
+  }, [yam])
+
   useEffect(() => {
     if (yam) {
-      console.log(yam)
+      fetchPools()
     }
   }, [yam])
   
