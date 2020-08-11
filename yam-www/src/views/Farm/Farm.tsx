@@ -78,7 +78,7 @@ const Farm: React.FC = () => {
     <>
       <PageHeader
         icon={icon}
-        subtitle={`Deposit ${depositToken} and earn ${earnToken}`}
+        subtitle={`Deposit ${depositToken.toUpperCase()} and earn ${earnToken.toUpperCase()}`}
         title={name}
       />
       <StyledFarm>
@@ -90,11 +90,11 @@ const Farm: React.FC = () => {
                   <StyledCardHeader>
                     <CardIcon>🌱</CardIcon>
                     <StyledValue>{getDisplayBalance(stakedBalance)}</StyledValue>
-                    <Label text={`${depositToken} Staked`} />
+                    <Label text={`${depositToken.toUpperCase()} Staked`} />
                   </StyledCardHeader>
                   <StyledCardActions>
                     {(!allowance.toNumber() && !userApproved) ? (
-                      <Button onClick={userApprove} text={`Approve ${depositToken}`} />
+                      <Button onClick={userApprove} text={`Approve ${depositToken.toUpperCase()}`} />
                     ) : (
                       <>
                         <IconButton onClick={onPresentWithdraw}>
@@ -121,7 +121,7 @@ const Farm: React.FC = () => {
                   <StyledCardHeader>
                     <CardIcon>🍠</CardIcon>
                     <StyledValue>{getDisplayBalance(earnings)}</StyledValue>
-                    <Label text={`${earnToken} Earned`} />
+                    <Label text={`${earnToken.toUpperCase()} Earned`} />
                   </StyledCardHeader>
                   <StyledCardActions>
                     <Button onClick={onRedeem} text="Harvest" disabled={!earnings.toNumber()} />

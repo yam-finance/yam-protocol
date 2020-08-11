@@ -1,14 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
-import { NavLink } from 'react-router-dom'
 
 const Nav: React.FC = () => {
   return (
     <StyledNav>
-      <StyledLink activeClassName="active" to="/">Github</StyledLink>
-      <StyledLink activeClassName="active" to="/">Twitter</StyledLink>
-      <StyledLink activeClassName="active" to="/">TikTok</StyledLink>
-      <StyledLink activeClassName="active" to="/">Discord</StyledLink>
+      <StyledLink href="/">Github</StyledLink>
+      <StyledLink href="https://twitter.com/YamFinance">Twitter</StyledLink>
     </StyledNav>
   )
 }
@@ -18,7 +15,7 @@ const StyledNav = styled.nav`
   display: flex;
 `
 
-const StyledLink = styled(NavLink)`
+const StyledLink = styled.a`
   color: ${props => props.theme.color.grey[400]};
   padding-left: ${props => props.theme.spacing[3]}px;
   padding-right: ${props => props.theme.spacing[3]}px;
