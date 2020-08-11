@@ -5,9 +5,7 @@ import { NavLink } from 'react-router-dom'
 const Nav: React.FC = () => {
   return (
     <StyledNav>
-      <StyledLink exact activeClassName="active" to="/">Home</StyledLink>
       <StyledLink activeClassName="active" to="/farms">Farms</StyledLink>
-      <StyledLink activeClassName="active" to="/about">About</StyledLink>
     </StyledNav>
   )
 }

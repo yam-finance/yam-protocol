@@ -12,13 +12,10 @@ import ModalsProvider from './contexts/Modals'
 import YamProvider from './contexts/YamProvider'
 import TransactionProvider from './contexts/Transactions'
 
-import About from './views/About'
 import Farms from './views/Farms'
 import Home from './views/Home'
 
 import theme from './theme'
-
-import { Yam } from './yam_dist'
 
 const App: React.FC = () => {
   return (
@@ -26,13 +23,10 @@ const App: React.FC = () => {
       <Router>
         <Switch>
           <Route path="/" exact>
-            <Home />
+            <Farms />
           </Route>
           <Route path="/farms">
             <Farms />
-          </Route>
-          <Route path="/about">
-            <About />
           </Route>
         </Switch>
       </Router>
@@ -43,7 +37,7 @@ const App: React.FC = () => {
 const Providers: React.FC = ({ children }) => {
   return (
     <ThemeProvider theme={theme}>
-      <UseWalletProvider chainId={1}>
+      <UseWalletProvider chainId={1001}>
         <YamProvider>
           <TransactionProvider>
             <ModalsProvider>

@@ -1,21 +1,30 @@
-import React, { useCallback } from 'react'
+import React, { useMemo } from 'react'
 import styled from 'styled-components'
 
 import { useParams } from 'react-router-dom'
-
+import { useWallet } from 'use-wallet'
+import { provider } from 'web3-core'
 import Button from '../../components/Button'
 import Card from '../../components/Card'
 import CardContent from '../../components/CardContent'
 import CardIcon from '../../components/CardIcon'
 import IconButton from '../../components/IconButton'
 import Label from '../../components/Label'
-import Page from '../../components/Page'
 import PageHeader from '../../components/PageHeader'
 
 import { AddIcon, RemoveIcon } from '../../components/icons'
 
+import useAllowance from '../../hooks/useAllowance'
+import useApprove from '../../hooks/useApprove'
+import useEarnings from '../../hooks/useEarnings'
 import useFarm from '../../hooks/useFarm'
 import useModal from '../../hooks/useModal'
+import useStake from '../../hooks/useStake'
+import useStakedBalance from '../../hooks/useStakedBalance'
+import useTokenBalance from '../../hooks/useTokenBalance'
+
+import { getDisplayBalance } from '../../utils/formatBalance'
+import { getContract } from '../../utils/erc20'
 
 import DepositModal from './components/DepositModal'
 import WithdrawModal from './components/WithdrawModal'
@@ -23,20 +32,42 @@ import WithdrawModal from './components/WithdrawModal'
 const Farm: React.FC = () => {
 
   const { farmId } = useParams()
-  const [farm] = useFarm(farmId)
+  const {
+    contract,
+    depositToken,
+    depositTokenAddress,
+    earnToken,
+    name,
+    icon,
+  } = useFarm(farmId) || {
+    depositToken: '',
+    depositTokenAddress: '',
+    earnToken: '',
+    name: '',
+    icon: ''
+  }
 
-  const [onPresentDeposit] = useModal(<DepositModal tokenName={farm.depositToken} />)
-  const [onPresentWithdraw] = useModal(<WithdrawModal tokenName={farm.depositToken} />)
+  const { ethereum } = useWallet()
 
-  const earnedValue = 12.55
-  const stakedValue = 500
+  const tokenContract = useMemo(() => {
+    return getContract(ethereum as provider, depositTokenAddress)
+  }, [ethereum, depositTokenAddress])
+
+  const allowance = useAllowance(tokenContract, contract)
+  const { onApprove } = useApprove(tokenContract, contract)
+  const earnings = useEarnings(contract)
+  const tokenBalance = useTokenBalance(depositTokenAddress)
+  const stakedBalance = useStakedBalance(contract)
+  const { onStake } = useStake(contract)
+  const [onPresentDeposit] = useModal(<DepositModal max={tokenBalance} onConfirm={onStake} tokenName={depositToken} />)
+  const [onPresentWithdraw] = useModal(<WithdrawModal max={stakedBalance} tokenName={depositToken} />)
 
   return (
-    <Page>
+    <>
       <PageHeader
-        icon={farm.icon}
-        subtitle={`Deposit ${farm.depositToken} and earn ${farm.earnToken}`}
-        title={farm.name}
+        icon={icon}
+        subtitle={`Deposit ${depositToken} and earn ${earnToken}`}
+        title={name}
       />
       <StyledFarm>
         <StyledCardsWrapper>
@@ -46,17 +77,23 @@ const Farm: React.FC = () => {
                 <StyledCardContentInner>
                   <StyledCardHeader>
                     <CardIcon>🌱</CardIcon>
-                    <StyledValue>{stakedValue}</StyledValue>
-                    <Label text={`${farm.depositToken} Staked`} />
+                    <StyledValue>{getDisplayBalance(stakedBalance)}</StyledValue>
+                    <Label text={`${depositToken} Staked`} />
                   </StyledCardHeader>
                   <StyledCardActions>
-                    <IconButton onClick={onPresentWithdraw}>
-                      <RemoveIcon />
-                    </IconButton>
-                    <StyledActionSpacer />
-                    <IconButton onClick={onPresentDeposit}>
-                      <AddIcon />
-                    </IconButton>
+                    {!allowance.toNumber() ? (
+                      <Button onClick={onApprove} text={`Approve ${depositToken}`} />
+                    ) : (
+                      <>
+                        <IconButton onClick={onPresentWithdraw}>
+                          <RemoveIcon />
+                        </IconButton>
+                        <StyledActionSpacer />
+                        <IconButton onClick={onPresentDeposit}>
+                          <AddIcon />
+                        </IconButton>
+                      </>
+                    )}
                   </StyledCardActions>
                 </StyledCardContentInner>
               </CardContent>
@@ -71,11 +108,11 @@ const Farm: React.FC = () => {
                 <StyledCardContentInner>
                   <StyledCardHeader>
                     <CardIcon>🍠</CardIcon>
-                    <StyledValue>{earnedValue}</StyledValue>
-                    <Label text={`${farm.earnToken} Earned`} />
+                    <StyledValue>{getDisplayBalance(earnings)}</StyledValue>
+                    <Label text={`${earnToken} Earned`} />
                   </StyledCardHeader>
                   <StyledCardActions>
-                    <Button text="Harvest" />
+                    <Button text="Harvest" disabled={!earnings.toNumber()} />
                   </StyledCardActions>
                 </StyledCardContentInner>
               </CardContent>
@@ -83,7 +120,7 @@ const Farm: React.FC = () => {
           </StyledCardWrapper>
         </StyledCardsWrapper>
       </StyledFarm>
-    </Page>
+    </>
   )
 }
 

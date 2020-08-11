@@ -4,8 +4,11 @@ import {
   Switch,
   useRouteMatch,
 } from 'react-router-dom'
+import { useWallet } from 'use-wallet'
 
 import farmer from '../../assets/img/farmer.png'
+
+import Button from '../../components/Button'
 import Page from '../../components/Page'
 import PageHeader from '../../components/PageHeader'
 
@@ -15,21 +18,38 @@ import FarmCards from './components/FarmCards'
 
 const Farms: React.FC = () => {
   const { path } = useRouteMatch()
+  const { account, connect } = useWallet()
   return (
     <Switch>
-      <Route exact path={path}>
-        <Page>
-          <PageHeader
-            icon={<img src={farmer} height="96" />}
-            subtitle="Earn YAM tokens by providing liquidity."
-            title="Select a farm."
+      <Page>
+      {!!account ? (
+        <>
+          <Route exact path={path}>
+              <PageHeader
+                icon={<img src={farmer} height="96" />}
+                subtitle="Earn YAM tokens by providing liquidity."
+                title="Select a farm."
+              />
+              <FarmCards />
+          </Route>
+          <Route path={`${path}/:farmId`}>
+            <Farm />
+          </Route>
+        </>
+      ) : (
+        <div style={{
+          alignItems: 'center',
+          display: 'flex',
+          flex: 1,
+          justifyContent: 'center',
+        }}>
+          <Button
+            onClick={() => connect('injected')}
+            text="Unlock Wallet"
           />
-          <FarmCards />
-        </Page>
-      </Route>
-      <Route path={`${path}/:farmId`}>
-        <Farm />
-      </Route>
+        </div>
+      )}
+      </Page>
     </Switch>
   )
 }

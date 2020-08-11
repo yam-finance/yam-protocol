@@ -2,16 +2,18 @@ import React from 'react'
 import styled from 'styled-components'
 
 import Button from '../Button'
-import Input from '../Input'
+import Input, { InputProps } from '../Input'
 
-interface TokenInputProps {
-  max: number,
+interface TokenInputProps extends InputProps {
+  max: number | string,
   symbol: string,
 }
 
 const TokenInput: React.FC<TokenInputProps> = ({
   max,
   symbol,
+  onChange,
+  value,
 }) => {
   return (
     <StyledTokenInput>
@@ -26,7 +28,9 @@ const TokenInput: React.FC<TokenInputProps> = ({
             </div>
           </StyledTokenAdornmentWrapper>
         )}
+        onChange={onChange}
         placeholder="0"
+        value={value}
       />
     </StyledTokenInput>
   )
