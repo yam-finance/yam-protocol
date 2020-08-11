@@ -10,7 +10,7 @@ import Rebase from './components/Rebase'
 import Stats from './components/Stats'
 
 import { OverviewData } from './types'
-import { getStats } from './utils'
+import { getStats } from '../../yamUtils'
 
 const Home: React.FC = () => {
 
@@ -25,7 +25,8 @@ const Home: React.FC = () => {
 
   const fetchStats = useCallback(async () => {
     const statsData = await getStats(yam)
-    setStats(statsData)
+    console.log(statsData)
+    //setStats(statsData)
   }, [yam, setStats])
 
   useEffect(() => {
