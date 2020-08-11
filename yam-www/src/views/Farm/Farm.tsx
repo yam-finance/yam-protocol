@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 import styled from 'styled-components'
 
 import { useParams } from 'react-router-dom'
@@ -32,6 +32,7 @@ import DepositModal from './components/DepositModal'
 import WithdrawModal from './components/WithdrawModal'
 
 const Farm: React.FC = () => {
+  const [userApproved, setUserApproved] = useState(false)
 
   const { farmId } = useParams()
   const {
@@ -67,6 +68,12 @@ const Farm: React.FC = () => {
   const [onPresentDeposit] = useModal(<DepositModal max={tokenBalance} onConfirm={onStake} tokenName={depositToken} />)
   const [onPresentWithdraw] = useModal(<WithdrawModal max={stakedBalance} onConfirm={onUnstake} tokenName={depositToken} />)
 
+  const userApprove = () => {
+    onApprove()
+      .then(() => setUserApproved(true))
+      .catch(() => {})
+  }
+
   return (
     <>
       <PageHeader
@@ -86,8 +93,8 @@ const Farm: React.FC = () => {
                     <Label text={`${depositToken} Staked`} />
                   </StyledCardHeader>
                   <StyledCardActions>
-                    {!allowance.toNumber() ? (
-                      <Button onClick={onApprove} text={`Approve ${depositToken}`} />
+                    {(!allowance.toNumber() && !userApproved) ? (
+                      <Button onClick={userApprove} text={`Approve ${depositToken}`} />
                     ) : (
                       <>
                         <IconButton onClick={onPresentWithdraw}>
