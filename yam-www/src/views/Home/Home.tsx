@@ -11,7 +11,7 @@ import Stats from './components/Stats'
 
 import { OverviewData } from './types'
 import { getStats } from './utils'
-import { getPoolContracts } from '../../yamUtils'
+import { getPoolContracts, getCurrentPrice } from '../../yamUtils'
 
 const Home: React.FC = () => {
 
@@ -31,7 +31,7 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     if (yam) {
-      getPoolContracts(yam)
+      getCurrentPrice(yam)
     }
   }, [yam])
 

@@ -3,10 +3,9 @@ export const getPoolContracts = async (yam) => {
   return pools
 }
 
-const getCurrentPrice = async (yam) => {
+export const getCurrentPrice = async (yam) => {
   // FORBROCK: get current YAM price
-  console.log(yam)
-  return 0
+  return yam.toBigN(await yam.contracts.rebaser.methods.getCurrentTWAP().call()).toFixed(2);
 }
 
 const getTargetPrice = async (yam) => {
