@@ -78,13 +78,6 @@ export class Contracts {
     this.weth = new this.web3.eth.Contract(WETHJson);
     this.setProvider(provider, networkId);
     this.setDefaultAccount(this.web3.eth.defaultAccount);
-    if (networkId == 1 && options.notifier) {
-  		this.notifier = Notify({
-  			dappId: options.notifier,
-  			networkId: 1,  // [Integer] The Ethereum network ID your Dapp uses.
-        darkMode: false
-  		});
-  	}
   }
 
 
