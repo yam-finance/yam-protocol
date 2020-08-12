@@ -43,7 +43,7 @@ const Vote: React.FC<VoteProps> = () => {
   return (
     <Card>
       <CardContent>
-        <StyledTitle>{new BigNumber(totalVotes).toFixed(2)} / 150,000 Votes</StyledTitle>
+        <StyledTitle>{new BigNumber(totalVotes).toFixed(2)} / 160,000 Votes</StyledTitle>
         <Spacer />
         <StyledCheckpoints>
           <StyledCheckpoint left={35500 / METER_TOTAL * 100}>
