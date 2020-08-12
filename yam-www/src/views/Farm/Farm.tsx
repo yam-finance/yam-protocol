@@ -72,7 +72,10 @@ const Farm: React.FC = () => {
         </StyledCardsWrapper>
         <Spacer size="lg" />
         <div>
-          <Button text="Harvest & Withdraw" />
+          <Button
+            onClick={onRedeem}
+            text="Harvest & Withdraw"
+          />
         </div>
         <Spacer size="lg" />
       </StyledFarm>
