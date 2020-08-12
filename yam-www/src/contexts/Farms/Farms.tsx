@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 
-import { Contract } from "web3-eth-contract"
+import { Contract } from 'web3-eth-contract'
 
 import { yam as yamAddress } from '../../constants/tokenAddresses'
 import useYam from '../../hooks/useYam'
@@ -64,6 +64,8 @@ const Farms: React.FC = ({ children }) => {
         tokenKey = 'weth'
       } else if (tokenKey === 'ampl') {
         tokenKey = 'ampl_eth_uni_lp'
+      } else if (tokenKey === 'ycrv') {
+        tokenKey = 'ycrv_yam_uni_lp'
       }
 
       const method = pool.methods[tokenKey]
