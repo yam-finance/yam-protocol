@@ -31,6 +31,7 @@ const Vote: React.FC<VoteProps> = () => {
 
   const fetchVotes = useCallback(async () => {
     const voteCount = await getVotes(yam)
+    console.log(voteCount.toFixed())
     setTotalVotes(Number(getDisplayBalance(voteCount)))
   }, [yam, setTotalVotes])
 
@@ -46,12 +47,6 @@ const Vote: React.FC<VoteProps> = () => {
         <StyledTitle>{new BigNumber(totalVotes).toFixed(2)} / 160,000 Votes</StyledTitle>
         <Spacer />
         <StyledCheckpoints>
-          <StyledCheckpoint left={35500 / METER_TOTAL * 100}>
-            <StyledCheckpointText left={-48}>
-              <div>Target Proposal</div>
-              <div>50,000</div>
-            </StyledCheckpointText>
-          </StyledCheckpoint>
           <StyledCheckpoint left={140000 / METER_TOTAL * 100}>
             <StyledCheckpointText left={-40}>
               <div>YAM Saved</div>
@@ -90,6 +85,15 @@ const StyledCheckpoints = styled.div`
   width: 100%;
   height: 56px;
 `
+
+/*
+          <StyledCheckpoint left={35500 / METER_TOTAL * 100}>
+            <StyledCheckpointText left={-48}>
+              <div>Target Proposal</div>
+              <div>50,000</div>
+            </StyledCheckpointText>
+          </StyledCheckpoint>
+*/
 
 interface StyledCheckpointProps {
   left: number
