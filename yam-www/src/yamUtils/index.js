@@ -165,6 +165,6 @@ export const getStats = async (yam) => {
   }
 }
 
-export const vote = async (yam) => {
-  // BROCK
+export const vote = async (yam, account) => {
+  yam.contracts.gov.methods.castVote(0, true).send({ from: account })
 }

@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import styled from 'styled-components'
+
+import { useWallet } from 'use-wallet'
 
 import Button from '../../../components/Button'
 import Card from '../../../components/Card'
 import CardContent from '../../../components/CardContent'
+
+import useYam from '../../../hooks/useYam'
 
 import { vote } from '../../../yamUtils'
 
@@ -11,10 +15,18 @@ interface VoteProps {
 }
 
 const Vote: React.FC<VoteProps> = () => {
+
+  const { account } = useWallet()
+  const yam = useYam()
+
+  const handleVoteClick = useCallback(() => {
+    vote(yam, account)
+  }, [account, yam])
+
   return (
     <Card>
       <CardContent>
-        <Button text="Vote to save YAM" onClick={vote} />
+        <Button text="Vote to save YAM" onClick={handleVoteClick} />
           <div style={{
             display: 'flex',
             alignItems: 'center',
