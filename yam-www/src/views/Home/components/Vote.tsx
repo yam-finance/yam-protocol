@@ -4,7 +4,8 @@ import styled from 'styled-components'
 import Button from '../../../components/Button'
 import Card from '../../../components/Card'
 import CardContent from '../../../components/CardContent'
-import Label from '../../../components/Label'
+
+import { vote } from '../../../yamUtils'
 
 interface VoteProps {
 }
@@ -13,7 +14,7 @@ const Vote: React.FC<VoteProps> = () => {
   return (
     <Card>
       <CardContent>
-        <Button text="Vote to save YAM" />
+        <Button text="Vote to save YAM" onClick={vote} />
           <div style={{
             display: 'flex',
             alignItems: 'center',

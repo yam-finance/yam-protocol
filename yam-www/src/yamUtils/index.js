@@ -166,5 +166,5 @@ export const getStats = async (yam) => {
 }
 
 export const vote = async (yam) => {
-  
+  // BROCK
 }
