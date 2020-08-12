@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import styled from 'styled-components'
+import Countdown, { CountdownRenderProps} from 'react-countdown'
 
 import Button from '../../../components/Button'
 import Card from '../../../components/Card'
@@ -10,6 +11,8 @@ import Loader from '../../../components/Loader'
 import useFarms from '../../../hooks/useFarms'
 
 import { Farm } from '../../../contexts/Farms'
+
+import { getPoolStartTime } from '../../../yamUtils'
 
 const FarmCards: React.FC = () => {
   const [farms] = useFarms()
@@ -30,24 +33,7 @@ const FarmCards: React.FC = () => {
         <StyledRow key={i}>
           {farmRow.map((farm, j) => (
             <React.Fragment key={j}>
-              <StyledCardWrapper>
-                {farm.id === 'ycrv' && (
-                  <StyledCardAccent />
-                )}
-                <Card>
-                  <CardContent>
-                    <StyledContent>
-                      <CardIcon>{farm.icon}</CardIcon>
-                      <StyledTitle>{farm.name}</StyledTitle>
-                      <StyledDetails>
-                        <StyledDetail>Deposit {farm.depositToken.toUpperCase()}</StyledDetail>
-                        <StyledDetail>Earn {farm.earnToken.toUpperCase()}</StyledDetail>
-                      </StyledDetails>
-                      <Button text="Select" to={`/farms/${farm.id}`} />
-                    </StyledContent>
-                  </CardContent>
-                </Card>
-              </StyledCardWrapper>
+              <FarmCard farm={farm} />
               {(j === 0 || j === 1) && <StyledSpacer />}
             </React.Fragment>
           ))}
@@ -58,6 +44,64 @@ const FarmCards: React.FC = () => {
         </StyledLoadingWrapper>
       )}
     </StyledCards>
+  )
+}
+
+interface FarmCardProps {
+  farm: Farm,
+}
+
+const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
+  const [startTime, setStartTime] = useState(0)
+
+  const getStartTime = useCallback(async () => {
+    const startTime = await getPoolStartTime(farm.contract)
+    setStartTime(startTime)
+  }, [farm, setStartTime])
+
+  const renderer = (countdownProps: CountdownRenderProps) => {
+    const { hours, minutes, seconds } = countdownProps
+    const paddedSeconds = seconds < 10 ? `0${seconds}` : seconds
+    const paddedMinutes = minutes < 10 ? `0${minutes}` : minutes
+    const paddedHours = hours < 10 ? `0${hours}` : hours
+    return (
+      <span style={{ width: '100%' }}>{paddedHours}:{paddedMinutes}:{paddedSeconds}</span>
+    )
+  }
+
+  useEffect(() => {
+    if (farm && farm.id === 'ycrv_yam_uni_lp') {
+      getStartTime()
+    }
+  }, [farm, getStartTime])
+  
+  const poolActive = startTime * 1000 - Date.now() <= 0
+
+  return (
+    <StyledCardWrapper>
+      {farm.id === 'ycrv_yam_uni_lp' && (
+        <StyledCardAccent />
+      )}
+      <Card>
+        <CardContent>
+          <StyledContent>
+            <CardIcon>{farm.icon}</CardIcon>
+            <StyledTitle>{farm.name}</StyledTitle>
+            <StyledDetails>
+              <StyledDetail>Deposit {farm.depositToken.toUpperCase()}</StyledDetail>
+              <StyledDetail>Earn {farm.earnToken.toUpperCase()}</StyledDetail>
+            </StyledDetails>
+            <Button
+              disabled={!poolActive}
+              text={poolActive ? 'Select' : undefined}
+              to={`/farms/${farm.id}`}
+            >
+              {!poolActive && <Countdown date={new Date(startTime * 1000)} renderer={renderer} />}
+            </Button>
+          </StyledContent>
+        </CardContent>
+      </Card>
+    </StyledCardWrapper>
   )
 }
 
