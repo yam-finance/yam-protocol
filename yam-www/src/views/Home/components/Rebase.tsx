@@ -24,7 +24,7 @@ const Rebase: React.FC<RebaseProps> = ({ nextRebase }) => {
     )
   }
 
-  const dialValue = (nextRebase - Date.now()) / (1000 * 60 * 60 * 12) * 100
+  const dialValue = nextRebase / (1000 * 60 * 60 * 12) * 100
 
   return (
     <StyledRebase>
@@ -34,7 +34,7 @@ const Rebase: React.FC<RebaseProps> = ({ nextRebase }) => {
             <StyledCountdown>
               <StyledCountdownText>
                 {!nextRebase ? '--' : (
-                  <Countdown date={new Date(nextRebase)} renderer={renderer} />
+                  <Countdown date={new Date(Date.now() + nextRebase)} renderer={renderer} />
                 )}
               </StyledCountdownText>
               <Label text="Next rebase" />
