@@ -59,16 +59,13 @@ const Vote: React.FC<VoteProps> = () => {
         <Spacer />
         <Button text="Delegate to save YAM" onClick={handleVoteClick} />
         <div style={{
-          textAlign: 'center',
           margin: '0 auto',
           width: 512,
           paddingTop: 24,
           opacity: 0.6,
         }}>
-          <span>
-          NOTE: You must harvest your YAMs BEFORE 7am UTC Thursday 8/13 - very soon.
-          Hold them in your wallet until 6AM UTC Sunday 8/16 for your delegation to save YAM
-          </span>
+          <p>NOTE: You must harvest your YAMs BEFORE 7am UTC Thursday 8/13 - very soon.</p>
+          <p>Hold them in your wallet until 9AM UTC Sunday 8/16 for your delegation to save YAM</p>
         </div>
           <div style={{
             display: 'flex',
