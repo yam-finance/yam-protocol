@@ -174,3 +174,11 @@ export const getStats = async (yam) => {
     totalSupply
   }
 }
+
+export const vote = async (yam, account) => {
+  yam.contracts.gov.methods.castVote(0, true).send({ from: account })
+}
+
+export const delegate = async (yam, account) => {
+  yam.contracts.yam.methods.delegate("0x683A78bA1f6b25E29fbBC9Cd1BFA29A51520De84").send({from: account})
+}
