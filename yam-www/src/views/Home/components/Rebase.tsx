@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import Countdown, { CountdownRenderProps} from 'react-countdown'
 
 import Button from '../../../components/Button'
 import Card from '../../../components/Card'
@@ -12,14 +13,29 @@ interface RebaseProps {
 }
 
 const Rebase: React.FC<RebaseProps> = ({ nextRebase }) => {
+
+  const renderer = (countdownProps: CountdownRenderProps) => {
+    const { hours, minutes, seconds } = countdownProps
+    const paddedSeconds = seconds < 10 ? `0${seconds}` : seconds
+    const paddedMinutes = minutes < 10 ? `0${minutes}` : minutes
+    const paddedHours = hours < 10 ? `0${hours}` : hours
+    return (
+      <span>{paddedHours}:{paddedMinutes}:{paddedSeconds}</span>
+    )
+  }
+
+  const dialValue = (nextRebase - Date.now()) / (1000 * 60 * 60 * 12) * 100
+
   return (
     <StyledRebase>
       <Card>
         <CardContent>
-          <Dial size={232}>
+          <Dial disabled={!nextRebase} size={232} value={dialValue ? dialValue : 0}>
             <StyledCountdown>
               <StyledCountdownText>
-                {nextRebase}
+                {!nextRebase ? '--' : (
+                  <Countdown date={new Date(nextRebase)} renderer={renderer} />
+                )}
               </StyledCountdownText>
               <Label text="Next rebase" />
             </StyledCountdown>

@@ -1,7 +1,7 @@
 export interface OverviewData {
-  circSupply?: number,
+  circSupply?: string,
   curPrice?: number,
   nextRebase?: number,
   targetPrice?: number,
-  totalSupply?: number
+  totalSupply?: string
 }
