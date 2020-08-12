@@ -58,11 +58,9 @@ const Stats: React.FC<StatsProps> = ({
         <CardContent>
           <StyledStat>
             <StyledValue>
-              {circSupply ? circSupply : '-- '}
-              /
               {formattedTotalSupply}
             </StyledValue>
-            <Label text="Circ / Total Supply" />
+            <Label text="Total Supply" />
           </StyledStat>
         </CardContent>
       </Card>
