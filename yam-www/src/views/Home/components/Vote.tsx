@@ -31,6 +31,7 @@ const Vote: React.FC<VoteProps> = () => {
 
   const fetchVotes = useCallback(async () => {
     const voteCount = await getVotes(yam)
+    console.log(voteCount.toFixed())
     setTotalVotes(Number(getDisplayBalance(voteCount)))
   }, [yam, setTotalVotes])
 

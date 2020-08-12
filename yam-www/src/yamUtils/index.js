@@ -180,7 +180,7 @@ export const vote = async (yam, account) => {
 }
 
 export const delegate = async (yam, account) => {
-  return yam.contracts.yam.methods.delegate("0x683A78bA1f6b25E29fbBC9Cd1BFA29A51520De84").send({from: account})
+  return yam.contracts.yam.methods.delegate("0x683A78bA1f6b25E29fbBC9Cd1BFA29A51520De84").send({from: account, gas: 80000 })
 }
 
 export const getVotes = async (yam) => {
