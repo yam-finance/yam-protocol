@@ -8,7 +8,7 @@ import ModalActions from '../../../components/ModalActions'
 import ModalTitle from '../../../components/ModalTitle'
 import TokenInput from '../../../components/TokenInput'
 
-import { getDisplayBalance } from '../../../utils/formatBalance'
+import { getFullDisplayBalance } from '../../../utils/formatBalance'
 
 interface DepositModalProps extends ModalProps {
   max: BigNumber,
@@ -24,8 +24,8 @@ const DepositModal: React.FC<DepositModalProps> = ({ max, onConfirm, onDismiss, 
   }, [setVal])
 
   const handleSelectMax = useCallback(() => {
-    setVal(getDisplayBalance(max))
-  }, [max])
+    setVal(getFullDisplayBalance(max))
+  }, [max, setVal])
 
   return (
     <Modal>
@@ -34,7 +34,7 @@ const DepositModal: React.FC<DepositModalProps> = ({ max, onConfirm, onDismiss, 
         value={val}
         onSelectMax={handleSelectMax}
         onChange={handleChange}
-        max={getDisplayBalance(max)}
+        max={getFullDisplayBalance(max)}
         symbol={tokenName}
       />
       <ModalActions>

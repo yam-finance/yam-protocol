@@ -8,3 +8,7 @@ export const getDisplayBalance = (balance: BigNumber, decimals = 18) => {
     return displayBalance.toFixed(2)
   }
 }
+
+export const getFullDisplayBalance = (balance: BigNumber, decimals = 18) => {
+  return balance.dividedBy(new BigNumber(10).pow(decimals)).toFixed()
+}
