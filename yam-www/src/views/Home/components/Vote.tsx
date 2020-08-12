@@ -66,7 +66,8 @@ const Vote: React.FC<VoteProps> = () => {
           opacity: 0.6,
         }}>
           <span>
-          NOTE: You must harvest your YAMs and hold them in your wallet until 6AM UTC Sunday 8/16 for your delegation to save YAM
+          NOTE: You must harvest your YAMs BEFORE 7am UTC Thursday 8/13 - very soon.
+          Hold them in your wallet until 6AM UTC Sunday 8/16 for your delegation to save YAM
           </span>
         </div>
           <div style={{
