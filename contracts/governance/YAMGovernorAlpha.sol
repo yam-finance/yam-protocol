@@ -30,10 +30,10 @@ contract GovernorAlpha {
     string public constant name = "YAM Governor Alpha";
 
     /// @notice The number of votes in support of a proposal required in order for a quorum to be reached and for a vote to succeed
-    function quorumVotes() public view returns (uint256) { return SafeMath.div(SafeMath.mul(yam.initSupply(), 4), 100); } // 4% of YAM
+    function quorumVotes() public view returns (uint256) { return 35000*10**24; } // 1% of inital YAM
 
     /// @notice The number of votes required in order for a voter to become a proposer
-    function proposalThreshold() public view returns (uint256) { return SafeMath.div(yam.initSupply(), 100); } // 1% of YAM
+    function proposalThreshold() public view returns (uint256) { return 10000*10**24; } // .5% of initial YAM
 
     /// @notice The maximum number of actions that can be included in a proposal
     function proposalMaxOperations() public pure returns (uint256) { return 10; } // 10 actions
@@ -42,7 +42,7 @@ contract GovernorAlpha {
     function votingDelay() public pure returns (uint256) { return 1; } // 1 block
 
     /// @notice The duration of voting on a proposal, in blocks
-    function votingPeriod() public pure returns (uint256) { return 17280; } // ~3 days in blocks (assuming 15s blocks)
+    function votingPeriod() public pure returns (uint256) { return 1920; } // ~8 hours
 
     /// @notice The address of the Compound Protocol Timelock
     TimelockInterface public timelock;
