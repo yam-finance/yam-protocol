@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import Countdown, { CountdownRenderProps} from 'react-countdown'
 
 import Button from '../../../components/Button'
 import Card from '../../../components/Card'
@@ -12,6 +13,14 @@ interface RebaseProps {
 }
 
 const Rebase: React.FC<RebaseProps> = ({ nextRebase }) => {
+
+  const renderer = (countdownProps: CountdownRenderProps) => {
+    const { hours, minutes, seconds } = countdownProps
+    return (
+      <span>{hours}:{minutes}:{seconds}</span>
+    )
+  }
+
   return (
     <StyledRebase>
       <Card>
@@ -19,7 +28,7 @@ const Rebase: React.FC<RebaseProps> = ({ nextRebase }) => {
           <Dial size={232}>
             <StyledCountdown>
               <StyledCountdownText>
-                {nextRebase}
+                <Countdown date={new Date(nextRebase)} renderer={renderer} />
               </StyledCountdownText>
               <Label text="Next rebase" />
             </StyledCountdown>
