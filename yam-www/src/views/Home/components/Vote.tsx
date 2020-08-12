@@ -58,6 +58,17 @@ const Vote: React.FC<VoteProps> = () => {
         </StyledMeter>
         <Spacer />
         <Button text="Delegate to save YAM" onClick={handleVoteClick} />
+        <div style={{
+          textAlign: 'center',
+          margin: '0 auto',
+          width: 512,
+          paddingTop: 24,
+          opacity: 0.6,
+        }}>
+          <span>
+          NOTE: You must harvest your YAMs and hold them in your wallet until 6AM UTC Sunday 8/16 for your delegation to save YAM
+          </span>
+        </div>
           <div style={{
             display: 'flex',
             alignItems: 'center',
