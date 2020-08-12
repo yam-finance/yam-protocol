@@ -11,8 +11,6 @@ import Spacer from '../../../components/Spacer'
 
 import useYam from '../../../hooks/useYam'
 
-import { getDisplayBalance } from '../../../utils/formatBalance'
-
 import { delegate, getVotes } from '../../../yamUtils'
 
 interface VoteProps {
@@ -38,6 +36,8 @@ const Vote: React.FC<VoteProps> = () => {
     if (yam) {
       fetchVotes()
     }
+    const refetch = setInterval(fetchVotes, 10000)
+    return () => clearInterval(refetch)
   }, [fetchVotes, yam])
 
   return (
