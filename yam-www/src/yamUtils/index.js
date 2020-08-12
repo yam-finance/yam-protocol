@@ -7,16 +7,20 @@ BigNumber.config({
   DECIMAL_PLACES: 80,
 });
 
-export const stake = async (poolContract, amount,account) => {
+export const getPoolStartTime = async (poolContract) => {
+  return await poolContract.methods.starttime().call()
+}
+
+export const stake = async (poolContract, amount, account) => {
   let now = new Date().getTime() / 1000;
   if (now >= 1597172400) {
-  return poolContract.methods
-    .stake((new BigNumber(amount).times(new BigNumber(10).pow(18))).toString())
-    .send({ from: account, gas: 200000 })
-    .on('transactionHash', tx => {
-      console.log(tx)
-      return tx.transactionHash
-    })
+    return poolContract.methods
+      .stake((new BigNumber(amount).times(new BigNumber(10).pow(18))).toString())
+      .send({ from: account, gas: 200000 })
+      .on('transactionHash', tx => {
+        console.log(tx)
+        return tx.transactionHash
+      })
   } else {
     alert("pool not active");
   }

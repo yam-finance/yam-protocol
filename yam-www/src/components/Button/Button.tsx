@@ -4,6 +4,7 @@ import styled, { ThemeContext } from 'styled-components'
 import { Link } from 'react-router-dom'
 
 interface ButtonProps {
+  children?: React.ReactNode,
   disabled?: boolean,
   href?: string,
   onClick?: () => void,
@@ -14,6 +15,7 @@ interface ButtonProps {
 }
 
 const Button: React.FC<ButtonProps> = ({
+  children,
   disabled,
   href,
   onClick,
@@ -82,6 +84,7 @@ const Button: React.FC<ButtonProps> = ({
       padding={buttonPadding}
       size={buttonSize}
     >
+      {children}
       {ButtonChild}
     </StyledButton>
   )
