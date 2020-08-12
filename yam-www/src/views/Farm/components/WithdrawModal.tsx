@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 
 import BigNumber from 'bignumber.js'
 
@@ -8,7 +8,7 @@ import ModalActions from '../../../components/ModalActions'
 import ModalTitle from '../../../components/ModalTitle'
 import TokenInput from '../../../components/TokenInput'
 
-import { getDisplayBalance } from '../../../utils/formatBalance'
+import { getFullDisplayBalance } from '../../../utils/formatBalance'
 
 interface WithdrawModalProps extends ModalProps {
   max: BigNumber,
@@ -19,13 +19,17 @@ interface WithdrawModalProps extends ModalProps {
 const WithdrawModal: React.FC<WithdrawModalProps> = ({ onConfirm, onDismiss, max, tokenName = '' }) => {
   const [val, setVal] = useState('')
 
+  const fullBalance = useMemo(() => {
+    return getFullDisplayBalance(max)
+  }, [max])
+
   const handleChange = useCallback((e: React.FormEvent<HTMLInputElement>) => {
     setVal(e.currentTarget.value)
   }, [setVal])
 
   const handleSelectMax = useCallback(() => {
-    setVal(getDisplayBalance(max))
-  }, [max])
+    setVal(fullBalance)
+  }, [fullBalance, setVal])
 
   return (
     <Modal>
@@ -34,7 +38,7 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({ onConfirm, onDismiss, max
         onSelectMax={handleSelectMax}
         onChange={handleChange}
         value={val}
-        max={getDisplayBalance(max)}
+        max={fullBalance}
         symbol={tokenName}
       />
       <ModalActions>
