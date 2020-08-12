@@ -65,6 +65,7 @@ export class Contracts {
     this.lend = new this.web3.eth.Contract(ERC20Json.abi);
     this.snx = new this.web3.eth.Contract(ERC20Json.abi);
     this.mkr = new this.web3.eth.Contract(ERC20Json.abi);
+    this.yam_ycrv_uni_lp = new this.web3.eth.Contract(ERC20Json.abi);
 
     this.erc20 = new this.web3.eth.Contract(ERC20Json.abi);
     this.pool = new this.web3.eth.Contract(LENDPoolJson.abi);
@@ -125,7 +126,7 @@ export class Contracts {
     this.UNIAmpl.options.address = addressMap["UNIAmpl"];
     this.uni_fact.options.address = addressMap["uniswapFactoryV2"];
     this.uni_router.options.address = addressMap["UNIRouter"];
-
+    this.yam_ycrv_uni_lp.options.address = addressMap["YAMYCRV"];
 
     this.pools = [
       {"tokenAddr": this.yfi.options.address, "poolAddr": this.yfi_pool.options.address},
