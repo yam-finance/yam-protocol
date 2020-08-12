@@ -31,8 +31,7 @@ const Vote: React.FC<VoteProps> = () => {
 
   const fetchVotes = useCallback(async () => {
     const voteCount = await getVotes(yam)
-    console.log(voteCount.toFixed())
-    setTotalVotes(Number(getDisplayBalance(voteCount)))
+    setTotalVotes(Number(voteCount))
   }, [yam, setTotalVotes])
 
   useEffect(() => {
@@ -44,7 +43,7 @@ const Vote: React.FC<VoteProps> = () => {
   return (
     <Card>
       <CardContent>
-        <StyledTitle>{new BigNumber(totalVotes).toFixed(2)} / 160,000 Votes</StyledTitle>
+        <StyledTitle>{Number(new BigNumber(totalVotes).toFixed(0)).toLocaleString()} / 160,000 Votes</StyledTitle>
         <Spacer />
         <StyledCheckpoints>
           <StyledCheckpoint left={140000 / METER_TOTAL * 100}>
