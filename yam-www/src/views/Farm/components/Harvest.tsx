@@ -11,7 +11,6 @@ import Label from '../../../components/Label'
 import Value from '../../../components/Value'
 
 import useEarnings from '../../../hooks/useEarnings'
-import useRedeem from '../../../hooks/useRedeem'
 import useReward from '../../../hooks/useReward'
 
 import { getDisplayBalance } from '../../../utils/formatBalance'
@@ -23,7 +22,6 @@ interface HarvestProps {
 const Harvest: React.FC<HarvestProps> = ({ poolContract }) => {
 
   const earnings = useEarnings(poolContract)
-  const { onRedeem } = useRedeem(poolContract)
   const { onReward } = useReward(poolContract)
 
   return (
@@ -36,9 +34,7 @@ const Harvest: React.FC<HarvestProps> = ({ poolContract }) => {
             <Label text="YAMs earned" />
           </StyledCardHeader>
           <StyledCardActions>
-              <Button onClick={onReward} text="Harvest" disabled={!earnings.toNumber()} />
-              <StyledSpacer />
-              <Button onClick={onRedeem} text="Harvest & Exit" disabled={!earnings.toNumber()} />
+            <Button onClick={onReward} text="Harvest" disabled={!earnings.toNumber()} />
           </StyledCardActions>
         </StyledCardContentInner>
       </CardContent>

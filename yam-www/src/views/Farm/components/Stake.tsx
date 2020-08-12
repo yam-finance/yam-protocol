@@ -48,8 +48,21 @@ const Stake: React.FC<StakeProps> = ({
   const { onStake } = useStake(poolContract)
   const { onUnstake } = useUnstake(poolContract)
 
-  const [onPresentDeposit] = useModal(<DepositModal max={tokenBalance} onConfirm={onStake} tokenName={depositToken} />)
-  const [onPresentWithdraw] = useModal(<WithdrawModal max={stakedBalance} onConfirm={onUnstake} tokenName={depositToken} />)
+  const [onPresentDeposit] = useModal(
+    <DepositModal
+      max={tokenBalance}
+      onConfirm={onStake}
+      tokenName={tokenName}
+    />
+  )
+  
+  const [onPresentWithdraw] = useModal(
+    <WithdrawModal
+      max={stakedBalance}
+      onConfirm={onUnstake}
+      tokenName={tokenName}
+    />
+  )
 
   const handleApprove = useCallback(async () => {
     try {
