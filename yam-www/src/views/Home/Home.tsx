@@ -1,6 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import styled from 'styled-components'
 
+import { useWallet } from 'use-wallet'
+
 import Page from '../../components/Page'
 import PageHeader from '../../components/PageHeader'
 
@@ -14,6 +16,8 @@ import { OverviewData } from './types'
 import { getStats } from './utils'
 
 const Home: React.FC = () => {
+
+  const { account } = useWallet()
 
   const yam = useYam()
   const [{
@@ -39,9 +43,11 @@ const Home: React.FC = () => {
     <Page>
       <PageHeader icon="🌞" subtitle="It's a great day to farm YAMs" title="Welcome" />
       <div>
-        <StyledVote>
-          <Vote />
-        </StyledVote>
+        {!!account && (
+          <StyledVote>
+            <Vote />
+          </StyledVote>
+        )}
         <StyledSpacer />
         <StyledOverview>
           <Rebase nextRebase={nextRebase} />
