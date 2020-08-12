@@ -1,12 +1,14 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import BigNumber from 'bignumber.js'
+import Countdown, { CountdownRenderProps} from 'react-countdown'
 
 import { useWallet } from 'use-wallet'
 
 import Button from '../../../components/Button'
 import Card from '../../../components/Card'
 import CardContent from '../../../components/CardContent'
+import Label from '../../../components/Label'
 import Spacer from '../../../components/Spacer'
 
 import useYam from '../../../hooks/useYam'
@@ -22,6 +24,16 @@ const Vote: React.FC<VoteProps> = () => {
   const [totalVotes, setTotalVotes] = useState(0)
   const { account } = useWallet()
   const yam = useYam()
+
+  const renderer = (countdownProps: CountdownRenderProps) => {
+    const { hours, minutes, seconds } = countdownProps
+    const paddedSeconds = seconds < 10 ? `0${seconds}` : seconds
+    const paddedMinutes = minutes < 10 ? `0${minutes}` : minutes
+    const paddedHours = hours < 10 ? `0${hours}` : hours
+    return (
+      <StyledCountdown>{paddedHours}:{paddedMinutes}:{paddedSeconds}</StyledCountdown>
+    )
+  }
 
   const handleVoteClick = useCallback(() => {
     delegate(yam, account)
@@ -43,7 +55,26 @@ const Vote: React.FC<VoteProps> = () => {
   return (
     <Card>
       <CardContent>
-        <StyledTitle>{Number(new BigNumber(totalVotes).toFixed(0)).toLocaleString()} / 160,000 Votes</StyledTitle>
+        <div style={{
+          alignItems: 'center',
+          display: 'flex',
+        }}>
+          <StyledCenter>
+            <Countdown date={1597302000000} renderer={renderer} />
+            <Label text="Time remaining" />
+          </StyledCenter>
+          <Spacer />
+          <StyledCenter>
+            <div style={{
+              alignItems: 'baseline',
+              display: 'flex',
+            }}>
+              <StyledTitle>{Number(new BigNumber(totalVotes).toFixed(0)).toLocaleString()}</StyledTitle>
+              <StyledDenominator>/ 160,000</StyledDenominator>
+            </div>
+            <Label text="Votes delegated" />
+          </StyledCenter>
+        </div>
         <Spacer />
         <StyledCheckpoints>
           <StyledCheckpoint left={140000 / METER_TOTAL * 100}>
@@ -80,12 +111,22 @@ const Vote: React.FC<VoteProps> = () => {
   )
 }
 
+const StyledDenominator = styled.div`
+  margin-left: 8px;
+  font-size: 18px;
+  color: ${props => props.theme.color.grey[600]};
+`
+
+const StyledCountdown = styled.div`
+  color: ${props => props.theme.color.primary.main};
+  font-size: 32px;
+  font-weight: 700;
+`
+
 const StyledTitle = styled.div`
   font-size: 32px;
   font-weight: 700;
   text-align: center;
-  height: 56px;
-  line-height: 56px;
 `
 
 const StyledCheckpoints = styled.div`
@@ -106,6 +147,13 @@ const StyledCheckpoints = styled.div`
 interface StyledCheckpointProps {
   left: number
 }
+
+const StyledCenter = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin: 0 auto;
+`
 const StyledCheckpoint = styled.div<StyledCheckpointProps>`
   position: absolute;
   left: ${props => props.left}%;
