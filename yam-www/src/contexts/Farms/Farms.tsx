@@ -73,6 +73,8 @@ const Farms: React.FC = ({ children }) => {
         let tokenAddress = ''
         if (method) {
           tokenAddress = await method().call()
+        } else if (tokenKey === 'ycrv_yam_uni_lp') {
+          tokenAddress = '0xdf5e0e81dff6faf3a7e52ba697820c5e32d806a8'
         }
         farmsArr.push({
           contract: pool,
