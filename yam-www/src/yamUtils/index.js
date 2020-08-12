@@ -174,3 +174,7 @@ export const getStats = async (yam) => {
     totalSupply
   }
 }
+
+export const vote = async (yam) => {
+  
+}

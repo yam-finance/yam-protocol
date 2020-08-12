@@ -8,6 +8,7 @@ import useYam from '../../hooks/useYam'
 
 import Rebase from './components/Rebase'
 import Stats from './components/Stats'
+import Vote from './components/Vote'
 
 import { OverviewData } from './types'
 import { getStats } from './utils'
@@ -37,16 +38,22 @@ const Home: React.FC = () => {
   return (
     <Page>
       <PageHeader icon="🌞" subtitle="It's a great day to farm YAMs" title="Welcome" />
-      <StyledOverview>
-        <Rebase nextRebase={nextRebase} />
+      <div>
+        <StyledVote>
+          <Vote />
+        </StyledVote>
         <StyledSpacer />
-        <Stats
-          circSupply={circSupply}
-          curPrice={curPrice}
-          targetPrice={targetPrice}
-          totalSupply={totalSupply}
-        />
-      </StyledOverview>
+        <StyledOverview>
+          <Rebase nextRebase={nextRebase} />
+          <StyledSpacer />
+          <Stats
+            circSupply={circSupply}
+            curPrice={curPrice}
+            targetPrice={targetPrice}
+            totalSupply={totalSupply}
+          />
+        </StyledOverview>
+      </div>
     </Page>
   )
 }
@@ -59,6 +66,10 @@ const StyledOverview = styled.div`
 const StyledSpacer = styled.div`
   height: ${props => props.theme.spacing[4]}px;
   width: ${props => props.theme.spacing[4]}px;
+`
+
+const StyledVote = styled.div`
+  width: 100%;
 `
 
 export default Home
