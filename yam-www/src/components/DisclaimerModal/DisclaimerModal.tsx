@@ -24,7 +24,8 @@ const DisclaimerModal: React.FC<DisclaimerModal> = ({ onConfirm, onDismiss }) =>
       return (
         <div>
           <p>Audits: None.</p>
-          <p>While the initial creators of the Yam protocol have made reasonable efforts to attempt to ensure the security of the contracts, including forking much of the codebase from existing well-audited projects and soliciting review from friends, nothing approaching the rigor of a formal audit has been conducted at this time. We STRONGLY urge caution to anyone who chooses to engage with these contracts.</p>
+          <p>While the initial creators of the Yam protocol have made reasonable efforts to attempt to ensure the security of the contracts, including forking much of the codebase from existing well-audited projects and soliciting review from friends, nothing approaching the rigor of a formal audit has been conducted at this time.</p>
+          <p>We STRONGLY urge caution to anyone who chooses to engage with these contracts.</p>
         </div>
       )
     } else {
@@ -46,7 +47,7 @@ const DisclaimerModal: React.FC<DisclaimerModal> = ({ onConfirm, onDismiss }) =>
       )
     } else {
       return (
-        <Button text="I understand" variant="secondary" onClick={handleConfirm} />
+        <Button text="I understand" onClick={handleConfirm} />
       )
     }
   }, [setStep, step, handleConfirm])
