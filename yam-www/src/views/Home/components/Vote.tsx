@@ -9,7 +9,7 @@ import CardContent from '../../../components/CardContent'
 
 import useYam from '../../../hooks/useYam'
 
-import { vote } from '../../../yamUtils'
+import { delegate } from '../../../yamUtils'
 
 interface VoteProps {
 }
@@ -20,20 +20,20 @@ const Vote: React.FC<VoteProps> = () => {
   const yam = useYam()
 
   const handleVoteClick = useCallback(() => {
-    vote(yam, account)
+    delegate(yam, account)
   }, [account, yam])
 
   return (
     <Card>
       <CardContent>
-        <Button text="Vote to save YAM" onClick={handleVoteClick} />
+        <Button text="Delegate to save YAM" onClick={handleVoteClick} />
           <div style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             marginTop: 32,
           }}>
-          <StyledLink target="__blank" href="https://twitter.com/YamFinance/status/1293608258553417729">More Info</StyledLink>
+          <StyledLink target="__blank" href="https://twitter.com/YamFinance/status/1293660938906869760">More Info</StyledLink>
         </div>
       </CardContent>
     </Card>
