@@ -23,6 +23,7 @@ import useUnstake from '../../../hooks/useUnstake'
 import { getDisplayBalance } from '../../../utils/formatBalance'
 
 import DepositModal from './DepositModal'
+import DepositsDisabledModal from './DepositsDisabledModal'
 import WithdrawModal from './WithdrawModal'
 
 interface StakeProps {
@@ -54,6 +55,10 @@ const Stake: React.FC<StakeProps> = ({
       onConfirm={onStake}
       tokenName={tokenName}
     />
+  )
+
+  const [onPresentDepositDisabled] = useModal(
+    <DepositsDisabledModal />
   )
   
   const [onPresentWithdraw] = useModal(
@@ -99,7 +104,7 @@ const Stake: React.FC<StakeProps> = ({
                   <RemoveIcon />
                 </IconButton>
                 <StyledActionSpacer />
-                <IconButton onClick={onPresentDeposit}>
+                <IconButton onClick={onPresentDepositDisabled}>
                   <AddIcon />
                 </IconButton>
               </>
