@@ -25,7 +25,6 @@ const Home: React.FC = () => {
 
   const fetchStats = useCallback(async () => {
     const statsData = await getStats(yam)
-    console.log(statsData)
     setStats(statsData)
   }, [yam, setStats])
 
