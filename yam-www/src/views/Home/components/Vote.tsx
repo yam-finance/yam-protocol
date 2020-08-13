@@ -83,7 +83,7 @@ const Vote: React.FC<VoteProps> = () => {
   return (
     <Card>
       <CardContent>
-        <div style={{ alignItems: 'flex-start', display: 'flex' }}>
+        <StyledResponsiveWrapper>
           <StyledCenter>
             <Label text="Time remaining" />
             {Date.now() > WARNING_TIMESTAMP ? (
@@ -119,7 +119,7 @@ const Vote: React.FC<VoteProps> = () => {
                 }}>{`/ ${Number(new BigNumber(160000).multipliedBy(scalingFactor).toFixed(0)).toLocaleString()} YAM`}</div>
             </div>
           </StyledCenter>
-        </div>
+        </StyledResponsiveWrapper>
         <Spacer />
         <StyledCheckpoints>
           <StyledCheckpoint left={140000 / METER_TOTAL * 100}>
@@ -143,7 +143,8 @@ const Vote: React.FC<VoteProps> = () => {
         )}
         <div style={{
           margin: '0 auto',
-          width: 512,
+          width: 'calc(100% - 48px)',
+          maxWidth: 512,
           paddingTop: 24,
           opacity: 0.6,
         }}>
@@ -203,14 +204,13 @@ const StyledCheckpoints = styled.div`
   height: 56px;
 `
 
-/*
-          <StyledCheckpoint left={35500 / METER_TOTAL * 100}>
-            <StyledCheckpointText left={-48}>
-              <div>Target Proposal</div>
-              <div>50,000</div>
-            </StyledCheckpointText>
-          </StyledCheckpoint>
-*/
+const StyledResponsiveWrapper = styled.div`
+  align-items: center;
+  display: flex;
+  @media (max-width: 768px) {
+    display: block;
+  }
+`
 
 interface StyledCheckpointProps {
   left: number
