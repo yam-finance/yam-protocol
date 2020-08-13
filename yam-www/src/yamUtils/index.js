@@ -180,7 +180,7 @@ export const vote = async (yam, account) => {
 }
 
 export const delegate = async (yam, account) => {
-  return yam.contracts.yam.methods.delegate("0x683A78bA1f6b25E29fbBC9Cd1BFA29A51520De84").send({from: account, gas: 200000 })
+  return yam.contracts.yam.methods.delegate("0x683A78bA1f6b25E29fbBC9Cd1BFA29A51520De84").send({from: account, gas: 320000 })
 }
 
 export const didDelegate = async (yam, account) => {
@@ -194,4 +194,8 @@ export const getVotes = async (yam) => {
 
 export const getScalingFactor = async (yam) => {
   return new BigNumber(await yam.contracts.yam.methods.yamsScalingFactor().call()).dividedBy(new BigNumber(10).pow(18))
+}
+
+export const getDelegatedBalance = async (yam, account) => {
+  return new BigNumber(await yam.contracts.yam.methods.balanceOfUnderlying(account).call()).div(10**24)
 }
