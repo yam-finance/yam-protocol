@@ -19,11 +19,8 @@ import WETHPoolJson from '../clean_build/contracts/YAMETHPool.json';
 import AMPLPoolJson from '../clean_build/contracts/YAMAMPLPool.json';
 import YFIPoolJson from '../clean_build/contracts/YAMYFIPool.json';
 
-import MKRPoolJson from '../clean_build/contracts/YAMMKRPool.json';
-import LENDPoolJson from '../clean_build/contracts/YAMLENDPool.json';
 import COMPPoolJson from '../clean_build/contracts/YAMCOMPPool.json';
-import SNXPoolJson from '../clean_build/contracts/YAMSNXPool.json';
-import LINKPoolJson from '../clean_build/contracts/YAMLINKPool.json';
+import DICEPoolJson from '../clean_build/contracts/SHRIMPDICEPool.json';
 
 import IncJson from '../clean_build/contracts/YAMIncentivizer.json';
 
@@ -55,20 +52,13 @@ export class Contracts {
     this.ycrv_pool = new this.web3.eth.Contract(IncJson.abi);
 
     this.comp_pool = new this.web3.eth.Contract(COMPPoolJson.abi);
-    this.link_pool = new this.web3.eth.Contract(LINKPoolJson.abi);
-    this.lend_pool = new this.web3.eth.Contract(LENDPoolJson.abi);
-    this.snx_pool = new this.web3.eth.Contract(SNXPoolJson.abi);
-    this.mkr_pool = new this.web3.eth.Contract(MKRPoolJson.abi);
+    this.dice_pool = new this.web3.eth.Contract(DICEPoolJson.abi);
 
     this.comp = new this.web3.eth.Contract(ERC20Json.abi);
-    this.link = new this.web3.eth.Contract(ERC20Json.abi);
-    this.lend = new this.web3.eth.Contract(ERC20Json.abi);
-    this.snx = new this.web3.eth.Contract(ERC20Json.abi);
-    this.mkr = new this.web3.eth.Contract(ERC20Json.abi);
-    this.yam_ycrv_uni_lp = new this.web3.eth.Contract(ERC20Json.abi);
+    this.dice = new this.web3.eth.Contract(ERC20Json.abi);
+    this.shrimp_ycrv_uni_lp = new this.web3.eth.Contract(ERC20Json.abi);
 
     this.erc20 = new this.web3.eth.Contract(ERC20Json.abi);
-    this.pool = new this.web3.eth.Contract(LENDPoolJson.abi);
 
 
 
@@ -101,10 +91,7 @@ export class Contracts {
       { contract: this.eth_pool, json: WETHPoolJson },
       { contract: this.yfi_pool, json: YFIPoolJson },
       { contract: this.ampl_pool, json: AMPLPoolJson },
-      { contract: this.snx_pool, json: SNXPoolJson },
-      { contract: this.mkr_pool, json: MKRPoolJson },
-      { contract: this.lend_pool, json: LENDPoolJson },
-      { contract: this.link_pool, json: LINKPoolJson },
+      { contract: this.dice_pool, json: DICEPoolJson },
       { contract: this.comp_pool, json: COMPPoolJson },
     ]
 
@@ -118,24 +105,18 @@ export class Contracts {
     this.yfi.options.address = addressMap["YFI"];
     this.ycrv.options.address = addressMap["YCRV"];
     this.weth.options.address = addressMap["WETH"];
-    this.snx.options.address = addressMap["SNX"];
     this.comp.options.address = addressMap["COMP"];
-    this.link.options.address = addressMap["LINK"];
-    this.lend.options.address = addressMap["LEND"];
-    this.mkr.options.address = addressMap["MKR"];
+    this.dice.options.address = addressMap["DICE"];
     this.UNIAmpl.options.address = addressMap["UNIAmpl"];
     this.uni_fact.options.address = addressMap["uniswapFactoryV2"];
     this.uni_router.options.address = addressMap["UNIRouter"];
-    this.yam_ycrv_uni_lp.options.address = addressMap["YAMYCRV"];
+    this.shrimp_ycrv_uni_lp.options.address = addressMap["YAMYCRV"];
 
     this.pools = [
       {"tokenAddr": this.yfi.options.address, "poolAddr": this.yfi_pool.options.address},
-      {"tokenAddr": this.snx.options.address, "poolAddr": this.snx_pool.options.address},
       {"tokenAddr": this.weth.options.address, "poolAddr": this.eth_pool.options.address},
       {"tokenAddr": this.comp.options.address, "poolAddr": this.comp_pool.options.address},
-      {"tokenAddr": this.link.options.address, "poolAddr": this.link_pool.options.address},
-      {"tokenAddr": this.lend.options.address, "poolAddr": this.lend_pool.options.address},
-      {"tokenAddr": this.mkr.options.address, "poolAddr": this.mkr_pool.options.address},
+      {"tokenAddr": this.dice.options.address, "poolAddr": this.dice_pool.options.address},
       {"tokenAddr": this.UNIAmpl.options.address, "poolAddr": this.ampl_pool.options.address},
     ]
   }

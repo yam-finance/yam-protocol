@@ -41,13 +41,13 @@ const Home: React.FC = () => {
 
   return (
     <Page>
-      <PageHeader icon="🌞" subtitle="It's a great day to save YAM" title="Welcome" />
+      <PageHeader icon="🦐" subtitle="It's a great day to catch Shrimp" title="Welcome" />
       <div>
-        {!!account && (
+        {/* {!!account && (
           <StyledVote>
             <Vote />
           </StyledVote>
-        )}
+        )} */}
         <StyledSpacer />
         <StyledOverview>
           <Rebase nextRebase={nextRebase} />
@@ -67,11 +67,6 @@ const Home: React.FC = () => {
 const StyledOverview = styled.div`
   align-items: center;
   display: flex;
-  @media (max-width: 768px) {
-    width: 100%;
-    flex-flow: column nowrap;
-    align-items: center;
-  }
 `
 
 const StyledSpacer = styled.div`

@@ -39,10 +39,10 @@ const FarmCards: React.FC = () => {
           ))}
         </StyledRow>
       )) : (
-          <StyledLoadingWrapper>
-            <Loader text="Loading farms" />
-          </StyledLoadingWrapper>
-        )}
+        <StyledLoadingWrapper>
+          <Loader text="Loading farms" />
+        </StyledLoadingWrapper>
+      )}
     </StyledCards>
   )
 }
@@ -70,7 +70,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
   }
 
   useEffect(() => {
-    if (farm && farm.id === 'ycrv_yam_uni_lp') {
+    if (farm && farm.id === 'ycrv_shrimp_uni_lp') {
       getStartTime()
     }
   }, [farm, getStartTime])
@@ -79,7 +79,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 
   return (
     <StyledCardWrapper>
-      {farm.id === 'ycrv_yam_uni_lp' && (
+      {farm.id === 'ycrv_shrimp_uni_lp' && (
         <StyledCardAccent />
       )}
       <Card>
@@ -129,9 +129,6 @@ const StyledCardAccent = styled.div`
 
 const StyledCards = styled.div`
   width: 900px;
-  @media (max-width: 768px) {
-    width: 100%;
-  }
 `
 
 const StyledLoadingWrapper = styled.div`
@@ -144,12 +141,6 @@ const StyledLoadingWrapper = styled.div`
 const StyledRow = styled.div`
   display: flex;
   margin-bottom: ${props => props.theme.spacing[4]}px;
-  flex-flow: row wrap;
-  @media (max-width: 768px) {
-    width: 100%;
-    flex-flow: column nowrap;
-    align-items: center;
-  }
 `
 
 const StyledCardWrapper = styled.div`
