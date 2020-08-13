@@ -14,7 +14,7 @@ import {
 export const yam = new Yam(
   "http://localhost:8545/",
   // "http://127.0.0.1:9545/",
-  "1001",
+  "3",
   true, {
     defaultAccount: "",
     defaultConfirmations: 1,

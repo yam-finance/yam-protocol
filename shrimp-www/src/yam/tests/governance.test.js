@@ -19,7 +19,7 @@ const ethUtil = require('ethereumjs-util');
 export const yam = new Yam(
   "http://localhost:8545/",
   // "http://127.0.0.1:9545/",
-  "1001",
+  "3",
   true, {
     defaultAccount: "",
     defaultConfirmations: 1,
@@ -92,7 +92,7 @@ describe('YAM governance', () => {
            primaryType: 'Delegation',
            domain: {
                name: 'YAM',
-               chainId: 1, // since we are using --fork, it respects that chainID
+               chainId: 3, // since we are using --fork, it respects that chainID
                verifyingContract: '0x4BC6657283f8f24e27EAc1D21D1deE566C534A9A',
            },
            message: {
@@ -131,7 +131,7 @@ describe('YAM governance', () => {
            primaryType: 'Delegation',
            domain: {
                name: 'YAM',
-               chainId: 1,
+               chainId: 3,
                verifyingContract: '0x4BC6657283f8f24e27EAc1D21D1deE566C534A9A',
            },
            message: {
@@ -166,7 +166,7 @@ describe('YAM governance', () => {
            primaryType: 'Delegation',
            domain: {
                name: 'YAM',
-               chainId: 1,
+               chainId: 3,
                verifyingContract: '0x4BC6657283f8f24e27EAc1D21D1deE566C534A9A',
            },
            message: {

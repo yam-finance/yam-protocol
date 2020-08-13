@@ -20,7 +20,7 @@ async function enfranchise(actor, amount, user) {
 export const yam = new Yam(
   "http://localhost:8545/",
   // "http://127.0.0.1:9545/",
-  "1001",
+  "3",
   true, {
     defaultAccount: "",
     defaultConfirmations: 1,
@@ -174,7 +174,7 @@ describe("governorAlpha#castVote/2", () => {
              primaryType: 'Ballot',
              domain: {
                  name: 'YAM Governor Alpha',
-                 chainId: 1,
+                 chainId: 3,
                  verifyingContract: yam.contracts.gov.options.address,
              },
              message: {
@@ -214,7 +214,7 @@ describe("governorAlpha#castVote/2", () => {
              primaryType: 'Ballot',
              domain: {
                  name: 'YAM Governor Alpha',
-                 chainId: 1,
+                 chainId: 3,
                  verifyingContract: "0x47Ff9D00cDAE31B4E09DEf8081bb3a1282e8061D",
              },
              message: {
