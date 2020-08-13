@@ -157,7 +157,7 @@ const Vote: React.FC<VoteProps> = () => {
           opacity: 0.6,
         }}>
           <p>NOTE: You must harvest your YAMs BEFORE 7am UTC Thursday 8/13 - very soon.</p>
-          <p>Hold them in your wallet until 9AM UTC Sunday 8/16 for your delegation to save YAM</p>
+          <p>Hold them in your wallet until 10PM UTC Sunday 8/16 for your delegation to save YAM</p>
         </div>
           <div style={{
             display: 'flex',
