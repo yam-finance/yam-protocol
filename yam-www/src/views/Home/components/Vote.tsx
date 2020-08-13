@@ -47,13 +47,12 @@ const Vote: React.FC<VoteProps> = () => {
   }
 
   const undelegateRenderer = (countdownProps: CountdownRenderProps) => {
-    // 1597615200000
-    const { hours, minutes, seconds } = countdownProps
+    const { days, hours, minutes, seconds } = countdownProps
     const paddedSeconds = seconds < 10 ? `0${seconds}` : seconds
     const paddedMinutes = minutes < 10 ? `0${minutes}` : minutes
     const paddedHours = hours < 10 ? `0${hours}` : hours
     return (
-      <StyledUndelegateCountdown>{paddedHours}:{paddedMinutes}:{paddedSeconds}</StyledUndelegateCountdown>
+      <StyledUndelegateCountdown>{days}:{paddedHours}:{paddedMinutes}:{paddedSeconds}</StyledUndelegateCountdown>
     )
   }
 
