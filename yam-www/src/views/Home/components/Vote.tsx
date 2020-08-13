@@ -136,12 +136,10 @@ const Vote: React.FC<VoteProps> = () => {
         {!delegated ? (
           <Button text="Delegate to save YAM" onClick={handleVoteClick} />
         ) : (
-          <>
-            <div>
-              <StyledThankYou>Delegated - Thank you for your support ❤️</StyledThankYou>
-              <span>Delegating: {Number(delegatedBalance.toFixed(0)).toLocaleString()} YAM</span>
-            </div>
-          </>
+          <div>
+            <StyledThankYou>Delegated - Thank you for your support ❤️</StyledThankYou>
+            <div>Delegating: {Number(delegatedBalance.toFixed(0)).toLocaleString()} YAM</div>
+          </div>
         )}
         <div style={{
           margin: '0 auto',
