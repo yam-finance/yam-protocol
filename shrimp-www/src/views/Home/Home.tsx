@@ -50,8 +50,8 @@ const Home: React.FC = () => {
         )} */}
         <StyledSpacer />
         <StyledOverview>
-          <Rebase nextRebase={nextRebase} />
-          <StyledSpacer />
+          {/* <Rebase nextRebase={nextRebase} />
+          <StyledSpacer /> */}
           <Stats
             circSupply={circSupply}
             curPrice={curPrice}

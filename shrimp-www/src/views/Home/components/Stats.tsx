@@ -46,7 +46,7 @@ const Stats: React.FC<StatsProps> = ({
       <Card>
         <CardContent>
           <StyledStat>
-            <StyledValue>{targetPrice ? `$${targetPrice}` : '--'}</StyledValue>
+            <StyledValue>$100</StyledValue>
             <Label text="Target Price" />
           </StyledStat>
         </CardContent>
@@ -58,7 +58,7 @@ const Stats: React.FC<StatsProps> = ({
         <CardContent>
           <StyledStat>
             <StyledValue>
-              --
+              214,746
             </StyledValue>
             <Label text="Total Supply" />
           </StyledStat>
