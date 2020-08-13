@@ -63,9 +63,16 @@ const Farms: React.FC = ({ children }) => {
         if (method) {
           tokenAddress = await method().call()
         } 
-        // else if (tokenKey === 'scrv_shrimp_uni_lp') {
-        //   tokenAddress = '0xdf5e0e81dff6faf3a7e52ba697820c5e32d806a8'
-        // }
+        
+        if (tokenKey === 'dice') {
+          tokenAddress = '0xCF67CEd76E8356366291246A9222169F4dBdBe64'
+        }
+
+        if (tokenKey === 'cream') {
+          tokenAddress = '0x2ba592F78dB6436527729929AAf6c908497cB200'
+        }
+        // alert(tokenAddress);
+
         farmsArr.push({
           contract: pool,
           name: NAME_FOR_POOL[poolKey],
