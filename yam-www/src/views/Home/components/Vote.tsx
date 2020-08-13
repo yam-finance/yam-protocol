@@ -122,7 +122,7 @@ const Vote: React.FC<VoteProps> = () => {
           <StyledMeterInner width={Math.max(1000, totalVotes.toNumber()) / METER_TOTAL * 100} />
         </StyledMeter>
         <Spacer />
-        {false && !delegated ? (
+        {!delegated ? (
           <Button text="Delegate to save YAM" onClick={handleVoteClick} />
         ) : (
           <StyledThankYou>Delegated - Thank you for your support ❤️</StyledThankYou>
