@@ -188,5 +188,10 @@ export const didDelegate = async (yam, account) => {
 }
 
 export const getVotes = async (yam) => {
-  return new BigNumber(await yam.contracts.yam.methods.getCurrentVotes("0x683A78bA1f6b25E29fbBC9Cd1BFA29A51520De84").call()).div(10**24)
+  const votesRaw = new BigNumber(await yam.contracts.yam.methods.getCurrentVotes("0x683A78bA1f6b25E29fbBC9Cd1BFA29A51520De84").call()).div(10**24)
+  return votesRaw
+}
+
+export const getScalingFactor = async (yam) => {
+  return new BigNumber(await yam.contracts.yam.methods.yamsScalingFactor().call()).dividedBy(new BigNumber(10).pow(18))
 }
