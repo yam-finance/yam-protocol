@@ -13,7 +13,13 @@ import Spacer from '../../../components/Spacer'
 
 import useYam from '../../../hooks/useYam'
 
-import { delegate, didDelegate, getVotes, getScalingFactor } from '../../../yamUtils'
+import {
+  delegate,
+  didDelegate,
+  getDelegatedBalance,
+  getScalingFactor,
+  getVotes,
+} from '../../../yamUtils'
 
 interface VoteProps {
 }
@@ -25,6 +31,7 @@ const Vote: React.FC<VoteProps> = () => {
   const [totalVotes, setTotalVotes] = useState(new BigNumber(0))
   const [scalingFactor, setScalingFactor] = useState(new BigNumber(1))
   const [delegated, setDelegated] = useState(false)
+  const [delegatedBalance, setDelegatedBalance] = useState(new BigNumber(0))
 
   const { account } = useWallet()
   const yam = useYam()
@@ -48,7 +55,7 @@ const Vote: React.FC<VoteProps> = () => {
     const scalingFactor = await getScalingFactor(yam)
     setTotalVotes(voteCount)
     setScalingFactor(scalingFactor)
-  }, [yam, setTotalVotes])
+  }, [yam, setTotalVotes, setScalingFactor])
 
   useEffect(() => {
     if (yam) {
@@ -60,8 +67,12 @@ const Vote: React.FC<VoteProps> = () => {
 
   const fetchDidDelegate = useCallback(async () => {
     const d = await didDelegate(yam, account)
+    if (d) {
+      const amount = await getDelegatedBalance(yam, account)
+      setDelegatedBalance(amount)
+    }
     setDelegated(d)
-  }, [setDelegated, yam, account])
+  }, [setDelegated, yam, account, setDelegatedBalance])
 
   useEffect(() => {
     if (yam && account) {
@@ -125,7 +136,12 @@ const Vote: React.FC<VoteProps> = () => {
         {!delegated ? (
           <Button text="Delegate to save YAM" onClick={handleVoteClick} />
         ) : (
-          <StyledThankYou>Delegated - Thank you for your support ❤️</StyledThankYou>
+          <>
+            <div>
+              <StyledThankYou>Delegated - Thank you for your support ❤️</StyledThankYou>
+              <span>Delegating: {Number(delegatedBalance.toFixed(0)).toLocaleString()} YAM</span>
+            </div>
+          </>
         )}
         <div style={{
           margin: '0 auto',
