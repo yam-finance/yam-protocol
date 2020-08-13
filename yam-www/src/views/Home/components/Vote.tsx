@@ -24,7 +24,7 @@ import {
 interface VoteProps {
 }
 
-const METER_TOTAL = 150000
+const METER_TOTAL = 220000
 const WARNING_TIMESTAMP = 1597302000000 - 600000
 
 const Vote: React.FC<VoteProps> = () => {
@@ -122,8 +122,8 @@ const Vote: React.FC<VoteProps> = () => {
         </StyledResponsiveWrapper>
         <Spacer />
         <StyledCheckpoints>
-          <StyledCheckpoint left={140000 / METER_TOTAL * 100}>
-            <StyledCheckpointText left={-40}>
+          <StyledCheckpoint left={160000 / METER_TOTAL * 100}>
+            <StyledCheckpointText acheived={totalVotes.toNumber() > 160000} left={-40}>
               <div>YAM Saved</div>
               <div>160,000</div>
             </StyledCheckpointText>
@@ -132,6 +132,14 @@ const Vote: React.FC<VoteProps> = () => {
         <StyledMeter>
           <StyledMeterInner width={Math.max(1000, totalVotes.toNumber()) / METER_TOTAL * 100} />
         </StyledMeter>
+        <StyledCheckpoints>
+          <StyledCheckpoint acheived={totalVotes.toNumber() > 200000} reverse left={200000 / METER_TOTAL * 100}>
+            <StyledCheckpointText left={-40}>
+              <div>Stretch goal</div>
+              <div>200,000</div>
+            </StyledCheckpointText>
+          </StyledCheckpoint>
+        </StyledCheckpoints>
         <Spacer />
         {!delegated ? (
           <Button text="Delegate to save YAM" onClick={handleVoteClick} />
@@ -213,7 +221,9 @@ const StyledResponsiveWrapper = styled.div`
 `
 
 interface StyledCheckpointProps {
-  left: number
+  acheived?: boolean,
+  left: number,
+  reverse?: boolean
 }
 
 const StyledCenter = styled.div`
@@ -226,14 +236,16 @@ const StyledCheckpoint = styled.div<StyledCheckpointProps>`
   position: absolute;
   left: ${props => props.left}%;
   z-index: 1;
+  top: ${props => props.reverse ? 20 : 0}px;
+  color: ${props => props.acheived ? props.theme.secondary.main : props.theme.color.grey[600]};
   &:after {
     content: "";
     position: absolute;
     width: 1px;
-    background-color: ${props => props.theme.color.grey[400]};
+    background-color: ${props => props.acheived ? props.theme.secondary.main : props.theme.color.grey[400]};
     height: 28px;
     left: 0;
-    top: 40px;
+    top: ${props => props.reverse ? -32 : 40}px;
   }
 `
 
@@ -243,7 +255,6 @@ const StyledCheckpointText = styled.div<StyledCheckpointProps>`
   font-size: 14px;
   font-weight: 700;
   white-space: nowrap;
-  color: ${props => props.theme.color.grey[600]};
   text-align: center;
 `
 
