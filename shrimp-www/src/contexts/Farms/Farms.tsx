@@ -55,8 +55,8 @@ const Farms: React.FC = ({ children }) => {
         tokenKey = 'weth'
       } else if (tokenKey === 'ampl') {
         tokenKey = 'ampl_eth_uni_lp'
-      } else if (tokenKey === 'scrv_pool') {
-        tokenKey = 'ycrv_shrimp_uni_lp'
+      } else if (tokenKey === 'scrv') {
+        tokenKey = 'scrv_shrimp_uni_lp'
       }
 
       const method = pool.methods[tokenKey]
@@ -64,7 +64,7 @@ const Farms: React.FC = ({ children }) => {
         let tokenAddress = ''
         if (method) {
           tokenAddress = await method().call()
-        } else if (tokenKey === 'ycrv_shrimp_uni_lp') {
+        } else if (tokenKey === 'scrv_shrimp_uni_lp') {
           tokenAddress = '0xdf5e0e81dff6faf3a7e52ba697820c5e32d806a8'
         }
         farmsArr.push({

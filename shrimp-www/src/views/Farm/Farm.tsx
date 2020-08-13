@@ -48,7 +48,7 @@ const Farm: React.FC = () => {
   const earnTokenName = useMemo(() => {
     return earnToken.toUpperCase()
   }, [earnToken])
-
+  {console.log(depositToken)}
   return (
     <>
       <PageHeader

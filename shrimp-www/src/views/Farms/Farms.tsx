@@ -28,7 +28,7 @@ const Farms: React.FC = () => {
             <PageHeader
               icon={<img src={farmer} height="96" />}
               subtitle="Earn SHRIMP tokens by providing liquidity."
-              title="Select a farm."
+              title="Select a shrimping pool."
             />
             <FarmCards />
           </Route>

@@ -43,20 +43,20 @@ export class Contracts {
     this.uni_fact = new this.web3.eth.Contract(UNIFactJson);
     this.yfi = new this.web3.eth.Contract(ERC20Json.abi);
     this.UNIAmpl = new this.web3.eth.Contract(ERC20Json.abi);
-    this.ycrv = new this.web3.eth.Contract(ERC20Json.abi);
+    this.scrv = new this.web3.eth.Contract(ERC20Json.abi);
     this.yam = new this.web3.eth.Contract(YAMJson.abi);
 
     this.yfi_pool = new this.web3.eth.Contract(YFIPoolJson.abi);
     this.eth_pool = new this.web3.eth.Contract(WETHPoolJson.abi);
     this.ampl_pool = new this.web3.eth.Contract(AMPLPoolJson.abi);
-    this.ycrv_pool = new this.web3.eth.Contract(IncJson.abi);
+    this.scrv_pool = new this.web3.eth.Contract(IncJson.abi);
 
     this.comp_pool = new this.web3.eth.Contract(COMPPoolJson.abi);
     this.dice_pool = new this.web3.eth.Contract(DICEPoolJson.abi);
 
     this.comp = new this.web3.eth.Contract(ERC20Json.abi);
     this.dice = new this.web3.eth.Contract(ERC20Json.abi);
-    this.shrimp_ycrv_uni_lp = new this.web3.eth.Contract(ERC20Json.abi);
+    this.shrimp_scrv_uni_lp = new this.web3.eth.Contract(ERC20Json.abi);
 
     this.erc20 = new this.web3.eth.Contract(ERC20Json.abi);
 
@@ -87,7 +87,7 @@ export class Contracts {
       { contract: this.reserves, json: YAMReservesJson },
       { contract: this.gov, json: YAMGovJson },
       { contract: this.timelock, json: YAMTimelockJson },
-      { contract: this.ycrv_pool, json: IncJson },
+      { contract: this.scrv_pool, json: IncJson },
       { contract: this.eth_pool, json: WETHPoolJson },
       { contract: this.yfi_pool, json: YFIPoolJson },
       { contract: this.ampl_pool, json: AMPLPoolJson },
@@ -103,14 +103,13 @@ export class Contracts {
       ),
     );
     this.yfi.options.address = addressMap["YFI"];
-    this.ycrv.options.address = addressMap["YCRV"];
     this.weth.options.address = addressMap["WETH"];
     this.comp.options.address = addressMap["COMP"];
     this.dice.options.address = addressMap["DICE"];
     this.UNIAmpl.options.address = addressMap["UNIAmpl"];
     this.uni_fact.options.address = addressMap["uniswapFactoryV2"];
     this.uni_router.options.address = addressMap["UNIRouter"];
-    this.shrimp_ycrv_uni_lp.options.address = addressMap["YAMYCRV"];
+    this.shrimp_scrv_uni_lp.options.address = addressMap["SHRIMPsCRV"];
 
     this.pools = [
       {"tokenAddr": this.yfi.options.address, "poolAddr": this.yfi_pool.options.address},
@@ -125,7 +124,7 @@ export class Contracts {
     account
   ) {
     this.yfi.options.from = account;
-    this.ycrv.options.from = account;
+    this.scrv.options.from = account;
     this.yam.options.from = account;
     this.weth.options.from = account;
   }
