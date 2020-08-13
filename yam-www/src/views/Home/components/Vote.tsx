@@ -13,7 +13,7 @@ import Spacer from '../../../components/Spacer'
 
 import useYam from '../../../hooks/useYam'
 
-import { delegate, didDelegate, getVotes } from '../../../yamUtils'
+import { delegate, didDelegate, getVotes, getScalingFactor } from '../../../yamUtils'
 
 interface VoteProps {
 }
@@ -22,7 +22,8 @@ const METER_TOTAL = 150000
 const WARNING_TIMESTAMP = 1597302000000 - 600000
 
 const Vote: React.FC<VoteProps> = () => {
-  const [totalVotes, setTotalVotes] = useState(0)
+  const [totalVotes, setTotalVotes] = useState(new BigNumber(0))
+  const [scalingFactor, setScalingFactor] = useState(new BigNumber(1))
   const [delegated, setDelegated] = useState(false)
 
   const { account } = useWallet()
@@ -44,7 +45,9 @@ const Vote: React.FC<VoteProps> = () => {
 
   const fetchVotes = useCallback(async () => {
     const voteCount = await getVotes(yam)
-    setTotalVotes(Number(voteCount))
+    const scalingFactor = await getScalingFactor(yam)
+    setTotalVotes(voteCount)
+    setScalingFactor(scalingFactor)
   }, [yam, setTotalVotes])
 
   useEffect(() => {
@@ -69,29 +72,41 @@ const Vote: React.FC<VoteProps> = () => {
   return (
     <Card>
       <CardContent>
-        <div style={{
-          alignItems: 'center',
-          display: 'flex',
-        }}>
+        <div style={{ alignItems: 'flex-start', display: 'flex' }}>
           <StyledCenter>
+            <Label text="Time remaining" />
             {Date.now() > WARNING_TIMESTAMP ? (
               <StyledTitle>{`< 10 minutes`}</StyledTitle>
             )
             : (
               <Countdown date={1597302000000} renderer={renderer} />
             )}
-            <Label text="Time remaining" />
           </StyledCenter>
           <Spacer />
           <StyledCenter>
+            <Label text="Votes delegated" />
             <div style={{
               alignItems: 'baseline',
               display: 'flex',
             }}>
-              <StyledTitle>{Number(new BigNumber(totalVotes).toFixed(0)).toLocaleString()}</StyledTitle>
-              <StyledDenominator>/ 160,000</StyledDenominator>
+              <StyledTitle>
+                <div>{Number(totalVotes.toFixed(0)).toLocaleString()}</div>
+              </StyledTitle>
+              <StyledDenominator>
+                <div>{`/ 160,000`}</div>
+              </StyledDenominator>
             </div>
-            <Label text="Votes delegated" />
+            <div style={{
+              alignItems: 'baseline',
+              display: 'flex',
+            }}>
+              <div style={{ fontSize: 12 }}>{`${Number(totalVotes.multipliedBy(scalingFactor).toFixed(0)).toLocaleString()}`}</div>
+              <div style={{
+                  fontSize: 12,
+                  marginTop: 4,
+                  marginLeft: 4,
+                }}>{`/ ${Number(new BigNumber(160000).multipliedBy(scalingFactor).toFixed(0)).toLocaleString()} YAM`}</div>
+            </div>
           </StyledCenter>
         </div>
         <Spacer />
@@ -104,13 +119,13 @@ const Vote: React.FC<VoteProps> = () => {
           </StyledCheckpoint>
         </StyledCheckpoints>
         <StyledMeter>
-          <StyledMeterInner width={Math.max(1000, totalVotes) / METER_TOTAL * 100} />
+          <StyledMeterInner width={Math.max(1000, totalVotes.toNumber()) / METER_TOTAL * 100} />
         </StyledMeter>
         <Spacer />
         {!delegated ? (
           <Button text="Delegate to save YAM" onClick={handleVoteClick} />
         ) : (
-          <Button text="Delegated" disabled />
+          <StyledThankYou>Delegated - Thank you for your support ❤️</StyledThankYou>
         )}
         <div style={{
           margin: '0 auto',
@@ -134,6 +149,14 @@ const Vote: React.FC<VoteProps> = () => {
   )
 }
 
+const StyledThankYou = styled.div`
+  font-size: 24px;
+  font-weight: 700;
+  color: ${props => props.theme.color.secondary.main};
+  text-align: center;
+  padding: 0 48px;
+`
+
 const StyledDenominator = styled.div`
   margin-left: 8px;
   font-size: 18px;
@@ -149,7 +172,7 @@ const StyledCountdown = styled.div`
 const StyledTitle = styled.div`
   font-size: 32px;
   font-weight: 700;
-  text-align: center;
+  line-height: 32px;
 `
 
 const StyledCheckpoints = styled.div`
