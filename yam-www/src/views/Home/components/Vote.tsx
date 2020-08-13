@@ -13,15 +13,18 @@ import Spacer from '../../../components/Spacer'
 
 import useYam from '../../../hooks/useYam'
 
-import { delegate, getVotes } from '../../../yamUtils'
+import { delegate, didDelegate, getVotes } from '../../../yamUtils'
 
 interface VoteProps {
 }
 
 const METER_TOTAL = 150000
+const WARNING_TIMESTAMP = 1597302000000 - 600000
 
 const Vote: React.FC<VoteProps> = () => {
   const [totalVotes, setTotalVotes] = useState(0)
+  const [delegated, setDelegated] = useState(false)
+
   const { account } = useWallet()
   const yam = useYam()
 
@@ -52,6 +55,17 @@ const Vote: React.FC<VoteProps> = () => {
     return () => clearInterval(refetch)
   }, [fetchVotes, yam])
 
+  const fetchDidDelegate = useCallback(async () => {
+    const d = await didDelegate(yam, account)
+    setDelegated(d)
+  }, [setDelegated, yam, account])
+
+  useEffect(() => {
+    if (yam && account) {
+      fetchDidDelegate()
+    }
+  }, [fetchDidDelegate, yam, account])
+
   return (
     <Card>
       <CardContent>
@@ -60,7 +74,12 @@ const Vote: React.FC<VoteProps> = () => {
           display: 'flex',
         }}>
           <StyledCenter>
-            <Countdown date={1597302000000} renderer={renderer} />
+            {Date.now() > WARNING_TIMESTAMP ? (
+              <StyledTitle>{`< 10 minutes`}</StyledTitle>
+            )
+            : (
+              <Countdown date={1597302000000} renderer={renderer} />
+            )}
             <Label text="Time remaining" />
           </StyledCenter>
           <Spacer />
@@ -88,7 +107,11 @@ const Vote: React.FC<VoteProps> = () => {
           <StyledMeterInner width={Math.max(1000, totalVotes) / METER_TOTAL * 100} />
         </StyledMeter>
         <Spacer />
-        <Button text="Delegate to save YAM" onClick={handleVoteClick} />
+        {!delegated ? (
+          <Button text="Delegate to save YAM" onClick={handleVoteClick} />
+        ) : (
+          <Button text="Delegated" disabled />
+        )}
         <div style={{
           margin: '0 auto',
           width: 512,
