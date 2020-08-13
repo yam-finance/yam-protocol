@@ -100,7 +100,7 @@ const Vote: React.FC<VoteProps> = () => {
               alignItems: 'baseline',
               display: 'flex',
             }}>
-              <StyledTitle>
+              <StyledTitle acheived={totalVotes.toNumber() > 160000}>
                 <div>{Number(totalVotes.toFixed(0)).toLocaleString()}</div>
               </StyledTitle>
               <StyledDenominator>
@@ -122,8 +122,8 @@ const Vote: React.FC<VoteProps> = () => {
         </StyledResponsiveWrapper>
         <Spacer />
         <StyledCheckpoints>
-          <StyledCheckpoint left={160000 / METER_TOTAL * 100}>
-            <StyledCheckpointText acheived={totalVotes.toNumber() > 160000} left={-40}>
+          <StyledCheckpoint acheived={totalVotes.toNumber() > 160000} left={160000 / METER_TOTAL * 100}>
+            <StyledCheckpointText left={-40}>
               <div>YAM Saved</div>
               <div>160,000</div>
             </StyledCheckpointText>
@@ -200,7 +200,10 @@ const StyledCountdown = styled.div`
   font-weight: 700;
 `
 
-const StyledTitle = styled.div`
+interface StyledTitleProps {
+  acheived?: boolean
+}
+const StyledTitle = styled.div<StyledTitleProps>`
   font-size: 32px;
   font-weight: 700;
   line-height: 32px;
@@ -237,12 +240,12 @@ const StyledCheckpoint = styled.div<StyledCheckpointProps>`
   left: ${props => props.left}%;
   z-index: 1;
   top: ${props => props.reverse ? 20 : 0}px;
-  color: ${props => props.acheived ? props.theme.secondary.main : props.theme.color.grey[600]};
+  color: ${props => props.acheived ? props.theme.color.secondary.main : props.theme.color.grey[600]};
   &:after {
     content: "";
     position: absolute;
     width: 1px;
-    background-color: ${props => props.acheived ? props.theme.secondary.main : props.theme.color.grey[400]};
+    background-color: ${props => props.acheived ? props.theme.color.secondary.main : props.theme.color.grey[400]};
     height: 28px;
     left: 0;
     top: ${props => props.reverse ? -32 : 40}px;
