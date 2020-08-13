@@ -134,13 +134,8 @@ const Vote: React.FC<VoteProps> = () => {
         <Spacer />
         <StyledCheckpoints>
           <StyledCheckpoint acheived={totalVotes.toNumber() > 160000} left={160000 / METER_TOTAL * 100}>
-<<<<<<< HEAD
-            <StyledCheckpointText left={-40}>
-              <div>YAM Saved</div>
-=======
             <StyledCheckpointText left={-44}>
               <div>Min. Required</div>
->>>>>>> copy change
               <div>160,000</div>
             </StyledCheckpointText>
           </StyledCheckpoint>
