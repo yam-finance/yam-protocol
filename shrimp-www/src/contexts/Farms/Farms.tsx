@@ -51,18 +51,19 @@ const Farms: React.FC = ({ children }) => {
       if (tokenKey === 'eth') {
         tokenKey = 'weth'
       }
+
       //  else if (tokenKey === 'ampl') {
       //   tokenKey = 'ampl_eth_uni_lp'
       // } else if (tokenKey === 'scrv') {
       //   tokenKey = 'scrv_shrimp_uni_lp'
       // }
 
-      const method = pool.methods[tokenKey]
+      // const method = pool.methods[tokenKey]
       try {
         let tokenAddress = ''
-        if (method) {
-          tokenAddress = await method().call()
-        } 
+        // if (method) {
+        //   tokenAddress = await method().call()
+        // } 
         
         if (tokenKey === 'dice') {
           tokenAddress = '0xCF67CEd76E8356366291246A9222169F4dBdBe64'
@@ -70,6 +71,18 @@ const Farms: React.FC = ({ children }) => {
 
         if (tokenKey === 'cream') {
           tokenAddress = '0x2ba592F78dB6436527729929AAf6c908497cB200'
+        }
+
+        if (tokenKey === 'comp') {
+          tokenAddress = '0xc00e94cb662c3520282e6f5717214004a7f26888'
+        }
+
+        if (tokenKey === 'yfi') {
+          tokenAddress = '0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e'
+        }
+
+        if (tokenKey === 'weth') {
+          tokenAddress = '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
         }
         // alert(tokenAddress);
 
@@ -86,6 +99,7 @@ const Farms: React.FC = ({ children }) => {
         })
       } catch (e) {
         console.log(e)
+        alert(e);
       }
     }
     farmsArr.sort((a, b) => a.sort < b.sort ? 1 : -1)
