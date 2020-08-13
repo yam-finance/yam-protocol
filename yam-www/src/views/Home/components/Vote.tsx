@@ -137,8 +137,8 @@ const Vote: React.FC<VoteProps> = () => {
           <Button text="Delegate to save YAM" onClick={handleVoteClick} />
         ) : (
           <div>
-            <StyledThankYou>Delegated - Thank you for your support ❤️</StyledThankYou>
-            <div>Delegating: {Number(delegatedBalance.toFixed(0)).toLocaleString()} YAM</div>
+            <StyledDelegatedCount>Delegating: {Number(delegatedBalance.multipliedBy(scalingFactor).toFixed(0)).toLocaleString()} YAM</StyledDelegatedCount>
+            <StyledThankYou>Thank you for your support ❤️</StyledThankYou>
           </div>
         )}
         <div style={{
@@ -162,6 +162,14 @@ const Vote: React.FC<VoteProps> = () => {
     </Card>
   )
 }
+
+const StyledDelegatedCount = styled.div`
+  text-align: center;
+  font-size: 24px;
+  color: ${props => props.theme.color.grey[600]};
+  font-weight: 700;
+  margin: 0 auto;
+`
 
 const StyledThankYou = styled.div`
   font-size: 24px;
