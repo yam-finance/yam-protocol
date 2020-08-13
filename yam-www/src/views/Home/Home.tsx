@@ -5,6 +5,7 @@ import { useWallet } from 'use-wallet'
 
 import Page from '../../components/Page'
 import PageHeader from '../../components/PageHeader'
+import Spacer from '../../components/Spacer'
 
 import useYam from '../../hooks/useYam'
 
@@ -41,14 +42,14 @@ const Home: React.FC = () => {
 
   return (
     <Page>
-      <PageHeader icon="🌞" subtitle="It's a great day to save YAM" title="Welcome" />
+      <PageHeader icon="⚠️" subtitle="Remove liquidity from the YAM / YCRV Uniswap pool" title="Warning" />
+      <div style={{
+        margin: '-24px auto 48px'
+      }}>
+        <StyledLink href="https://medium.com/@yamfinance/how-to-exit-the-eternal-lands-pool-and-withdraw-your-yam-823d57c95f3a">How to withdraw from Uniswap</StyledLink>
+      </div>
+      <Spacer />
       <div>
-        {!!account && (
-          <StyledVote>
-            <Vote />
-          </StyledVote>
-        )}
-        <StyledSpacer />
         <StyledOverview>
           <Rebase nextRebase={nextRebase} />
           <StyledSpacer />
@@ -79,8 +80,10 @@ const StyledSpacer = styled.div`
   width: ${props => props.theme.spacing[4]}px;
 `
 
-const StyledVote = styled.div`
-  width: 100%;
+const StyledLink = styled.a`
+  font-weight: 700l
+  text-decoration: none;
+  color: ${props => props.theme.color.primary.main};
 `
 
 export default Home
