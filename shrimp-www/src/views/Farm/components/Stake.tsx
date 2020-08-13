@@ -99,11 +99,11 @@ const Stake: React.FC<StakeProps> = ({
                   <RemoveIcon />
                 </IconButton>
                 <StyledActionSpacer />
-                {tokenName !== 'SCRV_SHRIMP_UNI_LP' && (
+                {/* {tokenName !== 'SCRV_SHRIMP_UNI_LP' && (
                   <IconButton onClick={onPresentDeposit}>
                     <AddIcon />
                   </IconButton>
-                )}
+                )} */}
               </>
             )}
           </StyledCardActions>

@@ -16,7 +16,7 @@ import UNIPairJson from './uni2.json';
 import UNIRouterJson from './uniR.json';
 
 import WETHPoolJson from '../clean_build/contracts/YAMETHPool.json';
-import AMPLPoolJson from '../clean_build/contracts/YAMAMPLPool.json';
+import CREAMPoolJson from '../clean_build/contracts/SHRIMPCREAMPool.json';
 import YFIPoolJson from '../clean_build/contracts/YAMYFIPool.json';
 
 import COMPPoolJson from '../clean_build/contracts/YAMCOMPPool.json';
@@ -43,20 +43,20 @@ export class Contracts {
     this.uni_fact = new this.web3.eth.Contract(UNIFactJson);
     this.yfi = new this.web3.eth.Contract(ERC20Json.abi);
     this.UNIAmpl = new this.web3.eth.Contract(ERC20Json.abi);
-    this.scrv = new this.web3.eth.Contract(ERC20Json.abi);
+    // this.scrv = new this.web3.eth.Contract(ERC20Json.abi);
     this.yam = new this.web3.eth.Contract(YAMJson.abi);
 
     this.yfi_pool = new this.web3.eth.Contract(YFIPoolJson.abi);
     this.eth_pool = new this.web3.eth.Contract(WETHPoolJson.abi);
-    this.ampl_pool = new this.web3.eth.Contract(AMPLPoolJson.abi);
-    this.scrv_pool = new this.web3.eth.Contract(IncJson.abi);
+    this.cream_pool = new this.web3.eth.Contract(CREAMPoolJson.abi);
+    // this.scrv_pool = new this.web3.eth.Contract(IncJson.abi);
 
     this.comp_pool = new this.web3.eth.Contract(COMPPoolJson.abi);
     this.dice_pool = new this.web3.eth.Contract(DICEPoolJson.abi);
 
     this.comp = new this.web3.eth.Contract(ERC20Json.abi);
     this.dice = new this.web3.eth.Contract(ERC20Json.abi);
-    this.shrimp_scrv_uni_lp = new this.web3.eth.Contract(ERC20Json.abi);
+    // this.shrimp_scrv_uni_lp = new this.web3.eth.Contract(ERC20Json.abi);
 
     this.erc20 = new this.web3.eth.Contract(ERC20Json.abi);
 
@@ -87,10 +87,10 @@ export class Contracts {
       { contract: this.reserves, json: YAMReservesJson },
       { contract: this.gov, json: YAMGovJson },
       { contract: this.timelock, json: YAMTimelockJson },
-      { contract: this.scrv_pool, json: IncJson },
+      // { contract: this.scrv_pool, json: IncJson },
       { contract: this.eth_pool, json: WETHPoolJson },
       { contract: this.yfi_pool, json: YFIPoolJson },
-      { contract: this.ampl_pool, json: AMPLPoolJson },
+      { contract: this.cream_pool, json: CREAMPoolJson },
       { contract: this.dice_pool, json: DICEPoolJson },
       { contract: this.comp_pool, json: COMPPoolJson },
     ]
@@ -106,17 +106,17 @@ export class Contracts {
     this.weth.options.address = addressMap["WETH"];
     this.comp.options.address = addressMap["COMP"];
     this.dice.options.address = addressMap["DICE"];
-    this.UNIAmpl.options.address = addressMap["UNIAmpl"];
+    this.cream_pool.options.address = addressMap["CREAM"];
     this.uni_fact.options.address = addressMap["uniswapFactoryV2"];
     this.uni_router.options.address = addressMap["UNIRouter"];
-    this.shrimp_scrv_uni_lp.options.address = addressMap["SHRIMPsCRV"];
+    // this.shrimp_scrv_uni_lp.options.address = addressMap["SHRIMPsCRV"];
 
     this.pools = [
       {"tokenAddr": this.yfi.options.address, "poolAddr": this.yfi_pool.options.address},
       {"tokenAddr": this.weth.options.address, "poolAddr": this.eth_pool.options.address},
       {"tokenAddr": this.comp.options.address, "poolAddr": this.comp_pool.options.address},
       {"tokenAddr": this.dice.options.address, "poolAddr": this.dice_pool.options.address},
-      {"tokenAddr": this.UNIAmpl.options.address, "poolAddr": this.ampl_pool.options.address},
+      {"tokenAddr": this.cream_pool.options.address, "poolAddr": this.cream_pool.options.address},
     ]
   }
 
@@ -124,7 +124,7 @@ export class Contracts {
     account
   ) {
     this.yfi.options.from = account;
-    this.scrv.options.from = account;
+    // this.scrv.options.from = account;
     this.yam.options.from = account;
     this.weth.options.from = account;
   }

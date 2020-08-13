@@ -12,8 +12,8 @@ import { Farm } from './types'
 const NAME_FOR_POOL: { [key: string]: string } = {
   yfi_pool: 'YFI Farm',
   eth_pool: 'Weth Homestead',
-  ampl_pool: 'Ample Soils',
-  scrv_pool: 'Eternal Lands',
+  cream_pool: 'Modgie streams',
+  // scrv_pool: 'Eternal Lands',
   comp_pool: 'Compounding Hills',
   dice_pool: 'Safe Haven',
 }
@@ -21,19 +21,19 @@ const NAME_FOR_POOL: { [key: string]: string } = {
 const ICON_FOR_POOL: { [key: string]: string } = {
   yfi_pool: '🐋',
   eth_pool: '🌎',
-  ampl_pool: '🌷',
+  cream_pool: '🍦',
   comp_pool: '💸',
   dice_pool: '🎲',
-  scrv_pool: '🌈',
+  // scrv_pool: '🌈',
 }
 
 const SORT_FOR_POOL: { [key: string]: number } = {
   yfi_pool: 0,
   eth_pool: 1,
-  ampl_pool: 2,
+  cream_pool: 2,
   comp_pool: 3,
-  scrv_pool: 4,
-  dice_pool: 5,
+  // scrv_pool: 4,
+  dice_pool: 4,
 }
 
 const Farms: React.FC = ({ children }) => {
@@ -53,20 +53,22 @@ const Farms: React.FC = ({ children }) => {
       let tokenKey = poolKey.replace('_pool', '')
       if (tokenKey === 'eth') {
         tokenKey = 'weth'
-      } else if (tokenKey === 'ampl') {
-        tokenKey = 'ampl_eth_uni_lp'
-      } else if (tokenKey === 'scrv') {
-        tokenKey = 'scrv_shrimp_uni_lp'
       }
+      //  else if (tokenKey === 'ampl') {
+      //   tokenKey = 'ampl_eth_uni_lp'
+      // } else if (tokenKey === 'scrv') {
+      //   tokenKey = 'scrv_shrimp_uni_lp'
+      // }
 
       const method = pool.methods[tokenKey]
       try {
         let tokenAddress = ''
         if (method) {
           tokenAddress = await method().call()
-        } else if (tokenKey === 'scrv_shrimp_uni_lp') {
-          tokenAddress = '0xdf5e0e81dff6faf3a7e52ba697820c5e32d806a8'
-        }
+        } 
+        // else if (tokenKey === 'scrv_shrimp_uni_lp') {
+        //   tokenAddress = '0xdf5e0e81dff6faf3a7e52ba697820c5e32d806a8'
+        // }
         farmsArr.push({
           contract: pool,
           name: NAME_FOR_POOL[poolKey],

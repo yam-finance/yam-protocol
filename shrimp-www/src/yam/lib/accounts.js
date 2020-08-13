@@ -31,8 +31,8 @@ export class Account {
   }
 
   async getUNIAmplWalletBalance() {
-    this.walletInfo["UNIAmpl"] = await this.contracts.UNIAmpl.methods.balanceOf(this.accountInfo).call();
-    return this.walletInfo["UNIAmpl"]
+    this.walletInfo["CREAM"] = await this.contracts.UNIAmpl.methods.balanceOf(this.accountInfo).call();
+    return this.walletInfo["CREAM"]
   }
 
   async getWETHWalletBalance() {
