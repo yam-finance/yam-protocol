@@ -13,7 +13,6 @@ const NAME_FOR_POOL: { [key: string]: string } = {
   yfi_pool: 'YFI Farm',
   eth_pool: 'Weth Homestead',
   cream_pool: 'Modgie streams',
-  // scrv_pool: 'Eternal Lands',
   comp_pool: 'Compounding Hills',
   dice_pool: 'Safe Haven',
 }
@@ -24,7 +23,6 @@ const ICON_FOR_POOL: { [key: string]: string } = {
   cream_pool: '🍦',
   comp_pool: '💸',
   dice_pool: '🎲',
-  // scrv_pool: '🌈',
 }
 
 const SORT_FOR_POOL: { [key: string]: number } = {
@@ -32,7 +30,6 @@ const SORT_FOR_POOL: { [key: string]: number } = {
   eth_pool: 1,
   cream_pool: 2,
   comp_pool: 3,
-  // scrv_pool: 4,
   dice_pool: 4,
 }
 

@@ -1,2 +1,2 @@
-export const yam = '0x6a16e899Ad0B4d838690c9DDdDB714B4D60d9475'
+export const yam = '0x38c4102D11893351cED7eF187fCF43D33eb1aBE6'
 //shrimp address/xixi
