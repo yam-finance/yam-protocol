@@ -46,6 +46,17 @@ const Vote: React.FC<VoteProps> = () => {
     )
   }
 
+  const undelegateRenderer = (countdownProps: CountdownRenderProps) => {
+    // 1597615200000
+    const { hours, minutes, seconds } = countdownProps
+    const paddedSeconds = seconds < 10 ? `0${seconds}` : seconds
+    const paddedMinutes = minutes < 10 ? `0${minutes}` : minutes
+    const paddedHours = hours < 10 ? `0${hours}` : hours
+    return (
+      <StyledUndelegateCountdown>{paddedHours}:{paddedMinutes}:{paddedSeconds}</StyledUndelegateCountdown>
+    )
+  }
+
   const handleVoteClick = useCallback(() => {
     delegate(yam, account)
   }, [account, yam])
@@ -123,8 +134,8 @@ const Vote: React.FC<VoteProps> = () => {
         <Spacer />
         <StyledCheckpoints>
           <StyledCheckpoint acheived={totalVotes.toNumber() > 160000} left={160000 / METER_TOTAL * 100}>
-            <StyledCheckpointText left={-40}>
-              <div>YAM Saved</div>
+            <StyledCheckpointText left={-44}>
+              <div>Min. Required</div>
               <div>160,000</div>
             </StyledCheckpointText>
           </StyledCheckpoint>
@@ -147,6 +158,15 @@ const Vote: React.FC<VoteProps> = () => {
           <div>
             <StyledDelegatedCount>Delegating: {Number(delegatedBalance.multipliedBy(scalingFactor).toFixed(0)).toLocaleString()} YAM</StyledDelegatedCount>
             <StyledThankYou>Thank you for your support ❤️</StyledThankYou>
+            <div style={{
+              alignItems: 'baseline',
+              display: 'flex',
+              justifyContent: 'center',
+              marginTop: 12,
+            }}>
+              {`You can undelegate in:`}
+              <Countdown date={1597615200000} renderer={undelegateRenderer} />
+            </div>
           </div>
         )}
         <div style={{
@@ -178,6 +198,10 @@ const StyledDelegatedCount = styled.div`
   color: ${props => props.theme.color.grey[600]};
   font-weight: 700;
   margin: 0 auto;
+`
+
+const StyledUndelegateCountdown = styled.div`
+  margin-left: 4px;
 `
 
 const StyledThankYou = styled.div`
