@@ -67,6 +67,11 @@ const Home: React.FC = () => {
 const StyledOverview = styled.div`
   align-items: center;
   display: flex;
+  @media (max-width: 768px) {
+    width: 100%;
+    flex-flow: column nowrap;
+    align-items: center;
+  }
 `
 
 const StyledSpacer = styled.div`

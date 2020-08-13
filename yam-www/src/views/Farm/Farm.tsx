@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useEffect } from 'react'
 import styled from 'styled-components'
 
 import { useParams } from 'react-router-dom'
@@ -32,6 +32,10 @@ const Farm: React.FC = () => {
     name: '',
     icon: ''
   }
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, []);
 
   const { ethereum } = useWallet()
 
@@ -87,17 +91,28 @@ const StyledFarm = styled.div`
   align-items: center;
   display: flex;
   flex-direction: column;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `
 
 const StyledCardsWrapper = styled.div`
   display: flex;
   width: 600px;
+  @media (max-width: 768px) {
+    width: 100%;
+    flex-flow: column nowrap;
+    align-items: center;
+  }
 `
 
 const StyledCardWrapper = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
+  @media (max-width: 768px) {
+    width: 80%;
+  }
 `
 
 export default Farm
