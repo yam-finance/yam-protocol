@@ -87,7 +87,7 @@ const Vote: React.FC<VoteProps> = () => {
           <StyledCenter>
             <Label text="Time remaining" />
             {Date.now() > WARNING_TIMESTAMP ? (
-              <StyledTitle>{`< 10 minutes`}</StyledTitle>
+              <StyledTitle>{`Snapshot pending`}</StyledTitle>
             )
             : (
               <Countdown date={1597302000000} renderer={renderer} />
