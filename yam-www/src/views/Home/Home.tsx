@@ -42,7 +42,7 @@ const Home: React.FC = () => {
 
   return (
     <Page>
-      <PageHeader icon="⚠️" subtitle="Remove liquidity from the YAM / YCRV Uniswap pool" title="Warning" />
+      <PageHeader icon="⚠️" subtitle="Having liquidity in the YAM/YCRV Uniswap Pool is extremely dangerous because of a bug in the rebase functionality" title="Warning" />
       <div style={{
         margin: '-24px auto 48px'
       }}>
