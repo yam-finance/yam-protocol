@@ -10,7 +10,7 @@ import {
   EVM
 } from "./lib/evm.js";
 
-const oneEther = 1000000000000000000;
+// const oneEther = 1000000000000000000;
 
 export class Yam {
   constructor(
