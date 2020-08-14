@@ -20,6 +20,7 @@ import CREAMPoolJson from '../clean_build/contracts/SHRIMPCREAMPool.json';
 import YFIPoolJson from '../clean_build/contracts/YAMYFIPool.json';
 
 import COMPPoolJson from '../clean_build/contracts/YAMCOMPPool.json';
+import UNIPoolJson from '../clean_build/contracts/ShrimpUniPool.json';
 import DICEPoolJson from '../clean_build/contracts/SHRIMPDICEPool.json';
 
 import IncJson from '../clean_build/contracts/YAMIncentivizer.json';
@@ -47,12 +48,14 @@ export class Contracts {
     this.dice = new this.web3.eth.Contract(ERC20Json.abi);
     this.cream = new this.web3.eth.Contract(ERC20Json.abi);
     this.yam = new this.web3.eth.Contract(YAMJson.abi);
+    this.uni = new this.web3.eth.Contract(ERC20Json.abi);
 
     this.yfi_pool = new this.web3.eth.Contract(YFIPoolJson.abi);
     this.eth_pool = new this.web3.eth.Contract(WETHPoolJson.abi);
     this.cream_pool = new this.web3.eth.Contract(CREAMPoolJson.abi);
     this.comp_pool = new this.web3.eth.Contract(COMPPoolJson.abi);
     this.dice_pool = new this.web3.eth.Contract(DICEPoolJson.abi);
+    this.uni_pool = new this.web3.eth.Contract(UNIPoolJson.abi);
 
     this.erc20 = new this.web3.eth.Contract(ERC20Json.abi);
 
@@ -86,6 +89,7 @@ export class Contracts {
       { contract: this.cream_pool, json: CREAMPoolJson },
       { contract: this.dice_pool, json: DICEPoolJson },
       { contract: this.comp_pool, json: COMPPoolJson },
+      { contract: this.uni_pool, json: UNIPoolJson }
     ]
 
     contracts.forEach(contract => this.setContractProvider(
@@ -100,6 +104,7 @@ export class Contracts {
     this.comp.options.address = addressMap["COMP"];
     this.dice.options.address = addressMap["DICE"];
     this.cream.options.address = addressMap["CREAM"];
+    this.uni.options.address = addressMap["UNI"];
     this.uni_fact.options.address = addressMap["uniswapFactoryV2"];
     this.uni_router.options.address = addressMap["UNIRouter"];
     // this.shrimp_scrv_uni_lp.options.address = addressMap["SHRIMPsCRV"];
@@ -110,6 +115,7 @@ export class Contracts {
       {"tokenAddr": this.comp.options.address, "poolAddr": this.comp_pool.options.address},
       {"tokenAddr": this.dice.options.address, "poolAddr": this.dice_pool.options.address},
       {"tokenAddr": this.cream.options.address, "poolAddr": this.cream_pool.options.address},
+      {"tokenAddr": this.uni.options.address, "poolAddr": this.uni_pool.options.address},
     ]
   }
 
@@ -122,6 +128,7 @@ export class Contracts {
     this.yam.options.from = account;
     this.comp.options.from = account;
     this.weth.options.from = account;
+    this.uni.options.from = account;
   }
 
   async callContractFunction(

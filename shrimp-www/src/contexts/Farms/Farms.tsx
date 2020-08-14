@@ -15,6 +15,7 @@ const NAME_FOR_POOL: { [key: string]: string } = {
   cream_pool: 'Modgie streams',
   comp_pool: 'Compounding Hills',
   dice_pool: 'Safe Haven',
+  uni_pool: 'WETH_SHRIMP_UNI_LP',
 }
 
 const ICON_FOR_POOL: { [key: string]: string } = {
@@ -23,6 +24,7 @@ const ICON_FOR_POOL: { [key: string]: string } = {
   cream_pool: '🍦',
   comp_pool: '💸',
   dice_pool: '🎲',
+  uni_pool: '🌈',
 }
 
 const SORT_FOR_POOL: { [key: string]: number } = {
@@ -31,6 +33,7 @@ const SORT_FOR_POOL: { [key: string]: number } = {
   cream_pool: 2,
   comp_pool: 3,
   dice_pool: 4,
+  uni_pool: 5
 }
 
 const Farms: React.FC = ({ children }) => {
@@ -83,6 +86,10 @@ const Farms: React.FC = ({ children }) => {
 
         if (tokenKey === 'weth') {
           tokenAddress = '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
+        }
+
+        if (tokenKey === 'uni') {
+          tokenAddress = '0xeba5d22bbeb146392d032a2f74a735d66a32aee4'
         }
         // alert(tokenAddress);
 

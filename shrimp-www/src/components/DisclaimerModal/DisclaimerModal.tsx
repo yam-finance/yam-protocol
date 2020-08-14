@@ -32,9 +32,8 @@ const DisclaimerModal: React.FC<DisclaimerModal> = ({ onConfirm, onDismiss }) =>
       return (
         <div>
           <p>Attention SHRIMP Uniswap LPs</p>
-          <p>The only Uniswap pool that is compatible with SHRIMP is SHRIMP/sCRV (Curve sPool tokens)</p>
+          <p>The only Uniswap pool that is compatible with SHRIMP is SHRIMP/WETH</p>
           <p>Providing liquidity for other Uniswap pools is dangerous</p>
-          <p>You will LOSE your share of rebases</p>
         </div>
       )
     }

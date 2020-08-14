@@ -43,14 +43,14 @@ const Stats: React.FC<StatsProps> = ({
 
       <StyledSpacer />
 
-      <Card>
+      {/* <Card>
         <CardContent>
           <StyledStat>
             <StyledValue>$100</StyledValue>
             <Label text="Target Price" />
           </StyledStat>
         </CardContent>
-      </Card>
+      </Card> */}
 
       <StyledSpacer />
 
