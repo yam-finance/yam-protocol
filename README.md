@@ -1,4 +1,4 @@
-# 🍠  YAM Protocol  🍠
+# 🍠  HAM Protocol  🍠
 ## The Protocol
 Ham is an experimental protocol building upon the most exciting innovations in programmable money and governance. Built by a team of DeFi natives, it seeks to create:
 
@@ -7,7 +7,7 @@ Ham is an experimental protocol building upon the most exciting innovations in p
 •	fully on-chain governance to enable decentralized control and evolution from Day 1<br/>
 •	a fair distribution mechanism that incentivizes key community members to actively take the reins of governance
 
-At its core, YAM is an elastic supply cryptocurrency, which expands and contracts its supply in response to market conditions, initially targeting 1 USD per HAM. This stability mechanism includes one key addition to existing elastic supply models such as Ampleforth: a portion of each supply expansion is used to buy yCurve (a high-yield USD-denominated stablecoin) and add it to the Ham treasury, which is controlled via Ham community governance.
+At its core, HAM is an elastic supply cryptocurrency, which expands and contracts its supply in response to market conditions, initially targeting 1 USD per HAM. This stability mechanism includes one key addition to existing elastic supply models such as Ampleforth: a portion of each supply expansion is used to buy yCurve (a high-yield USD-denominated stablecoin) and add it to the Ham treasury, which is controlled via Ham community governance.
 
 We have built Ham to be a minimally viable monetary experiment, and at launch there will be zero value in the HAM token. After deployment, it is entirely dependent upon HAM holders to determine its value and future development. We have employed a fork of the Compound governance module, which will ensure all updates to the Ham protocol happen entirely on-chain through community voting.
 
