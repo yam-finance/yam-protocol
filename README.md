@@ -1,4 +1,4 @@
-# 🍠  HAM Protocol  🍠
+# 🍖  HAM Protocol  🍖
 ## The Protocol
 Ham is an experimental protocol building upon the most exciting innovations in programmable money and governance. Built by a team of DeFi natives, it seeks to create:
 
