@@ -2,9 +2,9 @@ pragma solidity ^0.5.17;
 pragma experimental ABIEncoderV2;
 
 // Original work from Compound: https://github.com/compound-finance/compound-protocol/blob/master/contracts/Governance/GovernorAlpha.sol
-// Modified to work in the YAM system
+// Modified to work in the HAM system
 
-// all votes work on underlying _yamBalances[address], not balanceOf(address)
+// all votes work on underlying _hamBalances[address], not balanceOf(address)
 
 // Original audit: https://blog.openzeppelin.com/compound-alpha-governance-system-audit/
 // Overview:
@@ -17,23 +17,23 @@ pragma experimental ABIEncoderV2;
 //        Queued proposal with repeated actions cannot be executed
 //        Fixed by explicitly disallow proposals with repeated actions to be queued in the Timelock contract.
 //
-// Changes made by YAM after audit:
+// Changes made by HAM after audit:
 //    Formatting, naming, & uint256 instead of uint
-//    Since YAM supply changes, updated quorum & proposal requirements
-//    If any uint96, changed to uint256 to match YAM as opposed to comp
+//    Since HAM supply changes, updated quorum & proposal requirements
+//    If any uint96, changed to uint256 to match HAM as opposed to comp
 
 
 import "../lib/SafeMath.sol";
 
 contract GovernorAlpha {
     /// @notice The name of this contract
-    string public constant name = "YAM Governor Alpha";
+    string public constant name = "HAM Governor Alpha";
 
     /// @notice The number of votes in support of a proposal required in order for a quorum to be reached and for a vote to succeed
-    function quorumVotes() public view returns (uint256) { return SafeMath.div(SafeMath.mul(yam.initSupply(), 4), 100); } // 4% of YAM
+    function quorumVotes() public view returns (uint256) { return SafeMath.div(SafeMath.mul(ham.initSupply(), 4), 100); } // 4% of HAM
 
     /// @notice The number of votes required in order for a voter to become a proposer
-    function proposalThreshold() public view returns (uint256) { return SafeMath.div(yam.initSupply(), 100); } // 1% of YAM
+    function proposalThreshold() public view returns (uint256) { return SafeMath.div(ham.initSupply(), 100); } // 1% of HAM
 
     /// @notice The maximum number of actions that can be included in a proposal
     function proposalMaxOperations() public pure returns (uint256) { return 10; } // 10 actions
@@ -48,7 +48,7 @@ contract GovernorAlpha {
     TimelockInterface public timelock;
 
     /// @notice The address of the Compound governance token
-    YAMInterface public yam;
+    HAMInterface public ham;
 
     /// @notice The address of the Governor Guardian
     address public guardian;
@@ -151,9 +151,9 @@ contract GovernorAlpha {
     /// @notice An event emitted when a proposal has been executed in the Timelock
     event ProposalExecuted(uint256 id);
 
-    constructor(address timelock_, address yam_) public {
+    constructor(address timelock_, address ham_) public {
         timelock = TimelockInterface(timelock_);
-        yam = YAMInterface(yam_);
+        ham = HAMInterface(ham_);
         guardian = msg.sender;
     }
 
@@ -167,7 +167,7 @@ contract GovernorAlpha {
         public
         returns (uint256)
     {
-        require(yam.getPriorVotes(msg.sender, sub256(block.number, 1)) > proposalThreshold(), "GovernorAlpha::propose: proposer votes below proposal threshold");
+        require(ham.getPriorVotes(msg.sender, sub256(block.number, 1)) > proposalThreshold(), "GovernorAlpha::propose: proposer votes below proposal threshold");
         require(targets.length == values.length && targets.length == signatures.length && targets.length == calldatas.length, "GovernorAlpha::propose: proposal function information arity mismatch");
         require(targets.length != 0, "GovernorAlpha::propose: must provide actions");
         require(targets.length <= proposalMaxOperations(), "GovernorAlpha::propose: too many actions");
@@ -281,7 +281,7 @@ contract GovernorAlpha {
         require(state != ProposalState.Executed, "GovernorAlpha::cancel: cannot cancel executed proposal");
 
         Proposal storage proposal = proposals[proposalId];
-        require(msg.sender == guardian || yam.getPriorVotes(proposal.proposer, sub256(block.number, 1)) < proposalThreshold(), "GovernorAlpha::cancel: proposer above threshold");
+        require(msg.sender == guardian || ham.getPriorVotes(proposal.proposer, sub256(block.number, 1)) < proposalThreshold(), "GovernorAlpha::cancel: proposer above threshold");
 
         proposal.canceled = true;
         for (uint256 i = 0; i < proposal.targets.length; i++) {
@@ -395,7 +395,7 @@ contract GovernorAlpha {
         Proposal storage proposal = proposals[proposalId];
         Receipt storage receipt = proposal.receipts[voter];
         require(receipt.hasVoted == false, "GovernorAlpha::_castVote: voter already voted");
-        uint256 votes = yam.getPriorVotes(voter, proposal.startBlock);
+        uint256 votes = ham.getPriorVotes(voter, proposal.startBlock);
 
         if (support) {
             proposal.forVotes = add256(proposal.forVotes, votes);
@@ -472,7 +472,7 @@ interface TimelockInterface {
     function executeTransaction(address target, uint256 value, string calldata signature, bytes calldata data, uint256 eta) external payable returns (bytes memory);
 }
 
-interface YAMInterface {
+interface HAMInterface {
     function getPriorVotes(address account, uint256 blockNumber) external view returns (uint256);
     function initSupply() external view returns (uint256);
     function _acceptGov() external;

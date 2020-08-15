@@ -1,5 +1,5 @@
 {
-  "contractName": "YAMReserves",
+  "contractName": "HAMReserves",
   "abi": [
     {
       "inputs": [
@@ -10,7 +10,7 @@
         },
         {
           "internalType": "address",
-          "name": "yamAddress_",
+          "name": "hamAddress_",
           "type": "address"
         }
       ],
@@ -138,7 +138,7 @@
     {
       "constant": true,
       "inputs": [],
-      "name": "yamAddress",
+      "name": "hamAddress",
       "outputs": [
         {
           "internalType": "address",
@@ -225,17 +225,17 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.5.17+commit.d19bba13\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"reserveToken_\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"yamAddress_\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"oldGov\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newGov\",\"type\":\"address\"}],\"name\":\"NewGov\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"oldPendingGov\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newPendingGov\",\"type\":\"address\"}],\"name\":\"NewPendingGov\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"oldRebaser\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newRebaser\",\"type\":\"address\"}],\"name\":\"NewRebaser\",\"type\":\"event\"},{\"constant\":false,\"inputs\":[],\"name\":\"_acceptGov\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"pendingGov_\",\"type\":\"address\"}],\"name\":\"_setPendingGov\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"rebaser_\",\"type\":\"address\"}],\"name\":\"_setRebaser\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"gov\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"newReserve\",\"type\":\"address\"},{\"internalType\":\"address[]\",\"name\":\"tokens\",\"type\":\"address[]\"}],\"name\":\"migrateReserves\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"pendingGov\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"rebaser\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"reserveToken\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"reserves\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"yamAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{\"_setPendingGov(address)\":{\"params\":{\"pendingGov_\":\"The address of the rebaser contract to use for authentication.\"}}}},\"userdoc\":{\"methods\":{\"_acceptGov()\":{\"notice\":\"lets msg.sender accept governance\"},\"_setPendingGov(address)\":{\"notice\":\"sets the pendingGov\"},\"migrateReserves(address,address[])\":{\"notice\":\"Moves all tokens to a new reserve contract\"},\"reserves()\":{\"notice\":\"Gets the current amount of reserves token held by this contract\"}}}},\"settings\":{\"compilationTarget\":{\"/Users/brockelmore/YAM/contracts/reserves/YAMReserves.sol\":\"YAMReserves\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"optimizer\":{\"enabled\":true,\"runs\":50000},\"remappings\":[]},\"sources\":{\"/Users/brockelmore/YAM/contracts/lib/Address.sol\":{\"keccak256\":\"0xfcf985fe775d3891eb6f1df2b0926b13392f7411550fbddbb2a51e2dfb4c328f\",\"urls\":[\"bzz-raw://557db9c06dce45db040c1a8a87cc2100cbaa86b3fd7cbdf49acf983e110673df\",\"dweb:/ipfs/QmVRxJhBro2YT42FkofepMfseF4rxbDFNXySA2doFSf2Lq\"]},\"/Users/brockelmore/YAM/contracts/lib/IERC20.sol\":{\"keccak256\":\"0xb654abe85060b241b440e22ead01dabb724dda69034d49b483e5e3e55ee64400\",\"urls\":[\"bzz-raw://53f67e469e2c4dfc10411d72f465a3c5b85939f1df4b2b26f12deb729f260b04\",\"dweb:/ipfs/QmSNUGpXPcmWNDczauAmUgZsypdcAB2pZNi3B2RGpYVyp2\"]},\"/Users/brockelmore/YAM/contracts/lib/SafeERC20.sol\":{\"keccak256\":\"0x00c7887d6e2af7d5971473efbd93d312374d6e8478a6f435d7ec3b62fe62a523\",\"urls\":[\"bzz-raw://787539dc1ebb71a219dee830f1d71188d0b13c2d5f7e7bfd08a3cafa8ec9333c\",\"dweb:/ipfs/QmfFwH2Wt17vqVaeoCMpdXbRUFa3e2Kbm1i6HTybGFXv8h\"]},\"/Users/brockelmore/YAM/contracts/lib/SafeMath.sol\":{\"keccak256\":\"0xfb72ae2642cad8f5da1644433dbcc12681f8064335dff144623f0514dc7922c6\",\"urls\":[\"bzz-raw://c174cb41d37d772336abf35cfef58015621ff96b834819531a65a67594aec5c4\",\"dweb:/ipfs/Qmdw3SxV2kaqdCoY4NBBXYcbX6baWbvGjJ6XP8jaH9pvyu\"]},\"/Users/brockelmore/YAM/contracts/reserves/YAMReserves.sol\":{\"keccak256\":\"0xf1abacbcf637281bb6a61ec089514911948e1ce9b94cf277afa742cb76d72453\",\"urls\":[\"bzz-raw://5d277b33d62b102d53f6e3211e98789deb61855ae260c70789205fc5b6f7c153\",\"dweb:/ipfs/QmTNa472BsZVeMBtxczDrHnEQA4Ap6pVqd9VR5dC3aTaEB\"]},\"/Users/brockelmore/YAM/contracts/token/YAMGovernanceStorage.sol\":{\"keccak256\":\"0x337e9c44bf683ce14c7299e6a59db83f4b1468d75bead7b716cb563ed3cabc39\",\"urls\":[\"bzz-raw://36c77e72c9aad315991ef2eebb85b8ff69bc27a1628468228b940d02f07b623f\",\"dweb:/ipfs/QmcnuBzdk2qhB49NrwMZwhhGqNKRs7cjALqzcnJwTE9ECx\"]},\"/Users/brockelmore/YAM/contracts/token/YAMTokenInterface.sol\":{\"keccak256\":\"0x369a00875ad1c5db96f69e0dcaea1f82fa69ba0dd480a777c684cfd95ceb642a\",\"urls\":[\"bzz-raw://2af9187c58bafcefd7a27a10f978282332c7068496068b31969d697c75f7319d\",\"dweb:/ipfs/QmPzazkd6wE194CrwtHDcdv3xjx74TVDirhmwkDHGpoRa8\"]},\"/Users/brockelmore/YAM/contracts/token/YAMTokenStorage.sol\":{\"keccak256\":\"0x8d8dc64204f5c4eea4b9cd278a6695212d55c084924b512b564acb8c7420d6d1\",\"urls\":[\"bzz-raw://408918db261b7431c944e8e521a41c7159e10fa88955781bdb267253250bc504\",\"dweb:/ipfs/QmeHzKxF3LPtf2wxTMPqQCEFqcTTZzK4Sb41giV7te8Sos\"]}},\"version\":1}",
+  "metadata": "{\"compiler\":{\"version\":\"0.5.17+commit.d19bba13\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"reserveToken_\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"hamAddress_\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"oldGov\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newGov\",\"type\":\"address\"}],\"name\":\"NewGov\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"oldPendingGov\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newPendingGov\",\"type\":\"address\"}],\"name\":\"NewPendingGov\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"oldRebaser\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newRebaser\",\"type\":\"address\"}],\"name\":\"NewRebaser\",\"type\":\"event\"},{\"constant\":false,\"inputs\":[],\"name\":\"_acceptGov\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"pendingGov_\",\"type\":\"address\"}],\"name\":\"_setPendingGov\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"rebaser_\",\"type\":\"address\"}],\"name\":\"_setRebaser\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"gov\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"newReserve\",\"type\":\"address\"},{\"internalType\":\"address[]\",\"name\":\"tokens\",\"type\":\"address[]\"}],\"name\":\"migrateReserves\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"pendingGov\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"rebaser\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"reserveToken\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"reserves\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"yamAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{\"_setPendingGov(address)\":{\"params\":{\"pendingGov_\":\"The address of the rebaser contract to use for authentication.\"}}}},\"userdoc\":{\"methods\":{\"_acceptGov()\":{\"notice\":\"lets msg.sender accept governance\"},\"_setPendingGov(address)\":{\"notice\":\"sets the pendingGov\"},\"migrateReserves(address,address[])\":{\"notice\":\"Moves all tokens to a new reserve contract\"},\"reserves()\":{\"notice\":\"Gets the current amount of reserves token held by this contract\"}}}},\"settings\":{\"compilationTarget\":{\"/Users/brockelmore/HAM/contracts/reserves/YAMReserves.sol\":\"YAMReserves\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"optimizer\":{\"enabled\":true,\"runs\":50000},\"remappings\":[]},\"sources\":{\"/Users/brockelmore/YAM/contracts/lib/Address.sol\":{\"keccak256\":\"0xfcf985fe775d3891eb6f1df2b0926b13392f7411550fbddbb2a51e2dfb4c328f\",\"urls\":[\"bzz-raw://557db9c06dce45db040c1a8a87cc2100cbaa86b3fd7cbdf49acf983e110673df\",\"dweb:/ipfs/QmVRxJhBro2YT42FkofepMfseF4rxbDFNXySA2doFSf2Lq\"]},\"/Users/brockelmore/YAM/contracts/lib/IERC20.sol\":{\"keccak256\":\"0xb654abe85060b241b440e22ead01dabb724dda69034d49b483e5e3e55ee64400\",\"urls\":[\"bzz-raw://53f67e469e2c4dfc10411d72f465a3c5b85939f1df4b2b26f12deb729f260b04\",\"dweb:/ipfs/QmSNUGpXPcmWNDczauAmUgZsypdcAB2pZNi3B2RGpYVyp2\"]},\"/Users/brockelmore/YAM/contracts/lib/SafeERC20.sol\":{\"keccak256\":\"0x00c7887d6e2af7d5971473efbd93d312374d6e8478a6f435d7ec3b62fe62a523\",\"urls\":[\"bzz-raw://787539dc1ebb71a219dee830f1d71188d0b13c2d5f7e7bfd08a3cafa8ec9333c\",\"dweb:/ipfs/QmfFwH2Wt17vqVaeoCMpdXbRUFa3e2Kbm1i6HTybGFXv8h\"]},\"/Users/brockelmore/YAM/contracts/lib/SafeMath.sol\":{\"keccak256\":\"0xfb72ae2642cad8f5da1644433dbcc12681f8064335dff144623f0514dc7922c6\",\"urls\":[\"bzz-raw://c174cb41d37d772336abf35cfef58015621ff96b834819531a65a67594aec5c4\",\"dweb:/ipfs/Qmdw3SxV2kaqdCoY4NBBXYcbX6baWbvGjJ6XP8jaH9pvyu\"]},\"/Users/brockelmore/YAM/contracts/reserves/YAMReserves.sol\":{\"keccak256\":\"0xf1abacbcf637281bb6a61ec089514911948e1ce9b94cf277afa742cb76d72453\",\"urls\":[\"bzz-raw://5d277b33d62b102d53f6e3211e98789deb61855ae260c70789205fc5b6f7c153\",\"dweb:/ipfs/QmTNa472BsZVeMBtxczDrHnEQA4Ap6pVqd9VR5dC3aTaEB\"]},\"/Users/brockelmore/YAM/contracts/token/YAMGovernanceStorage.sol\":{\"keccak256\":\"0x337e9c44bf683ce14c7299e6a59db83f4b1468d75bead7b716cb563ed3cabc39\",\"urls\":[\"bzz-raw://36c77e72c9aad315991ef2eebb85b8ff69bc27a1628468228b940d02f07b623f\",\"dweb:/ipfs/QmcnuBzdk2qhB49NrwMZwhhGqNKRs7cjALqzcnJwTE9ECx\"]},\"/Users/brockelmore/YAM/contracts/token/YAMTokenInterface.sol\":{\"keccak256\":\"0x369a00875ad1c5db96f69e0dcaea1f82fa69ba0dd480a777c684cfd95ceb642a\",\"urls\":[\"bzz-raw://2af9187c58bafcefd7a27a10f978282332c7068496068b31969d697c75f7319d\",\"dweb:/ipfs/QmPzazkd6wE194CrwtHDcdv3xjx74TVDirhmwkDHGpoRa8\"]},\"/Users/brockelmore/YAM/contracts/token/YAMTokenStorage.sol\":{\"keccak256\":\"0x8d8dc64204f5c4eea4b9cd278a6695212d55c084924b512b564acb8c7420d6d1\",\"urls\":[\"bzz-raw://408918db261b7431c944e8e521a41c7159e10fa88955781bdb267253250bc504\",\"dweb:/ipfs/QmeHzKxF3LPtf2wxTMPqQCEFqcTTZzK4Sb41giV7te8Sos\"]}},\"version\":1}",
   "bytecode": "0x608060405234801561001057600080fd5b50604051610d0b380380610d0b8339818101604052604081101561003357600080fd5b508051602090910151600080546001600160a01b039384166001600160a01b03199182161790915560048054939092169281169290921790556001805490911633179055610c85806100866000396000f3fe608060405234801561001057600080fd5b50600436106100be5760003560e01c806373f03dff11610076578063d72cdafc1161005b578063d72cdafc1461021b578063f4325d6714610223578063fa8f34551461022b576100be565b806373f03dff146101ce57806375172a8b14610201576100be565b806312d43a51116100a757806312d43a51146101b657806325240810146101be5780634bda2e20146101c6576100be565b8063078e9d53146100c357806311fd8a8314610185575b600080fd5b610183600480360360408110156100d957600080fd5b73ffffffffffffffffffffffffffffffffffffffff823516919081019060408101602082013564010000000081111561011157600080fd5b82018360208201111561012357600080fd5b8035906020019184602083028401116401000000008311171561014557600080fd5b91908080602002602001604051908101604052809392919081815260200183836020028082843760009201919091525092955061025e945050505050565b005b61018d61036d565b6040805173ffffffffffffffffffffffffffffffffffffffff9092168252519081900360200190f35b61018d610389565b61018d6103a5565b6101836103c1565b610183600480360360208110156101e457600080fd5b503573ffffffffffffffffffffffffffffffffffffffff166104da565b610209610586565b60408051918252519081900360200190f35b61018d610629565b61018d610645565b6101836004803603602081101561024157600080fd5b503573ffffffffffffffffffffffffffffffffffffffff16610661565b60015473ffffffffffffffffffffffffffffffffffffffff16331461028257600080fd5b60005b815181101561036857600082828151811061029c57fe5b6020026020010151905060008173ffffffffffffffffffffffffffffffffffffffff166370a08231306040518263ffffffff1660e01b8152600401808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060206040518083038186803b15801561032557600080fd5b505afa158015610339573d6000803e3d6000fd5b505050506040513d602081101561034f57600080fd5b5051905061035e82868361089f565b5050600101610285565b505050565b60035473ffffffffffffffffffffffffffffffffffffffff1681565b60015473ffffffffffffffffffffffffffffffffffffffff1681565b60025473ffffffffffffffffffffffffffffffffffffffff1681565b60025473ffffffffffffffffffffffffffffffffffffffff16331461044757604080517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820152600860248201527f2170656e64696e67000000000000000000000000000000000000000000000000604482015290519081900360640190fd5b60018054600280547fffffffffffffffffffffffff000000000000000000000000000000000000000080841673ffffffffffffffffffffffffffffffffffffffff838116919091179586905591169091556040805192821680845293909116602083015280517f1f14cfc03e486d23acee577b07bc0b3b23f4888c91fcdba5e0fef5a2549d55239281900390910190a150565b60015473ffffffffffffffffffffffffffffffffffffffff1633146104fe57600080fd5b6002805473ffffffffffffffffffffffffffffffffffffffff8381167fffffffffffffffffffffffff0000000000000000000000000000000000000000831681179093556040805191909216808252602082019390935281517f6163d5b9efd962645dd649e6e48a61bcb0f9df00997a2398b80d135a9ab0c61e929181900390910190a15050565b60008054604080517f70a08231000000000000000000000000000000000000000000000000000000008152306004820152905173ffffffffffffffffffffffffffffffffffffffff909216916370a0823191602480820192602092909190829003018186803b1580156105f857600080fd5b505afa15801561060c573d6000803e3d6000fd5b505050506040513d602081101561062257600080fd5b5051905090565b60045473ffffffffffffffffffffffffffffffffffffffff1681565b60005473ffffffffffffffffffffffffffffffffffffffff1681565b60015473ffffffffffffffffffffffffffffffffffffffff16331461068557600080fd5b60035460048054604080517fa457c2d700000000000000000000000000000000000000000000000000000000815273ffffffffffffffffffffffffffffffffffffffff9485169381018490527fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff6024820152905192939091169163a457c2d7916044808201926020929091908290030181600087803b15801561072757600080fd5b505af115801561073b573d6000803e3d6000fd5b505050506040513d602081101561075157600080fd5b5050600380547fffffffffffffffffffffffff00000000000000000000000000000000000000001673ffffffffffffffffffffffffffffffffffffffff84811691821790925560048054604080517f095ea7b3000000000000000000000000000000000000000000000000000000008152928301939093527fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff60248301529151919092169163095ea7b39160448083019260209291908290030181600087803b15801561081d57600080fd5b505af1158015610831573d6000803e3d6000fd5b505050506040513d602081101561084757600080fd5b50506040805173ffffffffffffffffffffffffffffffffffffffff80841682528416602082015281517f51f448520e2183de499e224808a409ee01a1f380edb2e8497572320c15030545929181900390910190a15050565b6040805173ffffffffffffffffffffffffffffffffffffffff8416602482015260448082018490528251808303909101815260649091019091526020810180517bffffffffffffffffffffffffffffffffffffffffffffffffffffffff167fa9059cbb000000000000000000000000000000000000000000000000000000001790526103689084906060610989826040518060400160405280602081526020017f5361666545524332303a206c6f772d6c6576656c2063616c6c206661696c65648152508573ffffffffffffffffffffffffffffffffffffffff166109ff9092919063ffffffff16565b805190915015610368578080602001905160208110156109a857600080fd5b5051610368576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252602a815260200180610c27602a913960400191505060405180910390fd5b6060610a0e8484600085610a16565b949350505050565b6060610a2185610c20565b610a8c57604080517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820152601d60248201527f416464726573733a2063616c6c20746f206e6f6e2d636f6e7472616374000000604482015290519081900360640190fd5b600060608673ffffffffffffffffffffffffffffffffffffffff1685876040518082805190602001908083835b60208310610af657805182527fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe09092019160209182019101610ab9565b6001836020036101000a03801982511681845116808217855250505050505090500191505060006040518083038185875af1925050503d8060008114610b58576040519150601f19603f3d011682016040523d82523d6000602084013e610b5d565b606091505b50915091508115610b71579150610a0e9050565b805115610b815780518082602001fd5b836040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825283818151815260200191508051906020019080838360005b83811015610be5578181015183820152602001610bcd565b50505050905090810190601f168015610c125780820380516001836020036101000a031916815260200191505b509250505060405180910390fd5b3b15159056fe5361666545524332303a204552433230206f7065726174696f6e20646964206e6f742073756363656564a265627a7a72315820125aef7d918fbb64cc5e8cb3bcc13056e779fafb6db306e245de4bcfb450301e64736f6c63430005110032",
   "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100be5760003560e01c806373f03dff11610076578063d72cdafc1161005b578063d72cdafc1461021b578063f4325d6714610223578063fa8f34551461022b576100be565b806373f03dff146101ce57806375172a8b14610201576100be565b806312d43a51116100a757806312d43a51146101b657806325240810146101be5780634bda2e20146101c6576100be565b8063078e9d53146100c357806311fd8a8314610185575b600080fd5b610183600480360360408110156100d957600080fd5b73ffffffffffffffffffffffffffffffffffffffff823516919081019060408101602082013564010000000081111561011157600080fd5b82018360208201111561012357600080fd5b8035906020019184602083028401116401000000008311171561014557600080fd5b91908080602002602001604051908101604052809392919081815260200183836020028082843760009201919091525092955061025e945050505050565b005b61018d61036d565b6040805173ffffffffffffffffffffffffffffffffffffffff9092168252519081900360200190f35b61018d610389565b61018d6103a5565b6101836103c1565b610183600480360360208110156101e457600080fd5b503573ffffffffffffffffffffffffffffffffffffffff166104da565b610209610586565b60408051918252519081900360200190f35b61018d610629565b61018d610645565b6101836004803603602081101561024157600080fd5b503573ffffffffffffffffffffffffffffffffffffffff16610661565b60015473ffffffffffffffffffffffffffffffffffffffff16331461028257600080fd5b60005b815181101561036857600082828151811061029c57fe5b6020026020010151905060008173ffffffffffffffffffffffffffffffffffffffff166370a08231306040518263ffffffff1660e01b8152600401808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060206040518083038186803b15801561032557600080fd5b505afa158015610339573d6000803e3d6000fd5b505050506040513d602081101561034f57600080fd5b5051905061035e82868361089f565b5050600101610285565b505050565b60035473ffffffffffffffffffffffffffffffffffffffff1681565b60015473ffffffffffffffffffffffffffffffffffffffff1681565b60025473ffffffffffffffffffffffffffffffffffffffff1681565b60025473ffffffffffffffffffffffffffffffffffffffff16331461044757604080517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820152600860248201527f2170656e64696e67000000000000000000000000000000000000000000000000604482015290519081900360640190fd5b60018054600280547fffffffffffffffffffffffff000000000000000000000000000000000000000080841673ffffffffffffffffffffffffffffffffffffffff838116919091179586905591169091556040805192821680845293909116602083015280517f1f14cfc03e486d23acee577b07bc0b3b23f4888c91fcdba5e0fef5a2549d55239281900390910190a150565b60015473ffffffffffffffffffffffffffffffffffffffff1633146104fe57600080fd5b6002805473ffffffffffffffffffffffffffffffffffffffff8381167fffffffffffffffffffffffff0000000000000000000000000000000000000000831681179093556040805191909216808252602082019390935281517f6163d5b9efd962645dd649e6e48a61bcb0f9df00997a2398b80d135a9ab0c61e929181900390910190a15050565b60008054604080517f70a08231000000000000000000000000000000000000000000000000000000008152306004820152905173ffffffffffffffffffffffffffffffffffffffff909216916370a0823191602480820192602092909190829003018186803b1580156105f857600080fd5b505afa15801561060c573d6000803e3d6000fd5b505050506040513d602081101561062257600080fd5b5051905090565b60045473ffffffffffffffffffffffffffffffffffffffff1681565b60005473ffffffffffffffffffffffffffffffffffffffff1681565b60015473ffffffffffffffffffffffffffffffffffffffff16331461068557600080fd5b60035460048054604080517fa457c2d700000000000000000000000000000000000000000000000000000000815273ffffffffffffffffffffffffffffffffffffffff9485169381018490527fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff6024820152905192939091169163a457c2d7916044808201926020929091908290030181600087803b15801561072757600080fd5b505af115801561073b573d6000803e3d6000fd5b505050506040513d602081101561075157600080fd5b5050600380547fffffffffffffffffffffffff00000000000000000000000000000000000000001673ffffffffffffffffffffffffffffffffffffffff84811691821790925560048054604080517f095ea7b3000000000000000000000000000000000000000000000000000000008152928301939093527fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff60248301529151919092169163095ea7b39160448083019260209291908290030181600087803b15801561081d57600080fd5b505af1158015610831573d6000803e3d6000fd5b505050506040513d602081101561084757600080fd5b50506040805173ffffffffffffffffffffffffffffffffffffffff80841682528416602082015281517f51f448520e2183de499e224808a409ee01a1f380edb2e8497572320c15030545929181900390910190a15050565b6040805173ffffffffffffffffffffffffffffffffffffffff8416602482015260448082018490528251808303909101815260649091019091526020810180517bffffffffffffffffffffffffffffffffffffffffffffffffffffffff167fa9059cbb000000000000000000000000000000000000000000000000000000001790526103689084906060610989826040518060400160405280602081526020017f5361666545524332303a206c6f772d6c6576656c2063616c6c206661696c65648152508573ffffffffffffffffffffffffffffffffffffffff166109ff9092919063ffffffff16565b805190915015610368578080602001905160208110156109a857600080fd5b5051610368576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252602a815260200180610c27602a913960400191505060405180910390fd5b6060610a0e8484600085610a16565b949350505050565b6060610a2185610c20565b610a8c57604080517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820152601d60248201527f416464726573733a2063616c6c20746f206e6f6e2d636f6e7472616374000000604482015290519081900360640190fd5b600060608673ffffffffffffffffffffffffffffffffffffffff1685876040518082805190602001908083835b60208310610af657805182527fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe09092019160209182019101610ab9565b6001836020036101000a03801982511681845116808217855250505050505090500191505060006040518083038185875af1925050503d8060008114610b58576040519150601f19603f3d011682016040523d82523d6000602084013e610b5d565b606091505b50915091508115610b71579150610a0e9050565b805115610b815780518082602001fd5b836040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825283818151815260200191508051906020019080838360005b83811015610be5578181015183820152602001610bcd565b50505050905090810190601f168015610c125780820380516001836020036101000a031916815260200191505b509250505060405180910390fd5b3b15159056fe5361666545524332303a204552433230206f7065726174696f6e20646964206e6f742073756363656564a265627a7a72315820125aef7d918fbb64cc5e8cb3bcc13056e779fafb6db306e245de4bcfb450301e64736f6c63430005110032",
   "sourceMap": "126:2604:21:-;;;850:202;8:9:-1;5:2;;;30:1;27;20:12;5:2;850:202:21;;;;;;;;;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;-1:-1;850:202:21;;;;;;;957:12;:28;;-1:-1:-1;;;;;957:28:21;;;-1:-1:-1;;;;;;957:28:21;;;;;;;995:10;:24;;;;;;;;;;;;;;;957:28;1029:16;;;;;1035:10;1029:16;;;126:2604;;;;;;",
   "deployedSourceMap": "126:2604:21:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;126:2604:21;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;2132:363;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;2132:363:21;;;;;;;;;;;;;;;;21:11:-1;5:28;;2:2;;;46:1;43;36:12;2:2;2132:363:21;;35:9:-1;28:4;12:14;8:25;5:40;2:2;;;58:1;55;48:12;2:2;2132:363:21;;;;;;101:9:-1;95:2;81:12;77:21;67:8;63:36;60:51;39:11;25:12;22:29;11:108;8:2;;;132:1;129;122:12;8:2;2132:363:21;;;;;;;;;;;;;;;;;;;;;;;;;;;;;30:3:-1;22:6;14;1:33;99:1;81:16;;74:27;;;;-1:-1;2132:363:21;;-1:-1:-1;2132:363:21;;-1:-1:-1;;;;;2132:363:21:i;:::-;;291:22;;;:::i;:::-;;;;;;;;;;;;;;;;;;;234:18;;;:::i;259:25::-;;;:::i;1839:228::-;;;:::i;1545:223::-;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;-1:-1;1545:223:21;;;;:::i;2581:147::-;;;:::i;:::-;;;;;;;;;;;;;;;;320:25;;;:::i;200:27::-;;;:::i;1058:348::-;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;-1:-1;1058:348:21;;;;:::i;2132:363::-;822:3;;;;808:10;:17;800:26;;;;;;2274:9;2269:220;2293:6;:13;2289:1;:17;2269:220;;;2327:12;2350:6;2357:1;2350:9;;;;;;;;;;;;;;2327:33;;2374:11;2388:5;:15;;;2412:4;2388:30;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;2388:30:21;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;2388:30:21;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;-1:-1;2388:30:21;;-1:-1:-1;2432:46:21;2455:5;2462:10;2388:30;2432:22;:46::i;:::-;-1:-1:-1;;2308:3:21;;2269:220;;;;2132:363;;:::o;291:22::-;;;;;;:::o;234:18::-;;;;;;:::o;259:25::-;;;;;;:::o;1839:228::-;1914:10;;;;1900;:24;1892:45;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1964:3;;;1983:10;;;1977:16;;;;1964:3;1983:10;;;1977:16;;;;;;;;2003:23;;;;;2041:19;;;1964:3;;;2041:19;;;2056:3;;;;2041:19;;;;;;;;;;;;;;;;1839:228;:::o;1545:223::-;822:3;;;;808:10;:17;800:26;;;;;;1661:10;;;;1681:24;;;;;;;;;;;1720:41;;;1661:10;;;;1720:41;;;;;;;;;;;;;;;;;;;;;;;836:1;1545:223;:::o;2581:147::-;2646:7;2683:12;;2676:45;;;;;;2715:4;2676:45;;;;;;2683:12;;;;;2676:30;;:45;;;;;;;;;;;;;;;2683:12;2676:45;;;5:2:-1;;;;30:1;27;20:12;5:2;2676:45:21;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;2676:45:21;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;-1:-1;2676:45:21;;-1:-1:-1;2581:147:21;:::o;320:25::-;;;;;;:::o;200:27::-;;;;;;:::o;1058:348::-;822:3;;;;808:10;:17;800:26;;;;;;1165:7;;1200:10;;;1182:72;;;;;;1165:7;;;;1182:72;;;;;;1250:2;1182:72;;;;;;1165:7;;1200:10;;;;1182:47;;:72;;;;;;;;;;;;;;;-1:-1:-1;1200:10:21;1182:72;;;5:2:-1;;;;30:1;27;20:12;5:2;1182:72:21;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;1182:72:21;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;-1:-1;;1264:7:21;:18;;;;;;;;;;;;;;1310:10;;;1292:60;;;;;;;;;;;;;1348:2;1292:60;;;;;;1310:10;;;;;1292:37;;:60;;;;;1182:72;;1292:60;;;;;;;-1:-1:-1;1310:10:21;1292:60;;;5:2:-1;;;;30:1;27;20:12;5:2;1292:60:21;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;1292:60:21;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;-1:-1;;1367:32:21;;;;;;;;;;;1292:60;1367:32;;;;;;;;;;;;;;;;836:1;1058:348;:::o;678:175:17:-;787:58;;;810:14;787:58;;;;;;;;;;;;;;;26:21:-1;;;22:32;;;6:49;;787:58:17;;;;;;;;25:18:-1;;61:17;;787:58:17;182:15:-1;810:23:17;179:29:-1;160:49;;760:86:17;;780:5;;3360:23;3386:69;3414:4;3386:69;;;;;;;;;;;;;;;;;3394:5;3386:27;;;;:69;;;;;:::i;:::-;3469:17;;3360:95;;-1:-1:-1;3469:21:17;3465:221;;3609:10;3598:30;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;-1:-1;3598:30:17;3590:85;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;3571:194:12;3674:12;3705:53;3728:6;3736:4;3742:1;3745:12;3705:22;:53::i;:::-;3698:60;3571:194;-1:-1:-1;;;;3571:194:12:o;4918:955::-;5048:12;5080:18;5091:6;5080:10;:18::i;:::-;5072:60;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;5203:12;5217:23;5244:6;:11;;5262:8;5272:4;5244:33;;;;;;;;;;;;;36:153:-1;66:2;61:3;58:11;36:153;;176:10;;164:23;;139:12;;;;;98:2;89:12;;;;114;36:153;;;274:1;267:3;263:2;259:12;254:3;250:22;246:30;315:4;311:9;305:3;299:10;295:26;356:4;350:3;344:10;340:21;389:7;380;377:20;372:3;365:33;3:399;;;5244:33:12;;;;;;;;;;;;;;;;;;;;;;;;;14:1:-1;21;16:31;;;;75:4;69:11;64:16;;144:4;140:9;133:4;115:16;111:27;107:43;104:1;100:51;94:4;87:65;169:16;166:1;159:27;225:16;222:1;215:4;212:1;208:12;193:49;7:242;;16:31;36:4;31:9;;7:242;;5202:75:12;;;;5291:7;5287:580;;;5321:10;-1:-1:-1;5314:17:12;;-1:-1:-1;5314:17:12;5287:580;5432:17;;:21;5428:429;;5690:10;5684:17;5750:15;5737:10;5733:2;5729:19;5722:44;5639:145;5829:12;5822:20;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;90:11;;;84:18;71:11;;;64:39;52:2;45:10;8:100;;;12:14;5822:20:12;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;719:413;1079:20;1117:8;;;719:413::o",
-  "source": "pragma solidity 0.5.17;\n\nimport \"../lib/IERC20.sol\";\nimport \"../lib/SafeERC20.sol\";\nimport \"../token/YAMTokenInterface.sol\";\n\ncontract YAMReserves {\n\n    // Token that serves as a reserve for YAM\n    address public reserveToken;\n\n    address public gov;\n\n    address public pendingGov;\n\n    address public rebaser;\n\n    address public yamAddress;\n\n    /*** Gov Events ***/\n\n    /**\n     * @notice Event emitted when pendingGov is changed\n     */\n    event NewPendingGov(address oldPendingGov, address newPendingGov);\n\n    /**\n     * @notice Event emitted when gov is changed\n     */\n    event NewGov(address oldGov, address newGov);\n\n    /**\n     * @notice Event emitted when rebaser is changed\n     */\n    event NewRebaser(address oldRebaser, address newRebaser);\n\n\n    modifier onlyGov() {\n        require(msg.sender == gov);\n        _;\n    }\n\n    constructor(\n        address reserveToken_,\n        address yamAddress_\n    )\n        public\n    {\n        reserveToken = reserveToken_;\n        yamAddress = yamAddress_;\n        gov = msg.sender;\n    }\n\n    function _setRebaser(address rebaser_)\n        external\n        onlyGov\n    {\n        address oldRebaser = rebaser;\n        YAMTokenInterface(yamAddress).decreaseAllowance(oldRebaser, uint256(-1));\n        rebaser = rebaser_;\n        YAMTokenInterface(yamAddress).approve(rebaser_, uint256(-1));\n        emit NewRebaser(oldRebaser, rebaser_);\n    }\n\n    /** @notice sets the pendingGov\n     * @param pendingGov_ The address of the rebaser contract to use for authentication.\n     */\n    function _setPendingGov(address pendingGov_)\n        external\n        onlyGov\n    {\n        address oldPendingGov = pendingGov;\n        pendingGov = pendingGov_;\n        emit NewPendingGov(oldPendingGov, pendingGov_);\n    }\n\n    /**\n     * @notice lets msg.sender accept governance\n     */\n    function _acceptGov()\n        external\n    {\n        require(msg.sender == pendingGov, \"!pending\");\n        address oldGov = gov;\n        gov = pendingGov;\n        pendingGov = address(0);\n        emit NewGov(oldGov, gov);\n    }\n\n    /// @notice Moves all tokens to a new reserve contract\n    function migrateReserves(\n        address newReserve,\n        address[] memory tokens\n    )\n        public\n        onlyGov\n    {\n        for (uint256 i = 0; i < tokens.length; i++) {\n            IERC20 token =  IERC20(tokens[i]);\n            uint256 bal = token.balanceOf(address(this));\n            SafeERC20.safeTransfer(token, newReserve, bal);\n        }\n    }\n\n    /// @notice Gets the current amount of reserves token held by this contract\n    function reserves()\n        public\n        view\n        returns (uint256)\n    {\n        return IERC20(reserveToken).balanceOf(address(this));\n    }\n}\n",
-  "sourcePath": "/Users/brockelmore/YAM/contracts/reserves/YAMReserves.sol",
+  "source": "pragma solidity 0.5.17;\n\nimport \"../lib/IERC20.sol\";\nimport \"../lib/SafeERC20.sol\";\nimport \"../token/HAMTokenInterface.sol\";\n\ncontract YAMReserves {\n\n    // Token that serves as a reserve for YAM\n    address public reserveToken;\n\n    address public gov;\n\n    address public pendingGov;\n\n    address public rebaser;\n\n    address public hamAddress;\n\n    /*** Gov Events ***/\n\n    /**\n     * @notice Event emitted when pendingGov is changed\n     */\n    event NewPendingGov(address oldPendingGov, address newPendingGov);\n\n    /**\n     * @notice Event emitted when gov is changed\n     */\n    event NewGov(address oldGov, address newGov);\n\n    /**\n     * @notice Event emitted when rebaser is changed\n     */\n    event NewRebaser(address oldRebaser, address newRebaser);\n\n\n    modifier onlyGov() {\n        require(msg.sender == gov);\n        _;\n    }\n\n    constructor(\n        address reserveToken_,\n        address yamAddress_\n    )\n        public\n    {\n        reserveToken = reserveToken_;\n        yamAddress = yamAddress_;\n        gov = msg.sender;\n    }\n\n    function _setRebaser(address rebaser_)\n        external\n        onlyGov\n    {\n        address oldRebaser = rebaser;\n        YAMTokenInterface(yamAddress).decreaseAllowance(oldRebaser, uint256(-1));\n        rebaser = rebaser_;\n        YAMTokenInterface(yamAddress).approve(rebaser_, uint256(-1));\n        emit NewRebaser(oldRebaser, rebaser_);\n    }\n\n    /** @notice sets the pendingGov\n     * @param pendingGov_ The address of the rebaser contract to use for authentication.\n     */\n    function _setPendingGov(address pendingGov_)\n        external\n        onlyGov\n    {\n        address oldPendingGov = pendingGov;\n        pendingGov = pendingGov_;\n        emit NewPendingGov(oldPendingGov, pendingGov_);\n    }\n\n    /**\n     * @notice lets msg.sender accept governance\n     */\n    function _acceptGov()\n        external\n    {\n        require(msg.sender == pendingGov, \"!pending\");\n        address oldGov = gov;\n        gov = pendingGov;\n        pendingGov = address(0);\n        emit NewGov(oldGov, gov);\n    }\n\n    /// @notice Moves all tokens to a new reserve contract\n    function migrateReserves(\n        address newReserve,\n        address[] memory tokens\n    )\n        public\n        onlyGov\n    {\n        for (uint256 i = 0; i < tokens.length; i++) {\n            IERC20 token =  IERC20(tokens[i]);\n            uint256 bal = token.balanceOf(address(this));\n            SafeERC20.safeTransfer(token, newReserve, bal);\n        }\n    }\n\n    /// @notice Gets the current amount of reserves token held by this contract\n    function reserves()\n        public\n        view\n        returns (uint256)\n    {\n        return IERC20(reserveToken).balanceOf(address(this));\n    }\n}\n",
+  "sourcePath": "/Users/brockelmore/HAM/contracts/reserves/YAMReserves.sol",
   "ast": {
-    "absolutePath": "/Users/brockelmore/YAM/contracts/reserves/YAMReserves.sol",
+    "absolutePath": "/Users/brockelmore/HAM/contracts/reserves/YAMReserves.sol",
     "exportedSymbols": {
-      "YAMReserves": [
+      "HAMReserves": [
         17053
       ]
     },
@@ -253,7 +253,7 @@
         "src": "0:23:21"
       },
       {
-        "absolutePath": "/Users/brockelmore/YAM/contracts/lib/IERC20.sol",
+        "absolutePath": "/Users/brockelmore/HAM/contracts/lib/IERC20.sol",
         "file": "../lib/IERC20.sol",
         "id": 16831,
         "nodeType": "ImportDirective",
@@ -264,7 +264,7 @@
         "unitAlias": ""
       },
       {
-        "absolutePath": "/Users/brockelmore/YAM/contracts/lib/SafeERC20.sol",
+        "absolutePath": "/Users/brockelmore/HAM/contracts/lib/SafeERC20.sol",
         "file": "../lib/SafeERC20.sol",
         "id": 16832,
         "nodeType": "ImportDirective",
@@ -275,8 +275,8 @@
         "unitAlias": ""
       },
       {
-        "absolutePath": "/Users/brockelmore/YAM/contracts/token/YAMTokenInterface.sol",
-        "file": "../token/YAMTokenInterface.sol",
+        "absolutePath": "/Users/brockelmore/HAM/contracts/token/YAMTokenInterface.sol",
+        "file": "../token/HAMTokenInterface.sol",
         "id": 16833,
         "nodeType": "ImportDirective",
         "scope": 17054,
@@ -295,7 +295,7 @@
         "linearizedBaseContracts": [
           17053
         ],
-        "name": "YAMReserves",
+        "name": "HAMReserves",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
@@ -409,7 +409,7 @@
           {
             "constant": false,
             "id": 16843,
-            "name": "yamAddress",
+            "name": "hamAddress",
             "nodeType": "VariableDeclaration",
             "scope": 17053,
             "src": "320:25:21",
@@ -840,7 +840,7 @@
                     "leftHandSide": {
                       "argumentTypes": null,
                       "id": 16883,
-                      "name": "yamAddress",
+                      "name": "hamAddress",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
                       "referencedDeclaration": 16843,
@@ -855,7 +855,7 @@
                     "rightHandSide": {
                       "argumentTypes": null,
                       "id": 16884,
-                      "name": "yamAddress_",
+                      "name": "hamAddress_",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
                       "referencedDeclaration": 16876,
@@ -980,7 +980,7 @@
                 {
                   "constant": false,
                   "id": 16876,
-                  "name": "yamAddress_",
+                  "name": "hamAddress_",
                   "nodeType": "VariableDeclaration",
                   "scope": 16893,
                   "src": "902:19:21",
@@ -1182,7 +1182,7 @@
                           {
                             "argumentTypes": null,
                             "id": 16905,
-                            "name": "yamAddress",
+                            "name": "hamAddress",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 16843,
@@ -1201,14 +1201,14 @@
                             }
                           ],
                           "id": 16904,
-                          "name": "YAMTokenInterface",
+                          "name": "HAMTokenInterface",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
                           "referencedDeclaration": 19202,
                           "src": "1182:17:21",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_type$_t_contract$_YAMTokenInterface_$19202_$",
-                            "typeString": "type(contract YAMTokenInterface)"
+                            "typeIdentifier": "t_type$_t_contract$_HAMTokenInterface_$19202_$",
+                            "typeString": "type(contract HAMTokenInterface)"
                           }
                         },
                         "id": 16906,
@@ -1221,8 +1221,8 @@
                         "nodeType": "FunctionCall",
                         "src": "1182:29:21",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_YAMTokenInterface_$19202",
-                          "typeString": "contract YAMTokenInterface"
+                          "typeIdentifier": "t_contract$_HAMTokenInterface_$19202",
+                          "typeString": "contract HAMTokenInterface"
                         }
                       },
                       "id": 16907,
@@ -1410,7 +1410,7 @@
                           {
                             "argumentTypes": null,
                             "id": 16920,
-                            "name": "yamAddress",
+                            "name": "hamAddress",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 16843,
@@ -1429,14 +1429,14 @@
                             }
                           ],
                           "id": 16919,
-                          "name": "YAMTokenInterface",
+                          "name": "HAMTokenInterface",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
                           "referencedDeclaration": 19202,
                           "src": "1292:17:21",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_type$_t_contract$_YAMTokenInterface_$19202_$",
-                            "typeString": "type(contract YAMTokenInterface)"
+                            "typeIdentifier": "t_type$_t_contract$_HAMTokenInterface_$19202_$",
+                            "typeString": "type(contract HAMTokenInterface)"
                           }
                         },
                         "id": 16921,
@@ -1449,8 +1449,8 @@
                         "nodeType": "FunctionCall",
                         "src": "1292:29:21",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_YAMTokenInterface_$19202",
-                          "typeString": "contract YAMTokenInterface"
+                          "typeIdentifier": "t_contract$_HAMTokenInterface_$19202",
+                          "typeString": "contract HAMTokenInterface"
                         }
                       },
                       "id": 16922,
@@ -2469,16 +2469,16 @@
                                   "referencedDeclaration": 19334,
                                   "src": "2412:4:21",
                                   "typeDescriptions": {
-                                    "typeIdentifier": "t_contract$_YAMReserves_$17053",
-                                    "typeString": "contract YAMReserves"
+                                    "typeIdentifier": "t_contract$_HAMReserves_$17053",
+                                    "typeString": "contract HAMReserves"
                                   }
                                 }
                               ],
                               "expression": {
                                 "argumentTypes": [
                                   {
-                                    "typeIdentifier": "t_contract$_YAMReserves_$17053",
-                                    "typeString": "contract YAMReserves"
+                                    "typeIdentifier": "t_contract$_HAMReserves_$17053",
+                                    "typeString": "contract HAMReserves"
                                   }
                                 ],
                                 "id": 17021,
@@ -2953,16 +2953,16 @@
                             "referencedDeclaration": 19334,
                             "src": "2715:4:21",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_contract$_YAMReserves_$17053",
-                              "typeString": "contract YAMReserves"
+                              "typeIdentifier": "t_contract$_HAMReserves_$17053",
+                              "typeString": "contract HAMReserves"
                             }
                           }
                         ],
                         "expression": {
                           "argumentTypes": [
                             {
-                              "typeIdentifier": "t_contract$_YAMReserves_$17053",
-                              "typeString": "contract YAMReserves"
+                              "typeIdentifier": "t_contract$_HAMReserves_$17053",
+                              "typeString": "contract HAMReserves"
                             }
                           ],
                           "id": 17046,
@@ -3144,9 +3144,9 @@
     "src": "0:2731:21"
   },
   "legacyAST": {
-    "absolutePath": "/Users/brockelmore/YAM/contracts/reserves/YAMReserves.sol",
+    "absolutePath": "/Users/brockelmore/HAM/contracts/reserves/YAMReserves.sol",
     "exportedSymbols": {
-      "YAMReserves": [
+      "HAMReserves": [
         17053
       ]
     },
@@ -3164,7 +3164,7 @@
         "src": "0:23:21"
       },
       {
-        "absolutePath": "/Users/brockelmore/YAM/contracts/lib/IERC20.sol",
+        "absolutePath": "/Users/brockelmore/HAM/contracts/lib/IERC20.sol",
         "file": "../lib/IERC20.sol",
         "id": 16831,
         "nodeType": "ImportDirective",
@@ -3175,7 +3175,7 @@
         "unitAlias": ""
       },
       {
-        "absolutePath": "/Users/brockelmore/YAM/contracts/lib/SafeERC20.sol",
+        "absolutePath": "/Users/brockelmore/HAM/contracts/lib/SafeERC20.sol",
         "file": "../lib/SafeERC20.sol",
         "id": 16832,
         "nodeType": "ImportDirective",
@@ -3186,8 +3186,8 @@
         "unitAlias": ""
       },
       {
-        "absolutePath": "/Users/brockelmore/YAM/contracts/token/YAMTokenInterface.sol",
-        "file": "../token/YAMTokenInterface.sol",
+        "absolutePath": "/Users/brockelmore/HAM/contracts/token/YAMTokenInterface.sol",
+        "file": "../token/HAMTokenInterface.sol",
         "id": 16833,
         "nodeType": "ImportDirective",
         "scope": 17054,
@@ -3206,7 +3206,7 @@
         "linearizedBaseContracts": [
           17053
         ],
-        "name": "YAMReserves",
+        "name": "HAMReserves",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
@@ -3320,7 +3320,7 @@
           {
             "constant": false,
             "id": 16843,
-            "name": "yamAddress",
+            "name": "hamAddress",
             "nodeType": "VariableDeclaration",
             "scope": 17053,
             "src": "320:25:21",
@@ -3751,7 +3751,7 @@
                     "leftHandSide": {
                       "argumentTypes": null,
                       "id": 16883,
-                      "name": "yamAddress",
+                      "name": "hamAddress",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
                       "referencedDeclaration": 16843,
@@ -3766,7 +3766,7 @@
                     "rightHandSide": {
                       "argumentTypes": null,
                       "id": 16884,
-                      "name": "yamAddress_",
+                      "name": "hamAddress_",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
                       "referencedDeclaration": 16876,
@@ -3891,7 +3891,7 @@
                 {
                   "constant": false,
                   "id": 16876,
-                  "name": "yamAddress_",
+                  "name": "hamAddress_",
                   "nodeType": "VariableDeclaration",
                   "scope": 16893,
                   "src": "902:19:21",
@@ -4093,7 +4093,7 @@
                           {
                             "argumentTypes": null,
                             "id": 16905,
-                            "name": "yamAddress",
+                            "name": "hamAddress",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 16843,
@@ -4112,14 +4112,14 @@
                             }
                           ],
                           "id": 16904,
-                          "name": "YAMTokenInterface",
+                          "name": "HAMTokenInterface",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
                           "referencedDeclaration": 19202,
                           "src": "1182:17:21",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_type$_t_contract$_YAMTokenInterface_$19202_$",
-                            "typeString": "type(contract YAMTokenInterface)"
+                            "typeIdentifier": "t_type$_t_contract$_HAMTokenInterface_$19202_$",
+                            "typeString": "type(contract HAMTokenInterface)"
                           }
                         },
                         "id": 16906,
@@ -4132,8 +4132,8 @@
                         "nodeType": "FunctionCall",
                         "src": "1182:29:21",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_YAMTokenInterface_$19202",
-                          "typeString": "contract YAMTokenInterface"
+                          "typeIdentifier": "t_contract$_HAMTokenInterface_$19202",
+                          "typeString": "contract HAMTokenInterface"
                         }
                       },
                       "id": 16907,
@@ -4321,7 +4321,7 @@
                           {
                             "argumentTypes": null,
                             "id": 16920,
-                            "name": "yamAddress",
+                            "name": "hamAddress",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 16843,
@@ -4340,14 +4340,14 @@
                             }
                           ],
                           "id": 16919,
-                          "name": "YAMTokenInterface",
+                          "name": "HAMTokenInterface",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
                           "referencedDeclaration": 19202,
                           "src": "1292:17:21",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_type$_t_contract$_YAMTokenInterface_$19202_$",
-                            "typeString": "type(contract YAMTokenInterface)"
+                            "typeIdentifier": "t_type$_t_contract$_HAMTokenInterface_$19202_$",
+                            "typeString": "type(contract HAMTokenInterface)"
                           }
                         },
                         "id": 16921,
@@ -4360,8 +4360,8 @@
                         "nodeType": "FunctionCall",
                         "src": "1292:29:21",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_YAMTokenInterface_$19202",
-                          "typeString": "contract YAMTokenInterface"
+                          "typeIdentifier": "t_contract$_HAMTokenInterface_$19202",
+                          "typeString": "contract HAMTokenInterface"
                         }
                       },
                       "id": 16922,
@@ -5380,16 +5380,16 @@
                                   "referencedDeclaration": 19334,
                                   "src": "2412:4:21",
                                   "typeDescriptions": {
-                                    "typeIdentifier": "t_contract$_YAMReserves_$17053",
-                                    "typeString": "contract YAMReserves"
+                                    "typeIdentifier": "t_contract$_HAMReserves_$17053",
+                                    "typeString": "contract HAMReserves"
                                   }
                                 }
                               ],
                               "expression": {
                                 "argumentTypes": [
                                   {
-                                    "typeIdentifier": "t_contract$_YAMReserves_$17053",
-                                    "typeString": "contract YAMReserves"
+                                    "typeIdentifier": "t_contract$_HAMReserves_$17053",
+                                    "typeString": "contract HAMReserves"
                                   }
                                 ],
                                 "id": 17021,
@@ -5864,16 +5864,16 @@
                             "referencedDeclaration": 19334,
                             "src": "2715:4:21",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_contract$_YAMReserves_$17053",
-                              "typeString": "contract YAMReserves"
+                              "typeIdentifier": "t_contract$_HAMReserves_$17053",
+                              "typeString": "contract HAMReserves"
                             }
                           }
                         ],
                         "expression": {
                           "argumentTypes": [
                             {
-                              "typeIdentifier": "t_contract$_YAMReserves_$17053",
-                              "typeString": "contract YAMReserves"
+                              "typeIdentifier": "t_contract$_HAMReserves_$17053",
+                              "typeString": "contract HAMReserves"
                             }
                           ],
                           "id": 17046,

@@ -2,8 +2,8 @@ import { useContext } from 'react'
 import { Context } from '../contexts/HamProvider'
 
 const useHam = () => {
-  const { yam } = useContext(Context)
-  return yam
+  const { ham } = useContext(Context)
+  return ham
 }
 
-export default useYam
+export default useHam

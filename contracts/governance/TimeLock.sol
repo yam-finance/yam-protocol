@@ -8,7 +8,7 @@ pragma solidity ^0.5.17;
 //    No Critical
 //    No High
 //
-// Changes made by YAM after audit:
+// Changes made by HAM after audit:
 //    Formatting, naming, & uint256 instead of uint
 
 import "../lib/SafeMath.sol";

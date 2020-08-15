@@ -147,7 +147,7 @@ contract HAMGovernanceToken is HAMTokenInterface {
         internal
     {
         address currentDelegate = _delegates[delegator];
-        uint256 delegatorBalance = _yamBalances[delegator]; // balance of underlying HAMs (not scaled);
+        uint256 delegatorBalance = _hamBalances[delegator]; // balance of underlying HAMs (not scaled);
         _delegates[delegator] = delegatee;
 
         emit DelegateChanged(delegator, currentDelegate, delegatee);

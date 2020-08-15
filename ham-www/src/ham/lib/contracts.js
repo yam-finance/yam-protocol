@@ -4,28 +4,28 @@ import * as Types from "./types.js";
 import { SUBTRACT_GAS_LIMIT, addressMap } from './constants.js';
 
 import ERC20Json from '../clean_build/contracts/IERC20.json';
-import YAMJson from '../clean_build/contracts/YAMDelegator.json';
-import YAMRebaserJson from '../clean_build/contracts/YAMRebaser.json';
-import YAMReservesJson from '../clean_build/contracts/YAMReserves.json';
-import YAMGovJson from '../clean_build/contracts/GovernorAlpha.json';
-import YAMTimelockJson from '../clean_build/contracts/Timelock.json';
+import HAMJson from '../clean_build/contracts/HAMDelegator.json';
+import HAMRebaserJson from '../clean_build/contracts/HAMRebaser.json';
+import HAMReservesJson from '../clean_build/contracts/HAMReserves.json';
+import HAMGovJson from '../clean_build/contracts/GovernorAlpha.json';
+import HAMTimelockJson from '../clean_build/contracts/Timelock.json';
 import WETHJson from './weth.json';
 import SNXJson from './snx.json';
 import UNIFactJson from './unifact2.json';
 import UNIPairJson from './uni2.json';
 import UNIRouterJson from './uniR.json';
 
-import WETHPoolJson from '../clean_build/contracts/YAMETHPool.json';
-import AMPLPoolJson from '../clean_build/contracts/YAMAMPLPool.json';
-import YFIPoolJson from '../clean_build/contracts/YAMYFIPool.json';
+import WETHPoolJson from '../clean_build/contracts/HAMETHPool.json';
+import AMPLPoolJson from '../clean_build/contracts/HAMAMPLPool.json';
+import YFIPoolJson from '../clean_build/contracts/HAMYFIPool.json';
 
-import MKRPoolJson from '../clean_build/contracts/YAMMKRPool.json';
-import LENDPoolJson from '../clean_build/contracts/YAMLENDPool.json';
-import COMPPoolJson from '../clean_build/contracts/YAMCOMPPool.json';
-import SNXPoolJson from '../clean_build/contracts/YAMSNXPool.json';
-import LINKPoolJson from '../clean_build/contracts/YAMLINKPool.json';
+import MKRPoolJson from '../clean_build/contracts/HAMMKRPool.json';
+import LENDPoolJson from '../clean_build/contracts/HAMLENDPool.json';
+import COMPPoolJson from '../clean_build/contracts/HAMCOMPPool.json';
+import SNXPoolJson from '../clean_build/contracts/HAMSNXPool.json';
+import LINKPoolJson from '../clean_build/contracts/HAMLINKPool.json';
 
-import IncJson from '../clean_build/contracts/YAMIncentivizer.json';
+import IncJson from '../clean_build/contracts/HAMIncentivizer.json';
 
 export class Contracts {
   constructor(
@@ -47,7 +47,7 @@ export class Contracts {
     this.yfi = new this.web3.eth.Contract(ERC20Json.abi);
     this.UNIAmpl = new this.web3.eth.Contract(ERC20Json.abi);
     this.ycrv = new this.web3.eth.Contract(ERC20Json.abi);
-    this.yam = new this.web3.eth.Contract(YAMJson.abi);
+    this.ham = new this.web3.eth.Contract(HAMJson.abi);
 
     this.yfi_pool = new this.web3.eth.Contract(YFIPoolJson.abi);
     this.eth_pool = new this.web3.eth.Contract(WETHPoolJson.abi);
@@ -65,17 +65,17 @@ export class Contracts {
     this.lend = new this.web3.eth.Contract(ERC20Json.abi);
     this.snx = new this.web3.eth.Contract(ERC20Json.abi);
     this.mkr = new this.web3.eth.Contract(ERC20Json.abi);
-    this.yam_ycrv_uni_lp = new this.web3.eth.Contract(ERC20Json.abi);
+    this.ham_ycrv_uni_lp = new this.web3.eth.Contract(ERC20Json.abi);
 
     this.erc20 = new this.web3.eth.Contract(ERC20Json.abi);
     this.pool = new this.web3.eth.Contract(LENDPoolJson.abi);
 
 
 
-    this.rebaser = new this.web3.eth.Contract(YAMRebaserJson.abi);
-    this.reserves = new this.web3.eth.Contract(YAMReservesJson.abi);
-    this.gov = new this.web3.eth.Contract(YAMGovJson.abi);
-    this.timelock = new this.web3.eth.Contract(YAMTimelockJson.abi);
+    this.rebaser = new this.web3.eth.Contract(HAMRebaserJson.abi);
+    this.reserves = new this.web3.eth.Contract(HAMReservesJson.abi);
+    this.gov = new this.web3.eth.Contract(HAMGovJson.abi);
+    this.timelock = new this.web3.eth.Contract(HAMTimelockJson.abi);
     this.weth = new this.web3.eth.Contract(WETHJson);
     this.setProvider(provider, networkId);
     this.setDefaultAccount(this.web3.eth.defaultAccount);
@@ -86,17 +86,17 @@ export class Contracts {
     provider,
     networkId
   ) {
-    this.yam.setProvider(provider);
+    this.ham.setProvider(provider);
     this.rebaser.setProvider(provider);
     this.reserves.setProvider(provider);
     this.gov.setProvider(provider);
     this.timelock.setProvider(provider);
     const contracts = [
-      { contract: this.yam, json: YAMJson },
-      { contract: this.rebaser, json: YAMRebaserJson },
-      { contract: this.reserves, json: YAMReservesJson },
-      { contract: this.gov, json: YAMGovJson },
-      { contract: this.timelock, json: YAMTimelockJson },
+      { contract: this.ham, json: HAMJson },
+      { contract: this.rebaser, json: HAMRebaserJson },
+      { contract: this.reserves, json: HAMReservesJson },
+      { contract: this.gov, json: HAMGovJson },
+      { contract: this.timelock, json: HAMTimelockJson },
       { contract: this.ycrv_pool, json: IncJson },
       { contract: this.eth_pool, json: WETHPoolJson },
       { contract: this.yfi_pool, json: YFIPoolJson },
@@ -126,7 +126,7 @@ export class Contracts {
     this.UNIAmpl.options.address = addressMap["UNIAmpl"];
     this.uni_fact.options.address = addressMap["uniswapFactoryV2"];
     this.uni_router.options.address = addressMap["UNIRouter"];
-    this.yam_ycrv_uni_lp.options.address = addressMap["YAMYCRV"];
+    this.ham_ycrv_uni_lp.options.address = addressMap["HAMYCRV"];
 
     this.pools = [
       {"tokenAddr": this.yfi.options.address, "poolAddr": this.yfi_pool.options.address},
@@ -145,7 +145,7 @@ export class Contracts {
   ) {
     this.yfi.options.from = account;
     this.ycrv.options.from = account;
-    this.yam.options.from = account;
+    this.ham.options.from = account;
     this.weth.options.from = account;
   }
 

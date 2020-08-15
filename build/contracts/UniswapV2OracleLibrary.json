@@ -1,15 +1,15 @@
 {
   "contractName": "UniswapV2OracleLibrary",
   "abi": [],
-  "metadata": "{\"compiler\":{\"version\":\"0.5.17+commit.d19bba13\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/Users/brockelmore/YAM/contracts/lib/UniswapV2OracleLibrary.sol\":\"UniswapV2OracleLibrary\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"optimizer\":{\"enabled\":true,\"runs\":50000},\"remappings\":[]},\"sources\":{\"/Users/brockelmore/YAM/contracts/lib/Babylonian.sol\":{\"keccak256\":\"0xad37a774ad6a438432acb1a475b71b2991a41ba98f1cd814c6d78f9109370a38\",\"urls\":[\"bzz-raw://0f1fbfda71c124ef0436d4e0fe1d0ee9440e2d169ba5ecb890d3d5089ccdd185\",\"dweb:/ipfs/QmXvHC7AfnhNoXEi2tCDRVgHcWuADfHToyCUYZ2tG5Pgen\"]},\"/Users/brockelmore/YAM/contracts/lib/FixedPoint.sol\":{\"keccak256\":\"0x589aacdc69a24cc0500bc13581b34d4431ee972333fa288a9b42a4d14707e003\",\"urls\":[\"bzz-raw://965edb53f5f0d9e23f7878ae95809239b26604420b0111f7b9cb199d21b84afe\",\"dweb:/ipfs/QmYkGQ6xPsNFfdkJr76vGoCehffXspqKyoGZ5utGJoWNuc\"]},\"/Users/brockelmore/YAM/contracts/lib/IUniswapV2Pair.sol\":{\"keccak256\":\"0x311645a7312f2ef6eaf48ef2837e7f0cf9310ecb99d6400a1a31021c44e0f027\",\"urls\":[\"bzz-raw://99307e4540dbcf1cbdf07f0e25d063d2cdc97890e92b31b555fef7d114eea4e5\",\"dweb:/ipfs/QmYUoD5sGSUTBZWRbDEBpjfWP1VcGp9m3semMf3oGFQHJt\"]},\"/Users/brockelmore/YAM/contracts/lib/UniswapV2OracleLibrary.sol\":{\"keccak256\":\"0x3627b23a33510ccbdf47a9bc92528a78cd58b4ee7732e9a3f2563990ec652da9\",\"urls\":[\"bzz-raw://4d314b46efcc60cca53b1a9f4379d9aeccb744a9911ae5296c17d9cf284b8524\",\"dweb:/ipfs/QmZnSs4mQQw56DKpmnsPfd6PwgMQQHfT8wbyp6smT4pEL5\"]}},\"version\":1}",
+  "metadata": "{\"compiler\":{\"version\":\"0.5.17+commit.d19bba13\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/Users/brockelmore/HAM/contracts/lib/UniswapV2OracleLibrary.sol\":\"UniswapV2OracleLibrary\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"optimizer\":{\"enabled\":true,\"runs\":50000},\"remappings\":[]},\"sources\":{\"/Users/brockelmore/YAM/contracts/lib/Babylonian.sol\":{\"keccak256\":\"0xad37a774ad6a438432acb1a475b71b2991a41ba98f1cd814c6d78f9109370a38\",\"urls\":[\"bzz-raw://0f1fbfda71c124ef0436d4e0fe1d0ee9440e2d169ba5ecb890d3d5089ccdd185\",\"dweb:/ipfs/QmXvHC7AfnhNoXEi2tCDRVgHcWuADfHToyCUYZ2tG5Pgen\"]},\"/Users/brockelmore/YAM/contracts/lib/FixedPoint.sol\":{\"keccak256\":\"0x589aacdc69a24cc0500bc13581b34d4431ee972333fa288a9b42a4d14707e003\",\"urls\":[\"bzz-raw://965edb53f5f0d9e23f7878ae95809239b26604420b0111f7b9cb199d21b84afe\",\"dweb:/ipfs/QmYkGQ6xPsNFfdkJr76vGoCehffXspqKyoGZ5utGJoWNuc\"]},\"/Users/brockelmore/YAM/contracts/lib/IUniswapV2Pair.sol\":{\"keccak256\":\"0x311645a7312f2ef6eaf48ef2837e7f0cf9310ecb99d6400a1a31021c44e0f027\",\"urls\":[\"bzz-raw://99307e4540dbcf1cbdf07f0e25d063d2cdc97890e92b31b555fef7d114eea4e5\",\"dweb:/ipfs/QmYUoD5sGSUTBZWRbDEBpjfWP1VcGp9m3semMf3oGFQHJt\"]},\"/Users/brockelmore/YAM/contracts/lib/UniswapV2OracleLibrary.sol\":{\"keccak256\":\"0x3627b23a33510ccbdf47a9bc92528a78cd58b4ee7732e9a3f2563990ec652da9\",\"urls\":[\"bzz-raw://4d314b46efcc60cca53b1a9f4379d9aeccb744a9911ae5296c17d9cf284b8524\",\"dweb:/ipfs/QmZnSs4mQQw56DKpmnsPfd6PwgMQQHfT8wbyp6smT4pEL5\"]}},\"version\":1}",
   "bytecode": "0x60556023600b82828239805160001a607314601657fe5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea265627a7a72315820216401d67aadab479eab3535746e535d6176332e5d88a9a680ce2dff7894f45064736f6c63430005110032",
   "deployedBytecode": "0x73000000000000000000000000000000000000000030146080604052600080fdfea265627a7a72315820216401d67aadab479eab3535746e535d6176332e5d88a9a680ce2dff7894f45064736f6c63430005110032",
   "sourceMap": "177:1841:19:-;;132:2:-1;166:7;155:9;146:7;137:37;255:7;249:14;246:1;241:23;235:4;232:33;222:2;;269:9;222:2;293:9;290:1;283:20;323:4;314:7;306:22;347:7;338;331:24",
   "deployedSourceMap": "177:1841:19:-;;;;;;;;",
   "source": "pragma solidity >=0.5.0;\n\nimport './IUniswapV2Pair.sol';\nimport './FixedPoint.sol';\n\n// library with helper methods for oracles that are concerned with computing average prices\nlibrary UniswapV2OracleLibrary {\n    using FixedPoint for *;\n\n    // helper function that returns the current block timestamp within the range of uint32, i.e. [0, 2**32 - 1]\n    function currentBlockTimestamp() internal view returns (uint32) {\n        return uint32(block.timestamp % 2 ** 32);\n    }\n\n    // produces the cumulative price using counterfactuals to save gas and avoid a call to sync.\n    function currentCumulativePrices(\n        address pair,\n        bool isToken0\n    ) internal view returns (uint priceCumulative, uint32 blockTimestamp) {\n        blockTimestamp = currentBlockTimestamp();\n        (uint112 reserve0, uint112 reserve1, uint32 blockTimestampLast) = UniswapPair(pair).getReserves();\n        if (isToken0) {\n          priceCumulative = UniswapPair(pair).price0CumulativeLast();\n\n          // if time has elapsed since the last update on the pair, mock the accumulated price values\n          if (blockTimestampLast != blockTimestamp) {\n              // subtraction overflow is desired\n              uint32 timeElapsed = blockTimestamp - blockTimestampLast;\n              // addition overflow is desired\n              // counterfactual\n              priceCumulative += uint(FixedPoint.fraction(reserve1, reserve0)._x) * timeElapsed;\n          }\n        } else {\n          priceCumulative = UniswapPair(pair).price1CumulativeLast();\n          // if time has elapsed since the last update on the pair, mock the accumulated price values\n          if (blockTimestampLast != blockTimestamp) {\n              // subtraction overflow is desired\n              uint32 timeElapsed = blockTimestamp - blockTimestampLast;\n              // addition overflow is desired\n              // counterfactual\n              priceCumulative += uint(FixedPoint.fraction(reserve1, reserve0)._x) * timeElapsed;\n          }\n        }\n\n    }\n}\n",
-  "sourcePath": "/Users/brockelmore/YAM/contracts/lib/UniswapV2OracleLibrary.sol",
+  "sourcePath": "/Users/brockelmore/HAM/contracts/lib/UniswapV2OracleLibrary.sol",
   "ast": {
-    "absolutePath": "/Users/brockelmore/YAM/contracts/lib/UniswapV2OracleLibrary.sol",
+    "absolutePath": "/Users/brockelmore/HAM/contracts/lib/UniswapV2OracleLibrary.sol",
     "exportedSymbols": {
       "UniswapV2OracleLibrary": [
         15092
@@ -30,7 +30,7 @@
         "src": "0:24:19"
       },
       {
-        "absolutePath": "/Users/brockelmore/YAM/contracts/lib/IUniswapV2Pair.sol",
+        "absolutePath": "/Users/brockelmore/HAM/contracts/lib/IUniswapV2Pair.sol",
         "file": "./IUniswapV2Pair.sol",
         "id": 14976,
         "nodeType": "ImportDirective",
@@ -41,7 +41,7 @@
         "unitAlias": ""
       },
       {
-        "absolutePath": "/Users/brockelmore/YAM/contracts/lib/FixedPoint.sol",
+        "absolutePath": "/Users/brockelmore/HAM/contracts/lib/FixedPoint.sol",
         "file": "./FixedPoint.sol",
         "id": 14977,
         "nodeType": "ImportDirective",
@@ -1614,7 +1614,7 @@
     "src": "0:2019:19"
   },
   "legacyAST": {
-    "absolutePath": "/Users/brockelmore/YAM/contracts/lib/UniswapV2OracleLibrary.sol",
+    "absolutePath": "/Users/brockelmore/HAM/contracts/lib/UniswapV2OracleLibrary.sol",
     "exportedSymbols": {
       "UniswapV2OracleLibrary": [
         15092
@@ -1635,7 +1635,7 @@
         "src": "0:24:19"
       },
       {
-        "absolutePath": "/Users/brockelmore/YAM/contracts/lib/IUniswapV2Pair.sol",
+        "absolutePath": "/Users/brockelmore/HAM/contracts/lib/IUniswapV2Pair.sol",
         "file": "./IUniswapV2Pair.sol",
         "id": 14976,
         "nodeType": "ImportDirective",
@@ -1646,7 +1646,7 @@
         "unitAlias": ""
       },
       {
-        "absolutePath": "/Users/brockelmore/YAM/contracts/lib/FixedPoint.sol",
+        "absolutePath": "/Users/brockelmore/HAM/contracts/lib/FixedPoint.sol",
         "file": "./FixedPoint.sol",
         "id": 14977,
         "nodeType": "ImportDirective",

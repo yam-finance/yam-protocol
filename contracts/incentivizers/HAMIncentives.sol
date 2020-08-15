@@ -17,7 +17,7 @@
 /___/ \_, //_//_/\__//_//_/\__/ \__//_/ /_\_\
      /___/
 
-* Synthetix: YAMIncentives.sol
+* Synthetix: HAMIncentives.sol
 *
 * Docs: https://docs.synthetix.io/
 *
@@ -636,13 +636,13 @@ contract LPTokenWrapper {
     }
 }
 
-interface YAM {
-    function yamsScalingFactor() external returns (uint256);
+interface HAM {
+    function hamsScalingFactor() external returns (uint256);
     function mint(address to, uint256 amount) external;
 }
 
-contract YAMIncentivizer is LPTokenWrapper, IRewardDistributionRecipient {
-    IERC20 public yam = IERC20(0x0e2298E3B3390e3b945a5456fBf59eCc3f55DA16);
+contract HAMIncentivizer is LPTokenWrapper, IRewardDistributionRecipient {
+    IERC20 public ham = IERC20(0x0e2298E3B3390e3b945a5456fBf59eCc3f55DA16);
     uint256 public constant DURATION = 625000;
 
     uint256 public initreward = 15 * 10**5 * 10**18; // 1.5m
@@ -718,9 +718,9 @@ contract YAMIncentivizer is LPTokenWrapper, IRewardDistributionRecipient {
         uint256 reward = earned(msg.sender);
         if (reward > 0) {
             rewards[msg.sender] = 0;
-            uint256 scalingFactor = YAM(address(yam)).yamsScalingFactor();
+            uint256 scalingFactor = HAM(address(ham)).hamsScalingFactor();
             uint256 trueReward = reward.mul(scalingFactor).div(10**18);
-            yam.safeTransfer(msg.sender, trueReward);
+            ham.safeTransfer(msg.sender, trueReward);
             emit RewardPaid(msg.sender, trueReward);
         }
     }
@@ -728,9 +728,9 @@ contract YAMIncentivizer is LPTokenWrapper, IRewardDistributionRecipient {
     modifier checkhalve() {
         if (block.timestamp >= periodFinish) {
             initreward = initreward.mul(50).div(100);
-            uint256 scalingFactor = YAM(address(yam)).yamsScalingFactor();
+            uint256 scalingFactor = HAM(address(ham)).hamsScalingFactor();
             uint256 newRewards = initreward.mul(scalingFactor).div(10**18);
-            yam.mint(address(this), newRewards);
+            ham.mint(address(this), newRewards);
 
             rewardRate = initreward.div(DURATION);
             periodFinish = block.timestamp.add(DURATION);
@@ -762,8 +762,8 @@ contract YAMIncentivizer is LPTokenWrapper, IRewardDistributionRecipient {
           periodFinish = block.timestamp.add(DURATION);
           emit RewardAdded(reward);
         } else {
-          require(yam.balanceOf(address(this)) == 0, "already initialized");
-          yam.mint(address(this), initreward);
+          require(ham.balanceOf(address(this)) == 0, "already initialized");
+          ham.mint(address(this), initreward);
           rewardRate = initreward.div(DURATION);
           lastUpdateTime = starttime;
           periodFinish = starttime.add(DURATION);
@@ -785,7 +785,7 @@ contract YAMIncentivizer is LPTokenWrapper, IRewardDistributionRecipient {
         // cant take staked asset
         require(_token != uni_lp, "uni_lp");
         // cant take reward asset
-        require(_token != yam, "yam");
+        require(_token != ham, "ham");
 
         // transfer to
         _token.safeTransfer(to, amount);

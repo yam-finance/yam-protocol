@@ -1,5 +1,5 @@
 {
-  "contractName": "YAMGovernanceToken",
+  "contractName": "HAMGovernanceToken",
   "abi": [
     {
       "anonymous": false,
@@ -821,7 +821,7 @@
     {
       "constant": true,
       "inputs": [],
-      "name": "yamsScalingFactor",
+      "name": "hamsScalingFactor",
       "outputs": [
         {
           "internalType": "uint256",
@@ -957,17 +957,17 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.5.17+commit.d19bba13\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"Approval\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"delegator\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"fromDelegate\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"toDelegate\",\"type\":\"address\"}],\"name\":\"DelegateChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"delegate\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"previousBalance\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newBalance\",\"type\":\"uint256\"}],\"name\":\"DelegateVotesChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"Mint\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"oldGov\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newGov\",\"type\":\"address\"}],\"name\":\"NewGov\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"oldIncentivizer\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newIncentivizer\",\"type\":\"address\"}],\"name\":\"NewIncentivizer\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"oldPendingGov\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newPendingGov\",\"type\":\"address\"}],\"name\":\"NewPendingGov\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"oldRebaser\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newRebaser\",\"type\":\"address\"}],\"name\":\"NewRebaser\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"epoch\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"prevYamsScalingFactor\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newYamsScalingFactor\",\"type\":\"uint256\"}],\"name\":\"Rebase\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"Transfer\",\"type\":\"event\"},{\"constant\":true,\"inputs\":[],\"name\":\"BASE\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"DELEGATION_TYPEHASH\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"DOMAIN_TYPEHASH\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"_acceptGov\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"incentivizer_\",\"type\":\"address\"}],\"name\":\"_setIncentivizer\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"pendingGov_\",\"type\":\"address\"}],\"name\":\"_setPendingGov\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"rebaser_\",\"type\":\"address\"}],\"name\":\"_setRebaser\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner_\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"}],\"name\":\"allowance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"approve\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"who\",\"type\":\"address\"}],\"name\":\"balanceOf\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"who\",\"type\":\"address\"}],\"name\":\"balanceOfUnderlying\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint32\",\"name\":\"\",\"type\":\"uint32\"}],\"name\":\"checkpoints\",\"outputs\":[{\"internalType\":\"uint32\",\"name\":\"fromBlock\",\"type\":\"uint32\"},{\"internalType\":\"uint256\",\"name\":\"votes\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"decimals\",\"outputs\":[{\"internalType\":\"uint8\",\"name\":\"\",\"type\":\"uint8\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"subtractedValue\",\"type\":\"uint256\"}],\"name\":\"decreaseAllowance\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"delegatee\",\"type\":\"address\"}],\"name\":\"delegate\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"delegatee\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"nonce\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"expiry\",\"type\":\"uint256\"},{\"internalType\":\"uint8\",\"name\":\"v\",\"type\":\"uint8\"},{\"internalType\":\"bytes32\",\"name\":\"r\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"s\",\"type\":\"bytes32\"}],\"name\":\"delegateBySig\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"delegator\",\"type\":\"address\"}],\"name\":\"delegates\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getCurrentVotes\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"getPriorVotes\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"gov\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"incentivizer\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"addedValue\",\"type\":\"uint256\"}],\"name\":\"increaseAllowance\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"initSupply\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"internalDecimals\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"maxScalingFactor\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"mint\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"nonces\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"numCheckpoints\",\"outputs\":[{\"internalType\":\"uint32\",\"name\":\"\",\"type\":\"uint32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"pendingGov\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"epoch\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"indexDelta\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"positive\",\"type\":\"bool\"}],\"name\":\"rebase\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"rebaser\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"symbol\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"totalSupply\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"transfer\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"transferFrom\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"yamsScalingFactor\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{\"delegate(address)\":{\"params\":{\"delegatee\":\"The address to delegate votes to\"}},\"delegateBySig(address,uint256,uint256,uint8,bytes32,bytes32)\":{\"params\":{\"delegatee\":\"The address to delegate votes to\",\"expiry\":\"The time at which to expire the signature\",\"nonce\":\"The contract state required to match the signature\",\"r\":\"Half of the ECDSA signature pair\",\"s\":\"Half of the ECDSA signature pair\",\"v\":\"The recovery byte of the signature\"}},\"delegates(address)\":{\"params\":{\"delegator\":\"The address to get delegatee for\"}},\"getCurrentVotes(address)\":{\"params\":{\"account\":\"The address to get votes balance\"},\"return\":\"The number of current votes for `account`\"},\"getPriorVotes(address,uint256)\":{\"details\":\"Block number must be a finalized block or else this function will revert to prevent misinformation.\",\"params\":{\"account\":\"The address of the account to check\",\"blockNumber\":\"The block number to get the vote balance at\"},\"return\":\"The number of votes the account had as of the given block\"}}},\"userdoc\":{\"methods\":{\"delegate(address)\":{\"notice\":\"Delegate votes from `msg.sender` to `delegatee`\"},\"delegateBySig(address,uint256,uint256,uint8,bytes32,bytes32)\":{\"notice\":\"Delegates votes from signatory to `delegatee`\"},\"delegates(address)\":{\"notice\":\"Delegate votes from `msg.sender` to `delegatee`\"},\"getCurrentVotes(address)\":{\"notice\":\"Gets the current votes balance for `account`\"},\"getPriorVotes(address,uint256)\":{\"notice\":\"Determine the prior number of votes for an account as of a block number\"}}}},\"settings\":{\"compilationTarget\":{\"/Users/brockelmore/YAM/contracts/token/YAMGovernance.sol\":\"YAMGovernanceToken\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"optimizer\":{\"enabled\":true,\"runs\":50000},\"remappings\":[]},\"sources\":{\"/Users/brockelmore/YAM/contracts/lib/SafeMath.sol\":{\"keccak256\":\"0xfb72ae2642cad8f5da1644433dbcc12681f8064335dff144623f0514dc7922c6\",\"urls\":[\"bzz-raw://c174cb41d37d772336abf35cfef58015621ff96b834819531a65a67594aec5c4\",\"dweb:/ipfs/Qmdw3SxV2kaqdCoY4NBBXYcbX6baWbvGjJ6XP8jaH9pvyu\"]},\"/Users/brockelmore/YAM/contracts/token/YAMGovernance.sol\":{\"keccak256\":\"0x67e9ae862e4290b82391bf8cb8c6aa259a05a3fce1b1f8ac09b061bda8ae03c3\",\"urls\":[\"bzz-raw://25b1389c5d07dd27a5641449298ac770a0e922f4c307d252c52e4cecaba6db33\",\"dweb:/ipfs/QmexXYaUfbEbH8RTNDEozwdX7g3TTdg4STHR8dd6M5nnAy\"]},\"/Users/brockelmore/YAM/contracts/token/YAMGovernanceStorage.sol\":{\"keccak256\":\"0x337e9c44bf683ce14c7299e6a59db83f4b1468d75bead7b716cb563ed3cabc39\",\"urls\":[\"bzz-raw://36c77e72c9aad315991ef2eebb85b8ff69bc27a1628468228b940d02f07b623f\",\"dweb:/ipfs/QmcnuBzdk2qhB49NrwMZwhhGqNKRs7cjALqzcnJwTE9ECx\"]},\"/Users/brockelmore/YAM/contracts/token/YAMTokenInterface.sol\":{\"keccak256\":\"0x369a00875ad1c5db96f69e0dcaea1f82fa69ba0dd480a777c684cfd95ceb642a\",\"urls\":[\"bzz-raw://2af9187c58bafcefd7a27a10f978282332c7068496068b31969d697c75f7319d\",\"dweb:/ipfs/QmPzazkd6wE194CrwtHDcdv3xjx74TVDirhmwkDHGpoRa8\"]},\"/Users/brockelmore/YAM/contracts/token/YAMTokenStorage.sol\":{\"keccak256\":\"0x8d8dc64204f5c4eea4b9cd278a6695212d55c084924b512b564acb8c7420d6d1\",\"urls\":[\"bzz-raw://408918db261b7431c944e8e521a41c7159e10fa88955781bdb267253250bc504\",\"dweb:/ipfs/QmeHzKxF3LPtf2wxTMPqQCEFqcTTZzK4Sb41giV7te8Sos\"]}},\"version\":1}",
+  "metadata": "{\"compiler\":{\"version\":\"0.5.17+commit.d19bba13\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"Approval\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"delegator\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"fromDelegate\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"toDelegate\",\"type\":\"address\"}],\"name\":\"DelegateChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"delegate\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"previousBalance\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newBalance\",\"type\":\"uint256\"}],\"name\":\"DelegateVotesChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"Mint\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"oldGov\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newGov\",\"type\":\"address\"}],\"name\":\"NewGov\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"oldIncentivizer\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newIncentivizer\",\"type\":\"address\"}],\"name\":\"NewIncentivizer\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"oldPendingGov\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newPendingGov\",\"type\":\"address\"}],\"name\":\"NewPendingGov\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"oldRebaser\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newRebaser\",\"type\":\"address\"}],\"name\":\"NewRebaser\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"epoch\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"prevYamsScalingFactor\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newYamsScalingFactor\",\"type\":\"uint256\"}],\"name\":\"Rebase\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"Transfer\",\"type\":\"event\"},{\"constant\":true,\"inputs\":[],\"name\":\"BASE\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"DELEGATION_TYPEHASH\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"DOMAIN_TYPEHASH\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"_acceptGov\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"incentivizer_\",\"type\":\"address\"}],\"name\":\"_setIncentivizer\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"pendingGov_\",\"type\":\"address\"}],\"name\":\"_setPendingGov\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"rebaser_\",\"type\":\"address\"}],\"name\":\"_setRebaser\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner_\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"}],\"name\":\"allowance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"approve\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"who\",\"type\":\"address\"}],\"name\":\"balanceOf\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"who\",\"type\":\"address\"}],\"name\":\"balanceOfUnderlying\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint32\",\"name\":\"\",\"type\":\"uint32\"}],\"name\":\"checkpoints\",\"outputs\":[{\"internalType\":\"uint32\",\"name\":\"fromBlock\",\"type\":\"uint32\"},{\"internalType\":\"uint256\",\"name\":\"votes\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"decimals\",\"outputs\":[{\"internalType\":\"uint8\",\"name\":\"\",\"type\":\"uint8\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"subtractedValue\",\"type\":\"uint256\"}],\"name\":\"decreaseAllowance\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"delegatee\",\"type\":\"address\"}],\"name\":\"delegate\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"delegatee\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"nonce\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"expiry\",\"type\":\"uint256\"},{\"internalType\":\"uint8\",\"name\":\"v\",\"type\":\"uint8\"},{\"internalType\":\"bytes32\",\"name\":\"r\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"s\",\"type\":\"bytes32\"}],\"name\":\"delegateBySig\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"delegator\",\"type\":\"address\"}],\"name\":\"delegates\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getCurrentVotes\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"getPriorVotes\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"gov\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"incentivizer\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"addedValue\",\"type\":\"uint256\"}],\"name\":\"increaseAllowance\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"initSupply\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"internalDecimals\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"maxScalingFactor\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"mint\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"nonces\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"numCheckpoints\",\"outputs\":[{\"internalType\":\"uint32\",\"name\":\"\",\"type\":\"uint32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"pendingGov\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"epoch\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"indexDelta\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"positive\",\"type\":\"bool\"}],\"name\":\"rebase\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"rebaser\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"symbol\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"totalSupply\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"transfer\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"transferFrom\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"hamsScalingFactor\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{\"delegate(address)\":{\"params\":{\"delegatee\":\"The address to delegate votes to\"}},\"delegateBySig(address,uint256,uint256,uint8,bytes32,bytes32)\":{\"params\":{\"delegatee\":\"The address to delegate votes to\",\"expiry\":\"The time at which to expire the signature\",\"nonce\":\"The contract state required to match the signature\",\"r\":\"Half of the ECDSA signature pair\",\"s\":\"Half of the ECDSA signature pair\",\"v\":\"The recovery byte of the signature\"}},\"delegates(address)\":{\"params\":{\"delegator\":\"The address to get delegatee for\"}},\"getCurrentVotes(address)\":{\"params\":{\"account\":\"The address to get votes balance\"},\"return\":\"The number of current votes for `account`\"},\"getPriorVotes(address,uint256)\":{\"details\":\"Block number must be a finalized block or else this function will revert to prevent misinformation.\",\"params\":{\"account\":\"The address of the account to check\",\"blockNumber\":\"The block number to get the vote balance at\"},\"return\":\"The number of votes the account had as of the given block\"}}},\"userdoc\":{\"methods\":{\"delegate(address)\":{\"notice\":\"Delegate votes from `msg.sender` to `delegatee`\"},\"delegateBySig(address,uint256,uint256,uint8,bytes32,bytes32)\":{\"notice\":\"Delegates votes from signatory to `delegatee`\"},\"delegates(address)\":{\"notice\":\"Delegate votes from `msg.sender` to `delegatee`\"},\"getCurrentVotes(address)\":{\"notice\":\"Gets the current votes balance for `account`\"},\"getPriorVotes(address,uint256)\":{\"notice\":\"Determine the prior number of votes for an account as of a block number\"}}}},\"settings\":{\"compilationTarget\":{\"/Users/brockelmore/HAM/contracts/token/YAMGovernance.sol\":\"YAMGovernanceToken\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"optimizer\":{\"enabled\":true,\"runs\":50000},\"remappings\":[]},\"sources\":{\"/Users/brockelmore/YAM/contracts/lib/SafeMath.sol\":{\"keccak256\":\"0xfb72ae2642cad8f5da1644433dbcc12681f8064335dff144623f0514dc7922c6\",\"urls\":[\"bzz-raw://c174cb41d37d772336abf35cfef58015621ff96b834819531a65a67594aec5c4\",\"dweb:/ipfs/Qmdw3SxV2kaqdCoY4NBBXYcbX6baWbvGjJ6XP8jaH9pvyu\"]},\"/Users/brockelmore/YAM/contracts/token/YAMGovernance.sol\":{\"keccak256\":\"0x67e9ae862e4290b82391bf8cb8c6aa259a05a3fce1b1f8ac09b061bda8ae03c3\",\"urls\":[\"bzz-raw://25b1389c5d07dd27a5641449298ac770a0e922f4c307d252c52e4cecaba6db33\",\"dweb:/ipfs/QmexXYaUfbEbH8RTNDEozwdX7g3TTdg4STHR8dd6M5nnAy\"]},\"/Users/brockelmore/YAM/contracts/token/YAMGovernanceStorage.sol\":{\"keccak256\":\"0x337e9c44bf683ce14c7299e6a59db83f4b1468d75bead7b716cb563ed3cabc39\",\"urls\":[\"bzz-raw://36c77e72c9aad315991ef2eebb85b8ff69bc27a1628468228b940d02f07b623f\",\"dweb:/ipfs/QmcnuBzdk2qhB49NrwMZwhhGqNKRs7cjALqzcnJwTE9ECx\"]},\"/Users/brockelmore/YAM/contracts/token/YAMTokenInterface.sol\":{\"keccak256\":\"0x369a00875ad1c5db96f69e0dcaea1f82fa69ba0dd480a777c684cfd95ceb642a\",\"urls\":[\"bzz-raw://2af9187c58bafcefd7a27a10f978282332c7068496068b31969d697c75f7319d\",\"dweb:/ipfs/QmPzazkd6wE194CrwtHDcdv3xjx74TVDirhmwkDHGpoRa8\"]},\"/Users/brockelmore/YAM/contracts/token/YAMTokenStorage.sol\":{\"keccak256\":\"0x8d8dc64204f5c4eea4b9cd278a6695212d55c084924b512b564acb8c7420d6d1\",\"urls\":[\"bzz-raw://408918db261b7431c944e8e521a41c7159e10fa88955781bdb267253250bc504\",\"dweb:/ipfs/QmeHzKxF3LPtf2wxTMPqQCEFqcTTZzK4Sb41giV7te8Sos\"]}},\"version\":1}",
   "bytecode": "0x",
   "deployedBytecode": "0x",
   "sourceMap": "",
   "deployedSourceMap": "",
-  "source": "pragma solidity 0.5.17;\npragma experimental ABIEncoderV2;\n\nimport \"./YAMGovernanceStorage.sol\";\nimport \"./YAMTokenInterface.sol\";\n\ncontract YAMGovernanceToken is YAMTokenInterface {\n\n      /// @notice An event thats emitted when an account changes its delegate\n    event DelegateChanged(address indexed delegator, address indexed fromDelegate, address indexed toDelegate);\n\n    /// @notice An event thats emitted when a delegate account's vote balance changes\n    event DelegateVotesChanged(address indexed delegate, uint previousBalance, uint newBalance);\n\n    /**\n     * @notice Delegate votes from `msg.sender` to `delegatee`\n     * @param delegator The address to get delegatee for\n     */\n    function delegates(address delegator)\n        external\n        view\n        returns (address)\n    {\n        return _delegates[delegator];\n    }\n\n   /**\n    * @notice Delegate votes from `msg.sender` to `delegatee`\n    * @param delegatee The address to delegate votes to\n    */\n    function delegate(address delegatee) external {\n        return _delegate(msg.sender, delegatee);\n    }\n\n    /**\n     * @notice Delegates votes from signatory to `delegatee`\n     * @param delegatee The address to delegate votes to\n     * @param nonce The contract state required to match the signature\n     * @param expiry The time at which to expire the signature\n     * @param v The recovery byte of the signature\n     * @param r Half of the ECDSA signature pair\n     * @param s Half of the ECDSA signature pair\n     */\n    function delegateBySig(\n        address delegatee,\n        uint nonce,\n        uint expiry,\n        uint8 v,\n        bytes32 r,\n        bytes32 s\n    )\n        external\n    {\n        bytes32 domainSeparator = keccak256(\n            abi.encode(\n                DOMAIN_TYPEHASH,\n                keccak256(bytes(name)),\n                getChainId(),\n                address(this)\n            )\n        );\n\n        bytes32 structHash = keccak256(\n            abi.encode(\n                DELEGATION_TYPEHASH,\n                delegatee,\n                nonce,\n                expiry\n            )\n        );\n\n        bytes32 digest = keccak256(\n            abi.encodePacked(\n                \"\\x19\\x01\",\n                domainSeparator,\n                structHash\n            )\n        );\n\n        address signatory = ecrecover(digest, v, r, s);\n        require(signatory != address(0), \"YAM::delegateBySig: invalid signature\");\n        require(nonce == nonces[signatory]++, \"YAM::delegateBySig: invalid nonce\");\n        require(now <= expiry, \"YAM::delegateBySig: signature expired\");\n        return _delegate(signatory, delegatee);\n    }\n\n    /**\n     * @notice Gets the current votes balance for `account`\n     * @param account The address to get votes balance\n     * @return The number of current votes for `account`\n     */\n    function getCurrentVotes(address account)\n        external\n        view\n        returns (uint256)\n    {\n        uint32 nCheckpoints = numCheckpoints[account];\n        return nCheckpoints > 0 ? checkpoints[account][nCheckpoints - 1].votes : 0;\n    }\n\n    /**\n     * @notice Determine the prior number of votes for an account as of a block number\n     * @dev Block number must be a finalized block or else this function will revert to prevent misinformation.\n     * @param account The address of the account to check\n     * @param blockNumber The block number to get the vote balance at\n     * @return The number of votes the account had as of the given block\n     */\n    function getPriorVotes(address account, uint blockNumber)\n        external\n        view\n        returns (uint256)\n    {\n        require(blockNumber < block.number, \"YAM::getPriorVotes: not yet determined\");\n\n        uint32 nCheckpoints = numCheckpoints[account];\n        if (nCheckpoints == 0) {\n            return 0;\n        }\n\n        // First check most recent balance\n        if (checkpoints[account][nCheckpoints - 1].fromBlock <= blockNumber) {\n            return checkpoints[account][nCheckpoints - 1].votes;\n        }\n\n        // Next check implicit zero balance\n        if (checkpoints[account][0].fromBlock > blockNumber) {\n            return 0;\n        }\n\n        uint32 lower = 0;\n        uint32 upper = nCheckpoints - 1;\n        while (upper > lower) {\n            uint32 center = upper - (upper - lower) / 2; // ceil, avoiding overflow\n            Checkpoint memory cp = checkpoints[account][center];\n            if (cp.fromBlock == blockNumber) {\n                return cp.votes;\n            } else if (cp.fromBlock < blockNumber) {\n                lower = center;\n            } else {\n                upper = center - 1;\n            }\n        }\n        return checkpoints[account][lower].votes;\n    }\n\n    function _delegate(address delegator, address delegatee)\n        internal\n    {\n        address currentDelegate = _delegates[delegator];\n        uint256 delegatorBalance = _yamBalances[delegator]; // balance of underlying YAMs (not scaled);\n        _delegates[delegator] = delegatee;\n\n        emit DelegateChanged(delegator, currentDelegate, delegatee);\n\n        _moveDelegates(currentDelegate, delegatee, delegatorBalance);\n    }\n\n    function _moveDelegates(address srcRep, address dstRep, uint256 amount) internal {\n        if (srcRep != dstRep && amount > 0) {\n            if (srcRep != address(0)) {\n                // decrease old representative\n                uint32 srcRepNum = numCheckpoints[srcRep];\n                uint256 srcRepOld = srcRepNum > 0 ? checkpoints[srcRep][srcRepNum - 1].votes : 0;\n                uint256 srcRepNew = srcRepOld.sub(amount);\n                _writeCheckpoint(srcRep, srcRepNum, srcRepOld, srcRepNew);\n            }\n\n            if (dstRep != address(0)) {\n                // increase new representative\n                uint32 dstRepNum = numCheckpoints[dstRep];\n                uint256 dstRepOld = dstRepNum > 0 ? checkpoints[dstRep][dstRepNum - 1].votes : 0;\n                uint256 dstRepNew = dstRepOld.add(amount);\n                _writeCheckpoint(dstRep, dstRepNum, dstRepOld, dstRepNew);\n            }\n        }\n    }\n\n    function _writeCheckpoint(\n        address delegatee,\n        uint32 nCheckpoints,\n        uint256 oldVotes,\n        uint256 newVotes\n    )\n        internal\n    {\n        uint32 blockNumber = safe32(block.number, \"YAM::_writeCheckpoint: block number exceeds 32 bits\");\n\n        if (nCheckpoints > 0 && checkpoints[delegatee][nCheckpoints - 1].fromBlock == blockNumber) {\n            checkpoints[delegatee][nCheckpoints - 1].votes = newVotes;\n        } else {\n            checkpoints[delegatee][nCheckpoints] = Checkpoint(blockNumber, newVotes);\n            numCheckpoints[delegatee] = nCheckpoints + 1;\n        }\n\n        emit DelegateVotesChanged(delegatee, oldVotes, newVotes);\n    }\n\n    function safe32(uint n, string memory errorMessage) internal pure returns (uint32) {\n        require(n < 2**32, errorMessage);\n        return uint32(n);\n    }\n\n    function getChainId() internal pure returns (uint) {\n        uint256 chainId;\n        assembly { chainId := chainid() }\n        return chainId;\n    }\n}\n",
-  "sourcePath": "/Users/brockelmore/YAM/contracts/token/YAMGovernance.sol",
+  "source": "pragma solidity 0.5.17;\npragma experimental ABIEncoderV2;\n\nimport \"./HAMGovernanceStorage.sol\";\nimport \"./YAMTokenInterface.sol\";\n\ncontract YAMGovernanceToken is YAMTokenInterface {\n\n      /// @notice An event thats emitted when an account changes its delegate\n    event DelegateChanged(address indexed delegator, address indexed fromDelegate, address indexed toDelegate);\n\n    /// @notice An event thats emitted when a delegate account's vote balance changes\n    event DelegateVotesChanged(address indexed delegate, uint previousBalance, uint newBalance);\n\n    /**\n     * @notice Delegate votes from `msg.sender` to `delegatee`\n     * @param delegator The address to get delegatee for\n     */\n    function delegates(address delegator)\n        external\n        view\n        returns (address)\n    {\n        return _delegates[delegator];\n    }\n\n   /**\n    * @notice Delegate votes from `msg.sender` to `delegatee`\n    * @param delegatee The address to delegate votes to\n    */\n    function delegate(address delegatee) external {\n        return _delegate(msg.sender, delegatee);\n    }\n\n    /**\n     * @notice Delegates votes from signatory to `delegatee`\n     * @param delegatee The address to delegate votes to\n     * @param nonce The contract state required to match the signature\n     * @param expiry The time at which to expire the signature\n     * @param v The recovery byte of the signature\n     * @param r Half of the ECDSA signature pair\n     * @param s Half of the ECDSA signature pair\n     */\n    function delegateBySig(\n        address delegatee,\n        uint nonce,\n        uint expiry,\n        uint8 v,\n        bytes32 r,\n        bytes32 s\n    )\n        external\n    {\n        bytes32 domainSeparator = keccak256(\n            abi.encode(\n                DOMAIN_TYPEHASH,\n                keccak256(bytes(name)),\n                getChainId(),\n                address(this)\n            )\n        );\n\n        bytes32 structHash = keccak256(\n            abi.encode(\n                DELEGATION_TYPEHASH,\n                delegatee,\n                nonce,\n                expiry\n            )\n        );\n\n        bytes32 digest = keccak256(\n            abi.encodePacked(\n                \"\\x19\\x01\",\n                domainSeparator,\n                structHash\n            )\n        );\n\n        address signatory = ecrecover(digest, v, r, s);\n        require(signatory != address(0), \"YAM::delegateBySig: invalid signature\");\n        require(nonce == nonces[signatory]++, \"YAM::delegateBySig: invalid nonce\");\n        require(now <= expiry, \"YAM::delegateBySig: signature expired\");\n        return _delegate(signatory, delegatee);\n    }\n\n    /**\n     * @notice Gets the current votes balance for `account`\n     * @param account The address to get votes balance\n     * @return The number of current votes for `account`\n     */\n    function getCurrentVotes(address account)\n        external\n        view\n        returns (uint256)\n    {\n        uint32 nCheckpoints = numCheckpoints[account];\n        return nCheckpoints > 0 ? checkpoints[account][nCheckpoints - 1].votes : 0;\n    }\n\n    /**\n     * @notice Determine the prior number of votes for an account as of a block number\n     * @dev Block number must be a finalized block or else this function will revert to prevent misinformation.\n     * @param account The address of the account to check\n     * @param blockNumber The block number to get the vote balance at\n     * @return The number of votes the account had as of the given block\n     */\n    function getPriorVotes(address account, uint blockNumber)\n        external\n        view\n        returns (uint256)\n    {\n        require(blockNumber < block.number, \"YAM::getPriorVotes: not yet determined\");\n\n        uint32 nCheckpoints = numCheckpoints[account];\n        if (nCheckpoints == 0) {\n            return 0;\n        }\n\n        // First check most recent balance\n        if (checkpoints[account][nCheckpoints - 1].fromBlock <= blockNumber) {\n            return checkpoints[account][nCheckpoints - 1].votes;\n        }\n\n        // Next check implicit zero balance\n        if (checkpoints[account][0].fromBlock > blockNumber) {\n            return 0;\n        }\n\n        uint32 lower = 0;\n        uint32 upper = nCheckpoints - 1;\n        while (upper > lower) {\n            uint32 center = upper - (upper - lower) / 2; // ceil, avoiding overflow\n            Checkpoint memory cp = checkpoints[account][center];\n            if (cp.fromBlock == blockNumber) {\n                return cp.votes;\n            } else if (cp.fromBlock < blockNumber) {\n                lower = center;\n            } else {\n                upper = center - 1;\n            }\n        }\n        return checkpoints[account][lower].votes;\n    }\n\n    function _delegate(address delegator, address delegatee)\n        internal\n    {\n        address currentDelegate = _delegates[delegator];\n        uint256 delegatorBalance = _hamBalances[delegator]; // balance of underlying YAMs (not scaled);\n        _delegates[delegator] = delegatee;\n\n        emit DelegateChanged(delegator, currentDelegate, delegatee);\n\n        _moveDelegates(currentDelegate, delegatee, delegatorBalance);\n    }\n\n    function _moveDelegates(address srcRep, address dstRep, uint256 amount) internal {\n        if (srcRep != dstRep && amount > 0) {\n            if (srcRep != address(0)) {\n                // decrease old representative\n                uint32 srcRepNum = numCheckpoints[srcRep];\n                uint256 srcRepOld = srcRepNum > 0 ? checkpoints[srcRep][srcRepNum - 1].votes : 0;\n                uint256 srcRepNew = srcRepOld.sub(amount);\n                _writeCheckpoint(srcRep, srcRepNum, srcRepOld, srcRepNew);\n            }\n\n            if (dstRep != address(0)) {\n                // increase new representative\n                uint32 dstRepNum = numCheckpoints[dstRep];\n                uint256 dstRepOld = dstRepNum > 0 ? checkpoints[dstRep][dstRepNum - 1].votes : 0;\n                uint256 dstRepNew = dstRepOld.add(amount);\n                _writeCheckpoint(dstRep, dstRepNum, dstRepOld, dstRepNew);\n            }\n        }\n    }\n\n    function _writeCheckpoint(\n        address delegatee,\n        uint32 nCheckpoints,\n        uint256 oldVotes,\n        uint256 newVotes\n    )\n        internal\n    {\n        uint32 blockNumber = safe32(block.number, \"YAM::_writeCheckpoint: block number exceeds 32 bits\");\n\n        if (nCheckpoints > 0 && checkpoints[delegatee][nCheckpoints - 1].fromBlock == blockNumber) {\n            checkpoints[delegatee][nCheckpoints - 1].votes = newVotes;\n        } else {\n            checkpoints[delegatee][nCheckpoints] = Checkpoint(blockNumber, newVotes);\n            numCheckpoints[delegatee] = nCheckpoints + 1;\n        }\n\n        emit DelegateVotesChanged(delegatee, oldVotes, newVotes);\n    }\n\n    function safe32(uint n, string memory errorMessage) internal pure returns (uint32) {\n        require(n < 2**32, errorMessage);\n        return uint32(n);\n    }\n\n    function getChainId() internal pure returns (uint) {\n        uint256 chainId;\n        assembly { chainId := chainid() }\n        return chainId;\n    }\n}\n",
+  "sourcePath": "/Users/brockelmore/HAM/contracts/token/YAMGovernance.sol",
   "ast": {
-    "absolutePath": "/Users/brockelmore/YAM/contracts/token/YAMGovernance.sol",
+    "absolutePath": "/Users/brockelmore/HAM/contracts/token/YAMGovernance.sol",
     "exportedSymbols": {
-      "YAMGovernanceToken": [
+      "HAMGovernanceToken": [
         18930
       ]
     },
@@ -994,8 +994,8 @@
         "src": "24:33:25"
       },
       {
-        "absolutePath": "/Users/brockelmore/YAM/contracts/token/YAMGovernanceStorage.sol",
-        "file": "./YAMGovernanceStorage.sol",
+        "absolutePath": "/Users/brockelmore/HAM/contracts/token/YAMGovernanceStorage.sol",
+        "file": "./HAMGovernanceStorage.sol",
         "id": 18378,
         "nodeType": "ImportDirective",
         "scope": 18931,
@@ -1005,8 +1005,8 @@
         "unitAlias": ""
       },
       {
-        "absolutePath": "/Users/brockelmore/YAM/contracts/token/YAMTokenInterface.sol",
-        "file": "./YAMTokenInterface.sol",
+        "absolutePath": "/Users/brockelmore/HAM/contracts/token/YAMTokenInterface.sol",
+        "file": "./HAMTokenInterface.sol",
         "id": 18379,
         "nodeType": "ImportDirective",
         "scope": 18931,
@@ -1022,13 +1022,13 @@
             "baseName": {
               "contractScope": null,
               "id": 18380,
-              "name": "YAMTokenInterface",
+              "name": "HAMTokenInterface",
               "nodeType": "UserDefinedTypeName",
               "referencedDeclaration": 19202,
               "src": "162:17:25",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_YAMTokenInterface_$19202",
-                "typeString": "contract YAMTokenInterface"
+                "typeIdentifier": "t_contract$_HAMTokenInterface_$19202",
+                "typeString": "contract HAMTokenInterface"
               }
             },
             "id": 18381,
@@ -1051,7 +1051,7 @@
           18967,
           19251
         ],
-        "name": "YAMGovernanceToken",
+        "name": "HAMGovernanceToken",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
@@ -1721,16 +1721,16 @@
                                 "referencedDeclaration": 19336,
                                 "src": "1875:4:25",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_contract$_YAMGovernanceToken_$18930",
-                                  "typeString": "contract YAMGovernanceToken"
+                                  "typeIdentifier": "t_contract$_HAMGovernanceToken_$18930",
+                                  "typeString": "contract HAMGovernanceToken"
                                 }
                               }
                             ],
                             "expression": {
                               "argumentTypes": [
                                 {
-                                  "typeIdentifier": "t_contract$_YAMGovernanceToken_$18930",
-                                  "typeString": "contract YAMGovernanceToken"
+                                  "typeIdentifier": "t_contract$_HAMGovernanceToken_$18930",
+                                  "typeString": "contract HAMGovernanceToken"
                                 }
                               ],
                               "id": 18449,
@@ -2464,9 +2464,9 @@
                         "subdenomination": null,
                         "typeDescriptions": {
                           "typeIdentifier": "t_stringliteral_184babfb6466f1dab112d4792e91ed0d0fe450a5c48fc35742f2690afebf7b67",
-                          "typeString": "literal_string \"YAM::delegateBySig: invalid signature\""
+                          "typeString": "literal_string \"HAM::delegateBySig: invalid signature\""
                         },
-                        "value": "YAM::delegateBySig: invalid signature"
+                        "value": "HAM::delegateBySig: invalid signature"
                       }
                     ],
                     "expression": {
@@ -2477,7 +2477,7 @@
                         },
                         {
                           "typeIdentifier": "t_stringliteral_184babfb6466f1dab112d4792e91ed0d0fe450a5c48fc35742f2690afebf7b67",
-                          "typeString": "literal_string \"YAM::delegateBySig: invalid signature\""
+                          "typeString": "literal_string \"HAM::delegateBySig: invalid signature\""
                         }
                       ],
                       "id": 18487,
@@ -2618,9 +2618,9 @@
                         "subdenomination": null,
                         "typeDescriptions": {
                           "typeIdentifier": "t_stringliteral_0fc6782a8889e626c37744401e2fa3617fa4e15e94083efa2f77057db9cf34e6",
-                          "typeString": "literal_string \"YAM::delegateBySig: invalid nonce\""
+                          "typeString": "literal_string \"HAM::delegateBySig: invalid nonce\""
                         },
-                        "value": "YAM::delegateBySig: invalid nonce"
+                        "value": "HAM::delegateBySig: invalid nonce"
                       }
                     ],
                     "expression": {
@@ -2631,7 +2631,7 @@
                         },
                         {
                           "typeIdentifier": "t_stringliteral_0fc6782a8889e626c37744401e2fa3617fa4e15e94083efa2f77057db9cf34e6",
-                          "typeString": "literal_string \"YAM::delegateBySig: invalid nonce\""
+                          "typeString": "literal_string \"HAM::delegateBySig: invalid nonce\""
                         }
                       ],
                       "id": 18496,
@@ -2729,9 +2729,9 @@
                         "subdenomination": null,
                         "typeDescriptions": {
                           "typeIdentifier": "t_stringliteral_93fb057ac97627637ebb8a8e6875c18ebe19dea7b041453dfbe91101ba3b9a43",
-                          "typeString": "literal_string \"YAM::delegateBySig: signature expired\""
+                          "typeString": "literal_string \"HAM::delegateBySig: signature expired\""
                         },
-                        "value": "YAM::delegateBySig: signature expired"
+                        "value": "HAM::delegateBySig: signature expired"
                       }
                     ],
                     "expression": {
@@ -2742,7 +2742,7 @@
                         },
                         {
                           "typeIdentifier": "t_stringliteral_93fb057ac97627637ebb8a8e6875c18ebe19dea7b041453dfbe91101ba3b9a43",
-                          "typeString": "literal_string \"YAM::delegateBySig: signature expired\""
+                          "typeString": "literal_string \"HAM::delegateBySig: signature expired\""
                         }
                       ],
                       "id": 18506,
@@ -3210,7 +3210,7 @@
                             "src": "3023:11:25",
                             "typeDescriptions": {
                               "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_uint32_$_t_struct$_Checkpoint_$18942_storage_$_$",
-                              "typeString": "mapping(address => mapping(uint32 => struct YAMGovernanceStorage.Checkpoint storage ref))"
+                              "typeString": "mapping(address => mapping(uint32 => struct HAMGovernanceStorage.Checkpoint storage ref))"
                             }
                           },
                           "id": 18537,
@@ -3235,7 +3235,7 @@
                           "src": "3023:20:25",
                           "typeDescriptions": {
                             "typeIdentifier": "t_mapping$_t_uint32_$_t_struct$_Checkpoint_$18942_storage_$",
-                            "typeString": "mapping(uint32 => struct YAMGovernanceStorage.Checkpoint storage ref)"
+                            "typeString": "mapping(uint32 => struct HAMGovernanceStorage.Checkpoint storage ref)"
                           }
                         },
                         "id": 18541,
@@ -3297,7 +3297,7 @@
                         "src": "3023:38:25",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Checkpoint_$18942_storage",
-                          "typeString": "struct YAMGovernanceStorage.Checkpoint storage ref"
+                          "typeString": "struct HAMGovernanceStorage.Checkpoint storage ref"
                         }
                       },
                       "id": 18542,
@@ -3491,9 +3491,9 @@
                         "subdenomination": null,
                         "typeDescriptions": {
                           "typeIdentifier": "t_stringliteral_38d421f3d842114e4be7c1f8fe05e144cb3bff2df3d8a293f7ee1e74e3a8cb57",
-                          "typeString": "literal_string \"YAM::getPriorVotes: not yet determined\""
+                          "typeString": "literal_string \"HAM::getPriorVotes: not yet determined\""
                         },
-                        "value": "YAM::getPriorVotes: not yet determined"
+                        "value": "HAM::getPriorVotes: not yet determined"
                       }
                     ],
                     "expression": {
@@ -3504,7 +3504,7 @@
                         },
                         {
                           "typeIdentifier": "t_stringliteral_38d421f3d842114e4be7c1f8fe05e144cb3bff2df3d8a293f7ee1e74e3a8cb57",
-                          "typeString": "literal_string \"YAM::getPriorVotes: not yet determined\""
+                          "typeString": "literal_string \"HAM::getPriorVotes: not yet determined\""
                         }
                       ],
                       "id": 18556,
@@ -3730,7 +3730,7 @@
                             "src": "3884:11:25",
                             "typeDescriptions": {
                               "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_uint32_$_t_struct$_Checkpoint_$18942_storage_$_$",
-                              "typeString": "mapping(address => mapping(uint32 => struct YAMGovernanceStorage.Checkpoint storage ref))"
+                              "typeString": "mapping(address => mapping(uint32 => struct HAMGovernanceStorage.Checkpoint storage ref))"
                             }
                           },
                           "id": 18579,
@@ -3755,7 +3755,7 @@
                           "src": "3884:20:25",
                           "typeDescriptions": {
                             "typeIdentifier": "t_mapping$_t_uint32_$_t_struct$_Checkpoint_$18942_storage_$",
-                            "typeString": "mapping(uint32 => struct YAMGovernanceStorage.Checkpoint storage ref)"
+                            "typeString": "mapping(uint32 => struct HAMGovernanceStorage.Checkpoint storage ref)"
                           }
                         },
                         "id": 18583,
@@ -3817,7 +3817,7 @@
                         "src": "3884:38:25",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Checkpoint_$18942_storage",
-                          "typeString": "struct YAMGovernanceStorage.Checkpoint storage ref"
+                          "typeString": "struct HAMGovernanceStorage.Checkpoint storage ref"
                         }
                       },
                       "id": 18584,
@@ -3881,7 +3881,7 @@
                                 "src": "3970:11:25",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_uint32_$_t_struct$_Checkpoint_$18942_storage_$_$",
-                                  "typeString": "mapping(address => mapping(uint32 => struct YAMGovernanceStorage.Checkpoint storage ref))"
+                                  "typeString": "mapping(address => mapping(uint32 => struct HAMGovernanceStorage.Checkpoint storage ref))"
                                 }
                               },
                               "id": 18589,
@@ -3906,7 +3906,7 @@
                               "src": "3970:20:25",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_mapping$_t_uint32_$_t_struct$_Checkpoint_$18942_storage_$",
-                                "typeString": "mapping(uint32 => struct YAMGovernanceStorage.Checkpoint storage ref)"
+                                "typeString": "mapping(uint32 => struct HAMGovernanceStorage.Checkpoint storage ref)"
                               }
                             },
                             "id": 18593,
@@ -3968,7 +3968,7 @@
                             "src": "3970:38:25",
                             "typeDescriptions": {
                               "typeIdentifier": "t_struct$_Checkpoint_$18942_storage",
-                              "typeString": "struct YAMGovernanceStorage.Checkpoint storage ref"
+                              "typeString": "struct HAMGovernanceStorage.Checkpoint storage ref"
                             }
                           },
                           "id": 18594,
@@ -4021,7 +4021,7 @@
                             "src": "4083:11:25",
                             "typeDescriptions": {
                               "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_uint32_$_t_struct$_Checkpoint_$18942_storage_$_$",
-                              "typeString": "mapping(address => mapping(uint32 => struct YAMGovernanceStorage.Checkpoint storage ref))"
+                              "typeString": "mapping(address => mapping(uint32 => struct HAMGovernanceStorage.Checkpoint storage ref))"
                             }
                           },
                           "id": 18600,
@@ -4046,7 +4046,7 @@
                           "src": "4083:20:25",
                           "typeDescriptions": {
                             "typeIdentifier": "t_mapping$_t_uint32_$_t_struct$_Checkpoint_$18942_storage_$",
-                            "typeString": "mapping(uint32 => struct YAMGovernanceStorage.Checkpoint storage ref)"
+                            "typeString": "mapping(uint32 => struct HAMGovernanceStorage.Checkpoint storage ref)"
                           }
                         },
                         "id": 18602,
@@ -4076,7 +4076,7 @@
                         "src": "4083:23:25",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Checkpoint_$18942_storage",
-                          "typeString": "struct YAMGovernanceStorage.Checkpoint storage ref"
+                          "typeString": "struct HAMGovernanceStorage.Checkpoint storage ref"
                         }
                       },
                       "id": 18603,
@@ -4479,7 +4479,7 @@
                             "storageLocation": "memory",
                             "typeDescriptions": {
                               "typeIdentifier": "t_struct$_Checkpoint_$18942_memory_ptr",
-                              "typeString": "struct YAMGovernanceStorage.Checkpoint"
+                              "typeString": "struct HAMGovernanceStorage.Checkpoint"
                             },
                             "typeName": {
                               "contractScope": null,
@@ -4490,7 +4490,7 @@
                               "src": "4362:10:25",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_struct$_Checkpoint_$18942_storage_ptr",
-                                "typeString": "struct YAMGovernanceStorage.Checkpoint"
+                                "typeString": "struct HAMGovernanceStorage.Checkpoint"
                               }
                             },
                             "value": null,
@@ -4512,7 +4512,7 @@
                               "src": "4385:11:25",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_uint32_$_t_struct$_Checkpoint_$18942_storage_$_$",
-                                "typeString": "mapping(address => mapping(uint32 => struct YAMGovernanceStorage.Checkpoint storage ref))"
+                                "typeString": "mapping(address => mapping(uint32 => struct HAMGovernanceStorage.Checkpoint storage ref))"
                               }
                             },
                             "id": 18638,
@@ -4537,7 +4537,7 @@
                             "src": "4385:20:25",
                             "typeDescriptions": {
                               "typeIdentifier": "t_mapping$_t_uint32_$_t_struct$_Checkpoint_$18942_storage_$",
-                              "typeString": "mapping(uint32 => struct YAMGovernanceStorage.Checkpoint storage ref)"
+                              "typeString": "mapping(uint32 => struct HAMGovernanceStorage.Checkpoint storage ref)"
                             }
                           },
                           "id": 18640,
@@ -4562,7 +4562,7 @@
                           "src": "4385:28:25",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Checkpoint_$18942_storage",
-                            "typeString": "struct YAMGovernanceStorage.Checkpoint storage ref"
+                            "typeString": "struct HAMGovernanceStorage.Checkpoint storage ref"
                           }
                         },
                         "nodeType": "VariableDeclarationStatement",
@@ -4592,7 +4592,7 @@
                               "src": "4431:2:25",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_struct$_Checkpoint_$18942_memory_ptr",
-                                "typeString": "struct YAMGovernanceStorage.Checkpoint memory"
+                                "typeString": "struct HAMGovernanceStorage.Checkpoint memory"
                               }
                             },
                             "id": 18643,
@@ -4654,7 +4654,7 @@
                                 "src": "4518:2:25",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_struct$_Checkpoint_$18942_memory_ptr",
-                                  "typeString": "struct YAMGovernanceStorage.Checkpoint memory"
+                                  "typeString": "struct HAMGovernanceStorage.Checkpoint memory"
                                 }
                               },
                               "id": 18651,
@@ -4860,7 +4860,7 @@
                                   "src": "4485:2:25",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_struct$_Checkpoint_$18942_memory_ptr",
-                                    "typeString": "struct YAMGovernanceStorage.Checkpoint memory"
+                                    "typeString": "struct HAMGovernanceStorage.Checkpoint memory"
                                   }
                                 },
                                 "id": 18647,
@@ -4953,7 +4953,7 @@
                           "src": "4676:11:25",
                           "typeDescriptions": {
                             "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_uint32_$_t_struct$_Checkpoint_$18942_storage_$_$",
-                            "typeString": "mapping(address => mapping(uint32 => struct YAMGovernanceStorage.Checkpoint storage ref))"
+                            "typeString": "mapping(address => mapping(uint32 => struct HAMGovernanceStorage.Checkpoint storage ref))"
                           }
                         },
                         "id": 18672,
@@ -4978,7 +4978,7 @@
                         "src": "4676:20:25",
                         "typeDescriptions": {
                           "typeIdentifier": "t_mapping$_t_uint32_$_t_struct$_Checkpoint_$18942_storage_$",
-                          "typeString": "mapping(uint32 => struct YAMGovernanceStorage.Checkpoint storage ref)"
+                          "typeString": "mapping(uint32 => struct HAMGovernanceStorage.Checkpoint storage ref)"
                         }
                       },
                       "id": 18674,
@@ -5003,7 +5003,7 @@
                       "src": "4676:27:25",
                       "typeDescriptions": {
                         "typeIdentifier": "t_struct$_Checkpoint_$18942_storage",
-                        "typeString": "struct YAMGovernanceStorage.Checkpoint storage ref"
+                        "typeString": "struct HAMGovernanceStorage.Checkpoint storage ref"
                       }
                     },
                     "id": 18675,
@@ -5254,7 +5254,7 @@
                     "baseExpression": {
                       "argumentTypes": null,
                       "id": 18693,
-                      "name": "_yamBalances",
+                      "name": "_hamBalances",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
                       "referencedDeclaration": 19242,
@@ -6055,7 +6055,7 @@
                                         "src": "5485:11:25",
                                         "typeDescriptions": {
                                           "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_uint32_$_t_struct$_Checkpoint_$18942_storage_$_$",
-                                          "typeString": "mapping(address => mapping(uint32 => struct YAMGovernanceStorage.Checkpoint storage ref))"
+                                          "typeString": "mapping(address => mapping(uint32 => struct HAMGovernanceStorage.Checkpoint storage ref))"
                                         }
                                       },
                                       "id": 18750,
@@ -6080,7 +6080,7 @@
                                       "src": "5485:19:25",
                                       "typeDescriptions": {
                                         "typeIdentifier": "t_mapping$_t_uint32_$_t_struct$_Checkpoint_$18942_storage_$",
-                                        "typeString": "mapping(uint32 => struct YAMGovernanceStorage.Checkpoint storage ref)"
+                                        "typeString": "mapping(uint32 => struct HAMGovernanceStorage.Checkpoint storage ref)"
                                       }
                                     },
                                     "id": 18754,
@@ -6142,7 +6142,7 @@
                                     "src": "5485:34:25",
                                     "typeDescriptions": {
                                       "typeIdentifier": "t_struct$_Checkpoint_$18942_storage",
-                                      "typeString": "struct YAMGovernanceStorage.Checkpoint storage ref"
+                                      "typeString": "struct HAMGovernanceStorage.Checkpoint storage ref"
                                     }
                                   },
                                   "id": 18755,
@@ -6676,7 +6676,7 @@
                                         "src": "5878:11:25",
                                         "typeDescriptions": {
                                           "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_uint32_$_t_struct$_Checkpoint_$18942_storage_$_$",
-                                          "typeString": "mapping(address => mapping(uint32 => struct YAMGovernanceStorage.Checkpoint storage ref))"
+                                          "typeString": "mapping(address => mapping(uint32 => struct HAMGovernanceStorage.Checkpoint storage ref))"
                                         }
                                       },
                                       "id": 18793,
@@ -6701,7 +6701,7 @@
                                       "src": "5878:19:25",
                                       "typeDescriptions": {
                                         "typeIdentifier": "t_mapping$_t_uint32_$_t_struct$_Checkpoint_$18942_storage_$",
-                                        "typeString": "mapping(uint32 => struct YAMGovernanceStorage.Checkpoint storage ref)"
+                                        "typeString": "mapping(uint32 => struct HAMGovernanceStorage.Checkpoint storage ref)"
                                       }
                                     },
                                     "id": 18797,
@@ -6763,7 +6763,7 @@
                                     "src": "5878:34:25",
                                     "typeDescriptions": {
                                       "typeIdentifier": "t_struct$_Checkpoint_$18942_storage",
-                                      "typeString": "struct YAMGovernanceStorage.Checkpoint storage ref"
+                                      "typeString": "struct HAMGovernanceStorage.Checkpoint storage ref"
                                     }
                                   },
                                   "id": 18798,
@@ -7193,9 +7193,9 @@
                         "subdenomination": null,
                         "typeDescriptions": {
                           "typeIdentifier": "t_stringliteral_bde83c9110d5d6a9b2c61d0637aeaed894210d16f599828baf99da164d8adddf",
-                          "typeString": "literal_string \"YAM::_writeCheckpoint: block number exceeds 32 bits\""
+                          "typeString": "literal_string \"HAM::_writeCheckpoint: block number exceeds 32 bits\""
                         },
-                        "value": "YAM::_writeCheckpoint: block number exceeds 32 bits"
+                        "value": "HAM::_writeCheckpoint: block number exceeds 32 bits"
                       }
                     ],
                     "expression": {
@@ -7206,7 +7206,7 @@
                         },
                         {
                           "typeIdentifier": "t_stringliteral_bde83c9110d5d6a9b2c61d0637aeaed894210d16f599828baf99da164d8adddf",
-                          "typeString": "literal_string \"YAM::_writeCheckpoint: block number exceeds 32 bits\""
+                          "typeString": "literal_string \"HAM::_writeCheckpoint: block number exceeds 32 bits\""
                         }
                       ],
                       "id": 18834,
@@ -7328,7 +7328,7 @@
                               "src": "6395:11:25",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_uint32_$_t_struct$_Checkpoint_$18942_storage_$_$",
-                                "typeString": "mapping(address => mapping(uint32 => struct YAMGovernanceStorage.Checkpoint storage ref))"
+                                "typeString": "mapping(address => mapping(uint32 => struct HAMGovernanceStorage.Checkpoint storage ref))"
                               }
                             },
                             "id": 18845,
@@ -7353,7 +7353,7 @@
                             "src": "6395:22:25",
                             "typeDescriptions": {
                               "typeIdentifier": "t_mapping$_t_uint32_$_t_struct$_Checkpoint_$18942_storage_$",
-                              "typeString": "mapping(uint32 => struct YAMGovernanceStorage.Checkpoint storage ref)"
+                              "typeString": "mapping(uint32 => struct HAMGovernanceStorage.Checkpoint storage ref)"
                             }
                           },
                           "id": 18849,
@@ -7415,7 +7415,7 @@
                           "src": "6395:40:25",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Checkpoint_$18942_storage",
-                            "typeString": "struct YAMGovernanceStorage.Checkpoint storage ref"
+                            "typeString": "struct HAMGovernanceStorage.Checkpoint storage ref"
                           }
                         },
                         "id": 18850,
@@ -7486,7 +7486,7 @@
                                 "src": "6564:11:25",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_uint32_$_t_struct$_Checkpoint_$18942_storage_$_$",
-                                  "typeString": "mapping(address => mapping(uint32 => struct YAMGovernanceStorage.Checkpoint storage ref))"
+                                  "typeString": "mapping(address => mapping(uint32 => struct HAMGovernanceStorage.Checkpoint storage ref))"
                                 }
                               },
                               "id": 18869,
@@ -7511,7 +7511,7 @@
                               "src": "6564:22:25",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_mapping$_t_uint32_$_t_struct$_Checkpoint_$18942_storage_$",
-                                "typeString": "mapping(uint32 => struct YAMGovernanceStorage.Checkpoint storage ref)"
+                                "typeString": "mapping(uint32 => struct HAMGovernanceStorage.Checkpoint storage ref)"
                               }
                             },
                             "id": 18870,
@@ -7536,7 +7536,7 @@
                             "src": "6564:36:25",
                             "typeDescriptions": {
                               "typeIdentifier": "t_struct$_Checkpoint_$18942_storage",
-                              "typeString": "struct YAMGovernanceStorage.Checkpoint storage ref"
+                              "typeString": "struct HAMGovernanceStorage.Checkpoint storage ref"
                             }
                           },
                           "nodeType": "Assignment",
@@ -7590,7 +7590,7 @@
                               "src": "6603:10:25",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_type$_t_struct$_Checkpoint_$18942_storage_ptr_$",
-                                "typeString": "type(struct YAMGovernanceStorage.Checkpoint storage pointer)"
+                                "typeString": "type(struct HAMGovernanceStorage.Checkpoint storage pointer)"
                               }
                             },
                             "id": 18874,
@@ -7604,13 +7604,13 @@
                             "src": "6603:33:25",
                             "typeDescriptions": {
                               "typeIdentifier": "t_struct$_Checkpoint_$18942_memory",
-                              "typeString": "struct YAMGovernanceStorage.Checkpoint memory"
+                              "typeString": "struct HAMGovernanceStorage.Checkpoint memory"
                             }
                           },
                           "src": "6564:72:25",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Checkpoint_$18942_storage",
-                            "typeString": "struct YAMGovernanceStorage.Checkpoint storage ref"
+                            "typeString": "struct HAMGovernanceStorage.Checkpoint storage ref"
                           }
                         },
                         "id": 18876,
@@ -7761,7 +7761,7 @@
                                   "src": "6476:11:25",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_uint32_$_t_struct$_Checkpoint_$18942_storage_$_$",
-                                    "typeString": "mapping(address => mapping(uint32 => struct YAMGovernanceStorage.Checkpoint storage ref))"
+                                    "typeString": "mapping(address => mapping(uint32 => struct HAMGovernanceStorage.Checkpoint storage ref))"
                                   }
                                 },
                                 "id": 18859,
@@ -7786,7 +7786,7 @@
                                 "src": "6476:22:25",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_mapping$_t_uint32_$_t_struct$_Checkpoint_$18942_storage_$",
-                                  "typeString": "mapping(uint32 => struct YAMGovernanceStorage.Checkpoint storage ref)"
+                                  "typeString": "mapping(uint32 => struct HAMGovernanceStorage.Checkpoint storage ref)"
                                 }
                               },
                               "id": 18860,
@@ -7848,7 +7848,7 @@
                               "src": "6476:40:25",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_struct$_Checkpoint_$18942_storage",
-                                "typeString": "struct YAMGovernanceStorage.Checkpoint storage ref"
+                                "typeString": "struct HAMGovernanceStorage.Checkpoint storage ref"
                               }
                             },
                             "id": 18861,
@@ -8575,9 +8575,9 @@
     "src": "0:7100:25"
   },
   "legacyAST": {
-    "absolutePath": "/Users/brockelmore/YAM/contracts/token/YAMGovernance.sol",
+    "absolutePath": "/Users/brockelmore/HAM/contracts/token/YAMGovernance.sol",
     "exportedSymbols": {
-      "YAMGovernanceToken": [
+      "HAMGovernanceToken": [
         18930
       ]
     },
@@ -8604,8 +8604,8 @@
         "src": "24:33:25"
       },
       {
-        "absolutePath": "/Users/brockelmore/YAM/contracts/token/YAMGovernanceStorage.sol",
-        "file": "./YAMGovernanceStorage.sol",
+        "absolutePath": "/Users/brockelmore/HAM/contracts/token/YAMGovernanceStorage.sol",
+        "file": "./HAMGovernanceStorage.sol",
         "id": 18378,
         "nodeType": "ImportDirective",
         "scope": 18931,
@@ -8615,8 +8615,8 @@
         "unitAlias": ""
       },
       {
-        "absolutePath": "/Users/brockelmore/YAM/contracts/token/YAMTokenInterface.sol",
-        "file": "./YAMTokenInterface.sol",
+        "absolutePath": "/Users/brockelmore/HAM/contracts/token/YAMTokenInterface.sol",
+        "file": "./HAMTokenInterface.sol",
         "id": 18379,
         "nodeType": "ImportDirective",
         "scope": 18931,
@@ -8632,13 +8632,13 @@
             "baseName": {
               "contractScope": null,
               "id": 18380,
-              "name": "YAMTokenInterface",
+              "name": "HAMTokenInterface",
               "nodeType": "UserDefinedTypeName",
               "referencedDeclaration": 19202,
               "src": "162:17:25",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_YAMTokenInterface_$19202",
-                "typeString": "contract YAMTokenInterface"
+                "typeIdentifier": "t_contract$_HAMTokenInterface_$19202",
+                "typeString": "contract HAMTokenInterface"
               }
             },
             "id": 18381,
@@ -8661,7 +8661,7 @@
           18967,
           19251
         ],
-        "name": "YAMGovernanceToken",
+        "name": "HAMGovernanceToken",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
@@ -9331,16 +9331,16 @@
                                 "referencedDeclaration": 19336,
                                 "src": "1875:4:25",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_contract$_YAMGovernanceToken_$18930",
-                                  "typeString": "contract YAMGovernanceToken"
+                                  "typeIdentifier": "t_contract$_HAMGovernanceToken_$18930",
+                                  "typeString": "contract HAMGovernanceToken"
                                 }
                               }
                             ],
                             "expression": {
                               "argumentTypes": [
                                 {
-                                  "typeIdentifier": "t_contract$_YAMGovernanceToken_$18930",
-                                  "typeString": "contract YAMGovernanceToken"
+                                  "typeIdentifier": "t_contract$_HAMGovernanceToken_$18930",
+                                  "typeString": "contract HAMGovernanceToken"
                                 }
                               ],
                               "id": 18449,
@@ -10074,9 +10074,9 @@
                         "subdenomination": null,
                         "typeDescriptions": {
                           "typeIdentifier": "t_stringliteral_184babfb6466f1dab112d4792e91ed0d0fe450a5c48fc35742f2690afebf7b67",
-                          "typeString": "literal_string \"YAM::delegateBySig: invalid signature\""
+                          "typeString": "literal_string \"HAM::delegateBySig: invalid signature\""
                         },
-                        "value": "YAM::delegateBySig: invalid signature"
+                        "value": "HAM::delegateBySig: invalid signature"
                       }
                     ],
                     "expression": {
@@ -10087,7 +10087,7 @@
                         },
                         {
                           "typeIdentifier": "t_stringliteral_184babfb6466f1dab112d4792e91ed0d0fe450a5c48fc35742f2690afebf7b67",
-                          "typeString": "literal_string \"YAM::delegateBySig: invalid signature\""
+                          "typeString": "literal_string \"HAM::delegateBySig: invalid signature\""
                         }
                       ],
                       "id": 18487,
@@ -10228,9 +10228,9 @@
                         "subdenomination": null,
                         "typeDescriptions": {
                           "typeIdentifier": "t_stringliteral_0fc6782a8889e626c37744401e2fa3617fa4e15e94083efa2f77057db9cf34e6",
-                          "typeString": "literal_string \"YAM::delegateBySig: invalid nonce\""
+                          "typeString": "literal_string \"HAM::delegateBySig: invalid nonce\""
                         },
-                        "value": "YAM::delegateBySig: invalid nonce"
+                        "value": "HAM::delegateBySig: invalid nonce"
                       }
                     ],
                     "expression": {
@@ -10241,7 +10241,7 @@
                         },
                         {
                           "typeIdentifier": "t_stringliteral_0fc6782a8889e626c37744401e2fa3617fa4e15e94083efa2f77057db9cf34e6",
-                          "typeString": "literal_string \"YAM::delegateBySig: invalid nonce\""
+                          "typeString": "literal_string \"HAM::delegateBySig: invalid nonce\""
                         }
                       ],
                       "id": 18496,
@@ -10339,9 +10339,9 @@
                         "subdenomination": null,
                         "typeDescriptions": {
                           "typeIdentifier": "t_stringliteral_93fb057ac97627637ebb8a8e6875c18ebe19dea7b041453dfbe91101ba3b9a43",
-                          "typeString": "literal_string \"YAM::delegateBySig: signature expired\""
+                          "typeString": "literal_string \"HAM::delegateBySig: signature expired\""
                         },
-                        "value": "YAM::delegateBySig: signature expired"
+                        "value": "HAM::delegateBySig: signature expired"
                       }
                     ],
                     "expression": {
@@ -10352,7 +10352,7 @@
                         },
                         {
                           "typeIdentifier": "t_stringliteral_93fb057ac97627637ebb8a8e6875c18ebe19dea7b041453dfbe91101ba3b9a43",
-                          "typeString": "literal_string \"YAM::delegateBySig: signature expired\""
+                          "typeString": "literal_string \"HAM::delegateBySig: signature expired\""
                         }
                       ],
                       "id": 18506,
@@ -10820,7 +10820,7 @@
                             "src": "3023:11:25",
                             "typeDescriptions": {
                               "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_uint32_$_t_struct$_Checkpoint_$18942_storage_$_$",
-                              "typeString": "mapping(address => mapping(uint32 => struct YAMGovernanceStorage.Checkpoint storage ref))"
+                              "typeString": "mapping(address => mapping(uint32 => struct HAMGovernanceStorage.Checkpoint storage ref))"
                             }
                           },
                           "id": 18537,
@@ -10845,7 +10845,7 @@
                           "src": "3023:20:25",
                           "typeDescriptions": {
                             "typeIdentifier": "t_mapping$_t_uint32_$_t_struct$_Checkpoint_$18942_storage_$",
-                            "typeString": "mapping(uint32 => struct YAMGovernanceStorage.Checkpoint storage ref)"
+                            "typeString": "mapping(uint32 => struct HAMGovernanceStorage.Checkpoint storage ref)"
                           }
                         },
                         "id": 18541,
@@ -10907,7 +10907,7 @@
                         "src": "3023:38:25",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Checkpoint_$18942_storage",
-                          "typeString": "struct YAMGovernanceStorage.Checkpoint storage ref"
+                          "typeString": "struct HAMGovernanceStorage.Checkpoint storage ref"
                         }
                       },
                       "id": 18542,
@@ -11101,9 +11101,9 @@
                         "subdenomination": null,
                         "typeDescriptions": {
                           "typeIdentifier": "t_stringliteral_38d421f3d842114e4be7c1f8fe05e144cb3bff2df3d8a293f7ee1e74e3a8cb57",
-                          "typeString": "literal_string \"YAM::getPriorVotes: not yet determined\""
+                          "typeString": "literal_string \"HAM::getPriorVotes: not yet determined\""
                         },
-                        "value": "YAM::getPriorVotes: not yet determined"
+                        "value": "HAM::getPriorVotes: not yet determined"
                       }
                     ],
                     "expression": {
@@ -11114,7 +11114,7 @@
                         },
                         {
                           "typeIdentifier": "t_stringliteral_38d421f3d842114e4be7c1f8fe05e144cb3bff2df3d8a293f7ee1e74e3a8cb57",
-                          "typeString": "literal_string \"YAM::getPriorVotes: not yet determined\""
+                          "typeString": "literal_string \"HAM::getPriorVotes: not yet determined\""
                         }
                       ],
                       "id": 18556,
@@ -11340,7 +11340,7 @@
                             "src": "3884:11:25",
                             "typeDescriptions": {
                               "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_uint32_$_t_struct$_Checkpoint_$18942_storage_$_$",
-                              "typeString": "mapping(address => mapping(uint32 => struct YAMGovernanceStorage.Checkpoint storage ref))"
+                              "typeString": "mapping(address => mapping(uint32 => struct HAMGovernanceStorage.Checkpoint storage ref))"
                             }
                           },
                           "id": 18579,
@@ -11365,7 +11365,7 @@
                           "src": "3884:20:25",
                           "typeDescriptions": {
                             "typeIdentifier": "t_mapping$_t_uint32_$_t_struct$_Checkpoint_$18942_storage_$",
-                            "typeString": "mapping(uint32 => struct YAMGovernanceStorage.Checkpoint storage ref)"
+                            "typeString": "mapping(uint32 => struct HAMGovernanceStorage.Checkpoint storage ref)"
                           }
                         },
                         "id": 18583,
@@ -11427,7 +11427,7 @@
                         "src": "3884:38:25",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Checkpoint_$18942_storage",
-                          "typeString": "struct YAMGovernanceStorage.Checkpoint storage ref"
+                          "typeString": "struct HAMGovernanceStorage.Checkpoint storage ref"
                         }
                       },
                       "id": 18584,
@@ -11491,7 +11491,7 @@
                                 "src": "3970:11:25",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_uint32_$_t_struct$_Checkpoint_$18942_storage_$_$",
-                                  "typeString": "mapping(address => mapping(uint32 => struct YAMGovernanceStorage.Checkpoint storage ref))"
+                                  "typeString": "mapping(address => mapping(uint32 => struct HAMGovernanceStorage.Checkpoint storage ref))"
                                 }
                               },
                               "id": 18589,
@@ -11516,7 +11516,7 @@
                               "src": "3970:20:25",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_mapping$_t_uint32_$_t_struct$_Checkpoint_$18942_storage_$",
-                                "typeString": "mapping(uint32 => struct YAMGovernanceStorage.Checkpoint storage ref)"
+                                "typeString": "mapping(uint32 => struct HAMGovernanceStorage.Checkpoint storage ref)"
                               }
                             },
                             "id": 18593,
@@ -11578,7 +11578,7 @@
                             "src": "3970:38:25",
                             "typeDescriptions": {
                               "typeIdentifier": "t_struct$_Checkpoint_$18942_storage",
-                              "typeString": "struct YAMGovernanceStorage.Checkpoint storage ref"
+                              "typeString": "struct HAMGovernanceStorage.Checkpoint storage ref"
                             }
                           },
                           "id": 18594,
@@ -11631,7 +11631,7 @@
                             "src": "4083:11:25",
                             "typeDescriptions": {
                               "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_uint32_$_t_struct$_Checkpoint_$18942_storage_$_$",
-                              "typeString": "mapping(address => mapping(uint32 => struct YAMGovernanceStorage.Checkpoint storage ref))"
+                              "typeString": "mapping(address => mapping(uint32 => struct HAMGovernanceStorage.Checkpoint storage ref))"
                             }
                           },
                           "id": 18600,
@@ -11656,7 +11656,7 @@
                           "src": "4083:20:25",
                           "typeDescriptions": {
                             "typeIdentifier": "t_mapping$_t_uint32_$_t_struct$_Checkpoint_$18942_storage_$",
-                            "typeString": "mapping(uint32 => struct YAMGovernanceStorage.Checkpoint storage ref)"
+                            "typeString": "mapping(uint32 => struct HAMGovernanceStorage.Checkpoint storage ref)"
                           }
                         },
                         "id": 18602,
@@ -11686,7 +11686,7 @@
                         "src": "4083:23:25",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Checkpoint_$18942_storage",
-                          "typeString": "struct YAMGovernanceStorage.Checkpoint storage ref"
+                          "typeString": "struct HAMGovernanceStorage.Checkpoint storage ref"
                         }
                       },
                       "id": 18603,
@@ -12089,7 +12089,7 @@
                             "storageLocation": "memory",
                             "typeDescriptions": {
                               "typeIdentifier": "t_struct$_Checkpoint_$18942_memory_ptr",
-                              "typeString": "struct YAMGovernanceStorage.Checkpoint"
+                              "typeString": "struct HAMGovernanceStorage.Checkpoint"
                             },
                             "typeName": {
                               "contractScope": null,
@@ -12100,7 +12100,7 @@
                               "src": "4362:10:25",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_struct$_Checkpoint_$18942_storage_ptr",
-                                "typeString": "struct YAMGovernanceStorage.Checkpoint"
+                                "typeString": "struct HAMGovernanceStorage.Checkpoint"
                               }
                             },
                             "value": null,
@@ -12122,7 +12122,7 @@
                               "src": "4385:11:25",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_uint32_$_t_struct$_Checkpoint_$18942_storage_$_$",
-                                "typeString": "mapping(address => mapping(uint32 => struct YAMGovernanceStorage.Checkpoint storage ref))"
+                                "typeString": "mapping(address => mapping(uint32 => struct HAMGovernanceStorage.Checkpoint storage ref))"
                               }
                             },
                             "id": 18638,
@@ -12147,7 +12147,7 @@
                             "src": "4385:20:25",
                             "typeDescriptions": {
                               "typeIdentifier": "t_mapping$_t_uint32_$_t_struct$_Checkpoint_$18942_storage_$",
-                              "typeString": "mapping(uint32 => struct YAMGovernanceStorage.Checkpoint storage ref)"
+                              "typeString": "mapping(uint32 => struct HAMGovernanceStorage.Checkpoint storage ref)"
                             }
                           },
                           "id": 18640,
@@ -12172,7 +12172,7 @@
                           "src": "4385:28:25",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Checkpoint_$18942_storage",
-                            "typeString": "struct YAMGovernanceStorage.Checkpoint storage ref"
+                            "typeString": "struct HAMGovernanceStorage.Checkpoint storage ref"
                           }
                         },
                         "nodeType": "VariableDeclarationStatement",
@@ -12202,7 +12202,7 @@
                               "src": "4431:2:25",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_struct$_Checkpoint_$18942_memory_ptr",
-                                "typeString": "struct YAMGovernanceStorage.Checkpoint memory"
+                                "typeString": "struct HAMGovernanceStorage.Checkpoint memory"
                               }
                             },
                             "id": 18643,
@@ -12264,7 +12264,7 @@
                                 "src": "4518:2:25",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_struct$_Checkpoint_$18942_memory_ptr",
-                                  "typeString": "struct YAMGovernanceStorage.Checkpoint memory"
+                                  "typeString": "struct HAMGovernanceStorage.Checkpoint memory"
                                 }
                               },
                               "id": 18651,
@@ -12470,7 +12470,7 @@
                                   "src": "4485:2:25",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_struct$_Checkpoint_$18942_memory_ptr",
-                                    "typeString": "struct YAMGovernanceStorage.Checkpoint memory"
+                                    "typeString": "struct HAMGovernanceStorage.Checkpoint memory"
                                   }
                                 },
                                 "id": 18647,
@@ -12563,7 +12563,7 @@
                           "src": "4676:11:25",
                           "typeDescriptions": {
                             "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_uint32_$_t_struct$_Checkpoint_$18942_storage_$_$",
-                            "typeString": "mapping(address => mapping(uint32 => struct YAMGovernanceStorage.Checkpoint storage ref))"
+                            "typeString": "mapping(address => mapping(uint32 => struct HAMGovernanceStorage.Checkpoint storage ref))"
                           }
                         },
                         "id": 18672,
@@ -12588,7 +12588,7 @@
                         "src": "4676:20:25",
                         "typeDescriptions": {
                           "typeIdentifier": "t_mapping$_t_uint32_$_t_struct$_Checkpoint_$18942_storage_$",
-                          "typeString": "mapping(uint32 => struct YAMGovernanceStorage.Checkpoint storage ref)"
+                          "typeString": "mapping(uint32 => struct HAMGovernanceStorage.Checkpoint storage ref)"
                         }
                       },
                       "id": 18674,
@@ -12613,7 +12613,7 @@
                       "src": "4676:27:25",
                       "typeDescriptions": {
                         "typeIdentifier": "t_struct$_Checkpoint_$18942_storage",
-                        "typeString": "struct YAMGovernanceStorage.Checkpoint storage ref"
+                        "typeString": "struct HAMGovernanceStorage.Checkpoint storage ref"
                       }
                     },
                     "id": 18675,
@@ -12864,7 +12864,7 @@
                     "baseExpression": {
                       "argumentTypes": null,
                       "id": 18693,
-                      "name": "_yamBalances",
+                      "name": "_hamBalances",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
                       "referencedDeclaration": 19242,
@@ -13665,7 +13665,7 @@
                                         "src": "5485:11:25",
                                         "typeDescriptions": {
                                           "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_uint32_$_t_struct$_Checkpoint_$18942_storage_$_$",
-                                          "typeString": "mapping(address => mapping(uint32 => struct YAMGovernanceStorage.Checkpoint storage ref))"
+                                          "typeString": "mapping(address => mapping(uint32 => struct HAMGovernanceStorage.Checkpoint storage ref))"
                                         }
                                       },
                                       "id": 18750,
@@ -13690,7 +13690,7 @@
                                       "src": "5485:19:25",
                                       "typeDescriptions": {
                                         "typeIdentifier": "t_mapping$_t_uint32_$_t_struct$_Checkpoint_$18942_storage_$",
-                                        "typeString": "mapping(uint32 => struct YAMGovernanceStorage.Checkpoint storage ref)"
+                                        "typeString": "mapping(uint32 => struct HAMGovernanceStorage.Checkpoint storage ref)"
                                       }
                                     },
                                     "id": 18754,
@@ -13752,7 +13752,7 @@
                                     "src": "5485:34:25",
                                     "typeDescriptions": {
                                       "typeIdentifier": "t_struct$_Checkpoint_$18942_storage",
-                                      "typeString": "struct YAMGovernanceStorage.Checkpoint storage ref"
+                                      "typeString": "struct HAMGovernanceStorage.Checkpoint storage ref"
                                     }
                                   },
                                   "id": 18755,
@@ -14286,7 +14286,7 @@
                                         "src": "5878:11:25",
                                         "typeDescriptions": {
                                           "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_uint32_$_t_struct$_Checkpoint_$18942_storage_$_$",
-                                          "typeString": "mapping(address => mapping(uint32 => struct YAMGovernanceStorage.Checkpoint storage ref))"
+                                          "typeString": "mapping(address => mapping(uint32 => struct HAMGovernanceStorage.Checkpoint storage ref))"
                                         }
                                       },
                                       "id": 18793,
@@ -14311,7 +14311,7 @@
                                       "src": "5878:19:25",
                                       "typeDescriptions": {
                                         "typeIdentifier": "t_mapping$_t_uint32_$_t_struct$_Checkpoint_$18942_storage_$",
-                                        "typeString": "mapping(uint32 => struct YAMGovernanceStorage.Checkpoint storage ref)"
+                                        "typeString": "mapping(uint32 => struct HAMGovernanceStorage.Checkpoint storage ref)"
                                       }
                                     },
                                     "id": 18797,
@@ -14373,7 +14373,7 @@
                                     "src": "5878:34:25",
                                     "typeDescriptions": {
                                       "typeIdentifier": "t_struct$_Checkpoint_$18942_storage",
-                                      "typeString": "struct YAMGovernanceStorage.Checkpoint storage ref"
+                                      "typeString": "struct HAMGovernanceStorage.Checkpoint storage ref"
                                     }
                                   },
                                   "id": 18798,
@@ -14803,9 +14803,9 @@
                         "subdenomination": null,
                         "typeDescriptions": {
                           "typeIdentifier": "t_stringliteral_bde83c9110d5d6a9b2c61d0637aeaed894210d16f599828baf99da164d8adddf",
-                          "typeString": "literal_string \"YAM::_writeCheckpoint: block number exceeds 32 bits\""
+                          "typeString": "literal_string \"HAM::_writeCheckpoint: block number exceeds 32 bits\""
                         },
-                        "value": "YAM::_writeCheckpoint: block number exceeds 32 bits"
+                        "value": "HAM::_writeCheckpoint: block number exceeds 32 bits"
                       }
                     ],
                     "expression": {
@@ -14816,7 +14816,7 @@
                         },
                         {
                           "typeIdentifier": "t_stringliteral_bde83c9110d5d6a9b2c61d0637aeaed894210d16f599828baf99da164d8adddf",
-                          "typeString": "literal_string \"YAM::_writeCheckpoint: block number exceeds 32 bits\""
+                          "typeString": "literal_string \"HAM::_writeCheckpoint: block number exceeds 32 bits\""
                         }
                       ],
                       "id": 18834,
@@ -14938,7 +14938,7 @@
                               "src": "6395:11:25",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_uint32_$_t_struct$_Checkpoint_$18942_storage_$_$",
-                                "typeString": "mapping(address => mapping(uint32 => struct YAMGovernanceStorage.Checkpoint storage ref))"
+                                "typeString": "mapping(address => mapping(uint32 => struct HAMGovernanceStorage.Checkpoint storage ref))"
                               }
                             },
                             "id": 18845,
@@ -14963,7 +14963,7 @@
                             "src": "6395:22:25",
                             "typeDescriptions": {
                               "typeIdentifier": "t_mapping$_t_uint32_$_t_struct$_Checkpoint_$18942_storage_$",
-                              "typeString": "mapping(uint32 => struct YAMGovernanceStorage.Checkpoint storage ref)"
+                              "typeString": "mapping(uint32 => struct HAMGovernanceStorage.Checkpoint storage ref)"
                             }
                           },
                           "id": 18849,
@@ -15025,7 +15025,7 @@
                           "src": "6395:40:25",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Checkpoint_$18942_storage",
-                            "typeString": "struct YAMGovernanceStorage.Checkpoint storage ref"
+                            "typeString": "struct HAMGovernanceStorage.Checkpoint storage ref"
                           }
                         },
                         "id": 18850,
@@ -15096,7 +15096,7 @@
                                 "src": "6564:11:25",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_uint32_$_t_struct$_Checkpoint_$18942_storage_$_$",
-                                  "typeString": "mapping(address => mapping(uint32 => struct YAMGovernanceStorage.Checkpoint storage ref))"
+                                  "typeString": "mapping(address => mapping(uint32 => struct HAMGovernanceStorage.Checkpoint storage ref))"
                                 }
                               },
                               "id": 18869,
@@ -15121,7 +15121,7 @@
                               "src": "6564:22:25",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_mapping$_t_uint32_$_t_struct$_Checkpoint_$18942_storage_$",
-                                "typeString": "mapping(uint32 => struct YAMGovernanceStorage.Checkpoint storage ref)"
+                                "typeString": "mapping(uint32 => struct HAMGovernanceStorage.Checkpoint storage ref)"
                               }
                             },
                             "id": 18870,
@@ -15146,7 +15146,7 @@
                             "src": "6564:36:25",
                             "typeDescriptions": {
                               "typeIdentifier": "t_struct$_Checkpoint_$18942_storage",
-                              "typeString": "struct YAMGovernanceStorage.Checkpoint storage ref"
+                              "typeString": "struct HAMGovernanceStorage.Checkpoint storage ref"
                             }
                           },
                           "nodeType": "Assignment",
@@ -15200,7 +15200,7 @@
                               "src": "6603:10:25",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_type$_t_struct$_Checkpoint_$18942_storage_ptr_$",
-                                "typeString": "type(struct YAMGovernanceStorage.Checkpoint storage pointer)"
+                                "typeString": "type(struct HAMGovernanceStorage.Checkpoint storage pointer)"
                               }
                             },
                             "id": 18874,
@@ -15214,13 +15214,13 @@
                             "src": "6603:33:25",
                             "typeDescriptions": {
                               "typeIdentifier": "t_struct$_Checkpoint_$18942_memory",
-                              "typeString": "struct YAMGovernanceStorage.Checkpoint memory"
+                              "typeString": "struct HAMGovernanceStorage.Checkpoint memory"
                             }
                           },
                           "src": "6564:72:25",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Checkpoint_$18942_storage",
-                            "typeString": "struct YAMGovernanceStorage.Checkpoint storage ref"
+                            "typeString": "struct HAMGovernanceStorage.Checkpoint storage ref"
                           }
                         },
                         "id": 18876,
@@ -15371,7 +15371,7 @@
                                   "src": "6476:11:25",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_uint32_$_t_struct$_Checkpoint_$18942_storage_$_$",
-                                    "typeString": "mapping(address => mapping(uint32 => struct YAMGovernanceStorage.Checkpoint storage ref))"
+                                    "typeString": "mapping(address => mapping(uint32 => struct HAMGovernanceStorage.Checkpoint storage ref))"
                                   }
                                 },
                                 "id": 18859,
@@ -15396,7 +15396,7 @@
                                 "src": "6476:22:25",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_mapping$_t_uint32_$_t_struct$_Checkpoint_$18942_storage_$",
-                                  "typeString": "mapping(uint32 => struct YAMGovernanceStorage.Checkpoint storage ref)"
+                                  "typeString": "mapping(uint32 => struct HAMGovernanceStorage.Checkpoint storage ref)"
                                 }
                               },
                               "id": 18860,
@@ -15458,7 +15458,7 @@
                               "src": "6476:40:25",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_struct$_Checkpoint_$18942_storage",
-                                "typeString": "struct YAMGovernanceStorage.Checkpoint storage ref"
+                                "typeString": "struct HAMGovernanceStorage.Checkpoint storage ref"
                               }
                             },
                             "id": 18861,

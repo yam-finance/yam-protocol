@@ -9,7 +9,7 @@
 /___/ \_, //_//_/\__//_//_/\__/ \__//_/ /_\_\
      /___/
 
-* Synthetix: YAMRewards.sol
+* Synthetix: HAMRewards.sol
 *
 * Docs: https://docs.synthetix.io/
 *
@@ -592,8 +592,8 @@ contract IRewardDistributionRecipient is Ownable {
 pragma solidity ^0.5.0;
 
 
-interface YAM {
-    function yamsScalingFactor() external returns (uint256);
+interface HAM {
+    function hamsScalingFactor() external returns (uint256);
 }
 
 
@@ -628,8 +628,8 @@ contract LPTokenWrapper {
     }
 }
 
-contract YAMLINKPool is LPTokenWrapper, IRewardDistributionRecipient {
-    IERC20 public yam = IERC20(0x0e2298E3B3390e3b945a5456fBf59eCc3f55DA16);
+contract HAMLINKPool is LPTokenWrapper, IRewardDistributionRecipient {
+    IERC20 public ham = IERC20(0x0e2298E3B3390e3b945a5456fBf59eCc3f55DA16);
     uint256 public constant DURATION = 625000; // ~7 1/4 days
 
     uint256 public starttime = 1597172400; // 2020-08-11 19:00:00 (UTC UTC +00:00)
@@ -708,9 +708,9 @@ contract YAMLINKPool is LPTokenWrapper, IRewardDistributionRecipient {
         uint256 reward = earned(msg.sender);
         if (reward > 0) {
             rewards[msg.sender] = 0;
-            uint256 scalingFactor = YAM(address(yam)).yamsScalingFactor();
+            uint256 scalingFactor = HAM(address(ham)).hamsScalingFactor();
             uint256 trueReward = reward.mul(scalingFactor).div(10**18);
-            yam.safeTransfer(msg.sender, trueReward);
+            ham.safeTransfer(msg.sender, trueReward);
             emit RewardPaid(msg.sender, trueReward);
         }
     }

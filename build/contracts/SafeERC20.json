@@ -1,15 +1,15 @@
 {
   "contractName": "SafeERC20",
   "abi": [],
-  "metadata": "{\"compiler\":{\"version\":\"0.5.17+commit.d19bba13\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"details\":\"Wrappers around ERC20 operations that throw on failure (when the token contract returns false). Tokens that return no value (and instead revert or throw on failure) are also supported, non-reverting calls are assumed to be successful. To use this library you can add a `using SafeERC20 for IERC20;` statement to your contract, which allows you to call the safe operations as `token.safeTransfer(...)`, etc.\",\"methods\":{},\"title\":\"SafeERC20\"},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/Users/brockelmore/YAM/contracts/lib/SafeERC20.sol\":\"SafeERC20\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"optimizer\":{\"enabled\":true,\"runs\":50000},\"remappings\":[]},\"sources\":{\"/Users/brockelmore/YAM/contracts/lib/Address.sol\":{\"keccak256\":\"0xfcf985fe775d3891eb6f1df2b0926b13392f7411550fbddbb2a51e2dfb4c328f\",\"urls\":[\"bzz-raw://557db9c06dce45db040c1a8a87cc2100cbaa86b3fd7cbdf49acf983e110673df\",\"dweb:/ipfs/QmVRxJhBro2YT42FkofepMfseF4rxbDFNXySA2doFSf2Lq\"]},\"/Users/brockelmore/YAM/contracts/lib/IERC20.sol\":{\"keccak256\":\"0xb654abe85060b241b440e22ead01dabb724dda69034d49b483e5e3e55ee64400\",\"urls\":[\"bzz-raw://53f67e469e2c4dfc10411d72f465a3c5b85939f1df4b2b26f12deb729f260b04\",\"dweb:/ipfs/QmSNUGpXPcmWNDczauAmUgZsypdcAB2pZNi3B2RGpYVyp2\"]},\"/Users/brockelmore/YAM/contracts/lib/SafeERC20.sol\":{\"keccak256\":\"0x00c7887d6e2af7d5971473efbd93d312374d6e8478a6f435d7ec3b62fe62a523\",\"urls\":[\"bzz-raw://787539dc1ebb71a219dee830f1d71188d0b13c2d5f7e7bfd08a3cafa8ec9333c\",\"dweb:/ipfs/QmfFwH2Wt17vqVaeoCMpdXbRUFa3e2Kbm1i6HTybGFXv8h\"]},\"/Users/brockelmore/YAM/contracts/lib/SafeMath.sol\":{\"keccak256\":\"0xfb72ae2642cad8f5da1644433dbcc12681f8064335dff144623f0514dc7922c6\",\"urls\":[\"bzz-raw://c174cb41d37d772336abf35cfef58015621ff96b834819531a65a67594aec5c4\",\"dweb:/ipfs/Qmdw3SxV2kaqdCoY4NBBXYcbX6baWbvGjJ6XP8jaH9pvyu\"]}},\"version\":1}",
+  "metadata": "{\"compiler\":{\"version\":\"0.5.17+commit.d19bba13\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"details\":\"Wrappers around ERC20 operations that throw on failure (when the token contract returns false). Tokens that return no value (and instead revert or throw on failure) are also supported, non-reverting calls are assumed to be successful. To use this library you can add a `using SafeERC20 for IERC20;` statement to your contract, which allows you to call the safe operations as `token.safeTransfer(...)`, etc.\",\"methods\":{},\"title\":\"SafeERC20\"},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/Users/brockelmore/HAM/contracts/lib/SafeERC20.sol\":\"SafeERC20\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"optimizer\":{\"enabled\":true,\"runs\":50000},\"remappings\":[]},\"sources\":{\"/Users/brockelmore/YAM/contracts/lib/Address.sol\":{\"keccak256\":\"0xfcf985fe775d3891eb6f1df2b0926b13392f7411550fbddbb2a51e2dfb4c328f\",\"urls\":[\"bzz-raw://557db9c06dce45db040c1a8a87cc2100cbaa86b3fd7cbdf49acf983e110673df\",\"dweb:/ipfs/QmVRxJhBro2YT42FkofepMfseF4rxbDFNXySA2doFSf2Lq\"]},\"/Users/brockelmore/YAM/contracts/lib/IERC20.sol\":{\"keccak256\":\"0xb654abe85060b241b440e22ead01dabb724dda69034d49b483e5e3e55ee64400\",\"urls\":[\"bzz-raw://53f67e469e2c4dfc10411d72f465a3c5b85939f1df4b2b26f12deb729f260b04\",\"dweb:/ipfs/QmSNUGpXPcmWNDczauAmUgZsypdcAB2pZNi3B2RGpYVyp2\"]},\"/Users/brockelmore/YAM/contracts/lib/SafeERC20.sol\":{\"keccak256\":\"0x00c7887d6e2af7d5971473efbd93d312374d6e8478a6f435d7ec3b62fe62a523\",\"urls\":[\"bzz-raw://787539dc1ebb71a219dee830f1d71188d0b13c2d5f7e7bfd08a3cafa8ec9333c\",\"dweb:/ipfs/QmfFwH2Wt17vqVaeoCMpdXbRUFa3e2Kbm1i6HTybGFXv8h\"]},\"/Users/brockelmore/YAM/contracts/lib/SafeMath.sol\":{\"keccak256\":\"0xfb72ae2642cad8f5da1644433dbcc12681f8064335dff144623f0514dc7922c6\",\"urls\":[\"bzz-raw://c174cb41d37d772336abf35cfef58015621ff96b834819531a65a67594aec5c4\",\"dweb:/ipfs/Qmdw3SxV2kaqdCoY4NBBXYcbX6baWbvGjJ6XP8jaH9pvyu\"]}},\"version\":1}",
   "bytecode": "0x60556023600b82828239805160001a607314601657fe5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea265627a7a72315820ec0fe15569f02169fafcfe886367b5a3af63bc9cefc4cf81d1c9fb598f21530e64736f6c63430005110032",
   "deployedBytecode": "0x73000000000000000000000000000000000000000030146080604052600080fdfea265627a7a72315820ec0fe15569f02169fafcfe886367b5a3af63bc9cefc4cf81d1c9fb598f21530e64736f6c63430005110032",
   "sourceMap": "590:3104:17:-;;132:2:-1;166:7;155:9;146:7;137:37;255:7;249:14;246:1;241:23;235:4;232:33;222:2;;269:9;222:2;293:9;290:1;283:20;323:4;314:7;306:22;347:7;338;331:24",
   "deployedSourceMap": "590:3104:17:-;;;;;;;;",
   "source": "// SPDX-License-Identifier: MIT\n\npragma solidity ^0.5.17;\n\nimport \"./IERC20.sol\";\nimport \"./SafeMath.sol\";\nimport \"./Address.sol\";\n\n/**\n * @title SafeERC20\n * @dev Wrappers around ERC20 operations that throw on failure (when the token\n * contract returns false). Tokens that return no value (and instead revert or\n * throw on failure) are also supported, non-reverting calls are assumed to be\n * successful.\n * To use this library you can add a `using SafeERC20 for IERC20;` statement to your contract,\n * which allows you to call the safe operations as `token.safeTransfer(...)`, etc.\n */\nlibrary SafeERC20 {\n    using SafeMath for uint256;\n    using Address for address;\n\n    function safeTransfer(IERC20 token, address to, uint256 value) internal {\n        _callOptionalReturn(token, abi.encodeWithSelector(token.transfer.selector, to, value));\n    }\n\n    function safeTransferFrom(IERC20 token, address from, address to, uint256 value) internal {\n        _callOptionalReturn(token, abi.encodeWithSelector(token.transferFrom.selector, from, to, value));\n    }\n\n    /**\n     * @dev Deprecated. This function has issues similar to the ones found in\n     * {IERC20-approve}, and its usage is discouraged.\n     *\n     * Whenever possible, use {safeIncreaseAllowance} and\n     * {safeDecreaseAllowance} instead.\n     */\n    function safeApprove(IERC20 token, address spender, uint256 value) internal {\n        // safeApprove should only be called when setting an initial allowance,\n        // or when resetting it to zero. To increase and decrease it, use\n        // 'safeIncreaseAllowance' and 'safeDecreaseAllowance'\n        // solhint-disable-next-line max-line-length\n        require((value == 0) || (token.allowance(address(this), spender) == 0),\n            \"SafeERC20: approve from non-zero to non-zero allowance\"\n        );\n        _callOptionalReturn(token, abi.encodeWithSelector(token.approve.selector, spender, value));\n    }\n\n    function safeIncreaseAllowance(IERC20 token, address spender, uint256 value) internal {\n        uint256 newAllowance = token.allowance(address(this), spender).add(value);\n        _callOptionalReturn(token, abi.encodeWithSelector(token.approve.selector, spender, newAllowance));\n    }\n\n    function safeDecreaseAllowance(IERC20 token, address spender, uint256 value) internal {\n        uint256 newAllowance = token.allowance(address(this), spender).sub(value, \"SafeERC20: decreased allowance below zero\");\n        _callOptionalReturn(token, abi.encodeWithSelector(token.approve.selector, spender, newAllowance));\n    }\n\n    /**\n     * @dev Imitates a Solidity high-level call (i.e. a regular function call to a contract), relaxing the requirement\n     * on the return value: the return value is optional (but if data is returned, it must not be false).\n     * @param token The token targeted by the call.\n     * @param data The call data (encoded using abi.encode or one of its variants).\n     */\n    function _callOptionalReturn(IERC20 token, bytes memory data) private {\n        // We need to perform a low level call here, to bypass Solidity's return data size checking mechanism, since\n        // we're implementing it ourselves. We use {Address.functionCall} to perform this call, which verifies that\n        // the target address contains contract code and also asserts for success in the low-level call.\n\n        bytes memory returndata = address(token).functionCall(data, \"SafeERC20: low-level call failed\");\n        if (returndata.length > 0) { // Return data is optional\n            // solhint-disable-next-line max-line-length\n            require(abi.decode(returndata, (bool)), \"SafeERC20: ERC20 operation did not succeed\");\n        }\n    }\n}\n",
-  "sourcePath": "/Users/brockelmore/YAM/contracts/lib/SafeERC20.sol",
+  "sourcePath": "/Users/brockelmore/HAM/contracts/lib/SafeERC20.sol",
   "ast": {
-    "absolutePath": "/Users/brockelmore/YAM/contracts/lib/SafeERC20.sol",
+    "absolutePath": "/Users/brockelmore/HAM/contracts/lib/SafeERC20.sol",
     "exportedSymbols": {
       "SafeERC20": [
         14805
@@ -30,7 +30,7 @@
         "src": "33:24:17"
       },
       {
-        "absolutePath": "/Users/brockelmore/YAM/contracts/lib/IERC20.sol",
+        "absolutePath": "/Users/brockelmore/HAM/contracts/lib/IERC20.sol",
         "file": "./IERC20.sol",
         "id": 14603,
         "nodeType": "ImportDirective",
@@ -41,7 +41,7 @@
         "unitAlias": ""
       },
       {
-        "absolutePath": "/Users/brockelmore/YAM/contracts/lib/SafeMath.sol",
+        "absolutePath": "/Users/brockelmore/HAM/contracts/lib/SafeMath.sol",
         "file": "./SafeMath.sol",
         "id": 14604,
         "nodeType": "ImportDirective",
@@ -52,7 +52,7 @@
         "unitAlias": ""
       },
       {
-        "absolutePath": "/Users/brockelmore/YAM/contracts/lib/Address.sol",
+        "absolutePath": "/Users/brockelmore/HAM/contracts/lib/Address.sol",
         "file": "./Address.sol",
         "id": 14605,
         "nodeType": "ImportDirective",
@@ -2961,7 +2961,7 @@
     "src": "33:3662:17"
   },
   "legacyAST": {
-    "absolutePath": "/Users/brockelmore/YAM/contracts/lib/SafeERC20.sol",
+    "absolutePath": "/Users/brockelmore/HAM/contracts/lib/SafeERC20.sol",
     "exportedSymbols": {
       "SafeERC20": [
         14805
@@ -2982,7 +2982,7 @@
         "src": "33:24:17"
       },
       {
-        "absolutePath": "/Users/brockelmore/YAM/contracts/lib/IERC20.sol",
+        "absolutePath": "/Users/brockelmore/HAM/contracts/lib/IERC20.sol",
         "file": "./IERC20.sol",
         "id": 14603,
         "nodeType": "ImportDirective",
@@ -2993,7 +2993,7 @@
         "unitAlias": ""
       },
       {
-        "absolutePath": "/Users/brockelmore/YAM/contracts/lib/SafeMath.sol",
+        "absolutePath": "/Users/brockelmore/HAM/contracts/lib/SafeMath.sol",
         "file": "./SafeMath.sol",
         "id": 14604,
         "nodeType": "ImportDirective",
@@ -3004,7 +3004,7 @@
         "unitAlias": ""
       },
       {
-        "absolutePath": "/Users/brockelmore/YAM/contracts/lib/Address.sol",
+        "absolutePath": "/Users/brockelmore/HAM/contracts/lib/Address.sol",
         "file": "./Address.sol",
         "id": 14605,
         "nodeType": "ImportDirective",

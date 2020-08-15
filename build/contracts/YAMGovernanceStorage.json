@@ -1,5 +1,5 @@
 {
-  "contractName": "YAMGovernanceStorage",
+  "contractName": "HAMGovernanceStorage",
   "abi": [
     {
       "constant": true,
@@ -105,17 +105,17 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.5.17+commit.d19bba13\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":true,\"inputs\":[],\"name\":\"DELEGATION_TYPEHASH\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"DOMAIN_TYPEHASH\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint32\",\"name\":\"\",\"type\":\"uint32\"}],\"name\":\"checkpoints\",\"outputs\":[{\"internalType\":\"uint32\",\"name\":\"fromBlock\",\"type\":\"uint32\"},{\"internalType\":\"uint256\",\"name\":\"votes\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"nonces\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"numCheckpoints\",\"outputs\":[{\"internalType\":\"uint32\",\"name\":\"\",\"type\":\"uint32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/Users/brockelmore/YAM/contracts/token/YAMGovernanceStorage.sol\":\"YAMGovernanceStorage\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"optimizer\":{\"enabled\":true,\"runs\":50000},\"remappings\":[]},\"sources\":{\"/Users/brockelmore/YAM/contracts/token/YAMGovernanceStorage.sol\":{\"keccak256\":\"0x337e9c44bf683ce14c7299e6a59db83f4b1468d75bead7b716cb563ed3cabc39\",\"urls\":[\"bzz-raw://36c77e72c9aad315991ef2eebb85b8ff69bc27a1628468228b940d02f07b623f\",\"dweb:/ipfs/QmcnuBzdk2qhB49NrwMZwhhGqNKRs7cjALqzcnJwTE9ECx\"]}},\"version\":1}",
+  "metadata": "{\"compiler\":{\"version\":\"0.5.17+commit.d19bba13\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":true,\"inputs\":[],\"name\":\"DELEGATION_TYPEHASH\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"DOMAIN_TYPEHASH\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint32\",\"name\":\"\",\"type\":\"uint32\"}],\"name\":\"checkpoints\",\"outputs\":[{\"internalType\":\"uint32\",\"name\":\"fromBlock\",\"type\":\"uint32\"},{\"internalType\":\"uint256\",\"name\":\"votes\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"nonces\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"numCheckpoints\",\"outputs\":[{\"internalType\":\"uint32\",\"name\":\"\",\"type\":\"uint32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/Users/brockelmore/HAM/contracts/token/YAMGovernanceStorage.sol\":\"YAMGovernanceStorage\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"optimizer\":{\"enabled\":true,\"runs\":50000},\"remappings\":[]},\"sources\":{\"/Users/brockelmore/YAM/contracts/token/YAMGovernanceStorage.sol\":{\"keccak256\":\"0x337e9c44bf683ce14c7299e6a59db83f4b1468d75bead7b716cb563ed3cabc39\",\"urls\":[\"bzz-raw://36c77e72c9aad315991ef2eebb85b8ff69bc27a1628468228b940d02f07b623f\",\"dweb:/ipfs/QmcnuBzdk2qhB49NrwMZwhhGqNKRs7cjALqzcnJwTE9ECx\"]}},\"version\":1}",
   "bytecode": "0x608060405234801561001057600080fd5b506103c1806100206000396000f3fe608060405234801561001057600080fd5b50600436106100675760003560e01c80637ecebe00116100505780637ecebe00146100aa578063e7a324dc146100bd578063f1127ed8146100c557610067565b806320606b701461006c5780636fcfff451461008a575b600080fd5b6100746100e6565b60405161008191906102eb565b60405180910390f35b61009d610098366004610179565b6100fd565b60405161008191906102f9565b6100746100b8366004610179565b610115565b610074610127565b6100d86100d336600461019f565b610133565b604051610081929190610307565b6040516100f2906102d5565b604051809103902081565b60026020526000908152604090205463ffffffff1681565b60036020526000908152604090205481565b6040516100f2906102e0565b60016020818152600093845260408085209091529183529120805491015463ffffffff9091169082565b80356101688161035e565b92915050565b803561016881610375565b60006020828403121561018b57600080fd5b6000610197848461015d565b949350505050565b600080604083850312156101b257600080fd5b60006101be858561015d565b92505060206101cf8582860161016e565b9150509250929050565b6101e281610339565b82525050565b60006101f5604383610329565b7f454950373132446f6d61696e28737472696e67206e616d652c75696e7432353681527f20636861696e49642c6164647265737320766572696679696e67436f6e74726160208201527f6374290000000000000000000000000000000000000000000000000000000000604082015260430192915050565b600061027a603a83610329565b7f44656c65676174696f6e28616464726573732064656c6567617465652c75696e81527f74323536206e6f6e63652c75696e7432353620657870697279290000000000006020820152603a0192915050565b6101e281610355565b6000610168826101e8565b60006101688261026d565b6020810161016882846101d9565b6020810161016882846102cc565b6040810161031582856102cc565b61032260208301846101d9565b9392505050565b919050565b60006101688261033c565b90565b73ffffffffffffffffffffffffffffffffffffffff1690565b63ffffffff1690565b6103678161032e565b811461037257600080fd5b50565b6103678161035556fea365627a7a723158202c0c4076d587bcb4fbee9bc79dee18f3c5d9ac3d971beb1429851be0d2cea0156c6578706572696d656e74616cf564736f6c63430005110040",
   "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100675760003560e01c80637ecebe00116100505780637ecebe00146100aa578063e7a324dc146100bd578063f1127ed8146100c557610067565b806320606b701461006c5780636fcfff451461008a575b600080fd5b6100746100e6565b60405161008191906102eb565b60405180910390f35b61009d610098366004610179565b6100fd565b60405161008191906102f9565b6100746100b8366004610179565b610115565b610074610127565b6100d86100d336600461019f565b610133565b604051610081929190610307565b6040516100f2906102d5565b604051809103902081565b60026020526000908152604090205463ffffffff1681565b60036020526000908152604090205481565b6040516100f2906102e0565b60016020818152600093845260408085209091529183529120805491015463ffffffff9091169082565b80356101688161035e565b92915050565b803561016881610375565b60006020828403121561018b57600080fd5b6000610197848461015d565b949350505050565b600080604083850312156101b257600080fd5b60006101be858561015d565b92505060206101cf8582860161016e565b9150509250929050565b6101e281610339565b82525050565b60006101f5604383610329565b7f454950373132446f6d61696e28737472696e67206e616d652c75696e7432353681527f20636861696e49642c6164647265737320766572696679696e67436f6e74726160208201527f6374290000000000000000000000000000000000000000000000000000000000604082015260430192915050565b600061027a603a83610329565b7f44656c65676174696f6e28616464726573732064656c6567617465652c75696e81527f74323536206e6f6e63652c75696e7432353620657870697279290000000000006020820152603a0192915050565b6101e281610355565b6000610168826101e8565b60006101688261026d565b6020810161016882846101d9565b6020810161016882846102cc565b6040810161031582856102cc565b61032260208301846101d9565b9392505050565b919050565b60006101688261033c565b90565b73ffffffffffffffffffffffffffffffffffffffff1690565b63ffffffff1690565b6103678161032e565b811461037257600080fd5b50565b6103678161035556fea365627a7a723158202c0c4076d587bcb4fbee9bc79dee18f3c5d9ac3d971beb1429851be0d2cea0156c6578706572696d656e74616cf564736f6c63430005110040",
   "sourceMap": "59:1076:26:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;59:1076:26;;;;;;;",
   "deployedSourceMap": "59:1076:26:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;59:1076:26;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;685:122;;;:::i;:::-;;;;;;;;;;;;;;;;566:49;;;;;;;;;:::i;:::-;;;;;;;;1093:39;;;;;;;;;:::i;898:117::-;;;:::i;430:70::-;;;;;;;;;:::i;:::-;;;;;;;;;685:122;727:80;;;;;;;;;;;;;;685:122;:::o;566:49::-;;;;;;;;;;;;;;;:::o;1093:39::-;;;;;;;;;;;;;:::o;898:117::-;944:71;;;;;;430:70;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;5:130:-1:-;72:20;;97:33;72:20;97:33;;;57:78;;;;;142:128;208:20;;233:32;208:20;233:32;;277:241;;381:2;369:9;360:7;356:23;352:32;349:2;;;397:1;394;387:12;349:2;432:1;449:53;494:7;474:9;449:53;;;439:63;343:175;-1:-1;;;;343:175;525:364;;;645:2;633:9;624:7;620:23;616:32;613:2;;;661:1;658;651:12;613:2;696:1;713:53;758:7;738:9;713:53;;;703:63;;675:97;803:2;821:52;865:7;856:6;845:9;841:22;821:52;;;811:62;;782:97;607:282;;;;;;896:113;979:24;997:5;979:24;;;974:3;967:37;961:48;;;1017:477;;1195:85;1277:2;1272:3;1195:85;;;1313:34;1293:55;;1382:34;1377:2;1368:12;;1361:56;1451:5;1446:2;1437:12;;1430:27;1485:2;1476:12;;1181:313;-1:-1;;1181:313;1503:431;;1681:85;1763:2;1758:3;1681:85;;;1799:34;1779:55;;1868:28;1863:2;1854:12;;1847:50;1925:2;1916:12;;1667:267;-1:-1;;1667:267;2062:110;2143:23;2160:5;2143:23;;2179:372;;2378:148;2522:3;2378:148;;2558:372;;2757:148;2901:3;2757:148;;2937:213;3055:2;3040:18;;3069:71;3044:9;3113:6;3069:71;;3377:209;3493:2;3478:18;;3507:69;3482:9;3549:6;3507:69;;3593:320;3737:2;3722:18;;3751:69;3726:9;3793:6;3751:69;;;3831:72;3899:2;3888:9;3884:18;3875:6;3831:72;;;3708:205;;;;;;3921:145;4057:3;4035:31;-1:-1;4035:31;4074:91;;4136:24;4154:5;4136:24;;4172:72;4234:5;4217:27;4251:121;4324:42;4313:54;;4296:76;4458:88;4530:10;4519:22;;4502:44;4553:117;4622:24;4640:5;4622:24;;;4615:5;4612:35;4602:2;;4661:1;4658;4651:12;4602:2;4596:74;;4677:115;4745:23;4762:5;4745:23;",
-  "source": "pragma solidity 0.5.17;\npragma experimental ABIEncoderV2;\n\ncontract YAMGovernanceStorage {\n    /// @notice A record of each accounts delegate\n    mapping (address => address) internal _delegates;\n\n    /// @notice A checkpoint for marking number of votes from a given block\n    struct Checkpoint {\n        uint32 fromBlock;\n        uint256 votes;\n    }\n\n    /// @notice A record of votes checkpoints for each account, by index\n    mapping (address => mapping (uint32 => Checkpoint)) public checkpoints;\n\n    /// @notice The number of checkpoints for each account\n    mapping (address => uint32) public numCheckpoints;\n\n    /// @notice The EIP-712 typehash for the contract's domain\n    bytes32 public constant DOMAIN_TYPEHASH = keccak256(\"EIP712Domain(string name,uint256 chainId,address verifyingContract)\");\n\n    /// @notice The EIP-712 typehash for the delegation struct used by the contract\n    bytes32 public constant DELEGATION_TYPEHASH = keccak256(\"Delegation(address delegatee,uint256 nonce,uint256 expiry)\");\n\n    /// @notice A record of states for signing / validating signatures\n    mapping (address => uint) public nonces;\n}\n",
-  "sourcePath": "/Users/brockelmore/YAM/contracts/token/YAMGovernanceStorage.sol",
+  "source": "pragma solidity 0.5.17;\npragma experimental ABIEncoderV2;\n\ncontract HAMGovernanceStorage {\n    /// @notice A record of each accounts delegate\n    mapping (address => address) internal _delegates;\n\n    /// @notice A checkpoint for marking number of votes from a given block\n    struct Checkpoint {\n        uint32 fromBlock;\n        uint256 votes;\n    }\n\n    /// @notice A record of votes checkpoints for each account, by index\n    mapping (address => mapping (uint32 => Checkpoint)) public checkpoints;\n\n    /// @notice The number of checkpoints for each account\n    mapping (address => uint32) public numCheckpoints;\n\n    /// @notice The EIP-712 typehash for the contract's domain\n    bytes32 public constant DOMAIN_TYPEHASH = keccak256(\"EIP712Domain(string name,uint256 chainId,address verifyingContract)\");\n\n    /// @notice The EIP-712 typehash for the delegation struct used by the contract\n    bytes32 public constant DELEGATION_TYPEHASH = keccak256(\"Delegation(address delegatee,uint256 nonce,uint256 expiry)\");\n\n    /// @notice A record of states for signing / validating signatures\n    mapping (address => uint) public nonces;\n}\n",
+  "sourcePath": "/Users/brockelmore/HAM/contracts/token/YAMGovernanceStorage.sol",
   "ast": {
-    "absolutePath": "/Users/brockelmore/YAM/contracts/token/YAMGovernanceStorage.sol",
+    "absolutePath": "/Users/brockelmore/HAM/contracts/token/YAMGovernanceStorage.sol",
     "exportedSymbols": {
-      "YAMGovernanceStorage": [
+      "HAMGovernanceStorage": [
         18944
       ]
     },
@@ -151,7 +151,7 @@
         "linearizedBaseContracts": [
           18944
         ],
-        "name": "YAMGovernanceStorage",
+        "name": "HAMGovernanceStorage",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
@@ -201,7 +201,7 @@
             "visibility": "internal"
           },
           {
-            "canonicalName": "YAMGovernanceStorage.Checkpoint",
+            "canonicalName": "HAMGovernanceStorage.Checkpoint",
             "id": 18919,
             "members": [
               {
@@ -274,7 +274,7 @@
             "storageLocation": "default",
             "typeDescriptions": {
               "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_uint32_$_t_struct$_Checkpoint_$18919_storage_$_$",
-              "typeString": "mapping(address => mapping(uint32 => struct YAMGovernanceStorage.Checkpoint))"
+              "typeString": "mapping(address => mapping(uint32 => struct HAMGovernanceStorage.Checkpoint))"
             },
             "typeName": {
               "id": 18924,
@@ -292,7 +292,7 @@
               "src": "430:51:26",
               "typeDescriptions": {
                 "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_uint32_$_t_struct$_Checkpoint_$18919_storage_$_$",
-                "typeString": "mapping(address => mapping(uint32 => struct YAMGovernanceStorage.Checkpoint))"
+                "typeString": "mapping(address => mapping(uint32 => struct HAMGovernanceStorage.Checkpoint))"
               },
               "valueType": {
                 "id": 18923,
@@ -310,7 +310,7 @@
                 "src": "450:30:26",
                 "typeDescriptions": {
                   "typeIdentifier": "t_mapping$_t_uint32_$_t_struct$_Checkpoint_$18919_storage_$",
-                  "typeString": "mapping(uint32 => struct YAMGovernanceStorage.Checkpoint)"
+                  "typeString": "mapping(uint32 => struct HAMGovernanceStorage.Checkpoint)"
                 },
                 "valueType": {
                   "contractScope": null,
@@ -321,7 +321,7 @@
                   "src": "469:10:26",
                   "typeDescriptions": {
                     "typeIdentifier": "t_struct$_Checkpoint_$18919_storage_ptr",
-                    "typeString": "struct YAMGovernanceStorage.Checkpoint"
+                    "typeString": "struct HAMGovernanceStorage.Checkpoint"
                   }
                 }
               }
@@ -585,9 +585,9 @@
     "src": "0:1136:26"
   },
   "legacyAST": {
-    "absolutePath": "/Users/brockelmore/YAM/contracts/token/YAMGovernanceStorage.sol",
+    "absolutePath": "/Users/brockelmore/HAM/contracts/token/YAMGovernanceStorage.sol",
     "exportedSymbols": {
-      "YAMGovernanceStorage": [
+      "HAMGovernanceStorage": [
         18944
       ]
     },
@@ -623,7 +623,7 @@
         "linearizedBaseContracts": [
           18944
         ],
-        "name": "YAMGovernanceStorage",
+        "name": "HAMGovernanceStorage",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
@@ -673,7 +673,7 @@
             "visibility": "internal"
           },
           {
-            "canonicalName": "YAMGovernanceStorage.Checkpoint",
+            "canonicalName": "HAMGovernanceStorage.Checkpoint",
             "id": 18919,
             "members": [
               {
@@ -746,7 +746,7 @@
             "storageLocation": "default",
             "typeDescriptions": {
               "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_uint32_$_t_struct$_Checkpoint_$18919_storage_$_$",
-              "typeString": "mapping(address => mapping(uint32 => struct YAMGovernanceStorage.Checkpoint))"
+              "typeString": "mapping(address => mapping(uint32 => struct HAMGovernanceStorage.Checkpoint))"
             },
             "typeName": {
               "id": 18924,
@@ -764,7 +764,7 @@
               "src": "430:51:26",
               "typeDescriptions": {
                 "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_uint32_$_t_struct$_Checkpoint_$18919_storage_$_$",
-                "typeString": "mapping(address => mapping(uint32 => struct YAMGovernanceStorage.Checkpoint))"
+                "typeString": "mapping(address => mapping(uint32 => struct HAMGovernanceStorage.Checkpoint))"
               },
               "valueType": {
                 "id": 18923,
@@ -782,7 +782,7 @@
                 "src": "450:30:26",
                 "typeDescriptions": {
                   "typeIdentifier": "t_mapping$_t_uint32_$_t_struct$_Checkpoint_$18919_storage_$",
-                  "typeString": "mapping(uint32 => struct YAMGovernanceStorage.Checkpoint)"
+                  "typeString": "mapping(uint32 => struct HAMGovernanceStorage.Checkpoint)"
                 },
                 "valueType": {
                   "contractScope": null,
@@ -793,7 +793,7 @@
                   "src": "469:10:26",
                   "typeDescriptions": {
                     "typeIdentifier": "t_struct$_Checkpoint_$18919_storage_ptr",
-                    "typeString": "struct YAMGovernanceStorage.Checkpoint"
+                    "typeString": "struct HAMGovernanceStorage.Checkpoint"
                   }
                 }
               }

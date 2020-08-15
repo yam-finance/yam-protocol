@@ -1,7 +1,7 @@
 pragma solidity 0.5.17;
 pragma experimental ABIEncoderV2;
 
-contract YAMGovernanceStorage {
+contract HAMGovernanceStorage {
     /// @notice A record of each accounts delegate
     mapping (address => address) internal _delegates;
 

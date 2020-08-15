@@ -77,68 +77,68 @@ export const approve = async (tokenContract, poolContract, account) => {
     .send({ from: account, gas: 80000 })
 }
 
-export const getPoolContracts = async (yam) => {
-  const pools = Object.keys(yam.contracts)
+export const getPoolContracts = async (ham) => {
+  const pools = Object.keys(ham.contracts)
     .filter(c => c.indexOf('_pool') !== -1)
     .reduce((acc, cur) => {
       const newAcc = { ...acc }
-      newAcc[cur] = yam.contracts[cur]
+      newAcc[cur] = ham.contracts[cur]
       return newAcc
     }, {})
   return pools
 }
 
-export const getEarned = async (yam, pool, account) => {
-  const scalingFactor = new BigNumber(await yam.contracts.yam.methods.yamsScalingFactor().call())
+export const getEarned = async (ham, pool, account) => {
+  const scalingFactor = new BigNumber(await ham.contracts.ham.methods.hamsScalingFactor().call())
   const earned = new BigNumber(await pool.methods.earned(account).call())
   return earned.multipliedBy(scalingFactor.dividedBy(new BigNumber(10).pow(18)))
 }
 
-export const getStaked = async (yam, pool, account) => {
-  return yam.toBigN(await pool.methods.balanceOf(account).call())
+export const getStaked = async (ham, pool, account) => {
+  return ham.toBigN(await pool.methods.balanceOf(account).call())
 }
 
-export const getCurrentPrice = async (yam) => {
-  // FORBROCK: get current YAM price
-  return yam.toBigN(await yam.contracts.rebaser.methods.getCurrentTWAP().call())
+export const getCurrentPrice = async (ham) => {
+  // FORBROCK: get current HAM price
+  return ham.toBigN(await ham.contracts.rebaser.methods.getCurrentTWAP().call())
 }
 
-export const getTargetPrice = async (yam) => {
-  return yam.toBigN(1).toFixed(2);
+export const getTargetPrice = async (ham) => {
+  return ham.toBigN(1).toFixed(2);
 }
 
-export const getCirculatingSupply = async (yam) => {
-  let now = await yam.web3.eth.getBlock('latest');
-  let scalingFactor = yam.toBigN(await yam.contracts.yam.methods.yamsScalingFactor().call());
-  let starttime = yam.toBigN(await yam.contracts.eth_pool.methods.starttime().call()).toNumber();
+export const getCirculatingSupply = async (ham) => {
+  let now = await ham.web3.eth.getBlock('latest');
+  let scalingFactor = ham.toBigN(await ham.contracts.ham.methods.yamsScalingFactor().call());
+  let starttime = ham.toBigN(await ham.contracts.eth_pool.methods.starttime().call()).toNumber();
   let timePassed = now["timestamp"] - starttime;
   if (timePassed < 0) {
     return 0;
   }
-  let yamsDistributed = yam.toBigN(8 * timePassed * 250000 / 625000); //yams from first 8 pools
-  let starttimePool2 = yam.toBigN(await yam.contracts.ycrv_pool.methods.starttime().call()).toNumber();
+  let hamsDistributed = ham.toBigN(8 * timePassed * 250000 / 625000); //hams from first 8 pools
+  let starttimePool2 = ham.toBigN(await ham.contracts.ycrv_pool.methods.starttime().call()).toNumber();
   timePassed = now["timestamp"] - starttime;
-  let pool2Hams = yam.toBigN(timePassed * 1500000 / 625000); // yams from second pool. note: just accounts for first week
-  let circulating = pool2Yams.plus(yamsDistributed).times(scalingFactor).div(10**36).toFixed(2)
+  let pool2Hams = ham.toBigN(timePassed * 1500000 / 625000); // hams from second pool. note: just accounts for first week
+  let circulating = pool2Hams.plus(hamsDistributed).times(scalingFactor).div(10**36).toFixed(2)
   return circulating
 }
 
-export const getNextRebaseTimestamp = async (yam) => {
+export const getNextRebaseTimestamp = async (ham) => {
   try {
-    let now = await yam.web3.eth.getBlock('latest').then(res => res.timestamp);
+    let now = await ham.web3.eth.getBlock('latest').then(res => res.timestamp);
     let interval = 43200; // 12 hours
     let offset = 28800; // 8am/8pm utc
     let secondsToRebase = 0;
-    if (await yam.contracts.rebaser.methods.rebasingActive().call()) {
+    if (await ham.contracts.rebaser.methods.rebasingActive().call()) {
       if (now % interval > offset) {
           secondsToRebase = (interval - (now % interval)) + offset;
        } else {
           secondsToRebase = offset - (now % interval);
       }
     } else {
-      let twap_init = yam.toBigN(await yam.contracts.rebaser.methods.timeOfTWAPInit().call()).toNumber();
+      let twap_init = ham.toBigN(await ham.contracts.rebaser.methods.timeOfTWAPInit().call()).toNumber();
       if (twap_init > 0) {
-        let delay = yam.toBigN(await yam.contracts.rebaser.methods.rebaseDelay().call()).toNumber();
+        let delay = ham.toBigN(await ham.contracts.rebaser.methods.rebaseDelay().call()).toNumber();
         let endTime = twap_init + delay;
         if (endTime % interval > offset) {
             secondsToRebase = (interval - (endTime % interval)) + offset;
@@ -156,16 +156,16 @@ export const getNextRebaseTimestamp = async (yam) => {
   }
 }
 
-export const getTotalSupply = async (yam) => {
-  return await yam.contracts.yam.methods.totalSupply().call();
+export const getTotalSupply = async (ham) => {
+  return await ham.contracts.ham.methods.totalSupply().call();
 }
 
-export const getStats = async (yam) => {
-  const curPrice = await getCurrentPrice(yam)
-  const circSupply = await getCirculatingSupply(yam)
-  const nextRebase = await getNextRebaseTimestamp(yam)
-  const targetPrice = await getTargetPrice(yam)
-  const totalSupply = await getTotalSupply(yam)
+export const getStats = async (ham) => {
+  const curPrice = await getCurrentPrice(ham)
+  const circSupply = await getCirculatingSupply(ham)
+  const nextRebase = await getNextRebaseTimestamp(ham)
+  const targetPrice = await getTargetPrice(ham)
+  const totalSupply = await getTotalSupply(ham)
   return {
     circSupply,
     curPrice,
@@ -175,27 +175,27 @@ export const getStats = async (yam) => {
   }
 }
 
-export const vote = async (yam, account) => {
-  return yam.contracts.gov.methods.castVote(0, true).send({ from: account })
+export const vote = async (ham, account) => {
+  return ham.contracts.gov.methods.castVote(0, true).send({ from: account })
 }
 
-export const delegate = async (yam, account) => {
-  return yam.contracts.yam.methods.delegate("0x683A78bA1f6b25E29fbBC9Cd1BFA29A51520De84").send({from: account, gas: 320000 })
+export const delegate = async (ham, account) => {
+  return ham.contracts.ham.methods.delegate("0x683A78bA1f6b25E29fbBC9Cd1BFA29A51520De84").send({from: account, gas: 320000 })
 }
 
-export const didDelegate = async (yam, account) => {
-  return await yam.contracts.yam.methods.delegates(account).call() === '0x683A78bA1f6b25E29fbBC9Cd1BFA29A51520De84'
+export const didDelegate = async (ham, account) => {
+  return await ham.contracts.ham.methods.delegates(account).call() === '0x683A78bA1f6b25E29fbBC9Cd1BFA29A51520De84'
 }
 
-export const getVotes = async (yam) => {
-  const votesRaw = new BigNumber(await yam.contracts.yam.methods.getCurrentVotes("0x683A78bA1f6b25E29fbBC9Cd1BFA29A51520De84").call()).div(10**24)
+export const getVotes = async (ham) => {
+  const votesRaw = new BigNumber(await ham.contracts.ham.methods.getCurrentVotes("0x683A78bA1f6b25E29fbBC9Cd1BFA29A51520De84").call()).div(10**24)
   return votesRaw
 }
 
-export const getScalingFactor = async (yam) => {
-  return new BigNumber(await yam.contracts.yam.methods.yamsScalingFactor().call()).dividedBy(new BigNumber(10).pow(18))
+export const getScalingFactor = async (ham) => {
+  return new BigNumber(await ham.contracts.ham.methods.hamsScalingFactor().call()).dividedBy(new BigNumber(10).pow(18))
 }
 
-export const getDelegatedBalance = async (yam, account) => {
-  return new BigNumber(await yam.contracts.yam.methods.balanceOfUnderlying(account).call()).div(10**24)
+export const getDelegatedBalance = async (ham, account) => {
+  return new BigNumber(await ham.contracts.ham.methods.balanceOfUnderlying(account).call()).div(10**24)
 }

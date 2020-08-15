@@ -1,5 +1,5 @@
 {
-  "contractName": "YAMDelegationStorage",
+  "contractName": "HAMDelegationStorage",
   "abi": [
     {
       "constant": true,
@@ -17,26 +17,26 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.5.17+commit.d19bba13\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":true,\"inputs\":[],\"name\":\"implementation\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/Users/brockelmore/YAM/contracts/token/YAMDelegate.sol\":\"YAMDelegationStorage\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"optimizer\":{\"enabled\":true,\"runs\":50000},\"remappings\":[]},\"sources\":{\"/Users/brockelmore/YAM/contracts/lib/SafeMath.sol\":{\"keccak256\":\"0xfb72ae2642cad8f5da1644433dbcc12681f8064335dff144623f0514dc7922c6\",\"urls\":[\"bzz-raw://c174cb41d37d772336abf35cfef58015621ff96b834819531a65a67594aec5c4\",\"dweb:/ipfs/Qmdw3SxV2kaqdCoY4NBBXYcbX6baWbvGjJ6XP8jaH9pvyu\"]},\"/Users/brockelmore/YAM/contracts/token/YAM.sol\":{\"keccak256\":\"0x37805294539ffc72da1145dce61bffee4437b329f5aee47e4ff3c24b805fb734\",\"urls\":[\"bzz-raw://13ffb729ad13edf89c0c21f4e01d66a58de29fc0741ac1a98b5f24be66f31fbd\",\"dweb:/ipfs/QmUvabJwLsrEYstkwbCB5gF1MPH2HuJvYrf2TDDb44MazA\"]},\"/Users/brockelmore/YAM/contracts/token/YAMDelegate.sol\":{\"keccak256\":\"0x9d14e5bfa7dcce0163bcc40052326853f35743539b6c3e68ee2dc1a23af928d9\",\"urls\":[\"bzz-raw://84df0a04bf8024506121bb66ac8a67684e78f459629d99f5c9da24cdad2f6cb6\",\"dweb:/ipfs/QmcKKLn9SMBJQ7Emq3AwzZho8rpD8XLWazXYSD5Y2NnK2E\"]},\"/Users/brockelmore/YAM/contracts/token/YAMGovernance.sol\":{\"keccak256\":\"0x67e9ae862e4290b82391bf8cb8c6aa259a05a3fce1b1f8ac09b061bda8ae03c3\",\"urls\":[\"bzz-raw://25b1389c5d07dd27a5641449298ac770a0e922f4c307d252c52e4cecaba6db33\",\"dweb:/ipfs/QmexXYaUfbEbH8RTNDEozwdX7g3TTdg4STHR8dd6M5nnAy\"]},\"/Users/brockelmore/YAM/contracts/token/YAMGovernanceStorage.sol\":{\"keccak256\":\"0x337e9c44bf683ce14c7299e6a59db83f4b1468d75bead7b716cb563ed3cabc39\",\"urls\":[\"bzz-raw://36c77e72c9aad315991ef2eebb85b8ff69bc27a1628468228b940d02f07b623f\",\"dweb:/ipfs/QmcnuBzdk2qhB49NrwMZwhhGqNKRs7cjALqzcnJwTE9ECx\"]},\"/Users/brockelmore/YAM/contracts/token/YAMTokenInterface.sol\":{\"keccak256\":\"0x369a00875ad1c5db96f69e0dcaea1f82fa69ba0dd480a777c684cfd95ceb642a\",\"urls\":[\"bzz-raw://2af9187c58bafcefd7a27a10f978282332c7068496068b31969d697c75f7319d\",\"dweb:/ipfs/QmPzazkd6wE194CrwtHDcdv3xjx74TVDirhmwkDHGpoRa8\"]},\"/Users/brockelmore/YAM/contracts/token/YAMTokenStorage.sol\":{\"keccak256\":\"0x8d8dc64204f5c4eea4b9cd278a6695212d55c084924b512b564acb8c7420d6d1\",\"urls\":[\"bzz-raw://408918db261b7431c944e8e521a41c7159e10fa88955781bdb267253250bc504\",\"dweb:/ipfs/QmeHzKxF3LPtf2wxTMPqQCEFqcTTZzK4Sb41giV7te8Sos\"]}},\"version\":1}",
+  "metadata": "{\"compiler\":{\"version\":\"0.5.17+commit.d19bba13\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":true,\"inputs\":[],\"name\":\"implementation\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/Users/brockelmore/HAM/contracts/token/YAMDelegate.sol\":\"YAMDelegationStorage\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"optimizer\":{\"enabled\":true,\"runs\":50000},\"remappings\":[]},\"sources\":{\"/Users/brockelmore/YAM/contracts/lib/SafeMath.sol\":{\"keccak256\":\"0xfb72ae2642cad8f5da1644433dbcc12681f8064335dff144623f0514dc7922c6\",\"urls\":[\"bzz-raw://c174cb41d37d772336abf35cfef58015621ff96b834819531a65a67594aec5c4\",\"dweb:/ipfs/Qmdw3SxV2kaqdCoY4NBBXYcbX6baWbvGjJ6XP8jaH9pvyu\"]},\"/Users/brockelmore/YAM/contracts/token/YAM.sol\":{\"keccak256\":\"0x37805294539ffc72da1145dce61bffee4437b329f5aee47e4ff3c24b805fb734\",\"urls\":[\"bzz-raw://13ffb729ad13edf89c0c21f4e01d66a58de29fc0741ac1a98b5f24be66f31fbd\",\"dweb:/ipfs/QmUvabJwLsrEYstkwbCB5gF1MPH2HuJvYrf2TDDb44MazA\"]},\"/Users/brockelmore/YAM/contracts/token/YAMDelegate.sol\":{\"keccak256\":\"0x9d14e5bfa7dcce0163bcc40052326853f35743539b6c3e68ee2dc1a23af928d9\",\"urls\":[\"bzz-raw://84df0a04bf8024506121bb66ac8a67684e78f459629d99f5c9da24cdad2f6cb6\",\"dweb:/ipfs/QmcKKLn9SMBJQ7Emq3AwzZho8rpD8XLWazXYSD5Y2NnK2E\"]},\"/Users/brockelmore/YAM/contracts/token/YAMGovernance.sol\":{\"keccak256\":\"0x67e9ae862e4290b82391bf8cb8c6aa259a05a3fce1b1f8ac09b061bda8ae03c3\",\"urls\":[\"bzz-raw://25b1389c5d07dd27a5641449298ac770a0e922f4c307d252c52e4cecaba6db33\",\"dweb:/ipfs/QmexXYaUfbEbH8RTNDEozwdX7g3TTdg4STHR8dd6M5nnAy\"]},\"/Users/brockelmore/YAM/contracts/token/YAMGovernanceStorage.sol\":{\"keccak256\":\"0x337e9c44bf683ce14c7299e6a59db83f4b1468d75bead7b716cb563ed3cabc39\",\"urls\":[\"bzz-raw://36c77e72c9aad315991ef2eebb85b8ff69bc27a1628468228b940d02f07b623f\",\"dweb:/ipfs/QmcnuBzdk2qhB49NrwMZwhhGqNKRs7cjALqzcnJwTE9ECx\"]},\"/Users/brockelmore/YAM/contracts/token/YAMTokenInterface.sol\":{\"keccak256\":\"0x369a00875ad1c5db96f69e0dcaea1f82fa69ba0dd480a777c684cfd95ceb642a\",\"urls\":[\"bzz-raw://2af9187c58bafcefd7a27a10f978282332c7068496068b31969d697c75f7319d\",\"dweb:/ipfs/QmPzazkd6wE194CrwtHDcdv3xjx74TVDirhmwkDHGpoRa8\"]},\"/Users/brockelmore/YAM/contracts/token/YAMTokenStorage.sol\":{\"keccak256\":\"0x8d8dc64204f5c4eea4b9cd278a6695212d55c084924b512b564acb8c7420d6d1\",\"urls\":[\"bzz-raw://408918db261b7431c944e8e521a41c7159e10fa88955781bdb267253250bc504\",\"dweb:/ipfs/QmeHzKxF3LPtf2wxTMPqQCEFqcTTZzK4Sb41giV7te8Sos\"]}},\"version\":1}",
   "bytecode": "0x6080604052348015600f57600080fd5b5060ad8061001e6000396000f3fe6080604052348015600f57600080fd5b506004361060285760003560e01c80635c60da1b14602d575b600080fd5b6033605c565b6040805173ffffffffffffffffffffffffffffffffffffffff9092168252519081900360200190f35b60005473ffffffffffffffffffffffffffffffffffffffff168156fea265627a7a723158204fb9bc0950c95af08fd77057a9eea754f8a04140e63cd4359954d5f69541ebeb64736f6c63430005110032",
   "deployedBytecode": "0x6080604052348015600f57600080fd5b506004361060285760003560e01c80635c60da1b14602d575b600080fd5b6033605c565b6040805173ffffffffffffffffffffffffffffffffffffffff9092168252519081900360200190f35b60005473ffffffffffffffffffffffffffffffffffffffff168156fea265627a7a723158204fb9bc0950c95af08fd77057a9eea754f8a04140e63cd4359954d5f69541ebeb64736f6c63430005110032",
   "sourceMap": "46:140:23:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;46:140:23;;;;;;;",
   "deployedSourceMap": "46:140:23:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;46:140:23;;;;;;;;;;;;;;;;;;;154:29;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;:::o",
-  "source": "pragma solidity 0.5.17;\n\nimport \"./YAM.sol\";\n\ncontract YAMDelegationStorage {\n    /**\n     * @notice Implementation address for this contract\n     */\n    address public implementation;\n}\n\ncontract YAMDelegatorInterface is YAMDelegationStorage {\n    /**\n     * @notice Emitted when implementation is changed\n     */\n    event NewImplementation(address oldImplementation, address newImplementation);\n\n    /**\n     * @notice Called by the gov to update the implementation of the delegator\n     * @param implementation_ The address of the new implementation for delegation\n     * @param allowResign Flag to indicate whether to call _resignImplementation on the old implementation\n     * @param becomeImplementationData The encoded bytes data to be passed to _becomeImplementation\n     */\n    function _setImplementation(address implementation_, bool allowResign, bytes memory becomeImplementationData) public;\n}\n\ncontract YAMDelegateInterface is YAMDelegationStorage {\n    /**\n     * @notice Called by the delegator on a delegate to initialize it for duty\n     * @dev Should revert if any issues arise which make it unfit for delegation\n     * @param data The encoded bytes data for any initialization\n     */\n    function _becomeImplementation(bytes memory data) public;\n\n    /**\n     * @notice Called by the delegator on a delegate to forfeit its responsibility\n     */\n    function _resignImplementation() public;\n}\n\n\ncontract YAMDelegate is YAM, YAMDelegateInterface {\n    /**\n     * @notice Construct an empty delegate\n     */\n    constructor() public {}\n\n    /**\n     * @notice Called by the delegator on a delegate to initialize it for duty\n     * @param data The encoded bytes data for any initialization\n     */\n    function _becomeImplementation(bytes memory data) public {\n        // Shh -- currently unused\n        data;\n\n        // Shh -- we don't ever want this hook to be marked pure\n        if (false) {\n            implementation = address(0);\n        }\n\n        require(msg.sender == gov, \"only the gov may call _becomeImplementation\");\n    }\n\n    /**\n     * @notice Called by the delegator on a delegate to forfeit its responsibility\n     */\n    function _resignImplementation() public {\n        // Shh -- we don't ever want this hook to be marked pure\n        if (false) {\n            implementation = address(0);\n        }\n\n        require(msg.sender == gov, \"only the gov may call _resignImplementation\");\n    }\n}\n",
-  "sourcePath": "/Users/brockelmore/YAM/contracts/token/YAMDelegate.sol",
+  "source": "pragma solidity 0.5.17;\n\nimport \"./HAM.sol\";\n\ncontract YAMDelegationStorage {\n    /**\n     * @notice Implementation address for this contract\n     */\n    address public implementation;\n}\n\ncontract YAMDelegatorInterface is YAMDelegationStorage {\n    /**\n     * @notice Emitted when implementation is changed\n     */\n    event NewImplementation(address oldImplementation, address newImplementation);\n\n    /**\n     * @notice Called by the gov to update the implementation of the delegator\n     * @param implementation_ The address of the new implementation for delegation\n     * @param allowResign Flag to indicate whether to call _resignImplementation on the old implementation\n     * @param becomeImplementationData The encoded bytes data to be passed to _becomeImplementation\n     */\n    function _setImplementation(address implementation_, bool allowResign, bytes memory becomeImplementationData) public;\n}\n\ncontract YAMDelegateInterface is YAMDelegationStorage {\n    /**\n     * @notice Called by the delegator on a delegate to initialize it for duty\n     * @dev Should revert if any issues arise which make it unfit for delegation\n     * @param data The encoded bytes data for any initialization\n     */\n    function _becomeImplementation(bytes memory data) public;\n\n    /**\n     * @notice Called by the delegator on a delegate to forfeit its responsibility\n     */\n    function _resignImplementation() public;\n}\n\n\ncontract YAMDelegate is YAM, YAMDelegateInterface {\n    /**\n     * @notice Construct an empty delegate\n     */\n    constructor() public {}\n\n    /**\n     * @notice Called by the delegator on a delegate to initialize it for duty\n     * @param data The encoded bytes data for any initialization\n     */\n    function _becomeImplementation(bytes memory data) public {\n        // Shh -- currently unused\n        data;\n\n        // Shh -- we don't ever want this hook to be marked pure\n        if (false) {\n            implementation = address(0);\n        }\n\n        require(msg.sender == gov, \"only the gov may call _becomeImplementation\");\n    }\n\n    /**\n     * @notice Called by the delegator on a delegate to forfeit its responsibility\n     */\n    function _resignImplementation() public {\n        // Shh -- we don't ever want this hook to be marked pure\n        if (false) {\n            implementation = address(0);\n        }\n\n        require(msg.sender == gov, \"only the gov may call _resignImplementation\");\n    }\n}\n",
+  "sourcePath": "/Users/brockelmore/HAM/contracts/token/YAMDelegate.sol",
   "ast": {
-    "absolutePath": "/Users/brockelmore/YAM/contracts/token/YAMDelegate.sol",
+    "absolutePath": "/Users/brockelmore/HAM/contracts/token/YAMDelegate.sol",
     "exportedSymbols": {
-      "YAMDelegate": [
+      "HAMDelegate": [
         17918
       ],
-      "YAMDelegateInterface": [
+      "HAMDelegateInterface": [
         17863
       ],
-      "YAMDelegationStorage": [
+      "HAMDelegationStorage": [
         17834
       ],
-      "YAMDelegatorInterface": [
+      "HAMDelegatorInterface": [
         17852
       ]
     },
@@ -54,8 +54,8 @@
         "src": "0:23:23"
       },
       {
-        "absolutePath": "/Users/brockelmore/YAM/contracts/token/YAM.sol",
-        "file": "./YAM.sol",
+        "absolutePath": "/Users/brockelmore/HAM/contracts/token/YAM.sol",
+        "file": "./HAM.sol",
         "id": 17831,
         "nodeType": "ImportDirective",
         "scope": 17919,
@@ -74,7 +74,7 @@
         "linearizedBaseContracts": [
           17834
         ],
-        "name": "YAMDelegationStorage",
+        "name": "HAMDelegationStorage",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
@@ -115,13 +115,13 @@
             "baseName": {
               "contractScope": null,
               "id": 17835,
-              "name": "YAMDelegationStorage",
+              "name": "HAMDelegationStorage",
               "nodeType": "UserDefinedTypeName",
               "referencedDeclaration": 17834,
               "src": "222:20:23",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_YAMDelegationStorage_$17834",
-                "typeString": "contract YAMDelegationStorage"
+                "typeIdentifier": "t_contract$_HAMDelegationStorage_$17834",
+                "typeString": "contract HAMDelegationStorage"
               }
             },
             "id": 17836,
@@ -140,7 +140,7 @@
           17852,
           17834
         ],
-        "name": "YAMDelegatorInterface",
+        "name": "HAMDelegatorInterface",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
@@ -332,13 +332,13 @@
             "baseName": {
               "contractScope": null,
               "id": 17853,
-              "name": "YAMDelegationStorage",
+              "name": "HAMDelegationStorage",
               "nodeType": "UserDefinedTypeName",
               "referencedDeclaration": 17834,
               "src": "942:20:23",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_YAMDelegationStorage_$17834",
-                "typeString": "contract YAMDelegationStorage"
+                "typeIdentifier": "t_contract$_HAMDelegationStorage_$17834",
+                "typeString": "contract HAMDelegationStorage"
               }
             },
             "id": 17854,
@@ -357,7 +357,7 @@
           17863,
           17834
         ],
-        "name": "YAMDelegateInterface",
+        "name": "HAMDelegateInterface",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
@@ -452,13 +452,13 @@
             "baseName": {
               "contractScope": null,
               "id": 17864,
-              "name": "YAM",
+              "name": "HAM",
               "nodeType": "UserDefinedTypeName",
               "referencedDeclaration": 17828,
               "src": "1441:3:23",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_YAM_$17828",
-                "typeString": "contract YAM"
+                "typeIdentifier": "t_contract$_HAM_$17828",
+                "typeString": "contract HAM"
               }
             },
             "id": 17865,
@@ -470,13 +470,13 @@
             "baseName": {
               "contractScope": null,
               "id": 17866,
-              "name": "YAMDelegateInterface",
+              "name": "HAMDelegateInterface",
               "nodeType": "UserDefinedTypeName",
               "referencedDeclaration": 17863,
               "src": "1446:20:23",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_YAMDelegateInterface_$17863",
-                "typeString": "contract YAMDelegateInterface"
+                "typeIdentifier": "t_contract$_HAMDelegateInterface_$17863",
+                "typeString": "contract HAMDelegateInterface"
               }
             },
             "id": 17867,
@@ -509,7 +509,7 @@
           18967,
           19251
         ],
-        "name": "YAMDelegate",
+        "name": "HAMDelegate",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
@@ -1157,18 +1157,18 @@
     "src": "0:2432:23"
   },
   "legacyAST": {
-    "absolutePath": "/Users/brockelmore/YAM/contracts/token/YAMDelegate.sol",
+    "absolutePath": "/Users/brockelmore/HAM/contracts/token/YAMDelegate.sol",
     "exportedSymbols": {
-      "YAMDelegate": [
+      "HAMDelegate": [
         17918
       ],
-      "YAMDelegateInterface": [
+      "HAMDelegateInterface": [
         17863
       ],
-      "YAMDelegationStorage": [
+      "HAMDelegationStorage": [
         17834
       ],
-      "YAMDelegatorInterface": [
+      "HAMDelegatorInterface": [
         17852
       ]
     },
@@ -1186,8 +1186,8 @@
         "src": "0:23:23"
       },
       {
-        "absolutePath": "/Users/brockelmore/YAM/contracts/token/YAM.sol",
-        "file": "./YAM.sol",
+        "absolutePath": "/Users/brockelmore/HAM/contracts/token/YAM.sol",
+        "file": "./HAM.sol",
         "id": 17831,
         "nodeType": "ImportDirective",
         "scope": 17919,
@@ -1206,7 +1206,7 @@
         "linearizedBaseContracts": [
           17834
         ],
-        "name": "YAMDelegationStorage",
+        "name": "HAMDelegationStorage",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
@@ -1247,13 +1247,13 @@
             "baseName": {
               "contractScope": null,
               "id": 17835,
-              "name": "YAMDelegationStorage",
+              "name": "HAMDelegationStorage",
               "nodeType": "UserDefinedTypeName",
               "referencedDeclaration": 17834,
               "src": "222:20:23",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_YAMDelegationStorage_$17834",
-                "typeString": "contract YAMDelegationStorage"
+                "typeIdentifier": "t_contract$_HAMDelegationStorage_$17834",
+                "typeString": "contract HAMDelegationStorage"
               }
             },
             "id": 17836,
@@ -1272,7 +1272,7 @@
           17852,
           17834
         ],
-        "name": "YAMDelegatorInterface",
+        "name": "HAMDelegatorInterface",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
@@ -1464,13 +1464,13 @@
             "baseName": {
               "contractScope": null,
               "id": 17853,
-              "name": "YAMDelegationStorage",
+              "name": "HAMDelegationStorage",
               "nodeType": "UserDefinedTypeName",
               "referencedDeclaration": 17834,
               "src": "942:20:23",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_YAMDelegationStorage_$17834",
-                "typeString": "contract YAMDelegationStorage"
+                "typeIdentifier": "t_contract$_HAMDelegationStorage_$17834",
+                "typeString": "contract HAMDelegationStorage"
               }
             },
             "id": 17854,
@@ -1489,7 +1489,7 @@
           17863,
           17834
         ],
-        "name": "YAMDelegateInterface",
+        "name": "HAMDelegateInterface",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
@@ -1584,13 +1584,13 @@
             "baseName": {
               "contractScope": null,
               "id": 17864,
-              "name": "YAM",
+              "name": "HAM",
               "nodeType": "UserDefinedTypeName",
               "referencedDeclaration": 17828,
               "src": "1441:3:23",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_YAM_$17828",
-                "typeString": "contract YAM"
+                "typeIdentifier": "t_contract$_HAM_$17828",
+                "typeString": "contract HAM"
               }
             },
             "id": 17865,
@@ -1602,13 +1602,13 @@
             "baseName": {
               "contractScope": null,
               "id": 17866,
-              "name": "YAMDelegateInterface",
+              "name": "HAMDelegateInterface",
               "nodeType": "UserDefinedTypeName",
               "referencedDeclaration": 17863,
               "src": "1446:20:23",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_YAMDelegateInterface_$17863",
-                "typeString": "contract YAMDelegateInterface"
+                "typeIdentifier": "t_contract$_HAMDelegateInterface_$17863",
+                "typeString": "contract HAMDelegateInterface"
               }
             },
             "id": 17867,
@@ -1641,7 +1641,7 @@
           18967,
           19251
         ],
-        "name": "YAMDelegate",
+        "name": "HAMDelegate",
         "nodeType": "ContractDefinition",
         "nodes": [
           {

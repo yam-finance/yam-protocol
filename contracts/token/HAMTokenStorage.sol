@@ -2,8 +2,8 @@ pragma solidity 0.5.17;
 
 import "../lib/SafeMath.sol";
 
-// Storage for a YAM token
-contract YAMTokenStorage {
+// Storage for a HAM token
+contract HAMTokenStorage {
 
     using SafeMath for uint256;
 
@@ -43,12 +43,12 @@ contract YAMTokenStorage {
     address public rebaser;
 
     /**
-     * @notice Reserve address of YAM protocol
+     * @notice Reserve address of HAM protocol
      */
     address public incentivizer;
 
     /**
-     * @notice Total supply of YAMs
+     * @notice Total supply of HAMs
      */
     uint256 public totalSupply;
 
@@ -65,9 +65,9 @@ contract YAMTokenStorage {
     /**
      * @notice Scaling factor that adjusts everyone's balances
      */
-    uint256 public yamsScalingFactor;
+    uint256 public hamsScalingFactor;
 
-    mapping (address => uint256) internal _yamBalances;
+    mapping (address => uint256) internal _hamBalances;
 
     mapping (address => mapping (address => uint256)) internal _allowedFragments;
 
