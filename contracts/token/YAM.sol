@@ -337,7 +337,7 @@ contract YAMToken is YAMGovernanceToken {
             }
         }
 
-        totalSupply = initSupply.mul(yamsScalingFactor);
+        totalSupply = initSupply.mul(yamsScalingFactor).div(BASE);
         emit Rebase(epoch, prevYamsScalingFactor, yamsScalingFactor);
         return totalSupply;
     }
