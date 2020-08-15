@@ -8,8 +8,10 @@ BigNumber.config({
 });
 
 const GAS_LIMIT = {
-  DEFAULT: 200000,
-  SNX: 850000,
+  STAKING: {
+    DEFAULT: 200000,
+    SNX: 850000,
+  }
 };
 
 export const getPoolStartTime = async (poolContract) => {
@@ -18,7 +20,7 @@ export const getPoolStartTime = async (poolContract) => {
 
 export const stake = async (poolContract, amount, account, tokenName) => {
   let now = new Date().getTime() / 1000;
-  const gas = GAS_LIMIT[tokenName.toUpperCase()] || GAS_LIMIT.DEFAULT;
+  const gas = GAS_LIMIT.STAKING[tokenName.toUpperCase()] || GAS_LIMIT.STAKING.DEFAULT;
   if (now >= 1597172400) {
     return poolContract.methods
       .stake((new BigNumber(amount).times(new BigNumber(10).pow(18))).toString())
