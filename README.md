@@ -30,7 +30,7 @@ The core YAM token uses yCRV as the reserve currency, which is roughly a $1 peg.
 ## Distribution
 Rather than allocating a portion of the supply to the founding team, YAM is being distributed in the spirit of YFI: no premine, no founder shares, no VC interests — simply equal-opportunity staking distribution to attract a broad and vision-aligned community to steward the future of the protocol and token.
 
-The initial distribution of YAM will be evenly distributed across eight staking pools: WETH, YFI, MKR, LEND, LINK, SNX, COMP, and ETH/APML Uniswap v2 LP tokens. These pools were chosen intentionally to reach a broad swath of the overall DeFi community, as well as specific communities with a proven commitment to active governance and an understanding of complex tokenomics.
+The initial distribution of YAM will be evenly distributed across eight staking pools: WETH, YFI, MKR, LEND, LINK, SNX, COMP, and ETH/AMPL Uniswap v2 LP tokens. These pools were chosen intentionally to reach a broad swath of the overall DeFi community, as well as specific communities with a proven commitment to active governance and an understanding of complex tokenomics.
 
 Following the launch of the initial distribution pools, a second distribution wave will be incentivized through a YAM/yCRV Uniswap pool. This pool will allow Uniswap's TWAP-based oracle to provide necessary input as the basis for rebase calculations, as well as provide liquidity for the rebase to purchase yCurve for the treasury.
 
