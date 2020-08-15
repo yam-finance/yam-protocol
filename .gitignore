@@ -3,3 +3,5 @@ node_modules
 wrangler.toml
 /build
 /clean_build
+**/package-lock.json
+package-lock.json
