@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from 'react'
 import styled from 'styled-components'
 
-import { yam as yamAddress } from '../../../constants/tokenAddresses'
+import { ham as hamAddress } from '../../../constants/tokenAddresses'
 import useTokenBalance from '../../../hooks/useTokenBalance'
 import { getDisplayBalance } from '../../../utils/formatBalance'
 
@@ -19,10 +19,10 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
     onDismiss!()
   }, [onDismiss])
 
-  const yamBalance = useTokenBalance(yamAddress)
+  const hamBalance = useTokenBalance(hamAddress)
   const displayBalance = useMemo(() => {
-    return getDisplayBalance(yamBalance)
-  }, [yamBalance])
+    return getDisplayBalance(hamBalance)
+  }, [hamBalance])
 
   return (
     <Modal>
@@ -32,7 +32,7 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
         <CardIcon>🍠</CardIcon>
         <StyledBalance>
           <StyledValue>{displayBalance}</StyledValue>
-          <Label text="YAM Balance" />
+          <Label text="HAM Balance" />
         </StyledBalance>
         <StyledBalanceActions>
           <IconButton>

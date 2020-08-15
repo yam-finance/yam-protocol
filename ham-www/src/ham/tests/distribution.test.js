@@ -376,7 +376,7 @@ describe("Distribution", () => {
         let ham_bal2 = await ham.contracts.ham.methods.balanceOf(user).call()
 
         let two_fity = ham.toBigN(250).times(ham.toBigN(10**3)).times(ham.toBigN(10**18))
-        expect(ham.toBigN(ham_bal2).minus(ham.toBigN(yam_bal)).toString()).toBe(two_fity.times(1).toString())
+        expect(ham.toBigN(ham_bal2).minus(ham.toBigN(ham_bal)).toString()).toBe(two_fity.times(1).toString())
     });
   });
 
@@ -443,7 +443,7 @@ describe("Distribution", () => {
         let ham_bal2 = await ham.contracts.ham.methods.balanceOf(user).call()
 
         let two_fity = ham.toBigN(250).times(ham.toBigN(10**3)).times(ham.toBigN(10**18))
-        expect(ham.toBigN(ham_bal2).minus(ham.toBigN(yam_bal)).toString()).toBe(two_fity.times(1).toString())
+        expect(ham.toBigN(ham_bal2).minus(ham.toBigN(ham_bal)).toString()).toBe(two_fity.times(1).toString())
     });
     test("rewards from pool 1s eth with rebase", async () => {
         await ham.testing.resetEVM("0x2");
@@ -696,7 +696,7 @@ describe("Distribution", () => {
 
         let two_fity = ham.toBigN(250).times(ham.toBigN(10**3)).times(ham.toBigN(10**18))
         expect(
-          ham.toBigN(ham_bal2).minus(ham.toBigN(yam_bal)).toNumber()
+          ham.toBigN(ham_bal2).minus(ham.toBigN(ham_bal)).toNumber()
         ).toBeGreaterThan(two_fity.toNumber())
     });
     test("rewards from pool 1s eth with negative rebase", async () => {
@@ -949,7 +949,7 @@ describe("Distribution", () => {
 
         let two_fity = ham.toBigN(250).times(ham.toBigN(10**3)).times(ham.toBigN(10**18))
         expect(
-          ham.toBigN(ham_bal2).minus(ham.toBigN(yam_bal)).toNumber()
+          ham.toBigN(ham_bal2).minus(ham.toBigN(ham_bal)).toNumber()
         ).toBeLessThan(two_fity.toNumber())
     });
   });
@@ -1016,7 +1016,7 @@ describe("Distribution", () => {
         let ham_bal2 = await ham.contracts.ham.methods.balanceOf(user).call()
 
         let two_fity = ham.toBigN(250).times(ham.toBigN(10**3)).times(ham.toBigN(10**18))
-        expect(ham.toBigN(ham_bal2).minus(ham.toBigN(yam_bal)).toString()).toBe(two_fity.times(1).toString())
+        expect(ham.toBigN(ham_bal2).minus(ham.toBigN(ham_bal)).toString()).toBe(two_fity.times(1).toString())
     });
   });
 
@@ -1082,7 +1082,7 @@ describe("Distribution", () => {
         let ham_bal2 = await ham.contracts.ham.methods.balanceOf(user).call()
 
         let two_fity = ham.toBigN(250).times(ham.toBigN(10**3)).times(ham.toBigN(10**18))
-        expect(ham.toBigN(ham_bal2).minus(ham.toBigN(yam_bal)).toString()).toBe(two_fity.times(1).toString())
+        expect(ham.toBigN(ham_bal2).minus(ham.toBigN(ham_bal)).toString()).toBe(two_fity.times(1).toString())
     });
   });
 
@@ -1150,7 +1150,7 @@ describe("Distribution", () => {
         let ham_bal2 = await ham.contracts.ham.methods.balanceOf(user).call()
 
         let two_fity = ham.toBigN(250).times(ham.toBigN(10**3)).times(ham.toBigN(10**18))
-        expect(ham.toBigN(ham_bal2).minus(ham.toBigN(yam_bal)).toString()).toBe(two_fity.times(1).toString())
+        expect(ham.toBigN(ham_bal2).minus(ham.toBigN(ham_bal)).toString()).toBe(two_fity.times(1).toString())
     });
   });
 
@@ -1219,7 +1219,7 @@ describe("Distribution", () => {
         let ham_bal2 = await ham.contracts.ham.methods.balanceOf(user).call()
 
         let two_fity = ham.toBigN(250).times(ham.toBigN(10**3)).times(ham.toBigN(10**18))
-        expect(ham.toBigN(ham_bal2).minus(ham.toBigN(yam_bal)).toString()).toBe(two_fity.times(1).toString())
+        expect(ham.toBigN(ham_bal2).minus(ham.toBigN(ham_bal)).toString()).toBe(two_fity.times(1).toString())
     });
   });
 
@@ -1288,7 +1288,7 @@ describe("Distribution", () => {
         let ham_bal2 = await ham.contracts.ham.methods.balanceOf(user).call()
 
         let two_fity = ham.toBigN(250).times(ham.toBigN(10**3)).times(ham.toBigN(10**18))
-        expect(ham.toBigN(ham_bal2).minus(ham.toBigN(yam_bal)).toString()).toBe(two_fity.times(1).toString())
+        expect(ham.toBigN(ham_bal2).minus(ham.toBigN(ham_bal)).toString()).toBe(two_fity.times(1).toString())
     });
   });
 
@@ -1365,7 +1365,7 @@ describe("Distribution", () => {
         let ham_bal2 = await ham.contracts.ham.methods.balanceOf(user).call()
 
         let two_fity = ham.toBigN(250).times(ham.toBigN(10**3)).times(ham.toBigN(10**18))
-        expect(ham.toBigN(ham_bal2).minus(ham.toBigN(yam_bal)).toString()).toBe(two_fity.times(1).toString())
+        expect(ham.toBigN(ham_bal2).minus(ham.toBigN(ham_bal)).toString()).toBe(two_fity.times(1).toString())
     });
   });
 })

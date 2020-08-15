@@ -248,8 +248,8 @@ describe('HAM governance', () => {
       await ham.testing.stopMining();
 
       let t1 = ham.contracts.ham.methods.delegate(a1).send({from: guy});
-      let t2 = ham.contracts.ham.methods.transfer(a2, ham.toBigN(100).times(yam.toBigN(10**18)).times(.1).toString()).send({from: guy});
-      let t3 = ham.contracts.ham.methods.transfer(a2, ham.toBigN(100).times(yam.toBigN(10**18)).times(.1).toString()).send({from: guy});
+      let t2 = ham.contracts.ham.methods.transfer(a2, ham.toBigN(100).times(ham.toBigN(10**18)).times(.1).toString()).send({from: guy});
+      let t3 = ham.contracts.ham.methods.transfer(a2, ham.toBigN(100).times(ham.toBigN(10**18)).times(.1).toString()).send({from: guy});
 
       await ham.testing.startMining();
       t1 = await t1;
@@ -273,7 +273,7 @@ describe('HAM governance', () => {
       cs = await ham.contracts.ham.methods.checkpoints(a1, 2).call();
       expect(cs.votes).toBe("0"); // 0
 
-      let t4 = await ham.contracts.ham.methods.transfer(guy, ham.toBigN(100).times(yam.toBigN(10**18)).times(.2).toString()).send({from: user});
+      let t4 = await ham.contracts.ham.methods.transfer(guy, ham.toBigN(100).times(ham.toBigN(10**18)).times(.2).toString()).send({from: user});
 
       nc = await ham.contracts.ham.methods.numCheckpoints(a1).call();
       expect(nc).toBe('2');
@@ -330,13 +330,13 @@ describe('HAM governance', () => {
       let t1 = await ham.contracts.ham.methods.delegate(a1).send({from: guy});
       await ham.testing.mineBlock();
       await ham.testing.mineBlock();
-      let t2 = await ham.contracts.ham.methods.transfer(a2, ham.toBigN(100).times(yam.toBigN(10**18)).times(.1).toString()).send({from: guy});
+      let t2 = await ham.contracts.ham.methods.transfer(a2, ham.toBigN(100).times(ham.toBigN(10**18)).times(.1).toString()).send({from: guy});
       await ham.testing.mineBlock();
       await ham.testing.mineBlock();
-      let t3 = await ham.contracts.ham.methods.transfer(a2, ham.toBigN(100).times(yam.toBigN(10**18)).times(.1).toString()).send({from: guy});
+      let t3 = await ham.contracts.ham.methods.transfer(a2, ham.toBigN(100).times(ham.toBigN(10**18)).times(.1).toString()).send({from: guy});
       await ham.testing.mineBlock();
       await ham.testing.mineBlock();
-      let t4 = await ham.contracts.ham.methods.transfer(guy, ham.toBigN(100).times(yam.toBigN(10**18)).times(.2).toString()).send({from: a2});
+      let t4 = await ham.contracts.ham.methods.transfer(guy, ham.toBigN(100).times(ham.toBigN(10**18)).times(.2).toString()).send({from: a2});
       await ham.testing.mineBlock();
       await ham.testing.mineBlock();
 

@@ -24,15 +24,15 @@ const DisclaimerModal: React.FC<DisclaimerModal> = ({ onConfirm, onDismiss }) =>
       return (
         <div>
           <p>Audits: None.</p>
-          <p>While the initial creators of the Yam protocol have made reasonable efforts to attempt to ensure the security of the contracts, including forking much of the codebase from existing well-audited projects and soliciting review from friends, nothing approaching the rigor of a formal audit has been conducted at this time.</p>
+          <p>While the initial creators of the Ham protocol have made reasonable efforts to attempt to ensure the security of the contracts, including forking much of the codebase from existing well-audited projects and soliciting review from friends, nothing approaching the rigor of a formal audit has been conducted at this time.</p>
           <p>We STRONGLY urge caution to anyone who chooses to engage with these contracts.</p>
         </div>
       )
     } else {
       return (
         <div>
-          <p>Attention YAM Uniswap LPs</p>
-          <p>The only Uniswap pool that is compatible with YAM is YAM/yCRV (Curve yPool tokens)</p>
+          <p>Attention HAM Uniswap LPs</p>
+          <p>The only Uniswap pool that is compatible with HAM is HAM/yCRV (Curve yPool tokens)</p>
           <p>Providing liquidity for other Uniswap pools is dangerous</p>
           <p>You will LOSE your share of rebases</p>
         </div>

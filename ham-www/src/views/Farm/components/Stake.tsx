@@ -55,7 +55,7 @@ const Stake: React.FC<StakeProps> = ({
       tokenName={tokenName}
     />
   )
-  
+
   const [onPresentWithdraw] = useModal(
     <WithdrawModal
       max={stakedBalance}
@@ -99,7 +99,7 @@ const Stake: React.FC<StakeProps> = ({
                   <RemoveIcon />
                 </IconButton>
                 <StyledActionSpacer />
-                {tokenName !== 'YCRV_YAM_UNI_LP' && (
+                {tokenName !== 'YCRV_HAM_UNI_LP' && (
                   <IconButton onClick={onPresentDeposit}>
                     <AddIcon />
                   </IconButton>

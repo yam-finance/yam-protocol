@@ -7,7 +7,7 @@ import Page from '../../components/Page'
 import PageHeader from '../../components/PageHeader'
 import Spacer from '../../components/Spacer'
 
-import useYam from '../../hooks/useYam'
+import useHam from '../../hooks/useHam'
 
 import Rebase from './components/Rebase'
 import Stats from './components/Stats'
@@ -20,7 +20,7 @@ const Home: React.FC = () => {
 
   const { account } = useWallet()
 
-  const yam = useYam()
+  const ham = useHam()
   const [{
     circSupply,
     curPrice,
@@ -30,23 +30,23 @@ const Home: React.FC = () => {
   }, setStats] = useState<OverviewData>({})
 
   const fetchStats = useCallback(async () => {
-    const statsData = await getStats(yam)
+    const statsData = await getStats(ham)
     setStats(statsData)
-  }, [yam, setStats])
+  }, [ham, setStats])
 
   useEffect(() => {
-    if (yam) {
+    if (ham) {
       fetchStats()
     }
-  }, [yam])
+  }, [fetchStats, ham])
 
   return (
     <Page>
-      <PageHeader icon="⚠️" subtitle="Remove liquidity from the YAM / YCRV Uniswap pool" title="Warning" />
+      <PageHeader icon="⚠️" subtitle="Remove liquidity from the HAM / YCRV Uniswap pool" title="Warning" />
       <div style={{
         margin: '-24px auto 48px'
       }}>
-        <StyledLink href="https://medium.com/@yamfinance/how-to-exit-the-eternal-lands-pool-and-withdraw-your-yam-823d57c95f3a">How to withdraw from Uniswap</StyledLink>
+        <StyledLink href="https://medium.com/@hamfinance/how-to-exit-the-eternal-lands-pool-and-withdraw-your-ham-823d57c95f3a">How to withdraw from Uniswap</StyledLink>
       </div>
       <Spacer />
       <div>

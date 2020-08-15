@@ -19,7 +19,7 @@ import {
   getDelegatedBalance,
   getScalingFactor,
   getVotes,
-} from '../../../yamUtils'
+} from '../../../hamUtils'
 
 interface VoteProps {
 }
@@ -34,7 +34,7 @@ const Vote: React.FC<VoteProps> = () => {
   const [delegatedBalance, setDelegatedBalance] = useState(new BigNumber(0))
 
   const { account } = useWallet()
-  const yam = useHam()
+  const ham = useHam()
 
   const renderer = (countdownProps: CountdownRenderProps) => {
     const { hours, minutes, seconds } = countdownProps
@@ -57,38 +57,38 @@ const Vote: React.FC<VoteProps> = () => {
   }
 
   const handleVoteClick = useCallback(() => {
-    delegate(yam, account)
-  }, [account, yam])
+    delegate(ham, account)
+  }, [account, ham])
 
   const fetchVotes = useCallback(async () => {
-    const voteCount = await getVotes(yam)
-    const scalingFactor = await getScalingFactor(yam)
+    const voteCount = await getVotes(ham)
+    const scalingFactor = await getScalingFactor(ham)
     setTotalVotes(voteCount)
     setScalingFactor(scalingFactor)
-  }, [yam, setTotalVotes, setScalingFactor])
+  }, [ham, setTotalVotes, setScalingFactor])
 
   useEffect(() => {
-    if (yam) {
+    if (ham) {
       fetchVotes()
     }
     const refetch = setInterval(fetchVotes, 10000)
     return () => clearInterval(refetch)
-  }, [fetchVotes, yam])
+  }, [fetchVotes, ham])
 
   const fetchDidDelegate = useCallback(async () => {
-    const d = await didDelegate(yam, account)
+    const d = await didDelegate(ham, account)
     if (d) {
-      const amount = await getDelegatedBalance(yam, account)
+      const amount = await getDelegatedBalance(ham, account)
       setDelegatedBalance(amount)
     }
     setDelegated(d)
-  }, [setDelegated, yam, account, setDelegatedBalance])
+  }, [setDelegated, ham, account, setDelegatedBalance])
 
   useEffect(() => {
-    if (yam && account) {
+    if (ham && account) {
       fetchDidDelegate()
     }
-  }, [fetchDidDelegate, yam, account])
+  }, [fetchDidDelegate, ham, account])
 
   return (
     <Card>
@@ -126,7 +126,7 @@ const Vote: React.FC<VoteProps> = () => {
                   fontSize: 12,
                   marginTop: 4,
                   marginLeft: 4,
-                }}>{`/ ${Number(new BigNumber(160000).multipliedBy(scalingFactor).toFixed(0)).toLocaleString()} YAM`}</div>
+                }}>{`/ ${Number(new BigNumber(160000).multipliedBy(scalingFactor).toFixed(0)).toLocaleString()} HAM`}</div>
             </div>
           </StyledCenter>
         </StyledResponsiveWrapper>
@@ -152,10 +152,10 @@ const Vote: React.FC<VoteProps> = () => {
         </StyledCheckpoints>
         <Spacer />
         {!delegated ? (
-          <Button text="Delegate to save YAM" onClick={handleVoteClick} />
+          <Button text="Delegate to save HAM" onClick={handleVoteClick} />
         ) : (
           <div>
-            <StyledDelegatedCount>Delegating: {Number(delegatedBalance.multipliedBy(scalingFactor).toFixed(0)).toLocaleString()} YAM</StyledDelegatedCount>
+            <StyledDelegatedCount>Delegating: {Number(delegatedBalance.multipliedBy(scalingFactor).toFixed(0)).toLocaleString()} HAM</StyledDelegatedCount>
             <StyledThankYou>Thank you for your support ❤️</StyledThankYou>
             <div style={{
               alignItems: 'baseline',
@@ -175,8 +175,8 @@ const Vote: React.FC<VoteProps> = () => {
           paddingTop: 24,
           opacity: 0.6,
         }}>
-          <p>NOTE: You must harvest your YAMs BEFORE 7am UTC Thursday 8/13 - very soon.</p>
-          <p>Hold them in your wallet until 10PM UTC Sunday 8/16 for your delegation to save YAM</p>
+          <p>NOTE: You must harvest your HAMs BEFORE 7am UTC Thursday 8/13 - very soon.</p>
+          <p>Hold them in your wallet until 10PM UTC Sunday 8/16 for your delegation to save HAM</p>
         </div>
           <div style={{
             display: 'flex',

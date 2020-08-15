@@ -109,7 +109,7 @@ export const getTargetPrice = async (ham) => {
 
 export const getCirculatingSupply = async (ham) => {
   let now = await ham.web3.eth.getBlock('latest');
-  let scalingFactor = ham.toBigN(await ham.contracts.ham.methods.yamsScalingFactor().call());
+  let scalingFactor = ham.toBigN(await ham.contracts.ham.methods.hamsScalingFactor().call());
   let starttime = ham.toBigN(await ham.contracts.eth_pool.methods.starttime().call()).toNumber();
   let timePassed = now["timestamp"] - starttime;
   if (timePassed < 0) {

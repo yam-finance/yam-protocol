@@ -2,9 +2,9 @@ import React, { useCallback, useEffect, useState } from 'react'
 
 import { Contract } from 'web3-eth-contract'
 
-import { yam as yamAddress } from '../../constants/tokenAddresses'
+import { ham as hamAddress } from '../../constants/tokenAddresses'
 import useHam from '../../hooks/useHam'
-import { getPoolContracts } from '../../yamUtils'
+import { getPoolContracts } from '../../hamUtils'
 
 import Context from './context'
 import { Farm } from './types'
@@ -48,10 +48,10 @@ const SORT_FOR_POOL: { [key: string]: number } = {
 const Farms: React.FC = ({ children }) => {
 
   const [farms, setFarms] = useState<Farm[]>([])
-  const yam = useHam()
+  const ham = useHam()
 
   const fetchPools = useCallback(async () => {
-    const pools: { [key: string]: Contract} = await getPoolContracts(yam)
+    const pools: { [key: string]: Contract} = await getPoolContracts(ham)
 
     const farmsArr: Farm[] = []
     const poolKeys = Object.keys(pools)
@@ -65,7 +65,7 @@ const Farms: React.FC = ({ children }) => {
       } else if (tokenKey === 'ampl') {
         tokenKey = 'ampl_eth_uni_lp'
       } else if (tokenKey === 'ycrv') {
-        tokenKey = 'ycrv_yam_uni_lp'
+        tokenKey = 'ycrv_ham_uni_lp'
       }
 
       const method = pool.methods[tokenKey]
@@ -73,7 +73,7 @@ const Farms: React.FC = ({ children }) => {
         let tokenAddress = ''
         if (method) {
           tokenAddress = await method().call()
-        } else if (tokenKey === 'ycrv_yam_uni_lp') {
+        } else if (tokenKey === 'ycrv_ham_uni_lp') {
           tokenAddress = '0xdf5e0e81dff6faf3a7e52ba697820c5e32d806a8'
         }
         farmsArr.push({
@@ -81,8 +81,8 @@ const Farms: React.FC = ({ children }) => {
           name: NAME_FOR_POOL[poolKey],
           depositToken: tokenKey,
           depositTokenAddress: tokenAddress,
-          earnToken: 'yam',
-          earnTokenAddress: yamAddress,
+          earnToken: 'ham',
+          earnTokenAddress: hamAddress,
           icon: ICON_FOR_POOL[poolKey],
           id: tokenKey,
           sort: SORT_FOR_POOL[poolKey]
@@ -93,14 +93,14 @@ const Farms: React.FC = ({ children }) => {
     }
     farmsArr.sort((a, b) => a.sort < b.sort ? 1 : -1)
     setFarms(farmsArr)
-  }, [yam, setFarms])
+  }, [ham, setFarms])
 
   useEffect(() => {
-    if (yam) {
+    if (ham) {
       fetchPools()
     }
-  }, [yam, fetchPools])
-  
+  }, [ham, fetchPools])
+
   return (
     <Context.Provider value={{ farms }}>
       {children}

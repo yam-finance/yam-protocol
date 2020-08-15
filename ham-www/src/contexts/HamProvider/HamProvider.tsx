@@ -2,29 +2,29 @@ import React, { createContext, useEffect, useState } from 'react'
 
 import { useWallet } from 'use-wallet'
 
-import { Ham } from '../../yam'
+import { Ham } from '../../ham'
 
 export interface HamContext {
-  yam?: typeof Ham
+  ham?: typeof Ham
 }
 
 export const Context = createContext<HamContext>({
-  yam: undefined,
+  ham: undefined,
 })
 
 declare global {
   interface Window {
-    yamsauce: any
+    hamsauce: any
   }
 }
 
 const HamProvider: React.FC = ({ children }) => {
   const { ethereum } = useWallet()
-  const [yam, setHam] = useState<any>()
+  const [ham, setHam] = useState<any>()
 
   useEffect(() => {
     if (ethereum) {
-      const yamLib = new Ham(
+      const hamLib = new Ham(
         ethereum,
         "1",
         false, {
@@ -38,13 +38,13 @@ const HamProvider: React.FC = ({ children }) => {
           ethereumNodeTimeout: 10000
         }
       )
-      setHam(yamLib)
-      window.yamsauce = yamLib
+      setHam(hamLib)
+      window.hamsauce = hamLib
     }
   }, [ethereum])
 
   return (
-    <Context.Provider value={{ yam }}>
+    <Context.Provider value={{ ham }}>
       {children}
     </Context.Provider>
   )

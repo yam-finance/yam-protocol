@@ -19,7 +19,7 @@ At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praese
 const About: React.FC = () => {
   return (
     <Page>
-      <PageHeader icon="📖" title="About YAM" />
+      <PageHeader icon="📖" title="About HAM" />
       <Container>
         <Card>
           <CardContent>

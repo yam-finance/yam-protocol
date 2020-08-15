@@ -765,7 +765,7 @@ describe("rebase_tests", () => {
       console.log("quote post no rebase", q);
     });
     test("rebasing with HAM in reserves", async () => {
-      await ham.contracts.ham.methods.transfer(ham.contracts.reserves.options.address, yam.toBigN(60000*10**18).toString()).send({from: user});
+      await ham.contracts.ham.methods.transfer(ham.contracts.reserves.options.address, ham.toBigN(60000*10**18).toString()).send({from: user});
       await ham.contracts.ham.methods.approve(
         ham.contracts.uni_router.options.address,
         -1

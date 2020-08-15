@@ -5,7 +5,7 @@ import { useWallet } from 'use-wallet'
 import { Contract } from "web3-eth-contract"
 
 import { getStaked } from '../hamUtils'
-import useHam from './useYam'
+import useHam from './useHam'
 
 const useStakedBalance = (pool: Contract) => {
   const [balance, setBalance] = useState(new BigNumber(0))
