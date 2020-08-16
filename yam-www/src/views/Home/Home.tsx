@@ -3,7 +3,6 @@ import styled from 'styled-components'
 
 import { useWallet } from 'use-wallet'
 
-import Page from '../../components/Page'
 import PageHeader from '../../components/PageHeader'
 import Spacer from '../../components/Spacer'
 
@@ -41,7 +40,7 @@ const Home: React.FC = () => {
   }, [yam])
 
   return (
-    <Page>
+    <>
       <PageHeader icon="⚠️" subtitle="Having liquidity in the YAM/YCRV Uniswap Pool is extremely dangerous because of a bug in the rebase functionality" title="Warning" />
       <div style={{
         margin: '-24px auto 48px'
@@ -61,7 +60,7 @@ const Home: React.FC = () => {
           />
         </StyledOverview>
       </div>
-    </Page>
+    </>
   )
 }
 
