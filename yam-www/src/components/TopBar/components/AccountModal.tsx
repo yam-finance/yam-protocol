@@ -2,6 +2,7 @@ import React, { useCallback, useMemo } from 'react'
 import styled from 'styled-components'
 
 import { useWallet } from 'use-wallet'
+import useLocalStorage from '../../../hooks/useLocalStorage'
 
 import { yam as yamAddress } from '../../../constants/tokenAddresses'
 import useTokenBalance from '../../../hooks/useTokenBalance'
@@ -17,9 +18,11 @@ import ModalTitle from '../../ModalTitle'
 
 const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
   const { reset } = useWallet()
+  const [provider, setProvider] = useLocalStorage('provider', false)
 
   const handleSignOutClick = useCallback(() => {
     reset()
+    setProvider(false)
     onDismiss!()
   }, [onDismiss])
 
