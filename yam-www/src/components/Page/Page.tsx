@@ -1,18 +1,32 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import styled from 'styled-components'
+
+import { useWallet } from 'use-wallet'
+import useLocalStorage from '../../hooks/useLocalStorage'
 
 import Footer from '../Footer'
 import TopBar from '../TopBar'
 
-const Page: React.FC = ({ children }) => (
-  <StyledPage>
-    <TopBar />
-    <StyledMain>
-      {children}
-    </StyledMain>
-    <Footer />
-  </StyledPage>
-)
+const Page: React.FC = ({ children }) => {
+  const { account, connect } = useWallet()
+  const [provider, setProvider] = useLocalStorage('provider', false)
+
+  useMemo(() => {
+    if (provider) {
+      connect(provider)
+    }
+  }, [])
+
+  return (
+    <StyledPage>
+      <TopBar />
+      <StyledMain>
+        {children}
+      </StyledMain>
+      <Footer />
+    </StyledPage>
+  )
+}
 
 const StyledPage = styled.div``
 

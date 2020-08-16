@@ -17,6 +17,7 @@
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
+    "react-svg": "^11.0.35",
     "styled-components": "^5.1.1",
     "typescript": "^3.9.7",
     "use-wallet": "^0.8.0",
