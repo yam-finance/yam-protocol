@@ -2,6 +2,7 @@ import React, { useCallback, useMemo } from 'react'
 import styled from 'styled-components'
 
 import { useWallet } from 'use-wallet'
+import useLocalStorage from '../../../hooks/useLocalStorage'
 
 import { ReactSVG } from 'react-svg'
 import metamask from '../../../assets/img/metamask.svg'
@@ -22,12 +23,20 @@ const WalletProviderModal: React.FC<ModalProps> = ({ onDismiss }) => {
   }, [onDismiss])
 
   const { connect } = useWallet()
+  const [provider, setProvider] = useLocalStorage('provider', false)
+
+  const connectWallet = (key: any) => {
+    // Unsure which type to pass here (use-wallet Connector didn't work)
+    connect(key)
+    setProvider(key)
+    handleCancelClick()
+  }
 
   return (
     <Modal>
       <ModalTitle text="Select Wallet Provider" />
       <StyledButtonsWrapper>
-        <StyledIconButton onClick={() => connect('injected')}>
+        <StyledIconButton onClick={() => connectWallet('injected')}>
           <CardIcon>
             <StyledSvgWrapper>
               <ReactSVG src={metamask} />
@@ -36,7 +45,7 @@ const WalletProviderModal: React.FC<ModalProps> = ({ onDismiss }) => {
           <Label text="Metamask" />
         </StyledIconButton>
 
-        <StyledIconButton onClick={() => connect('walletconnect')}>
+        <StyledIconButton onClick={() => connectWallet('walletconnect')}>
           <CardIcon>
             <StyledSvgWrapper>
               <ReactSVG src={walletconnect} />
@@ -45,7 +54,7 @@ const WalletProviderModal: React.FC<ModalProps> = ({ onDismiss }) => {
           <Label text="Wallet Connect" />
         </StyledIconButton>
 
-        <StyledIconButton onClick={() => connect('walletlink')}>
+        <StyledIconButton onClick={() => connectWallet('walletlink')}>
           <CardIcon>
             <StyledSvgWrapper>
               <ReactSVG src={walletlink} />
