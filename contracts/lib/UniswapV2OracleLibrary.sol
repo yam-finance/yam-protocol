@@ -38,7 +38,7 @@ library UniswapV2OracleLibrary {
               uint32 timeElapsed = blockTimestamp - blockTimestampLast;
               // addition overflow is desired
               // counterfactual
-              priceCumulative += uint(FixedPoint.fraction(reserve1, reserve0)._x) * timeElapsed;
+              priceCumulative += uint(FixedPoint.fraction(reserve0, reserve1)._x) * timeElapsed;
           }
         }
 
