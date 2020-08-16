@@ -5,11 +5,12 @@ import {
   useRouteMatch,
 } from 'react-router-dom'
 import { useWallet } from 'use-wallet'
+import WalletProviderModal from '../../components/TopBar/components/WalletProviderModal'
 
 import farmer from '../../assets/img/farmer.png'
 
+import useModal from '../../hooks/useModal'
 import Button from '../../components/Button'
-import Page from '../../components/Page'
 import PageHeader from '../../components/PageHeader'
 
 import Farm from '../Farm'
@@ -18,10 +19,10 @@ import FarmCards from './components/FarmCards'
 
 const Farms: React.FC = () => {
   const { path } = useRouteMatch()
-  const { account, connect } = useWallet()
+  const { account } = useWallet()
+  const [onPresentWalletProvider] = useModal(<WalletProviderModal />)
   return (
     <Switch>
-      <Page>
       {!!account ? (
         <>
           <Route exact path={path}>
@@ -43,13 +44,9 @@ const Farms: React.FC = () => {
           flex: 1,
           justifyContent: 'center',
         }}>
-          <Button
-            onClick={() => connect('injected')}
-            text="Unlock Wallet"
-          />
+          <Button onClick={onPresentWalletProvider} text="Unlock Wallet" />
         </div>
       )}
-      </Page>
     </Switch>
   )
 }
