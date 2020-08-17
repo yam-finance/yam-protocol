@@ -1,6 +1,6 @@
 # 🦐  Shrimp Gem DAO Protocol  🦐
 
-![](https://i.imgur.com/nIxmlD1.jpg =350x)
+![test](https://i.imgur.com/nIxmlD1.jpg)
 
 ## The Protocol
 The whale fights the shrimp, and it has never changed since ancient times. Who said shrimp can't fight big whales? As long as we are united!
@@ -10,14 +10,14 @@ Shrimp is a community that gathers all leeks. We share the latest Pump tokens an
 ## Shrimp strategy
 When the new token goes online, the shrimps will give back to the community. After the community votes , we will open a new pool, and the total amount of each pool will be fixed at 30,678 Shrimp. We will use the power of shrimp community to attract more shrimps.
 
-## Level of Oncean
-🐋 Humpback Whale = 5000 BTC or more
-🐋 Whale = 1000 - 5000 BTC
-🦈 Shark = 500 - 1000 BTC
-🐬 Dolphin = 100 - 500 BTC
-🐠 Fish = 50 - 100 BTC
-🐙 Octopus = 10 - 50 BTC
-🦀 Crab = 1 - 10 BTC
+## Level of ocean
+🐋 Humpback Whale = 5000 BTC or more  
+🐋 Whale = 1000 - 5000 BTC  
+🦈 Shark = 500 - 1000 BTC  
+🐬 Dolphin = 100 - 500 BTC  
+🐠 Fish = 50 - 100 BTC  
+🐙 Octopus = 10 - 50 BTC  
+🦀 Crab = 1 - 10 BTC  
 🦐 Shrimp = less then 1 BTC (We are here)
 
 ## RoadMap
