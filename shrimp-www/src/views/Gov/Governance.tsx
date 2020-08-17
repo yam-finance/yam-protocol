@@ -42,26 +42,41 @@ const Vote: React.FC = () => {
   return (
     <Page>
       <PageHeader icon="🦐" subtitle="Vote for changes here" />
+      {account && (
+        <div style={{
+          alignItems: 'center',
+          display: 'flex',
+          flex: 1,
+          justifyContent: 'center',
+          marginBottom: "20px"
+        }}>
+          <Button
+            onClick={() => connect('injected')}
+            text="Make a Proposal"
+          />
+        </div>
+      )}
+
       <div>
-         {!!account && (
+        {!!account && (
           <StyledVote>
             <Vote_Piece />
           </StyledVote>
-        )} 
-        {!account && (
-            <div style={{
-                alignItems: 'center',
-                display: 'flex',
-                flex: 1,
-                justifyContent: 'center',
-              }}>
-                <Button
-                  onClick={() => connect('injected')}
-                  text="Unlock Wallet"
-                />
-              </div>
         )}
-        
+        {!account && (
+          <div style={{
+            alignItems: 'center',
+            display: 'flex',
+            flex: 1,
+            justifyContent: 'center',
+          }}>
+            <Button
+              onClick={() => connect('injected')}
+              text="Unlock Wallet"
+            />
+          </div>
+        )}
+
         <StyledSpacer />
         <StyledOverview>
           {/* <Stats

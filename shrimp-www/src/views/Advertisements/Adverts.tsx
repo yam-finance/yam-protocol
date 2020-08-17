@@ -4,15 +4,16 @@ import styled from 'styled-components'
 import useYam from '../../hooks/useYam';
 
 import {
-    Route,
-    useParams,
-    Switch,
-    useRouteMatch,
-  } from 'react-router-dom'
+  Route,
+  useParams,
+  Switch,
+  useRouteMatch,
+} from 'react-router-dom'
 import { useWallet } from 'use-wallet'
 import { provider } from 'web3-core'
-import Countdown, { CountdownRenderProps} from 'react-countdown'
+import Countdown, { CountdownRenderProps } from 'react-countdown'
 
+import farmer from '../../assets/img/farmer.png'
 
 import Button from '../../components/Button'
 import PageHeader from '../../components/PageHeader'
@@ -27,16 +28,16 @@ import CardContent from '../../components/CardContent'
 import CardIcon from '../../components/CardIcon'
 
 import {
-    delegate,
-    didDelegate,
-    getDelegatedBalance,
-    getScalingFactor,
-    getVotes,
-    vote_new_token
-  } from '../../yamUtils'
+  delegate,
+  didDelegate,
+  getDelegatedBalance,
+  getScalingFactor,
+  getVotes,
+  vote_new_token
+} from '../../yamUtils'
 
 const Advertisements: React.FC = () => {
-const { path } = useRouteMatch()
+  const { path } = useRouteMatch()
   const { account, connect, ethereum } = useWallet()
   const { farmId } = useParams()
   const {
@@ -73,56 +74,27 @@ const { path } = useRouteMatch()
   //             src/yamUtils/index.js
 
   // src location of logic for this to update the address
-  
+
   //can set a gas base price as well send({from: account, gas: 200000})
-  
+
   const initiate_vote = useCallback(() => {
     vote_new_token(yam, account)
   }, [account, yam])
 
   return (
     <>
-    <Page>
-      {!!account &&(<> <PageHeader
-        icon={icon}
-        title="List your token with SHRIMP"
-      />
-      <Styledspan onClick={initiate_vote} >
-      <Button size="md" >
-          Deposit to start a vote
-      </Button>
-      </Styledspan>
-      <Spacer size="lg" />
-      <StyledFarm>
-        <StyledCardWrapper>
-        <StyledCardAccent />
-      <Card>
-        <CardContent>
-          <StyledContent>
-            <CardIcon>❓</CardIcon>
-            <StyledTitle>New Pool</StyledTitle>
-            <StyledDetails>
-              <StyledDetail>Deposit SHRIMP</StyledDetail>
-              <StyledDetail>Create a new pool</StyledDetail>
-            </StyledDetails>
-            {/* <Button
-              disabled={!poolActive}
-              text={poolActive ? 'Select' : undefined}
-              to={`/farms/${farm.id}`}
-            >
-            </Button> */}
-          </StyledContent>
-        </CardContent>
-      </Card>
-    </StyledCardWrapper>
+      <Page>
+        {(<>
 
-        <Spacer size="lg" />
-      </StyledFarm>
-      </>
-      )}
-      {!account &&(
-          <>
-          <div style={{
+          <PageHeader
+            icon={<img src={farmer} height="96" />}
+            subtitle="1% Shrimp can list here for 7 Days"
+            title="Unite Shrimper by providing Shrimp coin"
+          />
+
+          {!account && (
+            <>
+              <div style={{
                 alignItems: 'center',
                 display: 'flex',
                 flex: 1,
@@ -133,8 +105,47 @@ const { path } = useRouteMatch()
                   text="Unlock Wallet"
                 />
               </div>
-          </>
-      )}
+            </>
+          )}
+
+          {account && (
+            <div style={{
+              alignItems: 'center',
+              display: 'flex',
+              flex: 1,
+              justifyContent: 'center',
+              marginBottom: "20px"
+            }}>
+              <Button
+                onClick={() => connect('injected')}
+                text="Make a Pool"
+              />
+            </div>
+          )}
+
+          <Spacer size="lg" />
+          <StyledFarm>
+            <StyledCardWrapper>
+              <StyledCardAccent />
+              <Card>
+                <CardContent>
+                  <StyledContent>
+                    <CardIcon>❓</CardIcon>
+                    <StyledTitle>Dice</StyledTitle>
+                    <StyledDetails>
+                      <StyledDetail>Website</StyledDetail>
+                      <StyledDetail>Telegram</StyledDetail>
+                      <StyledDetail>More Info</StyledDetail>
+                    </StyledDetails>
+                  </StyledContent>
+                </CardContent>
+              </Card>
+            </StyledCardWrapper>
+
+            <Spacer size="lg" />
+          </StyledFarm>
+        </>
+        )}
       </Page>
     </>
   )
