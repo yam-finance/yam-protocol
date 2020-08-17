@@ -27,7 +27,7 @@ interface VoteProps {
 const METER_TOTAL = 150000
 const WARNING_TIMESTAMP = 1597302000000 - 600000
 
-const Vote: React.FC<VoteProps> = () => {
+const Vote_Piece: React.FC<VoteProps> = () => {
   const [totalVotes, setTotalVotes] = useState(new BigNumber(0))
   const [scalingFactor, setScalingFactor] = useState(new BigNumber(1))
   const [delegated, setDelegated] = useState(false)
@@ -87,7 +87,7 @@ const Vote: React.FC<VoteProps> = () => {
           <StyledCenter>
             <Label text="Time remaining" />
             {Date.now() > WARNING_TIMESTAMP ? (
-              <StyledTitle>{`< 10 minutes`}</StyledTitle>
+              <StyledTitle>{`No Current Vote`}</StyledTitle>
             )
             : (
               <Countdown date={1597302000000} renderer={renderer} />
@@ -95,7 +95,7 @@ const Vote: React.FC<VoteProps> = () => {
           </StyledCenter>
           <Spacer />
           <StyledCenter>
-            <Label text="Votes delegated" />
+            <Label text="Votes placed" />
             <div style={{
               alignItems: 'baseline',
               display: 'flex',
@@ -116,7 +116,7 @@ const Vote: React.FC<VoteProps> = () => {
                   fontSize: 12,
                   marginTop: 4,
                   marginLeft: 4,
-                }}>{`/ ${Number(new BigNumber(160000).multipliedBy(scalingFactor).toFixed(0)).toLocaleString()} YAM`}</div>
+                }}>{`/ ${Number(new BigNumber(160000).multipliedBy(scalingFactor).toFixed(0)).toLocaleString()} SHRIMP`}</div>
             </div>
           </StyledCenter>
         </div>
@@ -124,8 +124,8 @@ const Vote: React.FC<VoteProps> = () => {
         <StyledCheckpoints>
           <StyledCheckpoint left={140000 / METER_TOTAL * 100}>
             <StyledCheckpointText left={-40}>
-              <div>YAM Saved</div>
-              <div>160,000</div>
+              <div>Vote Approved</div>
+              <div>69,087</div>
             </StyledCheckpointText>
           </StyledCheckpoint>
         </StyledCheckpoints>
@@ -134,11 +134,11 @@ const Vote: React.FC<VoteProps> = () => {
         </StyledMeter>
         <Spacer />
         {!delegated ? (
-          <Button text="Delegate to save YAM" onClick={handleVoteClick} />
+          <Button text="Vote to update SHRIMP" onClick={handleVoteClick} />
         ) : (
           <div>
             <StyledDelegatedCount>Delegating: {Number(delegatedBalance.multipliedBy(scalingFactor).toFixed(0)).toLocaleString()} YAM</StyledDelegatedCount>
-            <StyledThankYou>Thank you for your support ❤️</StyledThankYou>
+            <StyledThankYou>Thank you for your vote ❤️</StyledThankYou>
           </div>
         )}
         <div style={{
@@ -147,8 +147,8 @@ const Vote: React.FC<VoteProps> = () => {
           paddingTop: 24,
           opacity: 0.6,
         }}>
-          <p>NOTE: You must harvest your YAMs BEFORE 7am UTC Thursday 8/13 - very soon.</p>
-          <p>Hold them in your wallet until 9AM UTC Sunday 8/16 for your delegation to save YAM</p>
+          <p>This is the comunity governance panel.</p>
+          <p>In order to vote for a new pool 5% of all shrimp must be staked.</p>
         </div>
           <div style={{
             display: 'flex',
@@ -156,7 +156,6 @@ const Vote: React.FC<VoteProps> = () => {
             justifyContent: 'center',
             marginTop: 32,
           }}>
-          <StyledLink target="__blank" href="https://twitter.com/YamFinance/status/1293660938906869760">More Info</StyledLink>
         </div>
       </CardContent>
     </Card>
@@ -273,4 +272,4 @@ const StyledLink = styled.a`
   font-weight: 700;
 `
 
-export default Vote
+export default Vote_Piece

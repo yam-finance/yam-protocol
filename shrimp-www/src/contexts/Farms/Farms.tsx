@@ -16,6 +16,7 @@ const NAME_FOR_POOL: { [key: string]: string } = {
   comp_pool: 'Compounding Hills',
   dice_pool: 'Safe Haven',
   uni_pool: 'WETH_SHRIMP_UNI_LP',
+  taco_pool: 'Shrimp Tacos'
 }
 
 const ICON_FOR_POOL: { [key: string]: string } = {
@@ -25,15 +26,17 @@ const ICON_FOR_POOL: { [key: string]: string } = {
   comp_pool: '💸',
   dice_pool: '🎲',
   uni_pool: '🌈',
+  taco_pool: '🌮',
 }
 
 const SORT_FOR_POOL: { [key: string]: number } = {
-  yfi_pool: 0,
-  eth_pool: 1,
-  cream_pool: 2,
-  comp_pool: 3,
-  dice_pool: 4,
-  uni_pool: 5
+  taco_pool: 0,
+  yfi_pool: 1,
+  eth_pool: 2,
+  cream_pool: 3,
+  comp_pool: 4,
+  dice_pool: 5,
+  uni_pool: 6,
 }
 
 const Farms: React.FC = ({ children }) => {
@@ -90,6 +93,10 @@ const Farms: React.FC = ({ children }) => {
 
         if (tokenKey === 'uni') {
           tokenAddress = '0xeba5d22bbeb146392d032a2f74a735d66a32aee4'
+        }
+
+        if (tokenKey === 'taco') {
+          tokenAddress = '0x00D1793D7C3aAE506257Ba985b34C76AaF642557'
         }
         // alert(tokenAddress);
 

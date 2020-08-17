@@ -7,18 +7,18 @@ import Page from '../../components/Page'
 import PageHeader from '../../components/PageHeader'
 
 import useYam from '../../hooks/useYam'
+import Button from '../../components/Button'
 
 // import Rebase from './components/Rebase'
-import Stats from './components/Stats'
-// import Vote from './components/Vote'
+import Stats from '../Home/components/Stats'
+import Vote_Piece from '../Home/components/Vote_Piece'
 
-import { OverviewData } from './types'
-import { getStats } from './utils'
+import { OverviewData } from '../Home/types'
+import { getStats } from '../Home/utils'
 
-const Home: React.FC = () => {
+const Vote: React.FC = () => {
 
-  const { account } = useWallet()
-
+  const { account, connect } = useWallet()
   const yam = useYam()
   const [{
     circSupply,
@@ -41,23 +41,35 @@ const Home: React.FC = () => {
 
   return (
     <Page>
-      <PageHeader icon="🦐" subtitle="It's a great day to catch Shrimp" title="Welcome" />
+      <PageHeader icon="🦐" subtitle="Vote for changes here" />
       <div>
-        {/* {!!account && (
+         {!!account && (
           <StyledVote>
-            <Vote />
+            <Vote_Piece />
           </StyledVote>
-        )} */}
+        )} 
+        {!account && (
+            <div style={{
+                alignItems: 'center',
+                display: 'flex',
+                flex: 1,
+                justifyContent: 'center',
+              }}>
+                <Button
+                  onClick={() => connect('injected')}
+                  text="Unlock Wallet"
+                />
+              </div>
+        )}
+        
         <StyledSpacer />
         <StyledOverview>
-          {/* <Rebase nextRebase={nextRebase} />
-          <StyledSpacer /> */}
-          <Stats
+          {/* <Stats
             circSupply={circSupply}
             curPrice={curPrice}
             targetPrice={targetPrice}
             totalSupply={totalSupply}
-          />
+          /> */}
         </StyledOverview>
       </div>
     </Page>
@@ -78,4 +90,4 @@ const StyledVote = styled.div`
   width: 100%;
 `
 
-export default Home
+export default Vote
