@@ -21,30 +21,34 @@ When the new token goes online, the shrimps will give back to the community. Aft
 🦐 Shrimp = less then 1 BTC (We are here)
 
 ## RoadMap
-1. Goverence Page
-2. Advanced Pool Page
-3. Admin keys moving into a multisig
+1. Goverence Page  
+2. Advanced Pool Page  
+3. Admin keys moving into a multisig  
 
 ## Shirmp Token Info
-Total Shrimp Coin：224,746 Shrimp(Should subtract 30,678)
-Genesis Distribution Pool：Genesis Staked pool(Dice, Eth, Cream, YFI, Comp, UNI Pool)
-Genesis Distribution Period：2020/08/13 ~ 2020/08/19
+Total Shrimp Coin：224,746 Shrimp(Should subtract 30,678)  
+Genesis Distribution Pool：Genesis Staked pool(Dice, Eth, Cream, YFI, Comp, UNI Pool)  
+Genesis Distribution Period：2020/08/13 ~ 2020/08/19  
 
 ## Advanced Pool Info
 For those who own 5% of Shrimp Coins, after the proposal, 5% will be locked in the smart contract for a week. 4% shrimp coins will be refunded to you after the end. 1% shrimp coins will be burned out forever.
 
-## Governance
+## Governance([More info](https://github.com/shrimp-finance/shrimp-protocol/wiki/Shrimp-Governance))
 Governance is entirely dictated by Shrimp holders from the start. Upon deployment, ownership of all Shrimp protocol contracts will be reliquished to the timelocked Governance contract or removed entirely. At the very least, this can be seen as a reference implementation for a truly decentralized protocol.
 
-## Admin keys Holder
-To be announced soon!
+Anybody with 5% of Shrimp to their address can propose a governance action; these are simple or complex sets of actions, such as adding support for a new shrimping pool, changing an Advanced Pool fee.
 
-#### (People who hold 10% of shrimp coins and have been reviewed by the original community manager)
+## Admin keys Holder([More info](https://gnosis-safe.io/app/#/safes/0x161F9cBfF746699B2D026e67bAc52c48745DB8f2/balances))
+Xixi Huang - (Founder) - Founder of Dice.Finance  
+Andersson Michael - (Partner) - Founder of Betpirate.io  
+Tom Chu - (Team) - Technical Lead of Shrimp.Finance  
+Marcos - (Community)
+
 
 ## Other protocol information：
-Shrimp Trade: [Uniswap](https://app.uniswap.org/#/swap?inputCurrency=0x38c4102d11893351ced7ef187fcf43d33eb1abe6&outputCurrency=0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2)
-Shrimp Price Chart: [Chartex](https://uniswap.chartex.pro/?symbol=UNISWAP:SHRIMP)
-
+Shrimp Trade: [Uniswap](https://app.uniswap.org/#/swap?inputCurrency=0x38c4102d11893351ced7ef187fcf43d33eb1abe6&outputCurrency=0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2)  
+Shrimp Price Chart: [Chartex](https://uniswap.chartex.pro/?symbol=UNISWAP:SHRIMP)  
+Shrimp Price Listed: [Coingecko](https://www.coingecko.com/en/coins/shrimp-finance)
 
 ## Audits
 
