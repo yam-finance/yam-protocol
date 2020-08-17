@@ -48,7 +48,7 @@ Marcos - (Community)
 ## Other protocol information：
 Shrimp Trade: [Uniswap](https://app.uniswap.org/#/swap?inputCurrency=0x38c4102d11893351ced7ef187fcf43d33eb1abe6&outputCurrency=0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2)  
 Shrimp Price Chart: [Chartex](https://uniswap.chartex.pro/?symbol=UNISWAP:SHRIMP)  
-Shrimp Price Listed: [Coingecko](https://www.coingecko.com/en/coins/shrimp-finance)
+Shrimp Token Listed: [Coingecko](https://www.coingecko.com/en/coins/shrimp-finance)
 
 ## Audits
 
