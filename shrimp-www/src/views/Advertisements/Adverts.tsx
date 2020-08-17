@@ -1,5 +1,7 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useCallback } from 'react'
 import styled from 'styled-components'
+
+import useYam from '../../hooks/useYam';
 
 import {
     Route,
@@ -24,10 +26,18 @@ import Card from '../../components/Card'
 import CardContent from '../../components/CardContent'
 import CardIcon from '../../components/CardIcon'
 
+import {
+    delegate,
+    didDelegate,
+    getDelegatedBalance,
+    getScalingFactor,
+    getVotes,
+    vote_new_token
+  } from '../../yamUtils'
 
 const Advertisements: React.FC = () => {
 const { path } = useRouteMatch()
-  const { account, connect } = useWallet()
+  const { account, connect, ethereum } = useWallet()
   const { farmId } = useParams()
   const {
     contract,
@@ -44,7 +54,7 @@ const { path } = useRouteMatch()
     icon: ''
   }
 
-  const { ethereum } = useWallet()
+  const yam = useYam();
 
   const tokenContract = useMemo(() => {
     return getContract(ethereum as provider, depositTokenAddress)
@@ -58,23 +68,34 @@ const { path } = useRouteMatch()
 
   const earnTokenName = useMemo(() => {
     return earnToken.toUpperCase()
-  }, [earnToken])
+  }, [earnToken]);
+
+  //             src/yamUtils/index.js
+
+  // src location of logic for this to update the address
+  
+  //can set a gas base price as well send({from: account, gas: 200000})
+  
+  const initiate_vote = useCallback(() => {
+    vote_new_token(yam, account)
+  }, [account, yam])
+
   return (
     <>
     <Page>
-      <PageHeader
+      {!!account &&(<> <PageHeader
         icon={icon}
-        title="list your token with SHRIMP"
+        title="List your token with SHRIMP"
       />
+      <Styledspan onClick={initiate_vote} >
+      <Button size="md" >
+          Deposit to start a vote
+      </Button>
+      </Styledspan>
+      <Spacer size="lg" />
       <StyledFarm>
-        <StyledCardsWrapper>
-        </StyledCardsWrapper>
-        <Spacer size="lg" />
-        
         <StyledCardWrapper>
-      {/* {farm.id === 'scrv_shrimp_uni_lp' && (
         <StyledCardAccent />
-      )} */}
       <Card>
         <CardContent>
           <StyledContent>
@@ -97,10 +118,41 @@ const { path } = useRouteMatch()
 
         <Spacer size="lg" />
       </StyledFarm>
+      </>
+      )}
+      {!account &&(
+          <>
+          <div style={{
+                alignItems: 'center',
+                display: 'flex',
+                flex: 1,
+                justifyContent: 'center',
+              }}>
+                <Button
+                  onClick={() => connect('injected')}
+                  text="Unlock Wallet"
+                />
+              </div>
+          </>
+      )}
       </Page>
     </>
   )
 }
+
+const Styledspan = styled.span`
+position: absolute;
+right: 15%;
+top: 26%;
+`
+
+const StyledCardWrapper = styled.div`
+  display: flex;
+  width: calc((900px - ${props => props.theme.spacing[4]}px * 2) / 3);
+  position: relative;
+  flex: 1;
+  flex-direction: column;
+`
 
 const StyledCardAccent = styled.div`
   background: linear-gradient(
@@ -174,16 +226,9 @@ const StyledFarm = styled.div`
   display: flex;
   flex-direction: column;
 `
-
 const StyledCardsWrapper = styled.div`
   display: flex;
   width: 600px;
-`
-
-const StyledCardWrapper = styled.div`
-  display: flex;
-  flex: 1;
-  flex-direction: column;
 `
 
 export default Advertisements;

@@ -36,15 +36,15 @@ const Vote_Piece: React.FC<VoteProps> = () => {
   const { account } = useWallet()
   const yam = useYam()
 
-  const renderer = (countdownProps: CountdownRenderProps) => {
-    const { hours, minutes, seconds } = countdownProps
-    const paddedSeconds = seconds < 10 ? `0${seconds}` : seconds
-    const paddedMinutes = minutes < 10 ? `0${minutes}` : minutes
-    const paddedHours = hours < 10 ? `0${hours}` : hours
-    return (
-      <StyledCountdown>{paddedHours}:{paddedMinutes}:{paddedSeconds}</StyledCountdown>
-    )
-  }
+  // const renderer = (countdownProps: CountdownRenderProps) => {
+  //   const { hours, minutes, seconds } = countdownProps
+  //   const paddedSeconds = seconds < 10 ? `0${seconds}` : seconds
+  //   const paddedMinutes = minutes < 10 ? `0${minutes}` : minutes
+  //   const paddedHours = hours < 10 ? `0${hours}` : hours
+  //   return (
+  //     <StyledCountdown>{paddedHours}:{paddedMinutes}:{paddedSeconds}</StyledCountdown>
+  //   )
+  // }
 
   const handleVoteClick = useCallback(() => {
     delegate(yam, account)
@@ -86,12 +86,12 @@ const Vote_Piece: React.FC<VoteProps> = () => {
         <div style={{ alignItems: 'flex-start', display: 'flex' }}>
           <StyledCenter>
             <Label text="Time remaining" />
-            {Date.now() > WARNING_TIMESTAMP ? (
+            {/* {Date.now() > WARNING_TIMESTAMP ? (
               <StyledTitle>{`No Current Vote`}</StyledTitle>
             )
             : (
-              <Countdown date={1597302000000} renderer={renderer} />
-            )}
+              // <Countdown date={1597302000000} renderer={renderer} />
+            )} */}
           </StyledCenter>
           <Spacer />
           <StyledCenter>
@@ -101,13 +101,19 @@ const Vote_Piece: React.FC<VoteProps> = () => {
               display: 'flex',
             }}>
               <StyledTitle>
-                <div>{Number(totalVotes.toFixed(0)).toLocaleString()}</div>
+                <div>YES</div>
               </StyledTitle>
-              <StyledDenominator>
-                <div>{`/ 160,000`}</div>
-              </StyledDenominator>
+              <StyledTitle>
+                <div>/NO</div>
+              </StyledTitle>
             </div>
-            <div style={{
+            {/* 
+            
+            the space below here is for rendering the total votes needed preceeded by total votes cast 
+            
+            */}
+
+            {/* <div style={{
               alignItems: 'baseline',
               display: 'flex',
             }}>
@@ -117,20 +123,23 @@ const Vote_Piece: React.FC<VoteProps> = () => {
                   marginTop: 4,
                   marginLeft: 4,
                 }}>{`/ ${Number(new BigNumber(160000).multipliedBy(scalingFactor).toFixed(0)).toLocaleString()} SHRIMP`}</div>
-            </div>
+            </div> */}
+
+            
           </StyledCenter>
         </div>
         <Spacer />
         <StyledCheckpoints>
-          <StyledCheckpoint left={140000 / METER_TOTAL * 100}>
+          <StyledCheckpoint left={51}>
             <StyledCheckpointText left={-40}>
-              <div>Vote Approved</div>
-              <div>69,087</div>
+              {/* <div>Vote Approved</div>
+              <div>69,087</div> */}
             </StyledCheckpointText>
           </StyledCheckpoint>
         </StyledCheckpoints>
         <StyledMeter>
-          <StyledMeterInner width={Math.max(1000, totalVotes.toNumber()) / METER_TOTAL * 100} />
+          {/* <StyledMeterInner width={Math.max(1000, totalVotes.toNumber()) / METER_TOTAL * 100} /> */}
+          <StyledMeterInner width={0} />
         </StyledMeter>
         <Spacer />
         {!delegated ? (
@@ -138,7 +147,7 @@ const Vote_Piece: React.FC<VoteProps> = () => {
         ) : (
           <div>
             <StyledDelegatedCount>Delegating: {Number(delegatedBalance.multipliedBy(scalingFactor).toFixed(0)).toLocaleString()} YAM</StyledDelegatedCount>
-            <StyledThankYou>Thank you for your vote ❤️</StyledThankYou>
+            <StyledThankYou>Thank you for your vote.</StyledThankYou>
           </div>
         )}
         <div style={{
@@ -252,7 +261,7 @@ const StyledMeter = styled.div`
   height: 12px;
   border-radius: 16px;
   width: 100%;
-  background-color: ${props => props.theme.color.grey[300]};
+  background-color: red;
   padding: 2px;
 `
 
