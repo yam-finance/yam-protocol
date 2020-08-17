@@ -5,7 +5,7 @@
 ## The Protocol
 The whale fights the shrimp, and it has never changed since ancient times. Who said shrimp can't fight big whales? As long as we are united!
 
-Shrimp is a community that gathers all leeks. We share the latest Pump tokens and collectively discuss the latest DeFi technology! Anyone who holds 5% of Shrimp Coins can make a Spot Pool. Once the proposal is passed, all Shrimp Coin Holders will start marketing your token! why? Because we are a group of people who want to fight whales.
+Shrimp is a community that gathers all leeks. We share the latest Pump tokens and collectively discuss the latest DeFi technology! Anyone who holds 5% of Shrimp Coins can make a Advanced Pool. All Shrimp Holders will start marketing your token! why? Because we are a group of people who want to fight whales.
 
 ## Shrimp strategy
 When the new token goes online, the shrimps will give back to the community. After the community votes , we will open a new pool, and the total amount of each pool will be fixed at 30,678 Shrimp. We will use the power of shrimp community to attract more shrimps.
@@ -30,7 +30,7 @@ Total Shrimp Coin：224,746 Shrimp(Should minus 30,678)
 Genesis Distribution Pool：Genesis Staked pool(Dice, Eth, Cream, YFI, Comp, UNI Pool)
 Genesis Distribution Period：2020/08/13 ~ 2020/08/19
 
-## Spot Pool Info
+## Advanced Pool Info
 For those who own 5% of Shrimp Coins, after the proposal, 5% will be locked in the smart contract for a week. 4% shrimp coins will be refunded to you after the end. 1% shrimp coins will be burned out forever.
 
 ## Governance
