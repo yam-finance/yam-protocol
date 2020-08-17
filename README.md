@@ -37,7 +37,7 @@ For those who own 5% of Shrimp Coins, after the proposal, 5% will be locked in t
 Governance is entirely dictated by Shrimp holders from the start. Upon deployment, ownership of all Shrimp protocol contracts was reliquished to the timelocked Governance contract or removed entirely. At the very least, this can be seen as a reference implementation for a truly decentralized protocol.
 
 ## Admin keys Holder
-XiXi(Founder)：10,000 Shrimp token.
+To be announced soon!
 
 #### (People who hold 10% of shrimp coins and have been reviewed by the original community manager)
 
