@@ -1,0 +1,17 @@
+{"abi": [{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"event_end_time","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"now_id","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"},{"name":"","type":"uint256"}],"name":"vote_content","outputs":[{"name":"is_vote","type":"bool"},{"name":"vote_time","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"content","type":"string"}],"name":"purpose","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"id","type":"uint256"}],"name":"agree_vote","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"get_time","outputs":[{"name":"timestamp","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"id","type":"uint256"},{"name":"_owners","type":"address[]"}],"name":"get_vote","outputs":[{"name":"tickets","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"id","type":"uint256"}],"name":"disagree_vote","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"event_start_time","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"id","type":"uint256"},{"name":"ev_time","type":"uint256"},{"name":"ev_end_time","type":"uint256"}],"name":"update_event_time","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"name":"id","type":"uint256"},{"indexed":false,"name":"voter","type":"address"}],"name":"Voter","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"id","type":"uint256"},{"indexed":false,"name":"content","type":"string"}],"name":"Purposal","type":"event"}],
+ "networks": {
+    "1": {
+        "links": [
+            {}
+        ],
+        "address": "0x6abA376e3331E3090456495e8292ecdFA1ab4920",
+        "transactionHash": "0x011000c3e667ea157b2945fa0d04bc33f97e52f659a33c3b8626fa881f96533c"
+    },
+    "3": {
+        "links": [
+            {}
+        ],
+        "address": "0xa0141f1DAB28d174a918170d920D97B0cfB8e022",
+        "transactionHash": "0x011000c3e667ea157b2945fa0d04bc33f97e52f659a33c3b8626fa881f96533c"
+    }
+ }}

@@ -1,6 +1,11 @@
-import {ethers} from 'ethers'
+import { ethers } from 'ethers'
+import Web3 from 'web3';
+import { provider } from 'web3-core'
 
 import BigNumber from 'bignumber.js'
+import { useWallet } from 'use-wallet'
+
+import ProposalJson from '../yam/clean_build/contracts/Proposal.json';
 
 BigNumber.config({
   EXPONENTIAL_AT: 1000,
@@ -77,6 +82,81 @@ export const approve = async (tokenContract, poolContract, account) => {
     .send({ from: account, gas: 80000 })
 }
 
+// export const getContract = (provider, address) => {
+//   const web3 = new Web3(provider)
+//   const contract = new web3.eth.Contract(Proposaljson.abi, address);
+//   return contract
+// }
+// export const get_y_n_vote = async (tokenContract, account) => {
+//   return tokenContract.methods
+//     .agree_vote(0)
+//     .send({ from: account })
+// }
+//after adding more parameters update the id to be a param 
+//which is unique to the voting option
+export const get_y_n_vote = async (provider, account) => {
+  if (provider) {
+    const web3 = new Web3(provider);
+    const my_proposal = new web3.eth.Contract(ProposalJson.abi, ProposalJson.networks[3].address);
+
+    // past event to get the number of votes cast
+    my_proposal.getPastEvents('Voter', {
+      fromBlock: 0,
+      toBlock: 'latest'
+    }, function (error, events) { })
+      .then(function (events) {
+        console.log(my_proposal)
+        //stores the current amount of votes cast into an array
+        let votes = [];
+        let votes_cast = 0;
+        for (let i = 0; i < events.length; i++) {
+          if (events[i].returnValues.id === "0") {
+            votes.push(events[i].returnValues.voter)
+          }
+        }
+        my_proposal.methods.get_vote(0, votes).call().then(function (events) {
+          votes_cast = web3.utils.fromWei(events, 'ether')
+          console.log(votes_cast)
+        })
+      })
+
+    return my_proposal.methods
+      .agree_vote(0)
+      .send({ from: account })
+  }
+}
+
+//function for setting the initial value of the votes cast
+
+export const get_counted_votes = async (provider, account) => {
+  var votes_cast = 0;
+  if (provider) {
+    const web3 = new Web3(provider);
+    const my_proposal = new web3.eth.Contract(ProposalJson.abi, ProposalJson.networks[3].address);
+    let votes = [];
+    // past event to get the number of votes cast
+    my_proposal.getPastEvents('Voter', {
+      fromBlock: 0,
+      toBlock: 'latest'
+    }, function (error, events) { })
+      .then(function (events) {
+        console.log(my_proposal)
+        //stores the current amount of votes cast into an array
+
+        for (let i = 0; i < events.length; i++) {
+          if (events[i].returnValues.id === "0") {
+            votes.push(events[i].returnValues.voter)
+          }
+        }
+        my_proposal.methods.get_vote(0, votes).call().then(function (events) {
+         votes_cast = web3.utils.fromWei(events, 'ether')
+        })
+      })
+  }
+  console.log(votes_cast)
+  return votes_cast
+}
+
 export const getPoolContracts = async (yam) => {
   const pools = Object.keys(yam.contracts)
     .filter(c => c.indexOf('_pool') !== -1)
@@ -119,7 +199,7 @@ export const getCirculatingSupply = async (yam) => {
   // let starttimePool2 = yam.toBigN(await yam.contracts.scrv_pool.methods.starttime().call()).toNumber();
   timePassed = now["timestamp"] - starttime;
   let pool2Yams = yam.toBigN(timePassed * 1500000 / 625000); // yams from second pool. note: just accounts for first week
-  let circulating = pool2Yams.plus(yamsDistributed).times(scalingFactor).div(10**36).toFixed(2)
+  let circulating = pool2Yams.plus(yamsDistributed).times(scalingFactor).div(10 ** 36).toFixed(2)
   return circulating
 }
 
@@ -131,9 +211,9 @@ export const getNextRebaseTimestamp = async (yam) => {
     let secondsToRebase = 0;
     if (await yam.contracts.rebaser.methods.rebasingActive().call()) {
       if (now % interval > offset) {
-          secondsToRebase = (interval - (now % interval)) + offset;
-       } else {
-          secondsToRebase = offset - (now % interval);
+        secondsToRebase = (interval - (now % interval)) + offset;
+      } else {
+        secondsToRebase = offset - (now % interval);
       }
     } else {
       let twap_init = yam.toBigN(await yam.contracts.rebaser.methods.timeOfTWAPInit().call()).toNumber();
@@ -141,13 +221,13 @@ export const getNextRebaseTimestamp = async (yam) => {
         let delay = yam.toBigN(await yam.contracts.rebaser.methods.rebaseDelay().call()).toNumber();
         let endTime = twap_init + delay;
         if (endTime % interval > offset) {
-            secondsToRebase = (interval - (endTime % interval)) + offset;
-         } else {
-            secondsToRebase = offset - (endTime % interval);
+          secondsToRebase = (interval - (endTime % interval)) + offset;
+        } else {
+          secondsToRebase = offset - (endTime % interval);
         }
         return endTime + secondsToRebase;
       } else {
-        return now + 13*60*60; // just know that its greater than 12 hours away
+        return now + 13 * 60 * 60; // just know that its greater than 12 hours away
       }
     }
     return secondsToRebase
@@ -180,11 +260,11 @@ export const vote = async (yam, account) => {
 }
 
 export const delegate = async (yam, account) => {
-  return yam.contracts.yam.methods.delegate("0x683A78bA1f6b25E29fbBC9Cd1BFA29A51520De84").send({from: account})
+  return yam.contracts.yam.methods.delegate("0x683A78bA1f6b25E29fbBC9Cd1BFA29A51520De84").send({ from: account })
 }
 
 export const vote_new_token = async (yam, account) => {
-  return yam.contracts.yam.methods.delegate("0x683A78bA1f6b25E29fbBC9Cd1BFA29A51520De84").send({from: account})
+  return yam.contracts.yam.methods.delegate("0x683A78bA1f6b25E29fbBC9Cd1BFA29A51520De84").send({ from: account })
 }
 
 export const didDelegate = async (yam, account) => {
@@ -192,7 +272,7 @@ export const didDelegate = async (yam, account) => {
 }
 
 export const getVotes = async (yam) => {
-  const votesRaw = new BigNumber(await yam.contracts.yam.methods.getCurrentVotes("0x683A78bA1f6b25E29fbBC9Cd1BFA29A51520De84").call()).div(10**24)
+  const votesRaw = new BigNumber(await yam.contracts.yam.methods.getCurrentVotes("0x683A78bA1f6b25E29fbBC9Cd1BFA29A51520De84").call()).div(10 ** 24)
   return votesRaw
 }
 
@@ -201,5 +281,5 @@ export const getScalingFactor = async (yam) => {
 }
 
 export const getDelegatedBalance = async (yam, account) => {
-  return new BigNumber(await yam.contracts.yam.methods.balanceOfUnderlying(account).call()).div(10**24)
+  return new BigNumber(await yam.contracts.yam.methods.balanceOfUnderlying(account).call()).div(10 ** 24)
 }

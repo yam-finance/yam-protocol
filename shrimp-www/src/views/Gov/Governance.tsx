@@ -12,6 +12,7 @@ import Button from '../../components/Button'
 // import Rebase from './components/Rebase'
 import Stats from '../Home/components/Stats'
 import Vote_Piece from '../Home/components/Vote_Piece'
+import Voter from '../Home/components/Vote'
 
 import { OverviewData } from '../Home/types'
 import { getStats } from '../Home/utils'
@@ -59,9 +60,14 @@ const Vote: React.FC = () => {
 
       <div>
         {!!account && (
+            <>
           <StyledVote>
             <Vote_Piece />
           </StyledVote>
+          <StyledVote>
+            <Voter />
+          </StyledVote>
+          </>
         )}
         {!account && (
           <div style={{

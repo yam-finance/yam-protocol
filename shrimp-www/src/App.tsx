@@ -50,7 +50,8 @@ const App: React.FC = () => {
 const Providers: React.FC = ({ children }) => {
   return (
     <ThemeProvider theme={theme}>
-      <UseWalletProvider chainId={1}>
+      {/* change the ChainId below here for the preffered network when testing, 1 main 3 ropsten */}
+      <UseWalletProvider chainId={3}>
         <YamProvider>
           <TransactionProvider>
             <ModalsProvider>

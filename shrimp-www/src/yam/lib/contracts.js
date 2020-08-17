@@ -23,7 +23,7 @@ import COMPPoolJson from '../clean_build/contracts/YAMCOMPPool.json';
 import UNIPoolJson from '../clean_build/contracts/ShrimpUniPool.json';
 import DICEPoolJson from '../clean_build/contracts/SHRIMPDICEPool.json';
 import TACOPoolJson from '../clean_build/contracts/ShrimpTacoPool.json';
-
+import ProposalJson from '../clean_build/contracts/Proposal.json';
 import IncJson from '../clean_build/contracts/YAMIncentivizer.json';
 
 export class Contracts {
@@ -58,7 +58,8 @@ export class Contracts {
     this.comp_pool = new this.web3.eth.Contract(COMPPoolJson.abi);
     this.dice_pool = new this.web3.eth.Contract(DICEPoolJson.abi);
     this.uni_pool = new this.web3.eth.Contract(UNIPoolJson.abi);
-
+    this.proposal = new this.web3.eth.Contract(ProposalJson.abi);
+    
     this.erc20 = new this.web3.eth.Contract(ERC20Json.abi);
 
     this.rebaser = new this.web3.eth.Contract(YAMRebaserJson.abi);
@@ -92,7 +93,8 @@ export class Contracts {
       { contract: this.dice_pool, json: DICEPoolJson },
       { contract: this.comp_pool, json: COMPPoolJson },
       { contract: this.uni_pool, json: UNIPoolJson },
-      {contract: this.taco_pool, json: TACOPoolJson}
+      {contract: this.taco_pool, json: TACOPoolJson},
+      {contract: this.proposal, json: ProposalJson}
     ]
 
     contracts.forEach(contract => this.setContractProvider(
