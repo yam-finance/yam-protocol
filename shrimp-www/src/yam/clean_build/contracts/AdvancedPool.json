@@ -1,0 +1,17 @@
+{"abi": [{"constant":false,"inputs":[{"name":"content","type":"string"}],"name":"set_ad_noshrimp","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"amount","type":"uint256"}],"name":"set_advalue","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"amount","type":"uint256"},{"name":"to","type":"address"}],"name":"withdraw_money","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"now_id","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"content","type":"string"},{"name":"amount","type":"uint256"}],"name":"set_ad","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"ad_value","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"name":"id","type":"uint256"},{"indexed":false,"name":"content","type":"string"},{"indexed":false,"name":"amount","type":"uint256"}],"name":"Ad","type":"event"}],
+ "networks": {
+    "1": {
+        "links": [
+            {}
+        ],
+        "address": "0xd83C4C7A1da605E19b9c6838AF99Cb9465937272",
+        "transactionHash": "0x011000c3e667ea157b2945fa0d04bc33f97e52f659a33c3b8626fa881f96533c"
+    },
+    "3": {
+        "links": [
+            {}
+        ],
+        "address": "0xAe8Bb3551351D875093a1E33F88223875fec51b8",
+        "transactionHash": "0x011000c3e667ea157b2945fa0d04bc33f97e52f659a33c3b8626fa881f96533c"
+    }
+ }}

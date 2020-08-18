@@ -26,19 +26,22 @@ When the new token goes online, the shrimps will give back to the community. Aft
 3. Admin keys moving into a multisig  
 
 ## Shirmp Token Info
-Total Shrimp Coin：224,746 Shrimp(Should subtract 30,678)  
-Genesis Distribution Pool：Genesis Staked pool(Dice, Eth, Cream, YFI, Comp, UNI Pool)  
+Total Shrimp Coin：224,746 Shrimp  
+Genesis Distribution Pool：Genesis Staked pool(Dice, Eth, Cream, YFI, Comp, UNI Pool)    
 Genesis Distribution Period：2020/08/13 ~ 2020/08/19  
 
-## Advanced Pool Info
-For those who own 5% of Shrimp Coins, after the proposal, 5% will be locked in the smart contract for a week. 4% shrimp coins will be refunded to you after the end. 1% shrimp coins will be burned out forever.
+## Advanced Pool Info(Rules updated on 8/18)
+Anyone can create an advanced pool by placing at least 2000 🦐 Shrimp and pointing to a minimum of 7 days. (Thanks Michael Suggestion)
+
+We have the purest cryptocurrency shrimp community in the world and can help you market your project.
+There is no more efficient marketing method than this. Hurry up and join the shrimp community. Let's take a look at your project, 👀?
 
 ## Governance([More info](https://github.com/shrimp-finance/shrimp-protocol/wiki/Shrimp-Governance))
 Governance is entirely dictated by Shrimp holders from the start. Upon deployment, ownership of all Shrimp protocol contracts will be reliquished to the timelocked Governance contract or removed entirely. At the very least, this can be seen as a reference implementation for a truly decentralized protocol.
 
 Anybody with 5% of Shrimp to their address can propose a governance action; these are simple or complex sets of actions, such as adding support for a new shrimping pool, changing an Advanced Pool fee.
 
-## Admin keys Holder([More info](https://gnosis-safe.io/app/#/safes/0xF07B484Dc9B5bf755Ecadd2F24d8fEf6a2e4a6ca/balances))
+## Admin keys Holder([More info](https://github.com/shrimp-finance/shrimp-protocol/wiki/Community-Authorization---Multisig-Wallet))
 Xixi Huang - (Founder) - Founder of Dice.Finance  
 Andersson Michael - (Partner) - Founder of Betpirate.io  
 Tom Chu - (Team) - Technical Lead of Shrimp.Finance  

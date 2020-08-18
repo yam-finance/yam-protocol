@@ -15,6 +15,7 @@
     "react-circular-progressbar": "^2.0.3",
     "react-countdown": "^2.2.1",
     "react-dom": "^16.13.1",
+    "react-hook-form": "^6.4.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "styled-components": "^5.1.1",

@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import BigNumber from 'bignumber.js'
 import Countdown, { CountdownRenderProps} from 'react-countdown'
-import Web3 from 'web3';
+
 import { useWallet } from 'use-wallet'
 
 import Button from '../../../components/Button'
@@ -11,7 +11,6 @@ import CardContent from '../../../components/CardContent'
 import Label from '../../../components/Label'
 import Spacer from '../../../components/Spacer'
 
-
 import useYam from '../../../hooks/useYam'
 
 import {
@@ -19,7 +18,7 @@ import {
   didDelegate,
   getDelegatedBalance,
   getScalingFactor,
-  getVotes,
+  getVotes_piece,
   get_y_n_vote,
   get_counted_votes
 } from '../../../yamUtils'
@@ -30,42 +29,45 @@ interface VoteProps {
 const METER_TOTAL = 150000
 const WARNING_TIMESTAMP = 1597302000000 - 600000
 
-const Vote_Piece: React.FC<VoteProps> = () => {
-  const [votesCaste, votesCasts ] = useState(new Number)
-  const [totalVotes, setTotalVotes] = useState(new BigNumber(0))
-  const [scalingFactor, setScalingFactor] = useState(new BigNumber(1))
-  const [delegated, setDelegated] = useState(false)
-  const [delegatedBalance, setDelegatedBalance] = useState(new BigNumber(0))
+const Voter: React.FC<VoteProps> = () => {
+  // const [votesCast, setvotesCast ] = useState(0)
+  const [totalVotes, setTotalVotes] = useState(new Number)
+  // const [scalingFactor, setScalingFactor] = useState(new BigNumber(1))
+  // const [delegated, setDelegated] = useState(false)
+  // const [delegatedBalance, setDelegatedBalance] = useState(new BigNumber(0))
 
   const { account, ethereum } = useWallet()
   const yam = useYam()
-  // const renderer = (countdownProps: CountdownRenderProps) => {
-  //   const { hours, minutes, seconds } = countdownProps
-  //   const paddedSeconds = seconds < 10 ? `0${seconds}` : seconds
-  //   const paddedMinutes = minutes < 10 ? `0${minutes}` : minutes
-  //   const paddedHours = hours < 10 ? `0${hours}` : hours
-  //   return (
-  //     <StyledCountdown>{paddedHours}:{paddedMinutes}:{paddedSeconds}</StyledCountdown>
-  //   )
-  // }
-  
+
+  const renderer = (countdownProps: CountdownRenderProps) => {
+    const { hours, minutes, seconds } = countdownProps
+    const paddedSeconds = seconds < 10 ? `0${seconds}` : seconds
+    const paddedMinutes = minutes < 10 ? `0${minutes}` : minutes
+    const paddedHours = hours < 10 ? `0${hours}` : hours
+    return (
+      <StyledCountdown>{paddedHours}:{paddedMinutes}:{paddedSeconds}</StyledCountdown>
+    )
+  }
+
   const y_vote = useCallback(() => {
-    
     get_y_n_vote(ethereum,account)
   }, [ethereum,account])
 
-  const handleVoteClick = useCallback(() => {
-    delegate(yam, account)
-  }, [account, yam])
+  // const handleVoteClick = useCallback(() => {
+  //   delegate(yam, account)
+  // }, [account, yam])
 
   const fetchVotes = useCallback(async () => {
-    const voteCount = await getVotes(yam)
-    const scalingFactor = await getScalingFactor(yam)
-    const votesCaste = await get_counted_votes(ethereum,account)
-    setTotalVotes(voteCount)
-    votesCasts(votesCaste)
-    setScalingFactor(scalingFactor)
-  }, [yam, setTotalVotes, setScalingFactor])
+    getVotes_piece(ethereum).then(function(data){
+      setTotalVotes(data)
+      console.log(totalVotes)
+      // alert(data);
+    })
+    // const scalingFactor = await getScalingFactor(yam)
+    // const votesCast = await get_counted_votes(ethereum)
+    // setvotesCast(votesCast)
+    // setScalingFactor(scalingFactor)
+  }, [yam, setTotalVotes])
 
   useEffect(() => {
     if (yam) {
@@ -75,20 +77,20 @@ const Vote_Piece: React.FC<VoteProps> = () => {
     return () => clearInterval(refetch)
   }, [fetchVotes, yam])
 
-  const fetchDidDelegate = useCallback(async () => {
-    const d = await didDelegate(yam, account)
-    if (d) {
-      const amount = await getDelegatedBalance(yam, account)
-      setDelegatedBalance(amount)
-    }
-    setDelegated(d)
-  }, [setDelegated, yam, account, setDelegatedBalance])
+  // const fetchDidDelegate = useCallback(async () => {
+  //   const d = await didDelegate(yam, account)
+  //   if (d) {
+  //     const amount = await getDelegatedBalance(yam, account)
+  //     setDelegatedBalance(amount)
+  //   }
+  //   setDelegated(d)
+  // }, [setDelegated, yam, account, setDelegatedBalance])
 
-  useEffect(() => {
-    if (yam && account) {
-      fetchDidDelegate()
-    }
-  }, [fetchDidDelegate, yam, account])
+  // useEffect(() => {
+  //   if (yam && account) {
+  //     fetchDidDelegate()
+  //   }
+  // }, [fetchDidDelegate, yam, account])
 
   return (
     <Card>
@@ -96,33 +98,27 @@ const Vote_Piece: React.FC<VoteProps> = () => {
         <div style={{ alignItems: 'flex-start', display: 'flex' }}>
           <StyledCenter>
             <Label text="Time remaining" />
-            {/* {Date.now() > WARNING_TIMESTAMP ? (
-              <StyledTitle>{`No Current Vote`}</StyledTitle>
+            {Date.now() > WARNING_TIMESTAMP ? (
+              <StyledDenominator>{`< 10 minutes`}</StyledDenominator>
             )
             : (
-              // <Countdown date={1597302000000} renderer={renderer} />
-            )} */}
+              <Countdown date={1597302000000} renderer={renderer} />
+            )}
           </StyledCenter>
           <Spacer />
           <StyledCenter>
-            <Label text="Votes placed" />
+            <Label text="Votes Placed" />
             <div style={{
               alignItems: 'baseline',
               display: 'flex',
             }}>
               <StyledTitle>
-              <div>{Number(votesCaste).toString()}</div>
+                <div>{Number(totalVotes).toLocaleString()}</div>
               </StyledTitle>
-              <StyledTitle>
-                <div>{`/ 10,000`}</div>
-              </StyledTitle>
+              <StyledDenominator>
+                <div>{`/ 160,000`}</div>
+              </StyledDenominator>
             </div>
-            {/* 
-            
-            the space below here is for rendering the total votes needed preceeded by total votes cast 
-            
-            */}
-
             {/* <div style={{
               alignItems: 'baseline',
               display: 'flex',
@@ -132,34 +128,32 @@ const Vote_Piece: React.FC<VoteProps> = () => {
                   fontSize: 12,
                   marginTop: 4,
                   marginLeft: 4,
-                }}>{`/ ${Number(new BigNumber(160000).multipliedBy(scalingFactor).toFixed(0)).toLocaleString()} SHRIMP`}</div>
+                }}>{`/ ${Number(new BigNumber(160000).multipliedBy(scalingFactor).toFixed(0)).toLocaleString()} YAM`}</div>
             </div> */}
-
-            
+            <br/>
+            <br/>
           </StyledCenter>
         </div>
         <Spacer />
         <StyledCheckpoints>
-          <StyledCheckpoint left={+69}>
-            <StyledCheckpointText left={-40}>
-              {/* <div>Vote Approved</div>
-              <div>69,087</div> */}
+          <StyledCheckpoint left={140000 / METER_TOTAL * 100}>
+            <StyledCheckpointText left={-50}>
+              <div>Proposal Passed</div>
+              <div>160,000</div>
             </StyledCheckpointText>
           </StyledCheckpoint>
         </StyledCheckpoints>
         <StyledMeter>
-          {/* <StyledMeterInner width={Math.max(1000, totalVotes.toNumber()) / METER_TOTAL * 100} /> */}
-          <StyledMeterInner width={+69} />
+          <StyledMeterInner width={Math.max(1000) / METER_TOTAL * 100} />
         </StyledMeter>
         <Spacer />
-        {!delegated ? (
           <Button text="Yes" onClick={y_vote} />
-        ) : (
+        {/* ) : (
           <div>
-            <StyledDelegatedCount>Delegating: {Number(delegatedBalance.multipliedBy(scalingFactor).toFixed(0)).toLocaleString()} YAM</StyledDelegatedCount>
+            {/* <StyledDelegatedCount>Delegating: {Number(delegatedBalance.multipliedBy(scalingFactor).toFixed(0)).toLocaleString()} YAM</StyledDelegatedCount> 
             <StyledThankYou>Thank you for your vote.</StyledThankYou>
           </div>
-        )}
+        )} */}
         <div style={{
           margin: '0 auto',
           width: 512,
@@ -175,6 +169,9 @@ const Vote_Piece: React.FC<VoteProps> = () => {
             justifyContent: 'center',
             marginTop: 32,
           }}>
+            {/* below here is a twitter link, we can place a link
+             to a twitter announcement here so i have only commented it out for now  */}
+          {/* <StyledLink target="__blank" href="https://twitter.com/YamFinance/status/1293660938906869760">More Info</StyledLink> */}
         </div>
       </CardContent>
     </Card>
@@ -243,7 +240,6 @@ const StyledCenter = styled.div`
 const StyledCheckpoint = styled.div<StyledCheckpointProps>`
   position: absolute;
   left: ${props => props.left}%;
-  z-index: 1;
   &:after {
     content: "";
     position: absolute;
@@ -271,7 +267,8 @@ const StyledMeter = styled.div`
   height: 12px;
   border-radius: 16px;
   width: 100%;
-  background-color: red;
+  background-color: ${props => props.theme.color.grey[300]};
+  padding: 2px;
 `
 
 interface StyledMeterInnerProps {
@@ -290,4 +287,4 @@ const StyledLink = styled.a`
   font-weight: 700;
 `
 
-export default Vote_Piece
+export default Voter
