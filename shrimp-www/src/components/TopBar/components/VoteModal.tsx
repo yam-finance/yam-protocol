@@ -41,12 +41,12 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
 
       <StyledBalanceWrapper>
         <StyledBalance>
-          <Label text="Contact us to start a pool." />
+          <Label text="Kindly inform the team after submit" />
         </StyledBalance>
         <StyledBalanceActions>
           <form onSubmit={handleSubmit(onSubmit)}>
             <label>
-              Website:
+            Proposal Details:
             <StyledtextField>
                 <StyledInput
                   ref={register}

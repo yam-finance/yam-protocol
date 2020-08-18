@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import BigNumber from 'bignumber.js'
-import Countdown, { CountdownRenderProps} from 'react-countdown'
+import Countdown, { CountdownRenderProps } from 'react-countdown'
 
 import { useWallet } from 'use-wallet'
 
@@ -26,8 +26,8 @@ import {
 interface VoteProps {
 }
 
-const METER_TOTAL = 150000
-const WARNING_TIMESTAMP = 1597302000000 - 600000
+const METER_TOTAL = 170000
+const WARNING_TIMESTAMP = 1598000400000
 
 const Voter: React.FC<VoteProps> = () => {
   // const [votesCast, setvotesCast ] = useState(0)
@@ -50,15 +50,15 @@ const Voter: React.FC<VoteProps> = () => {
   }
 
   const y_vote = useCallback(() => {
-    get_y_n_vote(ethereum,account)
-  }, [ethereum,account])
+    get_y_n_vote(ethereum, account)
+  }, [ethereum, account])
 
   // const handleVoteClick = useCallback(() => {
   //   delegate(yam, account)
   // }, [account, yam])
 
   const fetchVotes = useCallback(async () => {
-    getVotes_piece(ethereum).then(function(data){
+    getVotes_piece(ethereum).then(function (data) {
       setTotalVotes(data)
       console.log(totalVotes)
       // alert(data);
@@ -101,9 +101,9 @@ const Voter: React.FC<VoteProps> = () => {
             {Date.now() > WARNING_TIMESTAMP ? (
               <StyledDenominator>{`< 10 minutes`}</StyledDenominator>
             )
-            : (
-              <Countdown date={1597302000000} renderer={renderer} />
-            )}
+              : (
+                <Countdown date={WARNING_TIMESTAMP} renderer={renderer} />
+              )}
           </StyledCenter>
           <Spacer />
           <StyledCenter>
@@ -116,7 +116,7 @@ const Voter: React.FC<VoteProps> = () => {
                 <div>{Number(totalVotes).toLocaleString()}</div>
               </StyledTitle>
               <StyledDenominator>
-                <div>{`/ 160,000`}</div>
+                <div>{`/ 224,746`}</div>
               </StyledDenominator>
             </div>
             {/* <div style={{
@@ -130,8 +130,8 @@ const Voter: React.FC<VoteProps> = () => {
                   marginLeft: 4,
                 }}>{`/ ${Number(new BigNumber(160000).multipliedBy(scalingFactor).toFixed(0)).toLocaleString()} YAM`}</div>
             </div> */}
-            <br/>
-            <br/>
+            <br />
+            <br />
           </StyledCenter>
         </div>
         <Spacer />
@@ -139,7 +139,7 @@ const Voter: React.FC<VoteProps> = () => {
           <StyledCheckpoint left={140000 / METER_TOTAL * 100}>
             <StyledCheckpointText left={-50}>
               <div>Proposal Passed</div>
-              <div>160,000</div>
+              <div>170,000</div>
             </StyledCheckpointText>
           </StyledCheckpoint>
         </StyledCheckpoints>
@@ -147,7 +147,7 @@ const Voter: React.FC<VoteProps> = () => {
           <StyledMeterInner width={Math.max(1000) / METER_TOTAL * 100} />
         </StyledMeter>
         <Spacer />
-          <Button text="Yes" onClick={y_vote} />
+        <Button text="I do solemnly swear" onClick={y_vote} />
         {/* ) : (
           <div>
             {/* <StyledDelegatedCount>Delegating: {Number(delegatedBalance.multipliedBy(scalingFactor).toFixed(0)).toLocaleString()} YAM</StyledDelegatedCount> 
@@ -160,16 +160,31 @@ const Voter: React.FC<VoteProps> = () => {
           paddingTop: 24,
           opacity: 0.6,
         }}>
-          <p>This is the comunity governance panel.</p>
-          <p>In order to vote for a new pool 5% of all shrimp must be staked.</p>
-        </div>
+          <p>Proposal 1(Rehesal Proposal), </p>
+          <p>Shrimp Declaration of Independence!</p>
+          <p>i do solemnly swear that i am a shrimp, I know the obligation of shrimp.<br/>
+        I will do my best to protect this community, for others not you can beat us.<br/><br/>
+
+More then that, I will invited others project to create a advance pool. As I know they need us and we nee them.<br/><br/>
+
+for me, just a part of shrimp, for me, I know I maybe lost a lot in here.<br/>
+But I will do serious review this community, as I am a shrimp</p>
           <div style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             marginTop: 32,
           }}>
-            {/* below here is a twitter link, we can place a link
+            <StyledLink target="__blank" href="https://github.com/shrimp-finance/shrimp-protocol/wiki/Shrimp-Declaration-of-Independence">More Info</StyledLink>
+          </div>
+        </div>
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginTop: 32,
+        }}>
+          {/* below here is a twitter link, we can place a link
              to a twitter announcement here so i have only commented it out for now  */}
           {/* <StyledLink target="__blank" href="https://twitter.com/YamFinance/status/1293660938906869760">More Info</StyledLink> */}
         </div>
