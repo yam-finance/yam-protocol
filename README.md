@@ -26,8 +26,8 @@ When the new token goes online, the shrimps will give back to the community. Aft
 3. Admin keys moving into a multisig  
 
 ## Shirmp Token Info
-Total Shrimp Coin：224,746 Shrimp 
-Genesis Distribution Pool：Genesis Staked pool(Dice, Eth, Cream, YFI, Comp, UNI Pool)  
+Total Shrimp Coin：224,746 Shrimp  
+Genesis Distribution Pool：Genesis Staked pool(Dice, Eth, Cream, YFI, Comp, UNI Pool)    
 Genesis Distribution Period：2020/08/13 ~ 2020/08/19  
 
 ## Advanced Pool Info(Rules updated on 8/18)
