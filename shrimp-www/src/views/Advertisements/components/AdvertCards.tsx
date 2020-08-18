@@ -14,7 +14,7 @@ import { Farm } from '../../../contexts/Farms'
 
 import { getPoolStartTime } from '../../../yamUtils'
 
-const FarmCards: React.FC = () => {
+const AdvertCards: React.FC = () => {
   const [farms] = useFarms()
 
   const rows = farms.reduce<Farm[][]>((farmRows, farm) => {
@@ -29,7 +29,7 @@ const FarmCards: React.FC = () => {
 
   return (
     <StyledCards>
-      {!!rows[0].length ? rows.map((farmRow, i) => (
+      {rows.map((farmRow, i) => (
         <StyledRow key={i}>
           {farmRow.map((farm, j) => (
             <React.Fragment key={j}>
@@ -38,11 +38,7 @@ const FarmCards: React.FC = () => {
             </React.Fragment>
           ))}
         </StyledRow>
-      )) : (
-        <StyledLoadingWrapper>
-          <Loader text="Loading farms" />
-        </StyledLoadingWrapper>
-      )}
+      ))}
     </StyledCards>
   )
 }
@@ -68,21 +64,13 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
       <span style={{ width: '100%' }}>{paddedHours}:{paddedMinutes}:{paddedSeconds}</span>
     )
   }
-
-  // useEffect(() => {
-  //   if (farm && farm.id === 'scrv_shrimp_uni_lp') {
-  //     getStartTime()
-  //   }
-  // }, [farm, getStartTime])
   
   const poolActive = startTime * 1000 - Date.now() <= 0
 
-  return (<>
-  {farm.name !== "Shrimp Tacos" &&
+  return (
+    <>
+    {farm.name === "Shrimp Tacos" &&
     <StyledCardWrapper>
-      {/* {farm.id === 'scrv_shrimp_uni_lp' && (
-        <StyledCardAccent />
-      )} */}
       <Card>
         <CardContent>
           <StyledContent>
@@ -99,12 +87,14 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
             >
               {!poolActive && <Countdown date={new Date(startTime * 1000)} renderer={renderer} />}
             </Button>
+            
+            
           </StyledContent>
         </CardContent>
       </Card>
     </StyledCardWrapper>
-}
-    </>
+  }
+  </>
   )
 }
 
@@ -181,4 +171,4 @@ const StyledDetail = styled.div`
   color: ${props => props.theme.color.grey[500]};
 `
 
-export default FarmCards
+export default AdvertCards

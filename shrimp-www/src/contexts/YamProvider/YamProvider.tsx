@@ -20,7 +20,6 @@ declare global {
 
 const YamProvider: React.FC = ({ children }) => {
   const { ethereum } = useWallet()
-  console.log(useWallet())
   const [yam, setYam] = useState<any>()
 
   useEffect(() => {

@@ -17,7 +17,6 @@ import Countdown, { CountdownRenderProps } from 'react-countdown'
 
 import farmer from '../../assets/img/farmer.png'
 
-import Button from '../../components/Button'
 import PageHeader from '../../components/PageHeader'
 import Spacer from '../../components/Spacer'
 import Page from '../../components/Page'
@@ -28,6 +27,10 @@ import { getContract } from '../../utils/erc20'
 import Card from '../../components/Card'
 import CardContent from '../../components/CardContent'
 import CardIcon from '../../components/CardIcon'
+
+import AdvertCards from './components/AdvertCards'
+
+import Farm from '../Farm'
 
 import {
   delegate,
@@ -104,28 +107,14 @@ const Advertisements: React.FC = () => {
                 <AdButton />
               </div>
             </>
+            <Route exact path={path}>
+            <AdvertCards />
+          </Route>
+          <Route path={`${path}/:farmId`}>
+            <Farm />
+          </Route>
 
           <Spacer size="lg" />
-          <StyledFarm>
-            <StyledCardWrapper>
-              <StyledCardAccent />
-              <Card>
-                <CardContent>
-                  <StyledContent>
-                    <CardIcon>❓</CardIcon>
-                    <StyledTitle>Dice</StyledTitle>
-                    <StyledDetails>
-                      <StyledDetail>Website</StyledDetail>
-                      <StyledDetail>Telegram</StyledDetail>
-                      <StyledDetail>More Info</StyledDetail>
-                    </StyledDetails>
-                  </StyledContent>
-                </CardContent>
-              </Card>
-            </StyledCardWrapper>
-
-            <Spacer size="lg" />
-          </StyledFarm>
         </>
         )}
       </Page>
