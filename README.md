@@ -41,7 +41,7 @@ Governance is entirely dictated by Shrimp holders from the start. Upon deploymen
 
 Anybody with 5% of Shrimp to their address can propose a governance action; these are simple or complex sets of actions, such as adding support for a new shrimping pool, changing an Advanced Pool fee.
 
-## Admin keys Holder([More info](https://gnosis-safe.io/app/#/safes/0xF07B484Dc9B5bf755Ecadd2F24d8fEf6a2e4a6ca/balances))
+## Admin keys Holder([More info](https://github.com/shrimp-finance/shrimp-protocol/wiki/Community-Authorization---Multisig-Wallet))
 Xixi Huang - (Founder) - Founder of Dice.Finance  
 Andersson Michael - (Partner) - Founder of Betpirate.io  
 Tom Chu - (Team) - Technical Lead of Shrimp.Finance  
