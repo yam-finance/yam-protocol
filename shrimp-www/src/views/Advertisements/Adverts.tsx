@@ -93,25 +93,22 @@ const Advertisements: React.FC = () => {
 
           <PageHeader
             icon={<img src={farmer} height="96" />}
-            subtitle={<a style={{color: "#0d87b3"}} href="https://github.com/shrimp-finance/shrimp-protocol/wiki/Advanced-Pool">About the Advenced Pool</a>}
+            subtitle={<a style={{ color: "#0d87b3" }} href="https://github.com/shrimp-finance/shrimp-protocol/wiki/Advanced-Pool">About the Advenced Pool</a>}
             title="Unite Shrimpers by providing Shrimp coins"
           />
 
-            <>
-              <div style={{
-                alignItems: 'center',
-                display: 'flex',
-                flex: 1,
-                justifyContent: 'center',
-              }}>
-                <AdButton />
-              </div>
-            </>
-            <Route exact path={path}>
+          <>
+            <div style={{
+              alignItems: 'center',
+              display: 'flex',
+              flex: 1,
+              justifyContent: 'center',
+            }}>
+              <AdButton />
+            </div>
+          </>
+          <Route exact path={path}>
             <AdvertCards />
-          </Route>
-          <Route path={`${path}/:farmId`}>
-            <Farm />
           </Route>
 
           <Spacer size="lg" />

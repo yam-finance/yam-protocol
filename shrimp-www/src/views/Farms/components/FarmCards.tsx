@@ -78,7 +78,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
   const poolActive = startTime * 1000 - Date.now() <= 0
 
   return (<>
-  {farm.name !== "Shrimp Tacos" &&
+  {farm.name !== "Taco Tuesday" &&
     <StyledCardWrapper>
       {/* {farm.id === 'scrv_shrimp_uni_lp' && (
         <StyledCardAccent />

@@ -69,7 +69,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 
   return (
     <>
-    {farm.name === "Shrimp Tacos" &&
+    {farm.name === "Taco Tuesday" &&
     <StyledCardWrapper>
       <Card>
         <CardContent>
@@ -87,8 +87,10 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
             >
               {!poolActive && <Countdown date={new Date(startTime * 1000)} renderer={renderer} />}
             </Button>
-            
-            
+            <br/>
+            <StyledDetail>30,678 Shrimp</StyledDetail>
+            <StyledDetail>7 Days</StyledDetail>
+            <StyledDetail><a href="">Telegram</a> | Twitter</StyledDetail>
           </StyledContent>
         </CardContent>
       </Card>

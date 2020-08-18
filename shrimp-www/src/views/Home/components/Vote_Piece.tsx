@@ -151,7 +151,7 @@ const Voter: React.FC<VoteProps> = () => {
 More then that, I will invite other projects to create advanced pools. As I know they need us and we need them.<br/><br/>
 
 For I am just one of many shrimp, who knows they could be eaten in here.<br/>
-But I will do a serious review of this community, for I am a shrimp!</p>
+But I willingly sacrifice myself and will do a serious review of this community, for I am a shrimp!</p>
           <div style={{
             display: 'flex',
             alignItems: 'center',

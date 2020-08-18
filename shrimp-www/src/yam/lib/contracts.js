@@ -50,13 +50,14 @@ export class Contracts {
     this.cream = new this.web3.eth.Contract(ERC20Json.abi);
     this.yam = new this.web3.eth.Contract(YAMJson.abi);
     this.uni = new this.web3.eth.Contract(ERC20Json.abi);
+    this.taco = new this.web3.eth.Contract(ERC20Json.abi);
 
-    this.taco_pool = new this.web3.eth.Contract(TACOPoolJson.abi);
     this.yfi_pool = new this.web3.eth.Contract(YFIPoolJson.abi);
     this.eth_pool = new this.web3.eth.Contract(WETHPoolJson.abi);
     this.cream_pool = new this.web3.eth.Contract(CREAMPoolJson.abi);
     this.comp_pool = new this.web3.eth.Contract(COMPPoolJson.abi);
     this.dice_pool = new this.web3.eth.Contract(DICEPoolJson.abi);
+    this.taco_pool = new this.web3.eth.Contract(TACOPoolJson.abi);
     this.uni_pool = new this.web3.eth.Contract(UNIPoolJson.abi);
     this.proposal = new this.web3.eth.Contract(ProposalJson.abi);
     
@@ -93,8 +94,8 @@ export class Contracts {
       { contract: this.dice_pool, json: DICEPoolJson },
       { contract: this.comp_pool, json: COMPPoolJson },
       { contract: this.uni_pool, json: UNIPoolJson },
-      {contract: this.taco_pool, json: TACOPoolJson},
-      {contract: this.proposal, json: ProposalJson}
+      { contract: this.taco_pool, json: TACOPoolJson},
+      // { contract: this.proposal, json: ProposalJson}
     ]
 
     contracts.forEach(contract => this.setContractProvider(
@@ -107,6 +108,7 @@ export class Contracts {
     this.yfi.options.address = addressMap["YFI"];
     this.weth.options.address = addressMap["WETH"];
     this.comp.options.address = addressMap["COMP"];
+    this.taco.options.address = addressMap["TACO"];
     this.dice.options.address = addressMap["DICE"];
     this.cream.options.address = addressMap["CREAM"];
     this.uni.options.address = addressMap["UNI"];
@@ -121,6 +123,7 @@ export class Contracts {
       {"tokenAddr": this.dice.options.address, "poolAddr": this.dice_pool.options.address},
       {"tokenAddr": this.cream.options.address, "poolAddr": this.cream_pool.options.address},
       {"tokenAddr": this.uni.options.address, "poolAddr": this.uni_pool.options.address},
+      {"tokenAddr": this.taco.options.address, "poolAddr": this.taco_pool.options.address},
     ]
   }
 
@@ -134,6 +137,7 @@ export class Contracts {
     this.comp.options.from = account;
     this.weth.options.from = account;
     this.uni.options.from = account;
+    this.taco.options.from = account;
   }
 
   async callContractFunction(

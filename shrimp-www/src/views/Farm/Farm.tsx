@@ -5,6 +5,8 @@ import { useParams } from 'react-router-dom'
 import { useWallet } from 'use-wallet'
 import { provider } from 'web3-core'
 
+import Page from '../../components/Page'
+
 import Button from '../../components/Button'
 import PageHeader from '../../components/PageHeader'
 import Spacer from '../../components/Spacer'
@@ -18,6 +20,7 @@ import Stake from './components/Stake'
 
 const Farm: React.FC = () => {
   const { farmId } = useParams()
+
   const {
     contract,
     depositToken,
@@ -48,9 +51,9 @@ const Farm: React.FC = () => {
   const earnTokenName = useMemo(() => {
     return earnToken.toUpperCase()
   }, [earnToken])
-  {console.log(depositToken)}
+
   return (
-    <>
+    <Page>
       <PageHeader
         icon={icon}
         subtitle={`Deposit ${depositTokenName} and earn ${earnTokenName}`}
@@ -79,7 +82,7 @@ const Farm: React.FC = () => {
         </div>
         <Spacer size="lg" />
       </StyledFarm>
-    </>
+    </Page>
   )
 }
 
