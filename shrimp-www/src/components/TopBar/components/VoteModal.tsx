@@ -41,7 +41,7 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
 
       <StyledBalanceWrapper>
         <StyledBalance>
-          <Label text="Kindly inform the team after submit" />
+          <Label text="Kindly inform the team after submission" />
         </StyledBalance>
         <StyledBalanceActions>
           <form onSubmit={handleSubmit(onSubmit)}>

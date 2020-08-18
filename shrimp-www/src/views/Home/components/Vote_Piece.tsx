@@ -160,15 +160,15 @@ const Voter: React.FC<VoteProps> = () => {
           paddingTop: 24,
           opacity: 0.6,
         }}>
-          <p>Proposal 1(Rehesal Proposal), </p>
+          <p>Proposal 1(Rehearsal Proposal), </p>
           <p>Shrimp Declaration of Independence!</p>
-          <p>i do solemnly swear that i am a shrimp, I know the obligation of shrimp.<br/>
-        I will do my best to protect this community, for others not you can beat us.<br/><br/>
+          <p>I do solemnly swear that I am a shrimp, and that I know the obligation of shrimp.<br/>
+        I will do my best to protect this community, so no others can beat us.<br/><br/>
 
-More then that, I will invited others project to create a advance pool. As I know they need us and we nee them.<br/><br/>
+More then that, I will invite other projects to create advanced pools. As I know they need us and we need them.<br/><br/>
 
-for me, just a part of shrimp, for me, I know I maybe lost a lot in here.<br/>
-But I will do serious review this community, as I am a shrimp</p>
+For I am just one of many shrimp, who knows they could be eaten in here.<br/>
+But I will do a serious review of this community, for I am a shrimp!</p>
           <div style={{
             display: 'flex',
             alignItems: 'center',
@@ -178,16 +178,16 @@ But I will do serious review this community, as I am a shrimp</p>
             <StyledLink target="__blank" href="https://github.com/shrimp-finance/shrimp-protocol/wiki/Shrimp-Declaration-of-Independence">More Info</StyledLink>
           </div>
         </div>
-        <div style={{
+        {/* <div style={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           marginTop: 32,
-        }}>
+        }}> */}
           {/* below here is a twitter link, we can place a link
              to a twitter announcement here so i have only commented it out for now  */}
           {/* <StyledLink target="__blank" href="https://twitter.com/YamFinance/status/1293660938906869760">More Info</StyledLink> */}
-        </div>
+        {/* </div> */}
       </CardContent>
     </Card>
   )
