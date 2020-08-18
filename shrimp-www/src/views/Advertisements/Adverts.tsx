@@ -88,7 +88,7 @@ const Advertisements: React.FC = () => {
 
           <PageHeader
             icon={<img src={farmer} height="96" />}
-            subtitle="1% Shrimp can list here for 7 Days (More Info)"
+            subtitle={<a style={{color: "#0d87b3"}} href="https://github.com/shrimp-finance/shrimp-protocol/wiki/Advanced-Pool">About the Advenced Pool</a>}
             title="Unite Shrimper by providing Shrimp coin"
           />
 

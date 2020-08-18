@@ -23,9 +23,9 @@ const DisclaimerModal: React.FC<DisclaimerModal> = ({ onConfirm, onDismiss }) =>
     if (step === 'disclaimer') {
       return (
         <div>
-          <p>Audits: None.</p>
-          <p>While the initial creators of the Shrimp protocol have made reasonable efforts to attempt to ensure the security of the contracts, including forking much of the codebase from existing well-audited projects and soliciting review from friends, nothing approaching the rigor of a formal audit has been conducted at this time.</p>
-          <p>We STRONGLY urge caution to anyone who chooses to engage with these contracts.</p>
+          <p>Audits: None. (This project is in beta. Use at your own risk.)</p>
+          <p>🚨 Shrimping Pool will end in 2020/08/18 17:07:40 UTC+0 (Please exit before that time) 🚨</p>
+          <p>🦐 First Advanced Pool will start in 2020/08/18 20:20:20 UTC+0 (See the rule for the Advanced Pool) 🦐</p>
         </div>
       )
     } else {
@@ -41,8 +41,11 @@ const DisclaimerModal: React.FC<DisclaimerModal> = ({ onConfirm, onDismiss }) =>
 
   const button = useMemo(() => {
     if (step === 'disclaimer') {
+      // return (
+      //   <Button text="Next" variant="secondary" onClick={() => setStep('uniswap')} />
+      // )
       return (
-        <Button text="Next" variant="secondary" onClick={() => setStep('uniswap')} />
+        <Button text="I understand" onClick={handleConfirm} />
       )
     } else {
       return (
