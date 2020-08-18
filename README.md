@@ -42,11 +42,11 @@ Governance is entirely dictated by Shrimp holders from the start. Upon deploymen
 Anybody with 5% of Shrimp to their address can propose a governance action; these are simple or complex sets of actions, such as adding support for a new shrimping pool, changing an Advanced Pool fee.
 
 ## Admin keys Holder([More info](https://github.com/shrimp-finance/shrimp-protocol/wiki/Community-Authorization---Multisig-Wallet))
-Xixi Huang - (Founder) - Founder of Dice.Finance  
-Andersson Michael - (Partner) - Founder of Betpirate.io  
+[Xixi Huang](https://twitter.com/superdxixi) - (Founder) - Founder of Dice.Finance  
+[Andersson Michael](https://twitter.com/betpirateio) - (Partner) - Founder of Betpirate.io  
 Tom Chu - (Team) - Technical Lead of Shrimp.Finance  
-Marcos - (Community)
-
+[Marcos](https://twitter.com/mdelriovila) - (Shrimp Community) - Telegram admins of Shrimp  
+[Mojo](https://twitter.com/BitnAlts) - (Tacos Community) - Telegram admins of TACO
 
 ## Other protocol information：
 Shrimp Trade: [Uniswap](https://app.uniswap.org/#/swap?inputCurrency=0x38c4102d11893351ced7ef187fcf43d33eb1abe6&outputCurrency=0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2)  
