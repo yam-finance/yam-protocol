@@ -90,7 +90,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
             <br/>
             <StyledDetail>30,678 Shrimp</StyledDetail>
             <StyledDetail>7 Days</StyledDetail>
-            <StyledDetail><a href="">Telegram</a> | Twitter</StyledDetail>
+            <StyledDetail><a href="https://t.me/TacoGram">Telegram</a> | <a href="https://twitter.com/Taconomics101">Twitter</a></StyledDetail>
           </StyledContent>
         </CardContent>
       </Card>
