@@ -14,6 +14,8 @@ import Stats from '../Home/components/Stats'
 import Vote_Piece from '../Home/components/Vote_Piece'
 import Voter from '../Home/components/Vote'
 
+import VoteButton from '../../components/TopBar/components/VoteButton'
+
 import { OverviewData } from '../Home/types'
 import { getStats } from '../Home/utils'
 
@@ -43,7 +45,6 @@ const Vote: React.FC = () => {
   return (
     <Page>
       <PageHeader icon="🦐" subtitle="Vote for changes here" />
-      {account && (
         <div style={{
           alignItems: 'center',
           display: 'flex',
@@ -51,14 +52,13 @@ const Vote: React.FC = () => {
           justifyContent: 'center',
           marginBottom: "20px"
         }}>
-          <Button
-            onClick={() => connect('injected')}
-            text="Make a Proposal"
-          />
+          <VoteButton />
         </div>
-      )}
 
       <div>
+
+        
+
         {!!account && (
             <>
           <StyledVote>
@@ -69,20 +69,6 @@ const Vote: React.FC = () => {
           </StyledVote>
           </>
         )}
-        {!account && (
-          <div style={{
-            alignItems: 'center',
-            display: 'flex',
-            flex: 1,
-            justifyContent: 'center',
-          }}>
-            <Button
-              onClick={() => connect('injected')}
-              text="Unlock Wallet"
-            />
-          </div>
-        )}
-
         <StyledSpacer />
         <StyledOverview>
           {/* <Stats

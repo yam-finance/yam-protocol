@@ -3,6 +3,8 @@ import styled from 'styled-components'
 
 import useYam from '../../hooks/useYam';
 
+import AdButton from '../../components/TopBar/components/AdvertisementFormButton';
+
 import {
   Route,
   useParams,
@@ -92,7 +94,6 @@ const Advertisements: React.FC = () => {
             title="Unite Shrimper by providing Shrimp coin"
           />
 
-          {!account && (
             <>
               <div style={{
                 alignItems: 'center',
@@ -100,28 +101,9 @@ const Advertisements: React.FC = () => {
                 flex: 1,
                 justifyContent: 'center',
               }}>
-                <Button
-                  onClick={() => connect('injected')}
-                  text="Unlock Wallet"
-                />
+                <AdButton />
               </div>
             </>
-          )}
-
-          {account && (
-            <div style={{
-              alignItems: 'center',
-              display: 'flex',
-              flex: 1,
-              justifyContent: 'center',
-              marginBottom: "20px"
-            }}>
-              <Button
-                onClick={() => connect('injected')}
-                text="Make a Pool"
-              />
-            </div>
-          )}
 
           <Spacer size="lg" />
           <StyledFarm>
