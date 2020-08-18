@@ -274,7 +274,6 @@ export const getVotes_piece = async (provider) => {
   const web3 = new Web3(provider);
   const my_proposal = new web3.eth.Contract(ProposalJson.abi, ProposalJson.networks[3].address);
   let votes = [];
-
   await my_proposal.getPastEvents('Voter', {
     fromBlock: 0,
     toBlock: 'latest'
@@ -284,16 +283,10 @@ export const getVotes_piece = async (provider) => {
         votes.push(events[i].returnValues.voter)
       }
     }
-
   });
-
   await my_proposal.methods.get_vote(0, votes).call().then(function (events) {
-    // console.log(events)
     votes_cast = web3.utils.fromWei(events, 'ether')
-    // console.log(votes_cast)
   })
-
-  console.log(votes_cast)
   return votes_cast
 }
 
