@@ -30,8 +30,8 @@ const METER_TOTAL = 170000
 const WARNING_TIMESTAMP = 1598000400000
 
 const Voter: React.FC<VoteProps> = () => {
-  // const [votesCast, setvotesCast ] = useState(0)
   const [totalVotes, setTotalVotes] = useState(new Number)
+  // const [percentAquired, setPercent] = useState(new number)
   // const [scalingFactor, setScalingFactor] = useState(new BigNumber(1))
   // const [delegated, setDelegated] = useState(false)
   // const [delegatedBalance, setDelegatedBalance] = useState(new BigNumber(0))
@@ -40,10 +40,12 @@ const Voter: React.FC<VoteProps> = () => {
   const yam = useYam()
 
   const renderer = (countdownProps: CountdownRenderProps) => {
-    const { hours, minutes, seconds } = countdownProps
+    const { days, hours, minutes, seconds } = countdownProps
     const paddedSeconds = seconds < 10 ? `0${seconds}` : seconds
     const paddedMinutes = minutes < 10 ? `0${minutes}` : minutes
-    const paddedHours = hours < 10 ? `0${hours}` : hours
+    const totalHours = days*24
+    const paddedHours = hours < 10 ? `0${totalHours + hours}` : hours
+    
     return (
       <StyledCountdown>{paddedHours}:{paddedMinutes}:{paddedSeconds}</StyledCountdown>
     )
@@ -53,20 +55,15 @@ const Voter: React.FC<VoteProps> = () => {
     get_y_n_vote(ethereum, account)
   }, [ethereum, account])
 
-  // const handleVoteClick = useCallback(() => {
-  //   delegate(yam, account)
-  // }, [account, yam])
-
   const fetchVotes = useCallback(async () => {
     getVotes_piece(ethereum).then(function (data) {
+      let currentPercent = data / (224746 / 100);
       setTotalVotes(data)
-      console.log(totalVotes)
-      // alert(data);
+      // setPercent(currentPercent)
+      // console.log(currentPercent)
+      // console.log(data)
+      
     })
-    // const scalingFactor = await getScalingFactor(yam)
-    // const votesCast = await get_counted_votes(ethereum)
-    // setvotesCast(votesCast)
-    // setScalingFactor(scalingFactor)
   }, [yam, setTotalVotes])
 
   useEffect(() => {
@@ -77,20 +74,6 @@ const Voter: React.FC<VoteProps> = () => {
     return () => clearInterval(refetch)
   }, [fetchVotes, yam])
 
-  // const fetchDidDelegate = useCallback(async () => {
-  //   const d = await didDelegate(yam, account)
-  //   if (d) {
-  //     const amount = await getDelegatedBalance(yam, account)
-  //     setDelegatedBalance(amount)
-  //   }
-  //   setDelegated(d)
-  // }, [setDelegated, yam, account, setDelegatedBalance])
-
-  // useEffect(() => {
-  //   if (yam && account) {
-  //     fetchDidDelegate()
-  //   }
-  // }, [fetchDidDelegate, yam, account])
 
   return (
     <Card>
@@ -144,7 +127,7 @@ const Voter: React.FC<VoteProps> = () => {
           </StyledCheckpoint>
         </StyledCheckpoints>
         <StyledMeter>
-          <StyledMeterInner width={Math.max(1000) / METER_TOTAL * 100} />
+          <StyledMeterInner width={0} />
         </StyledMeter>
         <Spacer />
         <Button text="I do solemnly swear" onClick={y_vote} />
