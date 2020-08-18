@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 
 import { useWallet } from 'use-wallet'
@@ -19,36 +19,66 @@ import WalletProviderModal from './WalletProviderModal'
 interface AccountButtonProps {}
 
 const icons: any = {
-  injected, 
-  walletconnect, 
-  walletlink
+  injected,
+  walletconnect,
+  walletlink,
 }
 
 const AccountButton: React.FC<AccountButtonProps> = (props) => {
   const [onPresentWalletProvider] = useModal(<WalletProviderModal />)
   const [onPresentAccountModal] = useModal(<AccountModal />)
-  const { account, connector } = useWallet()
-  
-  return (
-    <StyledAccountButton>
-      {!account ? (
-        <Button
-          onClick={onPresentWalletProvider}
-          size="sm"
-          text="Unlock Wallet"
-        />
-      ) : (
-        <StyledProviderRow>
-          <Button onClick={onPresentAccountModal} size="sm">
-            <StyledProviderIcon>
-              <ReactSVG src={icons[connector]} />
-            </StyledProviderIcon>
-            {`${account.slice(0, 5)}...${account.slice(-4, -1)}`}
-          </Button>
-        </StyledProviderRow>
-      )}
-    </StyledAccountButton>
-  )
+  const { account, connector, status } = useWallet()
+  console.log(status)
+  // Catch connection & error
+  switch (status) {
+    case 'disconnected':
+      return (
+        <StyledAccountButton>
+          <Button
+            onClick={onPresentWalletProvider}
+            size="sm"
+            text="Unlock Wallet"
+          />
+        </StyledAccountButton>
+      )
+      break
+    case 'connecting':
+      return (
+        <StyledAccountButton>
+          <Button
+            onClick={onPresentWalletProvider}
+            size="sm"
+            text="Connecting..."
+          />
+        </StyledAccountButton>
+      )
+      break
+    case 'connected':
+      return (
+        <StyledAccountButton>
+          <StyledProviderRow>
+            <Button onClick={onPresentAccountModal} size="sm">
+              <StyledProviderIcon>
+                <ReactSVG src={icons[connector]} />
+              </StyledProviderIcon>
+              {`${account.slice(0, 5)}...${account.slice(-4, -1)}`}
+            </Button>
+          </StyledProviderRow>
+        </StyledAccountButton>
+      )
+      break
+    case 'error':
+      return (
+        <StyledAccountButton>
+          <Button
+            onClick={onPresentWalletProvider}
+            size="sm"
+            text="Error Connecting..."
+          />
+        </StyledAccountButton>
+      )
+      break
+  }
 }
 
 const StyledProviderRow = styled.div`
