@@ -31,7 +31,6 @@ const WARNING_TIMESTAMP = 1598000400000
 
 const Voter: React.FC<VoteProps> = () => {
   const [totalVotes, setTotalVotes] = useState(new Number)
-  // const [percentAquired, setPercent] = useState(new number)
   // const [scalingFactor, setScalingFactor] = useState(new BigNumber(1))
   // const [delegated, setDelegated] = useState(false)
   // const [delegatedBalance, setDelegatedBalance] = useState(new BigNumber(0))
@@ -40,12 +39,10 @@ const Voter: React.FC<VoteProps> = () => {
   const yam = useYam()
 
   const renderer = (countdownProps: CountdownRenderProps) => {
-    const { days, hours, minutes, seconds } = countdownProps
+    const { hours, minutes, seconds } = countdownProps
     const paddedSeconds = seconds < 10 ? `0${seconds}` : seconds
     const paddedMinutes = minutes < 10 ? `0${minutes}` : minutes
-    const totalHours = days*24
-    const paddedHours = hours < 10 ? `0${totalHours + hours}` : hours
-    
+    const paddedHours = hours < 10 ? `0${hours}` : hours
     return (
       <StyledCountdown>{paddedHours}:{paddedMinutes}:{paddedSeconds}</StyledCountdown>
     )
@@ -57,12 +54,8 @@ const Voter: React.FC<VoteProps> = () => {
 
   const fetchVotes = useCallback(async () => {
     getVotes_piece(ethereum).then(function (data) {
-      let currentPercent = data / (224746 / 100);
       setTotalVotes(data)
-      // setPercent(currentPercent)
-      // console.log(currentPercent)
-      // console.log(data)
-      
+      console.log(totalVotes)
     })
   }, [yam, setTotalVotes])
 
@@ -127,7 +120,7 @@ const Voter: React.FC<VoteProps> = () => {
           </StyledCheckpoint>
         </StyledCheckpoints>
         <StyledMeter>
-          <StyledMeterInner width={0} />
+          <StyledMeterInner width={Math.max(1000) / METER_TOTAL * 100} />
         </StyledMeter>
         <Spacer />
         <Button text="I do solemnly swear" onClick={y_vote} />
@@ -151,7 +144,7 @@ const Voter: React.FC<VoteProps> = () => {
 More then that, I will invite other projects to create advanced pools. As I know they need us and we need them.<br/><br/>
 
 For I am just one of many shrimp, who knows they could be eaten in here.<br/>
-But I willingly sacrifice myself and will do a serious review of this community, for I am a shrimp!</p>
+But I will do a serious review of this community, for I am a shrimp!</p>
           <div style={{
             display: 'flex',
             alignItems: 'center',
