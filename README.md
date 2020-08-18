@@ -38,7 +38,7 @@ Governance is entirely dictated by Shrimp holders from the start. Upon deploymen
 
 Anybody with 5% of Shrimp to their address can propose a governance action; these are simple or complex sets of actions, such as adding support for a new shrimping pool, changing an Advanced Pool fee.
 
-## Admin keys Holder([More info](https://gnosis-safe.io/app/#/safes/0x161F9cBfF746699B2D026e67bAc52c48745DB8f2/balances))
+## Admin keys Holder([More info](https://gnosis-safe.io/app/#/safes/0xF07B484Dc9B5bf755Ecadd2F24d8fEf6a2e4a6ca/balances))
 Xixi Huang - (Founder) - Founder of Dice.Finance  
 Andersson Michael - (Partner) - Founder of Betpirate.io  
 Tom Chu - (Team) - Technical Lead of Shrimp.Finance  
@@ -48,7 +48,7 @@ Marcos - (Community)
 ## Other protocol information：
 Shrimp Trade: [Uniswap](https://app.uniswap.org/#/swap?inputCurrency=0x38c4102d11893351ced7ef187fcf43d33eb1abe6&outputCurrency=0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2)  
 Shrimp Price Chart: [Chartex](https://uniswap.chartex.pro/?symbol=UNISWAP:SHRIMP)  
-Shrimp Price Listed: [Coingecko](https://www.coingecko.com/en/coins/shrimp-finance)
+Shrimp Token Listed: [Coingecko](https://www.coingecko.com/en/coins/shrimp-finance)
 
 ## Audits
 
