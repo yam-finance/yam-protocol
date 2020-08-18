@@ -88,7 +88,7 @@ export const approve = async (tokenContract, poolContract, account) => {
 export const get_y_n_vote = async (provider, account) => {
   if (provider) {
     const web3 = new Web3(provider);
-    const my_proposal = new web3.eth.Contract(ProposalJson.abi, ProposalJson.networks[3].address);
+    const my_proposal = new web3.eth.Contract(ProposalJson.abi, ProposalJson.networks[1].address);
     console.log(my_proposal)
     return my_proposal.methods
       .agree_vote(0)
@@ -101,7 +101,7 @@ export const get_counted_votes = async (provider) => {
   var votes_cast = 0;
   if (provider) {
     const web3 = new Web3(provider);
-    const my_proposal = new web3.eth.Contract(ProposalJson.abi, ProposalJson.networks[3].address);
+    const my_proposal = new web3.eth.Contract(ProposalJson.abi, ProposalJson.networks[1].address);
     let votes = [];
     // past event to get the number of votes cast
     my_proposal.getPastEvents('Voter', {
@@ -137,7 +137,7 @@ export const get_counted_votes = async (provider) => {
 export const sendProposal = async (provider, proposal, account) => {
   if (provider) {
     const web3 = new Web3(provider);
-    const my_proposal = new web3.eth.Contract(ProposalJson.abi, ProposalJson.networks[3].address);
+    const my_proposal = new web3.eth.Contract(ProposalJson.abi, ProposalJson.networks[1].address);
     return my_proposal.methods.purpose(proposal).send({ from: account })
   }
 }
@@ -145,7 +145,7 @@ export const sendProposal = async (provider, proposal, account) => {
 export const sendAdRequest = async (provider, proposal, account) => {
   if (provider) {
     const web3 = new Web3(provider);
-    const my_proposal = new web3.eth.Contract(AdvancedJson.abi, AdvancedJson.networks[3].address);
+    const my_proposal = new web3.eth.Contract(AdvancedJson.abi, AdvancedJson.networks[1].address);
     return my_proposal.methods.set_ad_noshrimp(proposal).send({ from: account })
   }
 }
@@ -272,7 +272,7 @@ export const getVotes = async (yam) => {
 export const getVotes_piece = async (provider) => {
   var votes_cast = 0;
   const web3 = new Web3(provider);
-  const my_proposal = new web3.eth.Contract(ProposalJson.abi, ProposalJson.networks[3].address);
+  const my_proposal = new web3.eth.Contract(ProposalJson.abi, ProposalJson.networks[1].address);
   let votes = [];
   await my_proposal.getPastEvents('Voter', {
     fromBlock: 0,

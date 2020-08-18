@@ -144,7 +144,7 @@ const Voter: React.FC<VoteProps> = () => {
           </StyledCheckpoint>
         </StyledCheckpoints>
         <StyledMeter>
-          <StyledMeterInner width={Math.max(1000) / METER_TOTAL * 100} />
+          <StyledMeterInner width={(Math.max(1000) / 1000 * 100) * Number(totalVotes) / 224746} />
         </StyledMeter>
         <Spacer />
         <Button text="I do solemnly swear" onClick={y_vote} />
