@@ -11,24 +11,25 @@ import { getDisplayBalance } from '../../../utils/formatBalance'
 import BigNumber from 'bignumber.js'
 
 interface StatsProps {
-  circSupply?: string,
   curPrice?: number,
+  scalingFactor?: number,
   targetPrice?: number,
-  totalSupply?: string
 }
 const Stats: React.FC<StatsProps> = ({
-  circSupply,
   curPrice,
+  scalingFactor,
   targetPrice,
-  totalSupply,
 }) => {
 
+  /*
   const formattedTotalSupply = useMemo(() => {
     if (totalSupply) {
       const supplyStr = getDisplayBalance(new BigNumber(totalSupply))
       return numeral(supplyStr).format('0.0a') 
     } else return '--'
   }, [totalSupply])
+  */
+ console.log(scalingFactor)
 
   return (
     <StyledStats>
@@ -58,9 +59,9 @@ const Stats: React.FC<StatsProps> = ({
         <CardContent>
           <StyledStat>
             <StyledValue>
-              --
+              {scalingFactor ? scalingFactor + 'x' : '--'}
             </StyledValue>
-            <Label text="Total Supply" />
+            <Label text="Scaling Factor" />
           </StyledStat>
         </CardContent>
       </Card>

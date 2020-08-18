@@ -22,11 +22,10 @@ const Home: React.FC = () => {
 
   const yam = useYam()
   const [{
-    circSupply,
     curPrice,
     nextRebase,
+    scalingFactor,
     targetPrice,
-    totalSupply,
   }, setStats] = useState<OverviewData>({})
 
   const fetchStats = useCallback(async () => {
@@ -54,10 +53,9 @@ const Home: React.FC = () => {
           <Rebase nextRebase={nextRebase} />
           <StyledSpacer />
           <Stats
-            circSupply={circSupply}
             curPrice={curPrice}
+            scalingFactor={scalingFactor}
             targetPrice={targetPrice}
-            totalSupply={totalSupply}
           />
         </StyledOverview>
       </div>
