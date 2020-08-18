@@ -28,7 +28,6 @@ const WalletProviderModal: React.FC<ModalProps> = ({ onDismiss }) => {
   const connectWallet = (key: any) => {
     // Unsure which type to pass here (use-wallet Connector didn't work)
     connect(key)
-    setProvider(key)
     handleCancelClick()
   }
 
