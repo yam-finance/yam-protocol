@@ -88,7 +88,7 @@ const Advertisements: React.FC = () => {
 
           <PageHeader
             icon={<img src={farmer} height="96" />}
-            subtitle="1% Shrimp can list here for 7 Days"
+            subtitle="1% Shrimp can list here for 7 Days (More Info)"
             title="Unite Shrimper by providing Shrimp coin"
           />
 

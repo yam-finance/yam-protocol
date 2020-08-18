@@ -41,7 +41,7 @@ const Home: React.FC = () => {
 
   return (
     <Page>
-      <PageHeader icon="🦐" subtitle="It's a great day to catch Shrimp" title="Welcome" />
+      <PageHeader icon="🦐" subtitle="One day shrimp, shrimping forever!" title="Welcome" />
       <div>
         {/* {!!account && (
           <StyledVote>
