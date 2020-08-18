@@ -295,10 +295,6 @@ export const getVotes_piece = async (provider) => {
 
   console.log(votes_cast)
   return votes_cast
-  // setTimeout(() => {
-  //   console.log(votes_cast)
-
-  // }, 2000);
 }
 
 export const getScalingFactor = async (yam) => {

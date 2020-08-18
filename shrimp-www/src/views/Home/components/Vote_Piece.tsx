@@ -33,8 +33,8 @@ const Voter: React.FC<VoteProps> = () => {
   // const [votesCast, setvotesCast ] = useState(0)
   const [totalVotes, setTotalVotes] = useState(new Number)
   // const [scalingFactor, setScalingFactor] = useState(new BigNumber(1))
-  const [delegated, setDelegated] = useState(false)
-  const [delegatedBalance, setDelegatedBalance] = useState(new BigNumber(0))
+  // const [delegated, setDelegated] = useState(false)
+  // const [delegatedBalance, setDelegatedBalance] = useState(new BigNumber(0))
 
   const { account, ethereum } = useWallet()
   const yam = useYam()
@@ -59,9 +59,8 @@ const Voter: React.FC<VoteProps> = () => {
 
   const fetchVotes = useCallback(async () => {
     getVotes_piece(ethereum).then(function(data){
-
-      
       setTotalVotes(data)
+      console.log(totalVotes)
       // alert(data);
     })
     // const scalingFactor = await getScalingFactor(yam)
@@ -78,20 +77,20 @@ const Voter: React.FC<VoteProps> = () => {
     return () => clearInterval(refetch)
   }, [fetchVotes, yam])
 
-  const fetchDidDelegate = useCallback(async () => {
-    const d = await didDelegate(yam, account)
-    if (d) {
-      const amount = await getDelegatedBalance(yam, account)
-      setDelegatedBalance(amount)
-    }
-    setDelegated(d)
-  }, [setDelegated, yam, account, setDelegatedBalance])
+  // const fetchDidDelegate = useCallback(async () => {
+  //   const d = await didDelegate(yam, account)
+  //   if (d) {
+  //     const amount = await getDelegatedBalance(yam, account)
+  //     setDelegatedBalance(amount)
+  //   }
+  //   setDelegated(d)
+  // }, [setDelegated, yam, account, setDelegatedBalance])
 
-  useEffect(() => {
-    if (yam && account) {
-      fetchDidDelegate()
-    }
-  }, [fetchDidDelegate, yam, account])
+  // useEffect(() => {
+  //   if (yam && account) {
+  //     fetchDidDelegate()
+  //   }
+  // }, [fetchDidDelegate, yam, account])
 
   return (
     <Card>
@@ -114,7 +113,7 @@ const Voter: React.FC<VoteProps> = () => {
               display: 'flex',
             }}>
               <StyledTitle>
-                <div>{Number(totalVotes.toFixed(0)).toLocaleString()}</div>
+                <div>{Number(totalVotes).toLocaleString()}</div>
               </StyledTitle>
               <StyledDenominator>
                 <div>{`/ 160,000`}</div>
@@ -148,14 +147,13 @@ const Voter: React.FC<VoteProps> = () => {
           <StyledMeterInner width={Math.max(1000) / METER_TOTAL * 100} />
         </StyledMeter>
         <Spacer />
-        {!delegated ? (
           <Button text="Yes" onClick={y_vote} />
-        ) : (
+        {/* ) : (
           <div>
-            {/* <StyledDelegatedCount>Delegating: {Number(delegatedBalance.multipliedBy(scalingFactor).toFixed(0)).toLocaleString()} YAM</StyledDelegatedCount> */}
+            {/* <StyledDelegatedCount>Delegating: {Number(delegatedBalance.multipliedBy(scalingFactor).toFixed(0)).toLocaleString()} YAM</StyledDelegatedCount> 
             <StyledThankYou>Thank you for your vote.</StyledThankYou>
           </div>
-        )}
+        )} */}
         <div style={{
           margin: '0 auto',
           width: 512,
