@@ -16,7 +16,7 @@ const NAME_FOR_POOL: { [key: string]: string } = {
   comp_pool: 'Compounding Hills',
   dice_pool: 'Safe Haven',
   uni_pool: 'WETH_SHRIMP_UNI_LP',
-  taco_pool: 'Shrimp Tacos'
+  taco_pool: 'Taco Tuesday'
 }
 
 const ICON_FOR_POOL: { [key: string]: string } = {

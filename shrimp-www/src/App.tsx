@@ -20,6 +20,7 @@ import Farms from './views/Farms'
 import Home from './views/Home'
 import Adverts from './views/Advertisements';
 import Vote from './views/Gov'
+import Farm from './views/Farm/Farm'
 
 import theme from './theme'
 
@@ -33,6 +34,9 @@ const App: React.FC = () => {
           </Route>
           <Route path="/farms" exact>
             <Farms />
+          </Route>
+          <Route path="/farms/:farmId">
+            <Farm />
           </Route>
           <Route path="/Vote" exact>
             <Vote />

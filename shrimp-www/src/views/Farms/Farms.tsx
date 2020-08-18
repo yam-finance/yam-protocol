@@ -24,17 +24,14 @@ const Farms: React.FC = () => {
       <Page>
       {!!account ? (
         <>
-          <Route exact path={path}>
+          {/* <Route exact path={path}> */}
             <PageHeader
               icon={<img src={farmer} height="96" />}
               subtitle="Earn SHRIMP tokens by providing liquidity."
               title="Select a shrimping pool."
             />
             <FarmCards />
-          </Route>
-          <Route path={`${path}/:farmId`}>
-            <Farm />
-          </Route>
+          {/* </Route> */}
         </>
       ) : (
         <div style={{
