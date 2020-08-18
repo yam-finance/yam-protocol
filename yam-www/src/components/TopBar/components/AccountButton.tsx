@@ -25,17 +25,20 @@ const icons: any = {
 }
 
 const AccountButton: React.FC<AccountButtonProps> = (props) => {
-  const [onPresentWalletProvider] = useModal(<WalletProviderModal />)
+  // Uncomment the below line & the onClick functions
+  // below to enable the modal wallet chooser
+  // const [onPresentWalletProvider] = useModal(<WalletProviderModal />)
   const [onPresentAccountModal] = useModal(<AccountModal />)
-  const { account, connector, status } = useWallet()
-  console.log(status)
+  const { account, connector, connect, status } = useWallet()
+
   // Catch connection & error
   switch (status) {
     case 'disconnected':
       return (
         <StyledAccountButton>
           <Button
-            onClick={onPresentWalletProvider}
+            onClick={() => connect('injected')}
+            // onClick={onPresentWalletProvider}
             size="sm"
             text="Unlock Wallet"
           />
@@ -46,7 +49,8 @@ const AccountButton: React.FC<AccountButtonProps> = (props) => {
       return (
         <StyledAccountButton>
           <Button
-            onClick={onPresentWalletProvider}
+            onClick={() => connect('injected')}
+            // onClick={onPresentWalletProvider}
             size="sm"
             text="Connecting..."
           />
@@ -68,10 +72,14 @@ const AccountButton: React.FC<AccountButtonProps> = (props) => {
       )
       break
     case 'error':
+      alert(
+        'There was an error connecting to your wallet. \n \nMake sure your browser has a wallet like MetaMask installed or that you have allowed the application to access it.'
+      )
       return (
         <StyledAccountButton>
           <Button
-            onClick={onPresentWalletProvider}
+            onClick={() => connect('injected')}
+            // onClick={onPresentWalletProvider}
             size="sm"
             text="Error Connecting..."
           />
