@@ -30,7 +30,6 @@ const METER_TOTAL = 170000
 const WARNING_TIMESTAMP = 1598000400000
 
 const Voter: React.FC<VoteProps> = () => {
-  // const [votesCast, setvotesCast ] = useState(0)
   const [totalVotes, setTotalVotes] = useState(new Number)
   // const [scalingFactor, setScalingFactor] = useState(new BigNumber(1))
   // const [delegated, setDelegated] = useState(false)
@@ -53,20 +52,11 @@ const Voter: React.FC<VoteProps> = () => {
     get_y_n_vote(ethereum, account)
   }, [ethereum, account])
 
-  // const handleVoteClick = useCallback(() => {
-  //   delegate(yam, account)
-  // }, [account, yam])
-
   const fetchVotes = useCallback(async () => {
     getVotes_piece(ethereum).then(function (data) {
       setTotalVotes(data)
       console.log(totalVotes)
-      // alert(data);
     })
-    // const scalingFactor = await getScalingFactor(yam)
-    // const votesCast = await get_counted_votes(ethereum)
-    // setvotesCast(votesCast)
-    // setScalingFactor(scalingFactor)
   }, [yam, setTotalVotes])
 
   useEffect(() => {
@@ -77,20 +67,6 @@ const Voter: React.FC<VoteProps> = () => {
     return () => clearInterval(refetch)
   }, [fetchVotes, yam])
 
-  // const fetchDidDelegate = useCallback(async () => {
-  //   const d = await didDelegate(yam, account)
-  //   if (d) {
-  //     const amount = await getDelegatedBalance(yam, account)
-  //     setDelegatedBalance(amount)
-  //   }
-  //   setDelegated(d)
-  // }, [setDelegated, yam, account, setDelegatedBalance])
-
-  // useEffect(() => {
-  //   if (yam && account) {
-  //     fetchDidDelegate()
-  //   }
-  // }, [fetchDidDelegate, yam, account])
 
   return (
     <Card>
@@ -168,7 +144,7 @@ const Voter: React.FC<VoteProps> = () => {
 More then that, I will invite other projects to create advanced pools. As I know they need us and we need them.<br/><br/>
 
 For I am just one of many shrimp, who knows they could be eaten in here.<br/>
-But I willingly sacrifice myself and will do a serious review of this community, for I am a shrimp!</p>
+But I will do a serious review of this community, for I am a shrimp!</p>
           <div style={{
             display: 'flex',
             alignItems: 'center',
