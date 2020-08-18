@@ -59,7 +59,7 @@ const Stats: React.FC<StatsProps> = ({
         <CardContent>
           <StyledStat>
             <StyledValue>
-              {scalingFactor ? scalingFactor : '--'}
+              {scalingFactor ? scalingFactor + 'x' : '--'}
             </StyledValue>
             <Label text="Scaling Factor" />
           </StyledStat>
