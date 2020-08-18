@@ -10,18 +10,26 @@ import Button from '../../Button'
 
 import VoteModal from './VoteModal'
 
+import {
+  get_counted_votes
+} from '../../../yamUtils'
+
 interface AccountButtonProps {}
 
 const AccountButton: React.FC<AccountButtonProps> = (props) => {
   const [onPresentAccountModal] = useModal(<VoteModal />)
   
-  const { account, connect } = useWallet()
+  const { account, connect, ethereum } = useWallet()
+
+  const callConnect = () => {
+    connect('injected')
+  }
 
   return (
     <StyledAccountButton>
       {!account ? (
         <Button
-          onClick={() => connect('injected')}
+          onClick={callConnect}
           size="md"
           text="Unlock Wallet"
         />

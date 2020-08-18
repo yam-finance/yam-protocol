@@ -18,7 +18,7 @@ import {
   didDelegate,
   getDelegatedBalance,
   getScalingFactor,
-  getVotes,
+  getVotes_piece,
   get_y_n_vote,
   get_counted_votes
 } from '../../../yamUtils'
@@ -30,9 +30,9 @@ const METER_TOTAL = 150000
 const WARNING_TIMESTAMP = 1597302000000 - 600000
 
 const Voter: React.FC<VoteProps> = () => {
-  const [votesCaste, votesCasts ] = useState(new Number)
-  const [totalVotes, setTotalVotes] = useState(new BigNumber(0))
-  const [scalingFactor, setScalingFactor] = useState(new BigNumber(1))
+  // const [votesCast, setvotesCast ] = useState(0)
+  const [totalVotes, setTotalVotes] = useState(new Number)
+  // const [scalingFactor, setScalingFactor] = useState(new BigNumber(1))
   const [delegated, setDelegated] = useState(false)
   const [delegatedBalance, setDelegatedBalance] = useState(new BigNumber(0))
 
@@ -50,22 +50,25 @@ const Voter: React.FC<VoteProps> = () => {
   }
 
   const y_vote = useCallback(() => {
-    
     get_y_n_vote(ethereum,account)
   }, [ethereum,account])
 
-  const handleVoteClick = useCallback(() => {
-    delegate(yam, account)
-  }, [account, yam])
+  // const handleVoteClick = useCallback(() => {
+  //   delegate(yam, account)
+  // }, [account, yam])
 
   const fetchVotes = useCallback(async () => {
-    const voteCount = await getVotes(yam)
-    const scalingFactor = await getScalingFactor(yam)
-    const votesCaste = await get_counted_votes(ethereum,account)
-    setTotalVotes(voteCount)
-    votesCasts(votesCaste)
-    setScalingFactor(scalingFactor)
-  }, [yam, setTotalVotes, setScalingFactor])
+    getVotes_piece(ethereum).then(function(data){
+
+      
+      setTotalVotes(data)
+      // alert(data);
+    })
+    // const scalingFactor = await getScalingFactor(yam)
+    // const votesCast = await get_counted_votes(ethereum)
+    // setvotesCast(votesCast)
+    // setScalingFactor(scalingFactor)
+  }, [yam, setTotalVotes])
 
   useEffect(() => {
     if (yam) {
@@ -142,7 +145,7 @@ const Voter: React.FC<VoteProps> = () => {
           </StyledCheckpoint>
         </StyledCheckpoints>
         <StyledMeter>
-          <StyledMeterInner width={Math.max(1000, totalVotes.toNumber()) / METER_TOTAL * 100} />
+          <StyledMeterInner width={Math.max(1000) / METER_TOTAL * 100} />
         </StyledMeter>
         <Spacer />
         {!delegated ? (

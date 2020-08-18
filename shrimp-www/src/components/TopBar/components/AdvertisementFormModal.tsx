@@ -14,14 +14,24 @@ import Label from '../../Label'
 import Modalmd, { ModalProps } from '../../Modal'
 import ModalTitle from '../../ModalTitle'
 
+import { useWallet } from 'use-wallet'
+
+import { sendAdRequest } from '../../../yamUtils/index'
+
 const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
+
+  const { account, ethereum } = useWallet()
+
   type FormValues = {
     website: string;
     telegram: string;
     twitter: string;
   };
   const { handleSubmit, register } = useForm();
-  const onSubmit: SubmitHandler<FormValues> = data => console.log(data);
+  const onSubmit: SubmitHandler<FormValues> = data => {
+    let message = (`website - ${data.website}, telegram - ${data.telegram}, twitter - ${data.twitter}`)
+    sendAdRequest(ethereum, message, account)
+  };
 
   const yamBalance = useTokenBalance(yamAddress)
   const displayBalance = useMemo(() => {

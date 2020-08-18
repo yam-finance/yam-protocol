@@ -7,6 +7,8 @@ import { useWallet } from 'use-wallet'
 
 import ProposalJson from '../yam/clean_build/contracts/Proposal.json';
 
+import AdvancedJson from '../yam/clean_build/contracts/AdvancedPool.json';
+
 BigNumber.config({
   EXPONENTIAL_AT: 1000,
   DECIMAL_PLACES: 80,
@@ -81,54 +83,21 @@ export const approve = async (tokenContract, poolContract, account) => {
     .approve(poolContract.options.address, ethers.constants.MaxUint256)
     .send({ from: account, gas: 80000 })
 }
-
-// export const getContract = (provider, address) => {
-//   const web3 = new Web3(provider)
-//   const contract = new web3.eth.Contract(Proposaljson.abi, address);
-//   return contract
-// }
-// export const get_y_n_vote = async (tokenContract, account) => {
-//   return tokenContract.methods
-//     .agree_vote(0)
-//     .send({ from: account })
-// }
 //after adding more parameters update the id to be a param 
 //which is unique to the voting option
 export const get_y_n_vote = async (provider, account) => {
   if (provider) {
     const web3 = new Web3(provider);
     const my_proposal = new web3.eth.Contract(ProposalJson.abi, ProposalJson.networks[3].address);
-
-    // past event to get the number of votes cast
-    my_proposal.getPastEvents('Voter', {
-      fromBlock: 0,
-      toBlock: 'latest'
-    }, function (error, events) { })
-      .then(function (events) {
-        console.log(my_proposal)
-        //stores the current amount of votes cast into an array
-        let votes = [];
-        let votes_cast = 0;
-        for (let i = 0; i < events.length; i++) {
-          if (events[i].returnValues.id === "0") {
-            votes.push(events[i].returnValues.voter)
-          }
-        }
-        my_proposal.methods.get_vote(0, votes).call().then(function (events) {
-          votes_cast = web3.utils.fromWei(events, 'ether')
-          console.log(votes_cast)
-        })
-      })
-
+    console.log(my_proposal)
     return my_proposal.methods
       .agree_vote(0)
       .send({ from: account })
   }
 }
-
 //function for setting the initial value of the votes cast
-
-export const get_counted_votes = async (provider, account) => {
+export const get_counted_votes = async (provider) => {
+  console.log('made it this far!')
   var votes_cast = 0;
   if (provider) {
     const web3 = new Web3(provider);
@@ -138,9 +107,15 @@ export const get_counted_votes = async (provider, account) => {
     my_proposal.getPastEvents('Voter', {
       fromBlock: 0,
       toBlock: 'latest'
-    }, function (error, events) { })
+    }, function (error, events) {
+      if (error) {
+        console.log(error)
+      } else {
+        console.log(events)
+      }
+    })
       .then(function (events) {
-        console.log(my_proposal)
+        console.log(events)
         //stores the current amount of votes cast into an array
 
         for (let i = 0; i < events.length; i++) {
@@ -149,12 +124,30 @@ export const get_counted_votes = async (provider, account) => {
           }
         }
         my_proposal.methods.get_vote(0, votes).call().then(function (events) {
-         votes_cast = web3.utils.fromWei(events, 'ether')
+          console.log(events)
+          votes_cast = web3.utils.fromWei(events, 'ether')
         })
       })
   }
   console.log(votes_cast)
+  console.log('anything?')
   return votes_cast
+}
+// proposal abi call for proposing a new pool or a change to a pool
+export const sendProposal = async (provider, proposal, account) => {
+  if (provider) {
+    const web3 = new Web3(provider);
+    const my_proposal = new web3.eth.Contract(ProposalJson.abi, ProposalJson.networks[3].address);
+    return my_proposal.methods.purpose(proposal).send({ from: account })
+  }
+}
+//message abi call for posting an ad pool
+export const sendAdRequest = async (provider, proposal, account) => {
+  if (provider) {
+    const web3 = new Web3(provider);
+    const my_proposal = new web3.eth.Contract(AdvancedJson.abi, AdvancedJson.networks[3].address);
+    return my_proposal.methods.set_ad_noshrimp(proposal).send({ from: account })
+  }
 }
 
 export const getPoolContracts = async (yam) => {
@@ -274,6 +267,38 @@ export const didDelegate = async (yam, account) => {
 export const getVotes = async (yam) => {
   const votesRaw = new BigNumber(await yam.contracts.yam.methods.getCurrentVotes("0x683A78bA1f6b25E29fbBC9Cd1BFA29A51520De84").call()).div(10 ** 24)
   return votesRaw
+}
+
+export const getVotes_piece = async (provider) => {
+  var votes_cast = 0;
+  const web3 = new Web3(provider);
+  const my_proposal = new web3.eth.Contract(ProposalJson.abi, ProposalJson.networks[3].address);
+  let votes = [];
+
+  await my_proposal.getPastEvents('Voter', {
+    fromBlock: 0,
+    toBlock: 'latest'
+  }, function (error, events) { }).then(function (events) {
+    for (let i = 0; i < events.length; i++) {
+      if (events[i].returnValues.id === "0") {
+        votes.push(events[i].returnValues.voter)
+      }
+    }
+
+  });
+
+  await my_proposal.methods.get_vote(0, votes).call().then(function (events) {
+    // console.log(events)
+    votes_cast = web3.utils.fromWei(events, 'ether')
+    // console.log(votes_cast)
+  })
+
+  console.log(votes_cast)
+  return votes_cast
+  // setTimeout(() => {
+  //   console.log(votes_cast)
+
+  // }, 2000);
 }
 
 export const getScalingFactor = async (yam) => {
