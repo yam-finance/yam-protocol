@@ -1,5 +1,6 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useEffect, useState } from 'react'
 import styled from 'styled-components'
+import axios from "axios";
 
 import numeral from 'numeral'
 
@@ -22,20 +23,29 @@ const Stats: React.FC<StatsProps> = ({
   targetPrice,
   totalSupply,
 }) => {
+  const [currentPrice, setCurrentPrice] = useState(new Number)
 
   const formattedTotalSupply = useMemo(() => {
     if (totalSupply) {
       const supplyStr = getDisplayBalance(new BigNumber(totalSupply))
-      return numeral(supplyStr).format('0.0a') 
+      return numeral(supplyStr).format('0.0a')
     } else return '--'
   }, [totalSupply])
+
+  useEffect(() => {
+    axios.get('https://api.coingecko.com/api/v3/simple/price?ids=Cethereum%2Cshrimp-finance&vs_currencies=usd').then((res) => {
+      if (res.status === 200) {
+        setCurrentPrice(Number(res.data['shrimp-finance'].usd))
+      }
+    })
+  }, [setCurrentPrice])
 
   return (
     <StyledStats>
       <Card>
         <CardContent>
           <StyledStat>
-            <StyledValue>--</StyledValue>
+            <StyledValue>{Number(currentPrice).toLocaleString()}</StyledValue>
             <Label text="Current Price" />
           </StyledStat>
         </CardContent>

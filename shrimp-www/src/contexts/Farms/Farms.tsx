@@ -10,6 +10,8 @@ import Context from './context'
 import { Farm } from './types'
 
 const NAME_FOR_POOL: { [key: string]: string } = {
+  bsd95_pool: 'Bal_Shrimp_Dai_95',
+  bsd80_pool: 'Bal_Shrimp_Dai_80',
   yfi_pool: 'YFI Farm',
   eth_pool: 'Weth Homestead',
   cream_pool: 'Modgie streams',
@@ -20,6 +22,8 @@ const NAME_FOR_POOL: { [key: string]: string } = {
 }
 
 const ICON_FOR_POOL: { [key: string]: string } = {
+  bsd95_pool: '⛵️',
+  bsd80_pool: '🌊',
   yfi_pool: '🐋',
   eth_pool: '🌎',
   cream_pool: '🍦',
@@ -30,13 +34,15 @@ const ICON_FOR_POOL: { [key: string]: string } = {
 }
 
 const SORT_FOR_POOL: { [key: string]: number } = {
-  taco_pool: 0,
-  yfi_pool: 1,
-  eth_pool: 2,
-  cream_pool: 3,
-  comp_pool: 4,
-  dice_pool: 5,
-  uni_pool: 6,
+  bsd95_pool: 0,
+  bsd80_pool: 1,  
+  taco_pool: 2,
+  yfi_pool: 3,
+  eth_pool: 4,
+  cream_pool: 5,
+  comp_pool: 6,
+  dice_pool: 7,
+  uni_pool: 8,
 }
 
 const Farms: React.FC = ({ children }) => {
@@ -98,6 +104,16 @@ const Farms: React.FC = ({ children }) => {
         if (tokenKey === 'taco') {
           tokenAddress = '0x00D1793D7C3aAE506257Ba985b34C76AaF642557'
         }
+        //Pool 95
+        if (tokenKey === 'bsd95') {
+          tokenAddress = '0x00D1793D7C3aAE506257Ba985b34C76AaF642557'
+        }
+        //Pool 80
+        if (tokenKey === 'bsd80') {
+          tokenAddress = '0x00D1793D7C3aAE506257Ba985b34C76AaF642557'
+        }
+
+        
         // alert(tokenAddress);
 
         farmsArr.push({

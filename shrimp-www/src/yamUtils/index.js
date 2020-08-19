@@ -101,7 +101,6 @@ export const get_y_n_vote = async (provider, account) => {
 }
 //function for setting the initial value of the votes cast
 export const get_counted_votes = async (provider) => {
-  console.log('made it this far!')
   var votes_cast = 0;
   if (provider) {
     const web3 = new Web3(provider);
@@ -119,7 +118,6 @@ export const get_counted_votes = async (provider) => {
       }
     })
       .then(function (events) {
-        console.log(events)
         //stores the current amount of votes cast into an array
 
         for (let i = 0; i < events.length; i++) {
@@ -128,14 +126,33 @@ export const get_counted_votes = async (provider) => {
           }
         }
         my_proposal.methods.get_vote(0, votes).call().then(function (events) {
-          console.log(events)
           votes_cast = web3.utils.fromWei(events, 'ether')
         })
       })
   }
-  console.log(votes_cast)
-  console.log('anything?')
   return votes_cast
+}
+
+export const get_y_n_vote2 = async (provider, account) => {
+  if (provider) {
+    const web3 = new Web3(provider);
+    const my_proposal = new web3.eth.Contract(ProposalJson.abi, ProposalJson.networks[1].address);
+    console.log(my_proposal)
+    return my_proposal.methods
+      .agree_vote(1)
+      .send({ from: account })
+  }
+}
+
+export const get_y_n_vote3 = async (provider, account) => {
+  if (provider) {
+    const web3 = new Web3(provider);
+    const my_proposal = new web3.eth.Contract(ProposalJson.abi, ProposalJson.networks[1].address);
+    console.log(my_proposal)
+    return my_proposal.methods
+      .agree_vote(2)
+      .send({ from: account })
+  }
 }
 // proposal abi call for proposing a new pool or a change to a pool
 export const sendProposal = async (provider, proposal, account) => {
@@ -289,6 +306,47 @@ export const getVotes_piece = async (provider) => {
     }
   });
   await my_proposal.methods.get_vote(0, votes).call().then(function (events) {
+    votes_cast = web3.utils.fromWei(events, 'ether')
+  })
+  return votes_cast
+}
+
+export const getVotes_piece2 = async (provider) => {
+  var votes_cast = 0;
+  const web3 = new Web3(provider);
+  const my_proposal = new web3.eth.Contract(ProposalJson.abi, ProposalJson.networks[1].address);
+  let votes = [];
+  await my_proposal.getPastEvents('Voter', {
+    fromBlock: 0,
+    toBlock: 'latest'
+  }, function (error, events) { }).then(function (events) {
+    for (let i = 0; i < events.length; i++) {
+      if (events[i].returnValues.id === "1") {
+        votes.push(events[i].returnValues.voter)
+      }
+    }
+  });
+  await my_proposal.methods.get_vote(1, votes).call().then(function (events) {
+    votes_cast = web3.utils.fromWei(events, 'ether')
+  })
+  return votes_cast
+}
+export const getVotes_piece3 = async (provider) => {
+  var votes_cast = 0;
+  const web3 = new Web3(provider);
+  const my_proposal = new web3.eth.Contract(ProposalJson.abi, ProposalJson.networks[1].address);
+  let votes = [];
+  await my_proposal.getPastEvents('Voter', {
+    fromBlock: 0,
+    toBlock: 'latest'
+  }, function (error, events) { }).then(function (events) {
+    for (let i = 0; i < events.length; i++) {
+      if (events[i].returnValues.id === "1") {
+        votes.push(events[i].returnValues.voter)
+      }
+    }
+  });
+  await my_proposal.methods.get_vote(2, votes).call().then(function (events) {
     votes_cast = web3.utils.fromWei(events, 'ether')
   })
   return votes_cast

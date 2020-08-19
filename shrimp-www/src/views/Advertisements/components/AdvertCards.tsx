@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import styled from 'styled-components'
-import Countdown, { CountdownRenderProps} from 'react-countdown'
+import Countdown, { CountdownRenderProps } from 'react-countdown'
 
 import Button from '../../../components/Button'
 import Card from '../../../components/Card'
@@ -64,39 +64,45 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
       <span style={{ width: '100%' }}>{paddedHours}:{paddedMinutes}:{paddedSeconds}</span>
     )
   }
-  
+
   const poolActive = startTime * 1000 - Date.now() <= 0
 
   return (
     <>
-    {farm.name === "Taco Tuesday" &&
-    <StyledCardWrapper>
-      <Card>
-        <CardContent>
-          <StyledContent>
-            <CardIcon>{farm.icon}</CardIcon>
-            <StyledTitle>{farm.name}</StyledTitle>
-            <StyledDetails>
-              <StyledDetail>Deposit {farm.depositToken.toUpperCase()}</StyledDetail>
-              <StyledDetail>Earn {farm.earnToken.toUpperCase()}</StyledDetail>
-            </StyledDetails>
-            <Button
-              disabled={!poolActive}
-              text={poolActive ? 'Select' : undefined}
-              to={`/farms/${farm.id}`}
-            >
-              {!poolActive && <Countdown date={new Date(startTime * 1000)} renderer={renderer} />}
-            </Button>
-            <br/>
-            <StyledDetail>30,678 Shrimp</StyledDetail>
-            <StyledDetail>7 Days</StyledDetail>
-            <StyledDetail><a href="https://t.me/TacoGram">Telegram</a> | <a href="https://twitter.com/Taconomics101">Twitter</a></StyledDetail>
-          </StyledContent>
-        </CardContent>
-      </Card>
-    </StyledCardWrapper>
-  }
-  </>
+      {farm.name === "Taco Tuesday" /*|| farm.name === "Bal_Shrimp_Dai_95" || farm.name === "Bal_Shrimp_Dai_80"*/ ?
+        <StyledCardWrapper>
+          <Card>
+            <CardContent>
+              <StyledContent>
+                <CardIcon>{farm.icon}</CardIcon>
+                <StyledTitle>{farm.name}</StyledTitle>
+                <StyledDetails>
+                  <StyledDetail>Deposit {farm.depositToken.toUpperCase()}</StyledDetail>
+                  <StyledDetail>Earn {farm.earnToken.toUpperCase()}</StyledDetail>
+                </StyledDetails>
+                <Button
+                  disabled={!poolActive}
+                  text={poolActive ? 'Select' : undefined}
+                  to={`/farms/${farm.id}`}
+                >
+                  {!poolActive && <Countdown date={new Date(startTime * 1000)} renderer={renderer} />}
+                </Button>
+                {farm.name === "Taco Tuesday" &&
+                  <>
+                  <br />
+                    <StyledDetail>30,678 Shrimp</StyledDetail>
+                    <StyledDetail>7 Days</StyledDetail>
+                    <StyledDetail><a href="https://t.me/TacoGram">Telegram</a> | <a href="https://twitter.com/Taconomics101">Twitter</a></StyledDetail>
+                  </>
+                }
+              </StyledContent>
+            </CardContent>
+          </Card>
+        </StyledCardWrapper>
+        :
+        ''
+      }
+    </>
   )
 }
 
