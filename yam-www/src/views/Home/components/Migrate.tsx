@@ -1,9 +1,10 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 
 import numeral from 'numeral'
 import Countdown, { CountdownRenderProps} from 'react-countdown'
 import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
+import { provider } from 'web3-core'
 
 import Button from '../../../components/Button'
 import Card from '../../../components/Card'
@@ -15,11 +16,14 @@ import Value from '../../../components/Value'
 
 import { yam as yamAddress } from '../../../constants/tokenAddresses'
 
+import useAllowance from '../../../hooks/useAllowance'
+import useApprove from '../../../hooks/useApprove'
 import useScalingFactor from '../../../hooks/useScalingFactor'
 import useTokenBalance from '../../../hooks/useTokenBalance'
 import useYam from '../../../hooks/useYam'
 
 import { bnToDec } from '../../../utils'
+import { getContract } from '../../../utils/erc20'
 import { getMigrationEndTime, migrate } from '../../../yamUtils'
 
 const Migrate: React.FC = () => {
@@ -27,13 +31,21 @@ const Migrate: React.FC = () => {
   const [migrationEndDate, setMigrationEndDate] = useState<Date>()
   const [migrateButtonDisabled, setMigrateButtonDisabled] = useState<boolean>(false)
 
-  const { account } = useWallet()
+  const { account, ethereum } = useWallet()
   const scalingFactor = useScalingFactor()
   const yam = useYam()
 
   const yamV1Balance = bnToDec(useTokenBalance(yamAddress))
   const yamV2ReceiveAmount = yamV1Balance / scalingFactor
 
+  const yamV1Token = useMemo(() => {
+    return getContract(ethereum as provider, yamAddress)
+  }, [ethereum])
+
+  const migrationContract = yam ? (yam as any).contracts.yamV2migration : undefined
+  const allowance = useAllowance(yamV1Token, migrationContract)
+  const { onApprove } = useApprove(yamV1Token, migrationContract)
+  
   const countdownRenderer = useCallback((countdownProps: CountdownRenderProps) => {
     const { days, hours, minutes, seconds } = countdownProps
     const paddedDays = days < 10 ? `0${days}` : days
@@ -107,11 +119,18 @@ const Migrate: React.FC = () => {
             </StyledBalance>
           </StyledBalances>
           <Spacer size="lg" />
-          <Button
-            disabled={migrateButtonDisabled}
-            onClick={handleMigrate}
-            text="Migrate to V2"
-          />
+          {account && !allowance.toNumber() ? (
+            <Button
+              onClick={onApprove}
+              text="Approve V2 Migration"
+            />
+          ) : (
+            <Button
+              disabled={migrateButtonDisabled}
+              onClick={handleMigrate}
+              text="Migrate to V2"
+            />
+          )}
           <Spacer />
           <StyledWarning>WARNING: Burning your YAMV1 tokens for YAMV2 tokens is a permanent action.</StyledWarning>
         </CardContent>
