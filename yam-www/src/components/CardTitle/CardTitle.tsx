@@ -15,7 +15,6 @@ const StyledCardTitle = styled.div`
   font-weight: 700;
   padding: ${props => props.theme.spacing[4]}px;
   text-align: center;
-  margin: 0 auto;
 `
 
 export default CardTitle
