@@ -24,7 +24,7 @@ const DisclaimerModal: React.FC<DisclaimerModal> = ({ onConfirm, onDismiss }) =>
       return (
         <div>
           <p>Audits: None. (This project is in beta. Use at your own risk.)</p>
-          <p>🚨 Shrimping Pools will end on 2020/08/18 17:07:40 UTC+0 (Please exit before that time) 🚨</p>
+          <p>🚨 Shrimping Pools will end one after another on 2020/08/19 ~17:00:00 UTC+0 (will update the timer for each pool soon) 🚨</p>
           <p>🦐 First Advanced Pool will start on 2020/08/18 12:00:00 UTC+0 (See the rules for the Advanced Pool) 🦐</p>
         </div>
       )

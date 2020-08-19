@@ -8,6 +8,7 @@ const Nav: React.FC = () => {
       <StyledLink href="https://twitter.com/FinanceShrimp">Twitter</StyledLink>
       <StyledLink href="https://t.me/shrimping">Telegram</StyledLink>
       <StyledLink href="https://www.coingecko.com/en/coins/shrimp-finance">Coingecko</StyledLink>
+      <StyledLink href="https://app.uniswap.org/#/swap?inputCurrency=0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2&outputCurrency=0x38c4102d11893351ced7ef187fcf43d33eb1abe6">Uniswap</StyledLink>
     </StyledNav>
   )
 }
