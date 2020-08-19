@@ -19,7 +19,6 @@ import useModal from './hooks/useModal'
 import FAQ from './views/FAQ'
 import Farms from './views/Farms'
 import Home from './views/Home'
-import Migrate from './views/Migrate'
 
 import theme from './theme'
 
@@ -36,9 +35,6 @@ const App: React.FC = () => {
           </Route>
           <Route path="/faq">
             <FAQ />
-          </Route>
-          <Route path="/migrate">
-            <Migrate />
           </Route>
         </Switch>
       </Router>
