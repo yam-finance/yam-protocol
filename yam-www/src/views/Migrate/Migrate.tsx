@@ -1,24 +1,35 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import BigNumber from 'bignumber.js'
-import styled from 'styled-components'
+import React, { useCallback } from 'react'
 
+import numeral from 'numeral'
 import Countdown, { CountdownRenderProps} from 'react-countdown'
+import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
 
+import Button from '../../components/Button'
+import Card from '../../components/Card'
+import CardContent from '../../components/CardContent'
+import CardIcon from '../../components/CardIcon'
+import Container from '../../components/Container'
+import Dial from '../../components/Dial'
+import Label from '../../components/Label'
 import Page from '../../components/Page'
 import PageHeader from '../../components/PageHeader'
+import Separator from '../../components/Separator'
+import Spacer from '../../components/Spacer'
+import Value from '../../components/Value'
 
 import { yam as yamAddress } from '../../constants/tokenAddresses'
 
 import useScalingFactor from '../../hooks/useScalingFactor'
 import useTokenBalance from '../../hooks/useTokenBalance'
-import useYam from '../../hooks/useYam'
 
 import { bnToDec } from '../../utils'
-import { getDisplayBalance } from '../../utils/formatBalance'
+
+import MigrateYamIcon from './components/MigrateYamIcon'
 
 const Migrate: React.FC = () => {
 
+  const { account } = useWallet()
   const scalingFactor = useScalingFactor()
 
   const yamV1Balance = bnToDec(useTokenBalance(yamAddress))
@@ -30,26 +41,90 @@ const Migrate: React.FC = () => {
     const paddedMinutes = minutes < 10 ? `0${minutes}` : minutes
     const paddedHours = hours < 10 ? `0${hours}` : hours
     return (
-      <span>{paddedHours}:{paddedMinutes}:{paddedSeconds}</span>
+      <StyledCountdown>{paddedHours}:{paddedMinutes}:{paddedSeconds}</StyledCountdown>
     )
-  }, [])
-
-  useEffect(() => {
-
   }, [])
 
   return (
     <Page>
       <PageHeader
-        icon="🦋"
-        subtitle="Convert your YAMV1 tokens to YAMV2 tokens"
+        icon={(
+          <div style={{ position: 'relative', transform: 'scaleX(-1' }}>⛵</div>
+        )}
+        subtitle="Burn your YAMV1 tokens to receive YAMV2 tokens"
         title="Migrate to YAMV2"
       />
-      <Countdown date={new Date(Date.now() + 10000000)} renderer={renderer} />
-      <div>{yamV1Balance}</div>
-      <div>{yamV2ReceiveAmount}</div>
+      <Container>
+
+      <StyledMigrateWrapper>
+        <Dial color="primary" value={66}>
+          <StyledCountdownWrapper>
+            <Countdown date={new Date(Date.now() + 10000000)} renderer={renderer} />
+            <Label text="Migration Deadline" />
+          </StyledCountdownWrapper>
+        </Dial>
+
+        <Spacer />
+        <div style={{ flex: 1 }}>
+          <Card>
+            <CardContent>
+              <CardIcon>
+                <MigrateYamIcon />
+              </CardIcon>
+              <Spacer />
+              <StyledBalances>
+                <StyledBalance>
+                  <Value value={yamV1Balance ? numeral(yamV1Balance).format('0.00a') : '--'} />
+                  <Label text="Burn YAMV1" />
+                </StyledBalance>
+                <div style={{ alignSelf: 'stretch' }}>
+                <Separator orientation="vertical" />
+                </div>
+                <StyledBalance>
+                  <Value value={yamV2ReceiveAmount ? numeral(yamV2ReceiveAmount).format('0.00a') : '--'} />
+                  <Label text="Mint YAMV2" />
+                </StyledBalance>
+              </StyledBalances>
+              <Spacer size="lg" />
+              <Button disabled={!account || !yamV1Balance} text="Migrate to V2" />
+              <Spacer />
+              <StyledWarning>WARNING: Burning your YAMV1 tokens for YAMV2 tokens is a permanent action.</StyledWarning>
+            </CardContent>
+          </Card>
+        </div>
+    
+      </StyledMigrateWrapper>
+      </Container>
     </Page>
   )
 }
+
+const StyledBalances = styled.div`
+  display: flex;
+`
+
+const StyledBalance = styled.div`
+  flex: 1;
+  text-align: center;
+`
+
+const StyledCountdownWrapper = styled.div`
+  text-align: center;
+`
+const StyledCountdown = styled.div`
+  color: ${props => props.theme.color.primary.main};
+  font-size: 36px;
+  font-weight: 700;
+`
+
+const StyledMigrateWrapper = styled.div`
+  align-items: center;
+  display: flex;
+`
+
+const StyledWarning = styled.div`
+  color: ${props => props.theme.color.primary.main};
+  font-size: 12px;
+`
 
 export default Migrate
