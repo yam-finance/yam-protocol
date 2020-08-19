@@ -56,7 +56,6 @@ const Voter: React.FC<VoteProps> = () => {
   const fetchVotes = useCallback(async () => {
     getVotes_piece(ethereum).then(function (data) {
       setTotalVotes(data)
-      console.log(totalVotes)
     })
   }, [yam, setTotalVotes])
 
