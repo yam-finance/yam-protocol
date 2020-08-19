@@ -18,15 +18,15 @@ import {
   didDelegate,
   getDelegatedBalance,
   getScalingFactor,
-  getVotes_piece,
-  get_y_n_vote,
+  getVotes_piece2,
+  get_y_n_vote2,
   get_counted_votes
 } from '../../../yamUtils'
 
 interface VoteProps {
 }
 
-const METER_TOTAL = 170000
+const METER_TOTAL = 280000
 const WARNING_TIMESTAMP = 1598000400000
 
 const Voter: React.FC<VoteProps> = () => {
@@ -50,11 +50,11 @@ const Voter: React.FC<VoteProps> = () => {
   }
 
   const y_vote = useCallback(() => {
-    get_y_n_vote(ethereum, account)
+    get_y_n_vote2(ethereum, account)
   }, [ethereum, account])
 
   const fetchVotes = useCallback(async () => {
-    getVotes_piece(ethereum).then(function (data) {
+    getVotes_piece2(ethereum).then(function (data) {
       setTotalVotes(data)
     })
   }, [yam, setTotalVotes])
@@ -115,7 +115,7 @@ const Voter: React.FC<VoteProps> = () => {
           <StyledCheckpoint left={140000 / METER_TOTAL * 100}>
             <StyledCheckpointText left={-50}>
               <div>Proposal Passed</div>
-              <div>170,000</div>
+              <div>100,000</div>
             </StyledCheckpointText>
           </StyledCheckpoint>
         </StyledCheckpoints>
@@ -123,7 +123,7 @@ const Voter: React.FC<VoteProps> = () => {
           <StyledMeterInner width={(Math.max(1000) / 1000 * 100) * Number(totalVotes) / 224746} />
         </StyledMeter>
         <Spacer />
-        <Button text="I do solemnly swear" onClick={y_vote} />
+        <Button text="Yes" onClick={y_vote} />
         {/* ) : (
           <div>
             {/* <StyledDelegatedCount>Delegating: {Number(delegatedBalance.multipliedBy(scalingFactor).toFixed(0)).toLocaleString()} YAM</StyledDelegatedCount> 
