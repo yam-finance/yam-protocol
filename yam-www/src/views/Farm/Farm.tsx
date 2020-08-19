@@ -78,7 +78,7 @@ const Farm: React.FC = () => {
         <div>
           <Button
             onClick={onRedeem}
-            text="Harvest & Withdraw"
+            text="Harvest & Unstake"
           />
         </div>
         <Spacer size="lg" />
