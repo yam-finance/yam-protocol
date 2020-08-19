@@ -95,11 +95,9 @@ const Stake: React.FC<StakeProps> = ({
               />
             ) : (
               <>
-                <IconButton onClick={onPresentWithdraw}>
-                  <RemoveIcon />
-                </IconButton>
+                <Button text="Unstake" onClick={onPresentWithdraw} />
                 <StyledActionSpacer />
-                {tokenName !== 'YCRV_YAM_UNI_LP' && (
+                {false && (
                   <IconButton onClick={onPresentDeposit}>
                     <AddIcon />
                   </IconButton>
