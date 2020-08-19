@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import styled from 'styled-components'
-import Countdown, { CountdownRenderProps} from 'react-countdown'
+import Countdown, { CountdownRenderProps } from 'react-countdown'
 
 import Button from '../../../components/Button'
 import Card from '../../../components/Card'
@@ -39,10 +39,10 @@ const FarmCards: React.FC = () => {
           ))}
         </StyledRow>
       )) : (
-        <StyledLoadingWrapper>
-          <Loader text="Loading farms" />
-        </StyledLoadingWrapper>
-      )}
+          <StyledLoadingWrapper>
+            <Loader text="Loading farms" />
+          </StyledLoadingWrapper>
+        )}
     </StyledCards>
   )
 }
@@ -83,41 +83,41 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
       getEndTime()
     }
   }, [farm, getStartTime, getEndTime])
-  
+
   const timeLeft = Number((endTime * 1000) - Date.now())
   const poolActive = ((startTime * 1000)) - Date.now() <= 0
   return (<>
-  {farm.name !== "Taco Tuesday" &&
-    <StyledCardWrapper>
-      <Card>
-        <CardContent>
-          <StyledContent>
-            <CardIcon>{farm.icon}</CardIcon>
-            <StyledTitle>{farm.name}</StyledTitle>
-            <StyledDetails>
-              <StyledDetail>Deposit {farm.depositToken.toUpperCase()}</StyledDetail>
-              <StyledDetail>Earn {farm.earnToken.toUpperCase()}</StyledDetail>
-            </StyledDetails>  
-            {Date.now() > endTime * 1000 ? (
-              <StyledDenominator>{`< 10 minutes`}</StyledDenominator>
-            )
-              : (<>
+    {farm.name !== "Taco Tuesday" &&
+      <StyledCardWrapper>
+        <Card>
+          <CardContent>
+            <StyledContent>
+              <CardIcon>{farm.icon}</CardIcon>
+              <StyledTitle>{farm.name}</StyledTitle>
+              <StyledDetails>
+                <StyledDetail>Deposit {farm.depositToken.toUpperCase()}</StyledDetail>
+                <StyledDetail>Earn {farm.earnToken.toUpperCase()}</StyledDetail>
+              </StyledDetails>
+              {Date.now() > endTime * 1000 ? (
+                <StyledDenominator>{`< 10 minutes`}</StyledDenominator>
+              )
+                : (<>
 
-                <Button
-              disabled={!poolActive}
-              text={poolActive ? 'Select' : undefined}
-              to={`/farms/${farm.id}`}
-            >  
-            <Countdown date={Number(endTime * 1000)} renderer={renderer} />
-                </Button>
+                  <Button
+                    disabled={!poolActive}
+                    text={poolActive ? '' : undefined}
+                    to={`/farms/${farm.id}`}
+                  >
+                    <Countdown date={Number(endTime * 1000)} renderer={renderer} />
+                  </Button>
                 </>
-              )}      
-          </StyledContent>
-        </CardContent>
-      </Card>
-    </StyledCardWrapper>
-}
-    </>
+                )}
+            </StyledContent>
+          </CardContent>
+        </Card>
+      </StyledCardWrapper>
+    }
+  </>
   )
 }
 
