@@ -31,7 +31,7 @@ Genesis Distribution Pool：Genesis Staked pool(Dice, Eth, Cream, YFI, Comp, UNI
 Genesis Distribution Period：2020/08/13 ~ 2020/08/19  
 
 ## Advanced Pool Info(Rules updated on 8/18)
-Anyone can create an advanced pool by placing at least 2000 🦐 Shrimp and pointing to a minimum of 7 days. (Thanks Michael Suggestion)
+Anyone can create an advanced pool by placing at least 3000 🦐 Shrimp and pointing to a minimum of 3 days.
 
 We have the purest cryptocurrency shrimp community in the world and can help you market your project.
 There is no more efficient marketing method than this. Hurry up and join the shrimp community. Let's take a look at your project, 👀?
