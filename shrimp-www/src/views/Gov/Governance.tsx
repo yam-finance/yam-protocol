@@ -12,6 +12,8 @@ import Button from '../../components/Button'
 // import Rebase from './components/Rebase'
 import Stats from '../Home/components/Stats'
 import Vote_Piece from '../Home/components/Vote_Piece'
+import Vote_Piece2 from '../Home/components/Vote_Piece2'
+import Vote_Piece3 from '../Home/components/Vote_Piece3'
 import Voter from '../Home/components/Vote'
 
 import VoteButton from '../../components/TopBar/components/VoteButton'
@@ -45,27 +47,33 @@ const Vote: React.FC = () => {
   return (
     <Page>
       <PageHeader icon="🦐" subtitle="Vote for changes here" />
-        <div style={{
-          alignItems: 'center',
-          display: 'flex',
-          flex: 1,
-          justifyContent: 'center',
-          marginBottom: "20px"
-        }}>
-          <VoteButton />
-        </div>
+      <div style={{
+        alignItems: 'center',
+        display: 'flex',
+        flex: 1,
+        justifyContent: 'center',
+        marginBottom: "20px"
+      }}>
+        <VoteButton />
+      </div>
 
       <div>
 
-        
+
 
         {!!account && (
-            <>
-          <StyledVote>
-            <Vote_Piece />
-          </StyledVote>
-          <br/>
-          {/* <StyledVote>
+          <>
+            <StyledVote>
+              <Vote_Piece3 />
+            </StyledVote>
+            <StyledVote>
+              <Vote_Piece2 />
+            </StyledVote>
+            <StyledVote>
+              <Vote_Piece />
+            </StyledVote>
+            <br />
+            {/* <StyledVote>
             <Voter />
           </StyledVote> */}
           </>

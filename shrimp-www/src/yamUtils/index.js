@@ -18,6 +18,10 @@ export const getPoolStartTime = async (poolContract) => {
   return await poolContract.methods.starttime().call()
 }
 
+export const getPoolEndTime = async (poolContract) => {
+  return await poolContract.methods.periodFinish().call()
+}
+
 export const stake = async (poolContract, amount, account) => {
   let now = new Date().getTime() / 1000;
   if (now >= 1597172400) {

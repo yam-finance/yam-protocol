@@ -26,7 +26,7 @@ import {
 interface VoteProps {
 }
 
-const METER_TOTAL = 280000
+const METER_TOTAL = 170000
 const WARNING_TIMESTAMP = 1598000400000
 
 const Voter: React.FC<VoteProps> = () => {
@@ -115,7 +115,7 @@ const Voter: React.FC<VoteProps> = () => {
           <StyledCheckpoint left={140000 / METER_TOTAL * 100}>
             <StyledCheckpointText left={-50}>
               <div>Proposal Passed</div>
-              <div>100,000</div>
+              <div>170,000</div>
             </StyledCheckpointText>
           </StyledCheckpoint>
         </StyledCheckpoints>
