@@ -45,11 +45,6 @@ const Home: React.FC = () => {
         subtitle="Burn V1 tokens before the deadline to receive V2 tokens."
         title="It's time to migrate to Yam V2!"
       />
-      <div style={{
-        margin: '-24px auto 48px'
-      }}>
-        <StyledLink href="https://medium.com/@yamfinance/yam-migration-faq-57c705688fe6">Learn more</StyledLink>
-      </div>
       <div>
         <Balances />
         <Spacer />
