@@ -42,7 +42,7 @@ interface StyledInnerProps {
 }
 
 const StyledDial = styled.div<StyledInnerProps>`
-  padding: 24px;
+  padding: calc(${props => props.size}px * 24 / 256);
   position: relative;
   height: ${props => props.size}px;
   width: ${props => props.size}px;

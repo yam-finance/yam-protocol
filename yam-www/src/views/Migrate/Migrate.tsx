@@ -57,21 +57,18 @@ const Migrate: React.FC = () => {
       <Container>
 
       <StyledMigrateWrapper>
-        <Dial color="primary" value={66}>
-          <StyledCountdownWrapper>
-            <Countdown date={new Date(Date.now() + 10000000)} renderer={renderer} />
-            <Label text="Migration Deadline" />
-          </StyledCountdownWrapper>
-        </Dial>
-
-        <Spacer />
         <div style={{ flex: 1 }}>
           <Card>
             <CardContent>
-              <CardIcon>
-                <MigrateYamIcon />
-              </CardIcon>
-              <Spacer />
+              <div style={{ margin: '0 auto' }}>
+                <Dial color="primary" value={66} size={190}>
+                  <StyledCountdownWrapper>
+                    <Countdown date={new Date(Date.now() + 10000000)} renderer={renderer} />
+                    <Label text="Migration Deadline" />
+                  </StyledCountdownWrapper>
+                </Dial>
+              </div>
+              <Spacer size="lg" />
               <StyledBalances>
                 <StyledBalance>
                   <Value value={yamV1Balance ? numeral(yamV1Balance).format('0.00a') : '--'} />
@@ -125,6 +122,7 @@ const StyledMigrateWrapper = styled.div`
 const StyledWarning = styled.div`
   color: ${props => props.theme.color.primary.main};
   font-size: 12px;
+  text-align: center;
 `
 
 export default Migrate
