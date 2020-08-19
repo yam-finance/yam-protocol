@@ -3,14 +3,14 @@ import { ThemeContext } from 'styled-components'
 
 import Icon, { IconProps } from '../Icon'
 
-const AddIcon: React.FC<IconProps> = ({ color }) => {
+const AddIcon: React.FC<IconProps> = ({ color, size }) => {
   const { color: themeColor } = useContext(ThemeContext)
   return (
     <Icon>
       <svg
-        height="24"
+        height={size}
         viewBox="0 0 24 24"
-        width="24"
+        width={size}
       >
         <path
           d="M0 0h24v24H0z"

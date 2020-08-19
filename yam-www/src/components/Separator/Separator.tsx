@@ -6,13 +6,20 @@ import Spacer from '../Spacer'
 type SeparatorOrientation = 'horizontal' | 'vertical'
 
 interface SeparatorProps {
-  orientation?: SeparatorOrientation
+  orientation?: SeparatorOrientation,
+  stretch?: boolean
 }
 
-const Separator: React.FC<SeparatorProps> = ({ orientation }) => {
-  return (
-    <StyledSeparator orientation={orientation} />
-  )
+const Separator: React.FC<SeparatorProps> = ({ orientation, stretch }) => {
+  if (stretch) {
+    return (
+      <div style={{ alignSelf: 'stretch' }}>
+        <StyledSeparator orientation={orientation} />
+      </div>
+    )
+  }
+
+  return <StyledSeparator orientation={orientation} />
 }
 
 interface StyledSeparatorProps {

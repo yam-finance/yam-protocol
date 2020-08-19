@@ -7,6 +7,7 @@ import Spacer from '../../components/Spacer'
 
 import useYam from '../../hooks/useYam'
 
+import Balances from './components/Balances'
 import Migrate from './components/Migrate'
 import Rebase from './components/Rebase'
 import Stats from './components/Stats'
@@ -50,6 +51,8 @@ const Home: React.FC = () => {
         <StyledLink href="https://medium.com/@yamfinance/yam-migration-faq-57c705688fe6">Learn more</StyledLink>
       </div>
       <div>
+        <Balances />
+        <Spacer />
         <Migrate />
         <Spacer />
         <StyledOverview>
