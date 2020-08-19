@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import styled from 'styled-components'
-import Countdown, { CountdownRenderProps} from 'react-countdown'
+import Countdown, { CountdownRenderProps } from 'react-countdown'
 
 import Button from '../../../components/Button'
 import Card from '../../../components/Card'
@@ -39,10 +39,10 @@ const FarmCards: React.FC = () => {
           ))}
         </StyledRow>
       )) : (
-        <StyledLoadingWrapper>
-          <Loader text="Loading farms" />
-        </StyledLoadingWrapper>
-      )}
+          <StyledLoadingWrapper>
+            <Loader text="Loading farms" />
+          </StyledLoadingWrapper>
+        )}
     </StyledCards>
   )
 }
@@ -83,7 +83,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
       getEndTime()
     }
   }, [farm, getStartTime, getEndTime])
-  
+
   const timeLeft = Number((endTime * 1000) - Date.now())
   const poolActive = ((startTime * 1000)) - Date.now() <= 0
   return (<>
@@ -126,13 +126,13 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
             }
                 </Button>
                 </>
-              )}      
-          </StyledContent>
-        </CardContent>
-      </Card>
-    </StyledCardWrapper>
-}
-    </>
+                )}
+            </StyledContent>
+          </CardContent>
+        </Card>
+      </StyledCardWrapper>
+    }
+  </>
   )
 }
 
