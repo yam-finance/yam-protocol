@@ -136,36 +136,38 @@ const Voter: React.FC<VoteProps> = () => {
           paddingTop: 24,
           opacity: 0.6,
         }}>
-          <p>Proposal 1(Rehearsal Proposal), </p>
-          <p>Shrimp Declaration of Independence!</p>
-          <p>I do solemnly swear that I am a shrimp, and that I know the obligation of shrimp.<br />
-        I will do my best to protect this community, so no others can beat us.<br /><br />
+          <p>Proposal 2, </p>
+          <p>🚨 New balancer liquidity pool 🚨</p>
+          <p>✅Bal-Shrimp-Dai Pool 95: Shrimp 95% /Dai 5%<br />
+             ✅Bal-Shrimp-Dai Pool 80: Shrimp 80%/Dai 20%<br/>
 
-More then that, I will invite other projects to create advanced pools. As I know they need us and we need them.<br /><br />
-
-For I am just one of many shrimp, who knows they could be eaten in here.<br />
-But I will do a serious review of this community, for I am a shrimp!</p>
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            marginTop: 32,
-          }}>
-            <StyledLink target="__blank" href="https://github.com/shrimp-finance/shrimp-protocol/wiki/Shrimp-Declaration-of-Independence">More Info</StyledLink>
-          </div>
+             Circulating Shrimp Supply：224,746 Shrimp<br/>
+Weekly expected inflation：3%<br/>
+Advanced Pool Period: Unlimited<br/>
+Bal-Shrimp-Dai Pool 95：4494.92 Shrimp/Weekly<br/>
+Bal-Shrimp-Dai Pool 80：2247.46 Shrimp/Weekly<br/>
+Expected time to go online：2020/08/20 10:00:00 UTC+0</p>
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginTop: 32,
+        }}>
+          <StyledLink target="__blank" href="https://github.com/shrimp-finance/shrimp-protocol/wiki/Shrimp-Declaration-of-Independence">More Info</StyledLink>
         </div>
-        {/* <div style={{
+        </div>
+      {/* <div style={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           marginTop: 32,
         }}> */}
-        {/* below here is a twitter link, we can place a link
+      {/* below here is a twitter link, we can place a link
              to a twitter announcement here so i have only commented it out for now  */}
-        {/* <StyledLink target="__blank" href="https://twitter.com/YamFinance/status/1293660938906869760">More Info</StyledLink> */}
-        {/* </div> */}
+      {/* <StyledLink target="__blank" href="https://twitter.com/YamFinance/status/1293660938906869760">More Info</StyledLink> */}
+      {/* </div> */}
       </CardContent>
-    </Card>
+    </Card >
   )
 }
 

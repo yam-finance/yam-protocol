@@ -19,6 +19,9 @@ import WETHPoolJson from '../clean_build/contracts/YAMETHPool.json';
 import CREAMPoolJson from '../clean_build/contracts/SHRIMPCREAMPool.json';
 import YFIPoolJson from '../clean_build/contracts/YAMYFIPool.json';
 
+import BalShrimpDai95Json from '../clean_build/contracts/BalShrimpDai95.json'
+import BalShrimpDai80Json from '../clean_build/contracts/BalShrimpDai80.json'
+
 import COMPPoolJson from '../clean_build/contracts/YAMCOMPPool.json';
 import UNIPoolJson from '../clean_build/contracts/ShrimpUniPool.json';
 import DICEPoolJson from '../clean_build/contracts/SHRIMPDICEPool.json';
@@ -51,6 +54,8 @@ export class Contracts {
     this.yam = new this.web3.eth.Contract(YAMJson.abi);
     this.uni = new this.web3.eth.Contract(ERC20Json.abi);
     this.taco = new this.web3.eth.Contract(ERC20Json.abi);
+    this.bsd95 = new this.web3.eth.Contract(ERC20Json.abi);
+    this.bsd80 = new this.web3.eth.Contract(ERC20Json.abi);
 
     this.yfi_pool = new this.web3.eth.Contract(YFIPoolJson.abi);
     this.eth_pool = new this.web3.eth.Contract(WETHPoolJson.abi);
@@ -59,6 +64,8 @@ export class Contracts {
     this.dice_pool = new this.web3.eth.Contract(DICEPoolJson.abi);
     this.taco_pool = new this.web3.eth.Contract(TACOPoolJson.abi);
     this.uni_pool = new this.web3.eth.Contract(UNIPoolJson.abi);
+    this.bsd95_pool = new this.web3.eth.Contract(BalShrimpDai95Json.abi)
+    this.bsd80_pool = new this.web3.eth.Contract(BalShrimpDai80Json.abi)
     this.proposal = new this.web3.eth.Contract(ProposalJson.abi);
     
     this.erc20 = new this.web3.eth.Contract(ERC20Json.abi);
@@ -95,6 +102,8 @@ export class Contracts {
       { contract: this.comp_pool, json: COMPPoolJson },
       { contract: this.uni_pool, json: UNIPoolJson },
       { contract: this.taco_pool, json: TACOPoolJson},
+      { contract: this.bsd95_pool, json: BalShrimpDai95Json},
+      { contract: this.bsd80_pool, json: BalShrimpDai80Json},
       // { contract: this.proposal, json: ProposalJson}
     ]
 
@@ -109,6 +118,8 @@ export class Contracts {
     this.weth.options.address = addressMap["WETH"];
     this.comp.options.address = addressMap["COMP"];
     this.taco.options.address = addressMap["TACO"];
+    this.bsd95.options.address = addressMap["BSD95"];
+    this.bsd80.options.address = addressMap["BSD80"];
     this.dice.options.address = addressMap["DICE"];
     this.cream.options.address = addressMap["CREAM"];
     this.uni.options.address = addressMap["UNI"];
@@ -124,6 +135,8 @@ export class Contracts {
       {"tokenAddr": this.cream.options.address, "poolAddr": this.cream_pool.options.address},
       {"tokenAddr": this.uni.options.address, "poolAddr": this.uni_pool.options.address},
       {"tokenAddr": this.taco.options.address, "poolAddr": this.taco_pool.options.address},
+      {"tokenAddr": this.bsd95.options.address, "poolAddr": this.bsd95_pool.options.address},
+      {"tokenAddr": this.bsd80.options.address, "poolAddr": this.bsd80_pool.options.address},
     ]
   }
 
@@ -138,6 +151,8 @@ export class Contracts {
     this.weth.options.from = account;
     this.uni.options.from = account;
     this.taco.options.from = account;
+    this.bsd95.options.from = account;
+    this.bsd80.options.from = account;
   }
 
   async callContractFunction(

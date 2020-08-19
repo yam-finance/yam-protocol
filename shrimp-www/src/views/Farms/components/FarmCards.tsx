@@ -87,7 +87,9 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
   const timeLeft = Number((endTime * 1000) - Date.now())
   const poolActive = ((startTime * 1000)) - Date.now() <= 0
   return (<>
-  {farm.name !== "Taco Tuesday" &&
+  {farm.name === "Taco Tuesday" || farm.name === "Bal_Shrimp_Dai_95" || farm.name === "Bal_Shrimp_Dai_80" ?
+  ''
+  :
     <StyledCardWrapper>
       <Card>
         <CardContent>
