@@ -38,7 +38,9 @@ const Home: React.FC = () => {
   return (
     <Page>
       <PageHeader
-        icon="⛵"
+        icon={(
+          <div style={{ position: 'relative', transform: 'scaleX(-1)'}}>⛵</div>
+        )}
         subtitle="Burn V1 tokens before the deadline to receive V2 tokens."
         title="It's time to migrate to Yam V2!"
       />
