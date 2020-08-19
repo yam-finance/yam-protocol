@@ -81,7 +81,6 @@ const Migrate: React.FC = () => {
 
   useEffect(() => {
     if (!account || !yamV1Balance) {
-      console.log('here')
       setMigrateButtonDisabled(true)
     }
     if (account && yamV1Balance) {
