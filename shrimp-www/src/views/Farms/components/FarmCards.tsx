@@ -113,18 +113,20 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 
                 <Button
               disabled={!poolActive}
-              text={poolActive ? '' : undefined}
+              text={poolActive ? 'Select' : undefined}
               to={`/farms/${farm.id}`}
-            >  
-            {900000 > Number(endTime * 1000) &&
-            <span style={{color: 'red', marginLeft: '33%'}} >
+            />  
+            <br/>
+               {900000 > Number(endTime * 1000) &&
+            <span style={{color: 'red', textAlign: 'center'}} >
             <Countdown date={Number(endTime * 1000)} renderer={renderer} />
             </span>
             }
             {900000 < Number(endTime * 1000) &&
+            <span style={{textAlign: 'center'}}>
             <Countdown date={Number(endTime * 1000)} renderer={renderer} />
+            </span>
             }
-                </Button>
                 </>
                 )}
             </StyledContent>
