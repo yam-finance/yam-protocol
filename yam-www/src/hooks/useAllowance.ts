@@ -7,7 +7,7 @@ import { Contract } from "web3-eth-contract"
 
 import { getAllowance } from '../utils/erc20'
 
-const useAllowance = (tokenContract: Contract, poolContract: Contract) => {
+const useAllowance = (tokenContract: Contract, poolContract?: Contract) => {
   const [allowance, setAllowance] = useState(new BigNumber(0))
   const { account }: { account: string, ethereum: provider } = useWallet()
 

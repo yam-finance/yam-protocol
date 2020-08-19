@@ -1,24 +1,20 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import styled from 'styled-components'
 
-import { useWallet } from 'use-wallet'
-
 import Page from '../../components/Page'
 import PageHeader from '../../components/PageHeader'
 import Spacer from '../../components/Spacer'
 
 import useYam from '../../hooks/useYam'
 
+import Migrate from './components/Migrate'
 import Rebase from './components/Rebase'
 import Stats from './components/Stats'
-import Vote from './components/Vote'
 
 import { OverviewData } from './types'
 import { getStats } from './utils'
 
 const Home: React.FC = () => {
-
-  const { account } = useWallet()
 
   const yam = useYam()
   const [{
@@ -41,14 +37,21 @@ const Home: React.FC = () => {
 
   return (
     <Page>
-      <PageHeader icon="⚠️" subtitle="Having liquidity in the YAM/YCRV Uniswap Pool is extremely dangerous because of a bug in the rebase functionality" title="Warning" />
+      <PageHeader
+        icon={(
+          <div style={{ position: 'relative', transform: 'scaleX(-1)'}}>⛵</div>
+        )}
+        subtitle="Burn V1 tokens before the deadline to receive V2 tokens."
+        title="It's time to migrate to Yam V2!"
+      />
       <div style={{
         margin: '-24px auto 48px'
       }}>
-        <StyledLink href="https://medium.com/@yamfinance/how-to-exit-the-eternal-lands-pool-and-withdraw-your-yam-823d57c95f3a">How to withdraw from Uniswap</StyledLink>
+        <StyledLink href="https://medium.com/@yamfinance/yam-migration-faq-57c705688fe6">Learn more</StyledLink>
       </div>
-      <Spacer />
       <div>
+        <Migrate />
+        <Spacer />
         <StyledOverview>
           <Rebase nextRebase={nextRebase} />
           <StyledSpacer />

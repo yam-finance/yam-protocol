@@ -5,13 +5,18 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'
 
 interface DialProps {
   children?: React.ReactNode,
+  color?: 'primary' | 'secondary',
   disabled?: boolean,
   size?: number,
   value: number
 }
 
-const Dial: React.FC<DialProps> = ({ children, disabled, size = 256, value }) => {
-  const { color } = useContext(ThemeContext)
+const Dial: React.FC<DialProps> = ({ children, color, disabled, size = 256, value }) => {
+  const { color: themeColor } = useContext(ThemeContext)
+  let pathColor = themeColor.secondary.main
+  if (color === 'primary') {
+    pathColor = themeColor.primary.main
+  }
 
   return (
     <StyledDial size={size}>
@@ -20,7 +25,7 @@ const Dial: React.FC<DialProps> = ({ children, disabled, size = 256, value }) =>
           value={value}
           styles={buildStyles({
             strokeLinecap: 'round',
-            pathColor: !disabled ? color.secondary.main : color.grey[400],
+            pathColor: !disabled ? pathColor : themeColor.grey[400],
             pathTransitionDuration: 1,
           })}
         />
@@ -37,7 +42,7 @@ interface StyledInnerProps {
 }
 
 const StyledDial = styled.div<StyledInnerProps>`
-  padding: 24px;
+  padding: calc(${props => props.size}px * 24 / 256);
   position: relative;
   height: ${props => props.size}px;
   width: ${props => props.size}px;
