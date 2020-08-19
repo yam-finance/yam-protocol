@@ -201,7 +201,7 @@ export const getVotes = async (yam) => {
 }
 
 export const getScalingFactor = async (yam) => {
-  return new BigNumber(await yam.contracts.yam.methods.yamsScalingFactor().call()).dividedBy(new BigNumber(10).pow(18))
+  return new BigNumber(await yam.contracts.yam.methods.yamsScalingFactor().call())
 }
 
 export const getDelegatedBalance = async (yam, account) => {

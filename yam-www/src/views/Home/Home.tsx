@@ -1,8 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import styled from 'styled-components'
 
-import { useWallet } from 'use-wallet'
-
 import Page from '../../components/Page'
 import PageHeader from '../../components/PageHeader'
 import Spacer from '../../components/Spacer'
@@ -11,14 +9,11 @@ import useYam from '../../hooks/useYam'
 
 import Rebase from './components/Rebase'
 import Stats from './components/Stats'
-import Vote from './components/Vote'
 
 import { OverviewData } from './types'
 import { getStats } from './utils'
 
 const Home: React.FC = () => {
-
-  const { account } = useWallet()
 
   const yam = useYam()
   const [{

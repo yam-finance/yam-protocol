@@ -12,12 +12,12 @@ import Label from '../../../components/Label'
 import Spacer from '../../../components/Spacer'
 
 import useYam from '../../../hooks/useYam'
+import useScalingFactor from '../../../hooks/useScalingFactor'
 
 import {
   delegate,
   didDelegate,
   getDelegatedBalance,
-  getScalingFactor,
   getVotes,
 } from '../../../yamUtils'
 
@@ -29,11 +29,11 @@ const WARNING_TIMESTAMP = 1597302000000 - 600000
 
 const Vote: React.FC<VoteProps> = () => {
   const [totalVotes, setTotalVotes] = useState(new BigNumber(0))
-  const [scalingFactor, setScalingFactor] = useState(new BigNumber(1))
   const [delegated, setDelegated] = useState(false)
   const [delegatedBalance, setDelegatedBalance] = useState(new BigNumber(0))
 
   const { account } = useWallet()
+  const scalingFactor = useScalingFactor()
   const yam = useYam()
 
   const renderer = (countdownProps: CountdownRenderProps) => {
@@ -62,10 +62,8 @@ const Vote: React.FC<VoteProps> = () => {
 
   const fetchVotes = useCallback(async () => {
     const voteCount = await getVotes(yam)
-    const scalingFactor = await getScalingFactor(yam)
     setTotalVotes(voteCount)
-    setScalingFactor(scalingFactor)
-  }, [yam, setTotalVotes, setScalingFactor])
+  }, [yam, setTotalVotes])
 
   useEffect(() => {
     if (yam) {
