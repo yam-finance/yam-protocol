@@ -1,14 +1,17 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import styled from 'styled-components'
 
+import Button from '../../components/Button'
 import Page from '../../components/Page'
 import PageHeader from '../../components/PageHeader'
 import Spacer from '../../components/Spacer'
 
+import useModal from '../../hooks/useModal'
 import useYam from '../../hooks/useYam'
 
 import Balances from './components/Balances'
 import Migrate from './components/Migrate'
+import MigrationInstructionsModal from './components/MigrationInstructionsModal'
 import Rebase from './components/Rebase'
 import Stats from './components/Stats'
 
@@ -16,6 +19,8 @@ import { OverviewData } from './types'
 import { getStats } from './utils'
 
 const Home: React.FC = () => {
+
+  const [onPresentMigrationInstructionsModal] = useModal(<MigrationInstructionsModal />)
 
   const yam = useYam()
   const [{
@@ -46,6 +51,11 @@ const Home: React.FC = () => {
         title="It's time to migrate to Yam V2!"
       />
       <div>
+        <Button
+          onClick={onPresentMigrationInstructionsModal}
+          text="View migration instructions"
+        />
+        <Spacer size="lg" />
         <Balances />
         <Spacer />
         <Migrate />
