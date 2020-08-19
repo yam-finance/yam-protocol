@@ -29,7 +29,8 @@ import { getMigrationEndTime, migrate } from '../../../yamUtils'
 const Migrate: React.FC = () => {
 
   const [migrationEndDate, setMigrationEndDate] = useState<Date>()
-  const [migrateButtonDisabled, setMigrateButtonDisabled] = useState<boolean>(false)
+  const [migrateButtonDisabled, setMigrateButtonDisabled] = useState(false)
+  const [approvalDisabled, setApprovalDisabled] = useState(false)
 
   const { account, ethereum } = useWallet()
   const scalingFactor = useScalingFactor()
@@ -88,6 +89,16 @@ const Migrate: React.FC = () => {
     }
   }, [account, setMigrateButtonDisabled, yamV1Balance])
 
+  const handleApprove = useCallback(async () => {
+    setApprovalDisabled(true)
+    try {
+      await onApprove()
+      setApprovalDisabled(false)
+    } catch (e) {
+      setApprovalDisabled(false)
+    }
+  }, [setApprovalDisabled, onApprove])
+
   return (
     <StyledMigrateWrapper>
       <Card>
@@ -120,7 +131,8 @@ const Migrate: React.FC = () => {
           <Spacer size="lg" />
           {account && !allowance.toNumber() ? (
             <Button
-              onClick={onApprove}
+              disabled={approvalDisabled}
+              onClick={handleApprove}
               text="Approve V2 Migration"
             />
           ) : (

@@ -53,7 +53,7 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
             <span>🍠</span>
           </CardIcon>
           <StyledBalance>
-            <Value value={getDisplayBalance(yamV2Balance)} />
+            <Value value={getDisplayBalance(yamV2Balance, 24)} />
             <Label text="YAMV2 Balance" />
           </StyledBalance>
         </StyledBalanceWrapper>
