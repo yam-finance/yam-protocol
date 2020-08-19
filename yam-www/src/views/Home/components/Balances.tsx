@@ -5,6 +5,7 @@ import { useWallet } from 'use-wallet'
 
 import Card from '../../../components/Card'
 import CardContent from '../../../components/CardContent'
+import CardTitle from '../../../components/CardTitle'
 import Label from '../../../components/Label'
 import Separator from '../../../components/Separator'
 import Spacer from '../../../components/Spacer'
@@ -47,6 +48,7 @@ const Balances: React.FC = () => {
 
   return (
     <Card>
+      <CardTitle text="Your Balances" />
       <CardContent>
         <StyledBalances>
           <StyledBalance>
