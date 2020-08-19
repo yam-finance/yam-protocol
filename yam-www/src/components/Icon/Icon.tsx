@@ -3,12 +3,16 @@ import styled from 'styled-components'
 
 export interface IconProps {
   color?: string,
-  children?: string
+  children?: React.ReactNode,
+  size?: number,
 }
 
-const Icon: React.FC = ({ children }) => (
+const Icon: React.FC<IconProps> = ({ children, color, size = 24 }) => (
   <StyledIcon>
-    {children}
+    {React.isValidElement(children) && React.cloneElement(children, {
+      color,
+      size,
+    })}
   </StyledIcon>
 )
 
