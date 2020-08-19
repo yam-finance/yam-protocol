@@ -12,7 +12,7 @@ import useFarms from '../../../hooks/useFarms'
 
 import { Farm } from '../../../contexts/Farms'
 
-import { getPoolStartTime } from '../../../yamUtils'
+import { getPoolStartTime, getPoolEndTime } from '../../../yamUtils'
 
 const FarmCards: React.FC = () => {
   const [farms] = useFarms()
@@ -50,39 +50,45 @@ const FarmCards: React.FC = () => {
 interface FarmCardProps {
   farm: Farm,
 }
+const WARNING_TIMESTAMP = 1598000400000
 
 const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
   const [startTime, setStartTime] = useState(0)
+  const [endTime, setEndTime] = useState(0)
 
   const getStartTime = useCallback(async () => {
     const startTime = await getPoolStartTime(farm.contract)
     setStartTime(startTime)
   }, [farm, setStartTime])
 
+  const getEndTime = useCallback(async () => {
+    const endTime = await getPoolEndTime(farm.contract)
+    setEndTime(endTime)
+  }, [farm, setStartTime])
+
   const renderer = (countdownProps: CountdownRenderProps) => {
-    const { hours, minutes, seconds } = countdownProps
+    const { days, hours, minutes, seconds } = countdownProps
     const paddedSeconds = seconds < 10 ? `0${seconds}` : seconds
     const paddedMinutes = minutes < 10 ? `0${minutes}` : minutes
+    const totalhours = days * 24 + hours;
     const paddedHours = hours < 10 ? `0${hours}` : hours
     return (
-      <span style={{ width: '100%' }}>{paddedHours}:{paddedMinutes}:{paddedSeconds}</span>
+      <span style={{ width: '100%' }}>{totalhours > 24 ? totalhours : paddedHours}:{paddedMinutes}:{paddedSeconds}</span>
     )
   }
 
-  // useEffect(() => {
-  //   if (farm && farm.id === 'scrv_shrimp_uni_lp') {
-  //     getStartTime()
-  //   }
-  // }, [farm, getStartTime])
+  useEffect(() => {
+    if (farm) {
+      getStartTime()
+      getEndTime()
+    }
+  }, [farm, getStartTime, getEndTime])
   
-  const poolActive = startTime * 1000 - Date.now() <= 0
-
+  const timeLeft = Number((endTime * 1000) - Date.now())
+  const poolActive = ((startTime * 1000)) - Date.now() <= 0
   return (<>
   {farm.name !== "Taco Tuesday" &&
     <StyledCardWrapper>
-      {/* {farm.id === 'scrv_shrimp_uni_lp' && (
-        <StyledCardAccent />
-      )} */}
       <Card>
         <CardContent>
           <StyledContent>
@@ -91,14 +97,21 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
             <StyledDetails>
               <StyledDetail>Deposit {farm.depositToken.toUpperCase()}</StyledDetail>
               <StyledDetail>Earn {farm.earnToken.toUpperCase()}</StyledDetail>
-            </StyledDetails>
-            <Button
+            </StyledDetails>  
+            {Date.now() > endTime * 1000 ? (
+              <StyledDenominator>{`< 10 minutes`}</StyledDenominator>
+            )
+              : (<>
+
+                <Button
               disabled={!poolActive}
               text={poolActive ? 'Select' : undefined}
               to={`/farms/${farm.id}`}
-            >
-              {!poolActive && <Countdown date={new Date(startTime * 1000)} renderer={renderer} />}
-            </Button>
+            >  
+            <Countdown date={Number(endTime * 1000)} renderer={renderer} />
+                </Button>
+                </>
+              )}      
           </StyledContent>
         </CardContent>
       </Card>
@@ -164,6 +177,12 @@ const StyledContent = styled.div`
   align-items: center;
   display: flex;
   flex-direction: column;
+`
+
+const StyledDenominator = styled.div`
+  margin-left: 8px;
+  font-size: 18px;
+  color: ${props => props.theme.color.grey[600]};
 `
 
 const StyledSpacer = styled.div`
