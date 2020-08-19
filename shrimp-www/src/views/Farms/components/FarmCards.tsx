@@ -110,7 +110,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
                 </>
               )
                 : (<>
-                  <a target="__blank" href={`/farms/${farm.id}`} style={{ textDecoration: 'none', width: '100%' }}>
+                  <a href={`/farms/${farm.id}`} style={{ textDecoration: 'none', width: '100%' }}>
                     <Button
                       disabled={!poolActive}
                       text={poolActive ? '' : undefined}
