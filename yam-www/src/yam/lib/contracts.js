@@ -4,6 +4,8 @@ import * as Types from "./types.js";
 import { SUBTRACT_GAS_LIMIT, addressMap } from './constants.js';
 
 import ERC20Json from '../clean_build/contracts/IERC20.json';
+import YAMv2Json from '../clean_build/contracts/YAMv2.json';
+import YAMv2MigrationJson from '../clean_build/contracts/YAMv2Migration.json';
 import YAMJson from '../clean_build/contracts/YAMDelegator.json';
 import YAMRebaserJson from '../clean_build/contracts/YAMRebaser.json';
 import YAMReservesJson from '../clean_build/contracts/YAMReserves.json';
@@ -71,6 +73,8 @@ export class Contracts {
     this.pool = new this.web3.eth.Contract(LENDPoolJson.abi);
 
 
+    this.yamV2 = new this.web3.eth.Contract(YAMv2Json.abi);
+    this.yamV2migration = new this.web3.eth.Contract(YAMv2MigrationJson.abi);
 
     this.rebaser = new this.web3.eth.Contract(YAMRebaserJson.abi);
     this.reserves = new this.web3.eth.Contract(YAMReservesJson.abi);
@@ -106,6 +110,8 @@ export class Contracts {
       { contract: this.lend_pool, json: LENDPoolJson },
       { contract: this.link_pool, json: LINKPoolJson },
       { contract: this.comp_pool, json: COMPPoolJson },
+      { contract: this.yamV2, json: YAMv2Json },
+      { contract: this.yamV2migration, json: YAMv2MigrationJson },
     ]
 
     contracts.forEach(contract => this.setContractProvider(
