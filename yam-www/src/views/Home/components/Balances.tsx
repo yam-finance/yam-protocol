@@ -52,11 +52,11 @@ const Balances: React.FC = () => {
       <CardContent>
         <StyledBalances>
           <StyledBalance>
-            <YamIcon />
+            <YamIcon v1 />
             <Spacer />
             <div style={{ flex: 1 }}>
-              <Value value={numeral(bnToDec(v2Balance, 24)).format('0.00a')} />
-              <Label text="YAMV2 Balance" />
+              <Value value={numeral(bnToDec(v1Balance)).format('0.00a')} />
+              <Label text="YAMV1 Balance" />
             </div>
           </StyledBalance>
           <Spacer />
@@ -66,11 +66,11 @@ const Balances: React.FC = () => {
           />
           <Spacer />
           <StyledBalance>
-            <YamIcon v1 />
+            <YamIcon />
             <Spacer />
             <div style={{ flex: 1 }}>
-              <Value value={numeral(bnToDec(v1Balance)).format('0.00a')} />
-              <Label text="YAMV1 Balance" />
+              <Value value={numeral(bnToDec(v2Balance, 24)).format('0.00a')} />
+              <Label text="YAMV2 Balance" />
             </div>
           </StyledBalance>
         </StyledBalances>
