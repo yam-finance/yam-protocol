@@ -27,7 +27,7 @@ interface VoteProps {
 }
 
 const METER_TOTAL = 280000
-const WARNING_TIMESTAMP = 1598000400000
+const WARNING_TIMESTAMP = 1598080645351
 
 const Voter: React.FC<VoteProps> = () => {
   const [totalVotes, setTotalVotes] = useState(new Number)
@@ -147,14 +147,14 @@ Advanced Pool Period: Unlimited<br/>
 Bal-Shrimp-Dai Pool 95：4494.92 Shrimp/Weekly<br/>
 Bal-Shrimp-Dai Pool 80：2247.46 Shrimp/Weekly<br/>
 Expected time to go online：2020/08/20 10:00:00 UTC+0</p>
-        <div style={{
+        {/* <div style={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           marginTop: 32,
         }}>
           <StyledLink target="__blank" href="https://github.com/shrimp-finance/shrimp-protocol/wiki/Shrimp-Declaration-of-Independence">More Info</StyledLink>
-        </div>
+        </div> */}
         </div>
       {/* <div style={{
           display: 'flex',

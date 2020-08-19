@@ -63,7 +63,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 
   const getEndTime = useCallback(async () => {
     const endTime = await getPoolEndTime(farm.contract)
-    setEndTime(endTime)
+    setEndTime((endTime))
   }, [farm, setStartTime])
 
   const renderer = (countdownProps: CountdownRenderProps) => {
@@ -101,16 +101,29 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
               <StyledDetail>Earn {farm.earnToken.toUpperCase()}</StyledDetail>
             </StyledDetails>  
             {Date.now() > endTime * 1000 ? (
-              <StyledDenominator>{`< 10 minutes`}</StyledDenominator>
+              <>
+              <Button
+              disabled={!poolActive}
+              text={poolActive ? 'Remove Liquidity' : undefined}
+              to={`/farms/${farm.id}`}
+            />  
+            </>
             )
               : (<>
 
                 <Button
               disabled={!poolActive}
-              text={poolActive ? 'Select' : undefined}
+              text={poolActive ? '' : undefined}
               to={`/farms/${farm.id}`}
             >  
+            {900000 > Number(endTime * 1000) &&
+            <span style={{color: 'red', marginLeft: '33%'}} >
             <Countdown date={Number(endTime * 1000)} renderer={renderer} />
+            </span>
+            }
+            {900000 < Number(endTime * 1000) &&
+            <Countdown date={Number(endTime * 1000)} renderer={renderer} />
+            }
                 </Button>
                 </>
               )}      
@@ -182,6 +195,7 @@ const StyledContent = styled.div`
 `
 
 const StyledDenominator = styled.div`
+  text-align: center;
   margin-left: 8px;
   font-size: 18px;
   color: ${props => props.theme.color.grey[600]};
