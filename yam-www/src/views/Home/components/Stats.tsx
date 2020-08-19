@@ -1,7 +1,5 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import styled from 'styled-components'
-
-import numeral from 'numeral'
 
 import Card from '../../../components/Card'
 import CardContent from '../../../components/CardContent'
@@ -20,16 +18,6 @@ const Stats: React.FC<StatsProps> = ({
   scalingFactor,
   targetPrice,
 }) => {
-
-  /*
-  const formattedTotalSupply = useMemo(() => {
-    if (totalSupply) {
-      const supplyStr = getDisplayBalance(new BigNumber(totalSupply))
-      return numeral(supplyStr).format('0.0a') 
-    } else return '--'
-  }, [totalSupply])
-  */
- console.log(scalingFactor)
 
   return (
     <StyledStats>

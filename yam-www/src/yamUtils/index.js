@@ -207,3 +207,11 @@ export const getScalingFactor = async (yam) => {
 export const getDelegatedBalance = async (yam, account) => {
   return new BigNumber(await yam.contracts.yam.methods.balanceOfUnderlying(account).call()).div(10**24)
 }
+
+export const migrate = async (yam, account) => {
+  return yam.contracts.yamV2migration.methods.migrate().send({ from: account, gas: 320000 })
+}
+
+export const getMigrationEndTime = async (yam) => {
+  return yam.toBigN(await yam.contracts.yamV2migration.methods.startTime().call()).plus(yam.toBigN(86400*3)).toNumber()
+}

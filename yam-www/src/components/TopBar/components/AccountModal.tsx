@@ -2,7 +2,7 @@ import React, { useCallback } from 'react'
 import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
 
-import { yam as yamAddress } from '../../../constants/tokenAddresses'
+import { yam as yamAddress, yamv2 as yamV2Address } from '../../../constants/tokenAddresses'
 import useTokenBalance from '../../../hooks/useTokenBalance'
 import { getDisplayBalance } from '../../../utils/formatBalance'
 
@@ -25,7 +25,7 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
   }, [onDismiss, reset])
 
   const yamBalance = useTokenBalance(yamAddress)
-  const yamV2Balance = useTokenBalance(yamAddress)
+  const yamV2Balance = useTokenBalance(yamV2Address)
 
   return (
     <Modal>

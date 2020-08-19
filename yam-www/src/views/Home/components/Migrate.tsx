@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
 import numeral from 'numeral'
 import Countdown, { CountdownRenderProps} from 'react-countdown'
@@ -17,26 +17,65 @@ import { yam as yamAddress } from '../../../constants/tokenAddresses'
 
 import useScalingFactor from '../../../hooks/useScalingFactor'
 import useTokenBalance from '../../../hooks/useTokenBalance'
+import useYam from '../../../hooks/useYam'
 
 import { bnToDec } from '../../../utils'
+import { getMigrationEndTime, migrate } from '../../../yamUtils'
 
 const Migrate: React.FC = () => {
 
+  const [migrationEndDate, setMigrationEndDate] = useState<Date>()
+  const [migrateButtonDisabled, setMigrateButtonDisabled] = useState<boolean>(false)
+
   const { account } = useWallet()
   const scalingFactor = useScalingFactor()
+  const yam = useYam()
 
   const yamV1Balance = bnToDec(useTokenBalance(yamAddress))
   const yamV2ReceiveAmount = yamV1Balance / scalingFactor
 
-  const renderer = useCallback((countdownProps: CountdownRenderProps) => {
-    const { hours, minutes, seconds } = countdownProps
+  const countdownRenderer = useCallback((countdownProps: CountdownRenderProps) => {
+    const { days, hours, minutes, seconds } = countdownProps
+    const paddedDays = days < 10 ? `0${days}` : days
     const paddedSeconds = seconds < 10 ? `0${seconds}` : seconds
     const paddedMinutes = minutes < 10 ? `0${minutes}` : minutes
     const paddedHours = hours < 10 ? `0${hours}` : hours
     return (
-      <StyledCountdown>{paddedHours}:{paddedMinutes}:{paddedSeconds}</StyledCountdown>
+      <StyledCountdown>{paddedDays}:{paddedHours}:{paddedMinutes}:{paddedSeconds}</StyledCountdown>
     )
   }, [])
+
+  const handleMigrate = useCallback(async () => {
+    try {
+      setMigrateButtonDisabled(true)
+      await migrate(yam, account)
+      setMigrateButtonDisabled(false)
+    } catch (e) {
+      setMigrateButtonDisabled(false)
+    }
+  }, [account, yam, setMigrateButtonDisabled])
+
+  useEffect(() => {
+    async function fetchMigrationEndDate () {
+      try {
+        const endTimestamp: number = await getMigrationEndTime(yam)
+        setMigrationEndDate(new Date(endTimestamp * 1000))
+      } catch (e) { console.log(e) }
+    }
+    if (yam) {
+      fetchMigrationEndDate()
+    }
+  }, [yam, setMigrationEndDate])
+
+  useEffect(() => {
+    if (!account || !yamV1Balance) {
+      console.log('here')
+      setMigrateButtonDisabled(true)
+    }
+    if (account && yamV1Balance) {
+      setMigrateButtonDisabled(false)
+    }
+  }, [account, setMigrateButtonDisabled, yamV1Balance])
 
   return (
     <StyledMigrateWrapper>
@@ -44,7 +83,12 @@ const Migrate: React.FC = () => {
         <CardContent>
           <div style={{ margin: '0 auto' }}>
             <StyledCountdownWrapper>
-              <Countdown date={new Date(Date.now() + 10000000)} renderer={renderer} />
+              {migrationEndDate ? (
+                <Countdown
+                  date={migrationEndDate}
+                  renderer={countdownRenderer}
+                />
+              ) : <Value value="--" />}
               <Label text="Migration Deadline" />
             </StyledCountdownWrapper>
           </div>
@@ -63,7 +107,11 @@ const Migrate: React.FC = () => {
             </StyledBalance>
           </StyledBalances>
           <Spacer size="lg" />
-          <Button disabled={!account || !yamV1Balance} text="Migrate to V2" />
+          <Button
+            disabled={migrateButtonDisabled}
+            onClick={handleMigrate}
+            text="Migrate to V2"
+          />
           <Spacer />
           <StyledWarning>WARNING: Burning your YAMV1 tokens for YAMV2 tokens is a permanent action.</StyledWarning>
         </CardContent>
