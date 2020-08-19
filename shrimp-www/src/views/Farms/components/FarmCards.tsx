@@ -87,46 +87,47 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
   const timeLeft = Number((endTime * 1000) - Date.now())
   const poolActive = ((startTime * 1000)) - Date.now() <= 0
   return (<>
-  {farm.name === "Taco Tuesday" || farm.name === "Bal_Shrimp_Dai_95" || farm.name === "Bal_Shrimp_Dai_80" ?
-  ''
-  :
-    <StyledCardWrapper>
-      <Card>
-        <CardContent>
-          <StyledContent>
-            <CardIcon>{farm.icon}</CardIcon>
-            <StyledTitle>{farm.name}</StyledTitle>
-            <StyledDetails>
-              <StyledDetail>Deposit {farm.depositToken.toUpperCase()}</StyledDetail>
-              <StyledDetail>Earn {farm.earnToken.toUpperCase()}</StyledDetail>
-            </StyledDetails>  
-            {Date.now() > endTime * 1000 ? (
-              <>
-              <Button
-              disabled={!poolActive}
-              text={poolActive ? 'Remove Liquidity' : undefined}
-              to={`/farms/${farm.id}`}
-            />  
-            </>
-            )
-              : (<>
+    {farm.name === "Taco Tuesday" || farm.name === "Bal_Shrimp_Dai_95" || farm.name === "Bal_Shrimp_Dai_80" ?
+      ''
+      :
+      <StyledCardWrapper>
+        <Card>
+          <CardContent>
+            <StyledContent>
+              <CardIcon>{farm.icon}</CardIcon>
+              <StyledTitle>{farm.name}</StyledTitle>
+              <StyledDetails>
+                <StyledDetail>Deposit {farm.depositToken.toUpperCase()}</StyledDetail>
+                <StyledDetail>Earn {farm.earnToken.toUpperCase()}</StyledDetail>
+              </StyledDetails>
+              {Date.now() > endTime * 1000 ? (
+                <>
+                  <Button
+                    disabled={!poolActive}
+                    text={poolActive ? 'Remove Liquidity' : undefined}
+                    to={`/farms/${farm.id}`}
+                  />
+                </>
+              )
+                : (<>
+                  <a target="__blank" href={`/farms/${farm.id}`} style={{ textDecoration: 'none', width: '100%' }}>
+                    <Button
+                      disabled={!poolActive}
+                      text={poolActive ? '' : undefined}
+                      to={`/farms/${farm.id}`}
+                    >
+                      {900000 > Number(endTime * 1000) &&
+                        <span style={{ color: 'red', marginLeft: '33%' }} >
+                          <Countdown date={Number(endTime * 1000)} renderer={renderer} />
+                        </span>
+                      }
+                      {900000 < Number(endTime * 1000) &&
 
-                <Button
-              disabled={!poolActive}
-              text={poolActive ? 'Select' : undefined}
-              to={`/farms/${farm.id}`}
-            />  
-            <br/>
-               {900000 > Number(endTime * 1000) &&
-            <span style={{color: 'red', textAlign: 'center'}} >
-            <Countdown date={Number(endTime * 1000)} renderer={renderer} />
-            </span>
-            }
-            {900000 < Number(endTime * 1000) &&
-            <span style={{textAlign: 'center'}}>
-            <Countdown date={Number(endTime * 1000)} renderer={renderer} />
-            </span>
-            }
+                        <Countdown date={Number(endTime * 1000)} renderer={renderer} />
+
+                      }
+                    </Button>
+                  </a>
                 </>
                 )}
             </StyledContent>
