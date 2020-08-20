@@ -5,8 +5,9 @@ import { provider } from 'web3-core'
 
 import Button from '../../../components/Button'
 import Label from '../../../components/Label'
-import ModalActions from '../../../components/ModalActions'
 import Modal, { ModalProps } from '../../../components/Modal'
+import ModalActions from '../../../components/ModalActions'
+import ModalContent from '../../../components/ModalContent'
 import ModalTitle from '../../../components/ModalTitle'
 import Separator from '../../../components/Separator'
 import Spacer from '../../../components/Spacer'
@@ -52,104 +53,104 @@ const MigrationInstructionsModal: React.FC<ModalProps> = ({ onDismiss }) => {
   return (
     <Modal>
       <ModalTitle text="Migration checklist" />
-      <Spacer />
-
-      <StyledStep>
-        <StyledCheckboxWrapper>
-          {!!account ? '✅' : '⬜'}
-        </StyledCheckboxWrapper>
-        <div>
-          <Label text="Step 1" />
-          <StyledStepValue>Unlock wallet</StyledStepValue>
-        </div>
-        <div style={{ flex: 1 }} />
-        {!account && (
+      <ModalContent>
+        <StyledStep>
+          <StyledCheckboxWrapper>
+            {!!account ? '✅' : '⬜'}
+          </StyledCheckboxWrapper>
           <div>
-            <Button
-              onClick={onPresentUnlockModal}
-              size="sm"
-              text="Unlock Wallet"
-            />
+            <Label text="Step 1" />
+            <StyledStepValue>Unlock wallet</StyledStepValue>
           </div>
-        )}
-      </StyledStep>
+          <div style={{ flex: 1 }} />
+          {!account && (
+            <div>
+              <Button
+                onClick={onPresentUnlockModal}
+                size="sm"
+                text="Unlock Wallet"
+              />
+            </div>
+          )}
+        </StyledStep>
 
-      <Spacer />
-      <Separator />
-      <Spacer />
+        <Spacer />
+        <Separator />
+        <Spacer />
 
-      <StyledStep>
-        <StyledCheckboxWrapper>
-          {hasHarvested ? '✅' : '⬜'}
-        </StyledCheckboxWrapper>
-        <div>
-          <Label text="Step 2" />
-          <StyledStepValue>Harvest and Unstake tokens</StyledStepValue>
-        </div>
-        <div style={{ flex: 1 }} />
-        {!hasHarvested && (
+        <StyledStep>
+          <StyledCheckboxWrapper>
+            {hasHarvested ? '✅' : '⬜'}
+          </StyledCheckboxWrapper>
           <div>
-            <Button
-              disabled={!account}
-              href="/farms"
-              size="sm"
-              text="View Farms"
-            />
+            <Label text="Step 2" />
+            <StyledStepValue>Harvest and Unstake tokens</StyledStepValue>
           </div>
-        )}
-      </StyledStep>
+          <div style={{ flex: 1 }} />
+          {!hasHarvested && (
+            <div>
+              <Button
+                disabled={!account}
+                href="/farms"
+                size="sm"
+                text="View Farms"
+              />
+            </div>
+          )}
+        </StyledStep>
 
-      <Spacer />
-      <Separator />
-      <Spacer />
-      
-      <StyledStep>
-        <StyledCheckboxWrapper>
-          {hasApproved ? '✅' : '⬜'}
-        </StyledCheckboxWrapper>
-        <div>
-          <Label text="Step 3" />
-          <StyledStepValue>Approve migration contract</StyledStepValue>
-        </div>
-        <div style={{ flex: 1 }} />
-        {!hasApproved && (
+        <Spacer />
+        <Separator />
+        <Spacer />
+        
+        <StyledStep>
+          <StyledCheckboxWrapper>
+            {hasApproved ? '✅' : '⬜'}
+          </StyledCheckboxWrapper>
           <div>
-            <Button
-              disabled={!account || approvalDisabled}
-              onClick={handleApprove}
-              size="sm"
-              text="Approve"
-            />
+            <Label text="Step 3" />
+            <StyledStepValue>Approve migration contract</StyledStepValue>
           </div>
-        )}
-      </StyledStep>
+          <div style={{ flex: 1 }} />
+          {!hasApproved && (
+            <div>
+              <Button
+                disabled={!account || approvalDisabled}
+                onClick={handleApprove}
+                size="sm"
+                text="Approve"
+              />
+            </div>
+          )}
+        </StyledStep>
 
-      <Spacer />
-      <Separator />
-      <Spacer />
+        <Spacer />
+        <Separator />
+        <Spacer />
 
-      <StyledStep>
-        <StyledCheckboxWrapper>
-          {hasHarvested ? '✅' : '⬜'}
-        </StyledCheckboxWrapper>
-        <div>
-          <Label text="Step 4" />
-          <StyledStepValue>Migrate v1 to v2 tokens</StyledStepValue>
-        </div>
-      </StyledStep>
+        <StyledStep>
+          <StyledCheckboxWrapper>
+            {hasHarvested ? '✅' : '⬜'}
+          </StyledCheckboxWrapper>
+          <div>
+            <Label text="Step 4" />
+            <StyledStepValue>Migrate v1 to v2 tokens</StyledStepValue>
+          </div>
+        </StyledStep>
 
-      <Spacer />
-      <Separator />
-      <Spacer size="sm" />
+        <Spacer />
+        <Separator />
+        <Spacer size="sm" />
 
-      <StyledStep>
-        <StyledCheckboxWrapper>
-        ⚠️
-        </StyledCheckboxWrapper>
-        <div>
-          <Label text="Withdraw Uniswap liquidity if necessary" />
-        </div>
-      </StyledStep>
+        <StyledStep>
+          <StyledCheckboxWrapper>
+          ⚠️
+          </StyledCheckboxWrapper>
+          <div>
+            <Label text="Withdraw Uniswap liquidity if necessary" />
+          </div>
+        </StyledStep>
+      </ModalContent>
       <ModalActions>
         <Button onClick={onDismiss} text="Got it!" />
       </ModalActions>
