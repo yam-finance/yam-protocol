@@ -145,27 +145,17 @@ const Voter: React.FC<VoteProps> = () => {
 Weekly expected inflation：3%<br/>
 Advanced Pool Period: Unlimited<br/>
 Bal-Shrimp-Dai Pool 95：4494.92 Shrimp/Weekly<br/>
-Bal-Shrimp-Dai Pool 80：2247.46 Shrimp/Weekly<br/>
-Expected time to go online：2020/08/20 10:00:00 UTC+0</p>
-        {/* <div style={{
+Bal-Shrimp-Dai Pool 80：2247.46 Shrimp/Weekly
+</p>
+        <div style={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           marginTop: 32,
         }}>
-          <StyledLink target="__blank" href="https://github.com/shrimp-finance/shrimp-protocol/wiki/Shrimp-Declaration-of-Independence">More Info</StyledLink>
-        </div> */}
+          <StyledLink target="__blank" href="https://github.com/shrimp-finance/shrimp-protocol/wiki/%F0%9F%9A%A8-Shrimp---Proposal-2---New-balancer-liquidity-pool">More Info</StyledLink>
         </div>
-      {/* <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginTop: 32,
-        }}> */}
-      {/* below here is a twitter link, we can place a link
-             to a twitter announcement here so i have only commented it out for now  */}
-      {/* <StyledLink target="__blank" href="https://twitter.com/YamFinance/status/1293660938906869760">More Info</StyledLink> */}
-      {/* </div> */}
+        </div>
       </CardContent>
     </Card >
   )
