@@ -1,6 +1,6 @@
 # 🦐  Shrimp Gem DAO Protocol  🦐
 
-![test](https://i.imgur.com/nIxmlD1.jpg)
+![](https://i.imgur.com/rBqjTu1.jpg)
 
 ## The Protocol
 The whale fights the shrimp, and it has never changed since ancient times. Who said shrimp can't fight big whales? As long as we are united!
