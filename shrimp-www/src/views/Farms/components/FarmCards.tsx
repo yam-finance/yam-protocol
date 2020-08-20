@@ -71,7 +71,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
     const paddedSeconds = seconds < 10 ? `0${seconds}` : seconds
     const paddedMinutes = minutes < 10 ? `0${minutes}` : minutes
     const totalhours = days * 24 + hours;
-    const paddedHours = hours < 10 ? `0${hours}` : hours
+    const paddedHours = totalhours < 10 ? `0${totalhours}` : totalhours
     return (
       <span style={{ width: '100%' }}>{totalhours > 24 ? totalhours : paddedHours}:{paddedMinutes}:{paddedSeconds}</span>
     )
