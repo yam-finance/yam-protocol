@@ -6,22 +6,22 @@ import { useWallet } from 'use-wallet'
 import useModal from '../../../hooks/useModal'
 
 import Button from '../../Button'
+import WalletProviderModal from '../../WalletProviderModal'
 
 import AccountModal from './AccountModal'
-import WalletProviderModal from './WalletProviderModal'
 
 interface AccountButtonProps {}
 
 const AccountButton: React.FC<AccountButtonProps> = (props) => {
 
   const [onPresentAccountModal] = useModal(<AccountModal />)
-  const [onPresentWalletProviderModal] = useModal(<WalletProviderModal />)
+  const [onPresentWalletProviderModal] = useModal(<WalletProviderModal />, 'provider')
   
   const { account } = useWallet()
 
   const handleUnlockClick = useCallback(() => {
     onPresentWalletProviderModal()
-  }, [])
+  }, [onPresentWalletProviderModal])
 
   return (
     <StyledAccountButton>

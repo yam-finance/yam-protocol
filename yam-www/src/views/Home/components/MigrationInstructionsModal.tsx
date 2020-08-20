@@ -1,60 +1,174 @@
-import React, { useEffect } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
-
-import metamaskLogo from '../../../assets/img/metamask-fox.svg'
-import walletConnectLogo from '../../../assets/img/wallet-connect.svg'
+import { provider } from 'web3-core'
 
 import Button from '../../../components/Button'
-import Card from '../../../components/Card'
-import CardContent from '../../../components/CardContent'
-import CardIcon from '../../../components/CardIcon'
-import CardTitle from '../../../components/CardTitle'
 import Label from '../../../components/Label'
 import ModalActions from '../../../components/ModalActions'
 import Modal, { ModalProps } from '../../../components/Modal'
 import ModalTitle from '../../../components/ModalTitle'
 import Separator from '../../../components/Separator'
 import Spacer from '../../../components/Spacer'
-import Value from '../../../components/Value'
+import WalletProviderModal from '../../../components/WalletProviderModal'
+
+import { yam as yamV1Address } from '../../../constants/tokenAddresses'
+
+import useAllowance from '../../../hooks/useAllowance'
+import useApprove from '../../../hooks/useApprove'
+import useModal from '../../../hooks/useModal'
+import useUnharvested from '../../../hooks/useUnharvested'
+import useYam from '../../../hooks/useYam'
+
+import { getContract } from '../../../utils/erc20'
 
 const MigrationInstructionsModal: React.FC<ModalProps> = ({ onDismiss }) => {
 
-  const { account, connect } = useWallet()
+  const [approvalDisabled, setApprovalDisabled] = useState(false)
+  
+  const [onPresentUnlockModal] = useModal(<WalletProviderModal />)
+  const harvested = useUnharvested()
+  const { account, ethereum } = useWallet()
+  const hasHarvested = !!account && !harvested
 
-  useEffect(() => {
-    if (account) {
-      onDismiss()
+  const yam = useYam()
+  const yamTokenContract = useMemo(() => getContract(ethereum as provider, yamV1Address), [])
+  const migrationContract = yam ? (yam as any).contracts.yamV2migration : undefined
+
+  const allowance = useAllowance(yamTokenContract, migrationContract)
+  const { onApprove } = useApprove(yamTokenContract, migrationContract)
+  const hasApproved = !!allowance.toNumber()
+
+  const handleApprove = useCallback(async () => {
+    setApprovalDisabled(true)
+    try {
+      await onApprove()
+      setApprovalDisabled(false)
+    } catch (e) {
+      setApprovalDisabled(false)
     }
-  }, [account, onDismiss])
+  }, [setApprovalDisabled, onApprove])
 
   return (
     <Modal>
-      <ModalTitle text="Migration instructions" />
+      <ModalTitle text="Migration checklist" />
       <Spacer />
-      <Label text="Step 1" />
-      <StyledStepValue>Harvest and Unstake tokens</StyledStepValue>
+
+      <StyledStep>
+        <StyledCheckboxWrapper>
+          {!!account ? '✅' : '⬜'}
+        </StyledCheckboxWrapper>
+        <div>
+          <Label text="Step 1" />
+          <StyledStepValue>Unlock wallet</StyledStepValue>
+        </div>
+        <div style={{ flex: 1 }} />
+        {!account && (
+          <div>
+            <Button
+              onClick={onPresentUnlockModal}
+              size="sm"
+              text="Unlock Wallet"
+            />
+          </div>
+        )}
+      </StyledStep>
+
       <Spacer />
       <Separator />
       <Spacer />
-      <Label text="Step 2" />
-      <StyledStepValue>Withdraw Uniswap liquidity if necessary</StyledStepValue>
+
+      <StyledStep>
+        <StyledCheckboxWrapper>
+          {hasHarvested ? '✅' : '⬜'}
+        </StyledCheckboxWrapper>
+        <div>
+          <Label text="Step 2" />
+          <StyledStepValue>Harvest and Unstake tokens</StyledStepValue>
+        </div>
+        <div style={{ flex: 1 }} />
+        {!hasHarvested && (
+          <div>
+            <Button
+              disabled={!account}
+              href="/farms"
+              size="sm"
+              text="View Farms"
+            />
+          </div>
+        )}
+      </StyledStep>
+
       <Spacer />
       <Separator />
       <Spacer />
-      <Label text="Step 3" />
-      <StyledStepValue>Approve migration contract</StyledStepValue>
+      
+      <StyledStep>
+        <StyledCheckboxWrapper>
+          {hasApproved ? '✅' : '⬜'}
+        </StyledCheckboxWrapper>
+        <div>
+          <Label text="Step 3" />
+          <StyledStepValue>Approve migration contract</StyledStepValue>
+        </div>
+        <div style={{ flex: 1 }} />
+        {!hasApproved && (
+          <div>
+            <Button
+              disabled={!account || approvalDisabled}
+              onClick={handleApprove}
+              size="sm"
+              text="Approve"
+            />
+          </div>
+        )}
+      </StyledStep>
+
       <Spacer />
       <Separator />
       <Spacer />
-      <Label text="Step 4" />
-      <StyledStepValue>Migrate v1 to v2 tokens</StyledStepValue>
+
+      <StyledStep>
+        <StyledCheckboxWrapper>
+          {hasHarvested ? '✅' : '⬜'}
+        </StyledCheckboxWrapper>
+        <div>
+          <Label text="Step 4" />
+          <StyledStepValue>Migrate v1 to v2 tokens</StyledStepValue>
+        </div>
+      </StyledStep>
+
+      <Spacer />
+      <Separator />
+      <Spacer size="sm" />
+
+      <StyledStep>
+        <StyledCheckboxWrapper>
+        ⚠️
+        </StyledCheckboxWrapper>
+        <div>
+          <Label text="Withdraw Uniswap liquidity if necessary" />
+        </div>
+      </StyledStep>
       <ModalActions>
         <Button onClick={onDismiss} text="Got it!" />
       </ModalActions>
     </Modal>
   )
 }
+
+const StyledCheckboxWrapper = styled.span.attrs({
+  role: 'img',
+})`
+  line-height: 44px;
+  height: 44px;
+  width: 44px;
+`
+
+const StyledStep = styled.div`
+  align-items: center;
+  display: flex;
+`
 
 const StyledStepValue = styled.div`
   color: ${props => props.theme.color.grey[600]};

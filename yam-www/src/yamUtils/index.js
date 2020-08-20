@@ -215,3 +215,7 @@ export const migrate = async (yam, account) => {
 export const getMigrationEndTime = async (yam) => {
   return yam.toBigN(await yam.contracts.yamV2migration.methods.startTime().call()).plus(yam.toBigN(86400*3)).toNumber()
 }
+
+export const getV2Supply = async (yam) => {
+  return new BigNumber(await yam.contracts.yamV2.methods.totalSupply().call())
+}

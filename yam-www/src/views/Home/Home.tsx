@@ -18,9 +18,12 @@ import Stats from './components/Stats'
 import { OverviewData } from './types'
 import { getStats } from './utils'
 
+import { bnToDec } from '../../utils'
+import { getV2Supply } from '../../yamUtils'
+
 const Home: React.FC = () => {
 
-  const [onPresentMigrationInstructionsModal] = useModal(<MigrationInstructionsModal />)
+  const [onPresentMigrationInstructionsModal] = useModal(<MigrationInstructionsModal />, 'test')
 
   const yam = useYam()
   const [{
@@ -35,9 +38,18 @@ const Home: React.FC = () => {
     setStats(statsData)
   }, [yam, setStats])
 
+  const handleInstructionsClick = useCallback(() => {
+    onPresentMigrationInstructionsModal()
+  }, [onPresentMigrationInstructionsModal])
+
   useEffect(() => {
+    async function fetchTotalSupply () {
+      const supply = await getV2Supply(yam)
+      console.log(bnToDec(supply, 24))
+    }
     if (yam) {
       fetchStats()
+      fetchTotalSupply()
     }
   }, [yam])
 
@@ -52,8 +64,8 @@ const Home: React.FC = () => {
       />
       <div>
         <Button
-          onClick={onPresentMigrationInstructionsModal}
-          text="View migration instructions"
+          onClick={handleInstructionsClick}
+          text="View migration checklist"
         />
         <Spacer size="lg" />
         <Balances />

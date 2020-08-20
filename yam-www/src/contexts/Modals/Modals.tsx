@@ -4,7 +4,7 @@ import styled from 'styled-components'
 interface ModalsContext {
   content?: React.ReactNode,
   isOpen?: boolean,
-  onPresent: (content: React.ReactNode) => void,
+  onPresent: (content: React.ReactNode, key?: string) => void,
   onDismiss: () => void
 }
 
@@ -16,16 +16,18 @@ export const Context = createContext<ModalsContext>({
 const Modals: React.FC = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false)
   const [content, setContent] = useState<React.ReactNode>()
+  const [modalKey, setModalKey] = useState<string>()
 
-  const handlePresent = useCallback((modalContent: React.ReactNode) => {
+  const handlePresent = useCallback((modalContent: React.ReactNode, key?: string) => {
+    setModalKey(key)
     setContent(modalContent)
     setIsOpen(true)
-  }, [setContent, setIsOpen])
+  }, [setContent, setIsOpen, setModalKey])
 
   const handleDismiss = useCallback(() => {
     setContent(undefined)
     setIsOpen(false)
-  }, [setContent, setIsOpen])
+  }, [setContent, setIsOpen, modalKey])
 
   return (
     <Context.Provider value={{
