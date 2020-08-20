@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 import Button from '../../components/Button'
+import Container from '../../components/Container'
 import Page from '../../components/Page'
 import PageHeader from '../../components/PageHeader'
 import Spacer from '../../components/Spacer'
@@ -62,7 +63,8 @@ const Home: React.FC = () => {
         subtitle="Burn V1 tokens before the deadline to receive V2 tokens."
         title="It's time to migrate to Yam V2!"
       />
-      <div>
+      
+      <Container>
         <Button
           onClick={handleInstructionsClick}
           text="View migration checklist"
@@ -81,7 +83,8 @@ const Home: React.FC = () => {
             targetPrice={targetPrice}
           />
         </StyledOverview>
-      </div>
+      </Container>
+
     </Page>
   )
 }
@@ -92,7 +95,7 @@ const StyledOverview = styled.div`
   @media (max-width: 768px) {
     width: 100%;
     flex-flow: column nowrap;
-    align-items: center;
+    align-items: stretch;
   }
 `
 

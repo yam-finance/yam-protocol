@@ -30,16 +30,18 @@ const Rebase: React.FC<RebaseProps> = ({ nextRebase }) => {
     <StyledRebase>
       <Card>
         <CardContent>
-          <Dial disabled={!nextRebase} size={232} value={dialValue ? dialValue : 0}>
-            <StyledCountdown>
-              <StyledCountdownText>
-                {!nextRebase ? '--' : (
-                  <Countdown date={new Date(Date.now() + nextRebase)} renderer={renderer} />
-                )}
-              </StyledCountdownText>
-              <Label text="Next rebase" />
-            </StyledCountdown>
-          </Dial>
+          <StyledCountdownWrapper>
+            <Dial disabled={!nextRebase} size={232} value={dialValue ? dialValue : 0}>
+              <StyledCountdown>
+                <StyledCountdownText>
+                  {!nextRebase ? '--' : (
+                    <Countdown date={new Date(Date.now() + nextRebase)} renderer={renderer} />
+                  )}
+                </StyledCountdownText>
+                <Label text="Next rebase" />
+              </StyledCountdown>
+            </Dial>
+          </StyledCountdownWrapper>
           <StyledSpacer />
           <Button disabled text="Rebase" />
         </CardContent>
@@ -63,6 +65,10 @@ const StyledCountdownText = styled.span`
   color: ${props => props.theme.color.grey[600]};
   font-size: 36px;
   font-weight: 700;
+`
+const StyledCountdownWrapper = styled.div`
+  display: flex;
+  justify-content: center;
 `
 
 const StyledSpacer = styled.div`
