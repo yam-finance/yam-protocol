@@ -6,7 +6,6 @@ import TopBar from '../TopBar'
 
 const Page: React.FC = ({ children }) => (
   <StyledPage>
-    <TopBar />
     <StyledMain>
       {children}
     </StyledMain>

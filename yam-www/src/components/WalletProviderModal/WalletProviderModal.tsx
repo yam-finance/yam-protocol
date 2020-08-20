@@ -6,13 +6,13 @@ import metamaskLogo from '../../assets/img/metamask-fox.svg'
 import walletConnectLogo from '../../assets/img/wallet-connect.svg'
 
 import Button from '../Button'
-import Card from '../Card'
-import CardContent from '../CardContent'
-import CardIcon from '../CardIcon'
-import CardTitle from '../CardTitle'
 import Modal, { ModalProps } from '../Modal'
+import ModalActions from '../ModalActions'
+import ModalContent from '../ModalContent'
 import ModalTitle from '../ModalTitle'
 import Spacer from '../Spacer'
+
+import WalletCard from './components/WalletCard'
 
 const WalletProviderModal: React.FC<ModalProps> = ({ onDismiss }) => {
 
@@ -27,36 +27,30 @@ const WalletProviderModal: React.FC<ModalProps> = ({ onDismiss }) => {
   return (
     <Modal>
       <ModalTitle text="Select a wallet provider." />
-      <Spacer />
-      <StyledWalletsWrapper>
-        <StyledWalletCard>
-          <Card>
-            <CardContent>
-              <CardIcon>
-                <img src={metamaskLogo} style={{ height: 32 }} />
-              </CardIcon>
-              <CardTitle text="Metamask" />
-              <Spacer />
-              <Button onClick={() => connect('injected')} text="Select" />
-            </CardContent>
-          </Card>
-        </StyledWalletCard>
-        <Spacer />
-        <StyledWalletCard>
-          <Card>
-            <CardContent>
-              <CardIcon>
-                <img src={walletConnectLogo} style={{ height: 24 }} />
-              </CardIcon>
-              <CardTitle text="WalletConnect" />
-              <Spacer />
-              <Button onClick={() => connect('walletconnect')} text="Select" />
-            </CardContent>
-          </Card>
-        </StyledWalletCard>
-      </StyledWalletsWrapper>
-      <Spacer />
-      <Button text="Cancel" onClick={onDismiss} />
+
+      <ModalContent>
+        <StyledWalletsWrapper>
+          <StyledWalletCard>
+            <WalletCard
+              icon={<img src={metamaskLogo} style={{ height: 32 }} />}
+              onConnect={() => connect('injected')}
+              title="Metamask"
+            />
+          </StyledWalletCard>
+          <Spacer size="sm" />
+          <StyledWalletCard>
+            <WalletCard
+              icon={<img src={walletConnectLogo} style={{ height: 24 }} />}
+              onConnect={() => connect('walletconnect')}
+              title="WalletConnect"
+            />
+          </StyledWalletCard>
+        </StyledWalletsWrapper>
+      </ModalContent>
+
+      <ModalActions>
+        <Button text="Cancel" variant="secondary" onClick={onDismiss} />
+      </ModalActions>
     </Modal>
   )
 }
@@ -64,10 +58,14 @@ const WalletProviderModal: React.FC<ModalProps> = ({ onDismiss }) => {
 const StyledWalletsWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
+  @media (max-width: ${props => props.theme.breakpoints.mobile}px) {
+    flex-direction: column;
+    flex-wrap: none;
+  }
 `
 
 const StyledWalletCard = styled.div`
-  flex-basis: calc(50% - ${props => props.theme.spacing[4]}px);
+  flex-basis: calc(50% - ${props => props.theme.spacing[2]}px);
 `
 
 export default WalletProviderModal

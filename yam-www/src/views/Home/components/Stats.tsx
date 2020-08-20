@@ -58,7 +58,7 @@ const Stats: React.FC<StatsProps> = ({
 }
 
 const StyledStats = styled.div`
-  width: 325px;
+  flex: 1;
 `
 
 const StyledStat = styled.div`

@@ -11,6 +11,9 @@ import farmer from '../../assets/img/farmer.png'
 import Button from '../../components/Button'
 import Page from '../../components/Page'
 import PageHeader from '../../components/PageHeader'
+import WalletProviderModal from '../../components/WalletProviderModal'
+
+import useModal from '../../hooks/useModal'
 
 import Farm from '../Farm'
 
@@ -18,7 +21,8 @@ import FarmCards from './components/FarmCards'
 
 const Farms: React.FC = () => {
   const { path } = useRouteMatch()
-  const { account, connect } = useWallet()
+  const { account } = useWallet()
+  const [onPresentWalletProviderModal] = useModal(<WalletProviderModal />)
   return (
     <Switch>
       <Page>
@@ -44,7 +48,7 @@ const Farms: React.FC = () => {
           justifyContent: 'center',
         }}>
           <Button
-            onClick={() => connect('injected')}
+            onClick={onPresentWalletProviderModal}
             text="Unlock Wallet"
           />
         </div>

@@ -4,7 +4,8 @@ import Button from '../Button'
 import CardIcon from '../CardIcon'
 import Modal, { ModalProps } from '..//Modal'
 import ModalActions from '..//ModalActions'
-import ModalTitle from '..//ModalTitle'
+import ModalContent from '../ModalContent'
+import ModalTitle from '../ModalTitle'
 
 interface DisclaimerModal extends ModalProps {
   onConfirm: () => void
@@ -56,7 +57,9 @@ const DisclaimerModal: React.FC<DisclaimerModal> = ({ onConfirm, onDismiss }) =>
     <Modal>
       <ModalTitle text={`Warning`} />
       <CardIcon>⚠️</CardIcon>
-      {modalContent}
+      <ModalContent>
+        {modalContent}
+      </ModalContent>
       <ModalActions>
         {button}
       </ModalActions>
