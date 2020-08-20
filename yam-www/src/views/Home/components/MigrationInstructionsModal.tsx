@@ -63,13 +63,15 @@ const MigrationInstructionsModal: React.FC<ModalProps> = ({ onDismiss }) => {
           <StyledStepValue>Unlock wallet</StyledStepValue>
         </div>
         <div style={{ flex: 1 }} />
-        <div>
-          <Button
-            onClick={onPresentUnlockModal}
-            size="sm"
-            text="Unlock Wallet"
-          />
-        </div>
+        {!account && (
+          <div>
+            <Button
+              onClick={onPresentUnlockModal}
+              size="sm"
+              text="Unlock Wallet"
+            />
+          </div>
+        )}
       </StyledStep>
 
       <Spacer />
