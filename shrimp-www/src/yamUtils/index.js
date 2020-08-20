@@ -341,7 +341,7 @@ export const getVotes_piece3 = async (provider) => {
     toBlock: 'latest'
   }, function (error, events) { }).then(function (events) {
     for (let i = 0; i < events.length; i++) {
-      if (events[i].returnValues.id === "1") {
+      if (events[i].returnValues.id === "2") {
         votes.push(events[i].returnValues.voter)
       }
     }
