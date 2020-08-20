@@ -1,3 +1,7 @@
 node_modules
 .env
 wrangler.toml
+/build
+/clean_build
+**/package-lock.json
+package-lock.json
