@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 
+import Container from '../Container'
+
 interface PageHeaderProps {
   icon: React.ReactNode,
   subtitle?: string,
@@ -9,22 +11,23 @@ interface PageHeaderProps {
 
 const PageHeader: React.FC<PageHeaderProps> = ({ icon, subtitle, title }) => {
   return (
+    <Container size="sm">
     <StyledPageHeader>
       <StyledIcon>{icon}</StyledIcon>
       <StyledTitle>{title}</StyledTitle>
       <StyledSubtitle>{subtitle}</StyledSubtitle>
     </StyledPageHeader>
+    </Container>
   )
 }
 
 const StyledPageHeader = styled.div`
   align-items: center;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   padding-bottom: ${props => props.theme.spacing[6]}px;
   padding-top: ${props => props.theme.spacing[6]}px;
-  max-width: 512px;
-  width: 100%;
   margin: 0 auto;
 `
 
