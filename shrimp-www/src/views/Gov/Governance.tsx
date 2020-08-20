@@ -63,9 +63,9 @@ const Vote: React.FC = () => {
 
         {!!account && (
           <>
-            {/* <StyledVote>
+            <StyledVote>
               <Vote_Piece3 />
-            </StyledVote> */}
+            </StyledVote>
             <StyledVote>
               <Vote_Piece2 />
             </StyledVote>

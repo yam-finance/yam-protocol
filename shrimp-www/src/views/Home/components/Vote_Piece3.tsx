@@ -27,7 +27,7 @@ interface VoteProps {
 }
 
 const METER_TOTAL = 280000
-const WARNING_TIMESTAMP = 1598000400000
+const WARNING_TIMESTAMP = 1598165696731
 
 const Voter: React.FC<VoteProps> = () => {
   const [totalVotes, setTotalVotes] = useState(new Number)
@@ -136,34 +136,21 @@ const Voter: React.FC<VoteProps> = () => {
           paddingTop: 24,
           opacity: 0.6,
         }}>
-          <p>Proposal 1(Rehearsal Proposal), </p>
-          <p>Shrimp Declaration of Independence!</p>
-          <p>I do solemnly swear that I am a shrimp, and that I know the obligation of shrimp.<br />
-        I will do my best to protect this community, so no others can beat us.<br /><br />
-
-More then that, I will invite other projects to create advanced pools. As I know they need us and we need them.<br /><br />
-
-For I am just one of many shrimp, who knows they could be eaten in here.<br />
-But I will do a serious review of this community, for I am a shrimp!</p>
-          <div style={{
+          <p>Proposal 3, </p>
+          <p>🚨Extend uniswap liquidity pool🚨</p>
+          <p>Circulating Shrimp Supply：224,746 Shrimp<br />
+          Weekly expected inflation：2%<br/>
+          Advanced Pool Period: Unlimited<br />
+          Shrimp-ETH LP Pool：4494.92 Shrimp/Weekly</p>
+          {/* <div style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             marginTop: 32,
           }}>
             <StyledLink target="__blank" href="https://github.com/shrimp-finance/shrimp-protocol/wiki/Shrimp-Declaration-of-Independence">More Info</StyledLink>
-          </div>
+          </div> */}
         </div>
-        {/* <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginTop: 32,
-        }}> */}
-        {/* below here is a twitter link, we can place a link
-             to a twitter announcement here so i have only commented it out for now  */}
-        {/* <StyledLink target="__blank" href="https://twitter.com/YamFinance/status/1293660938906869760">More Info</StyledLink> */}
-        {/* </div> */}
       </CardContent>
     </Card>
   )
