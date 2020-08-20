@@ -54,11 +54,11 @@ const Providers: React.FC = ({ children }) => {
       >
         <YamProvider>
           <TransactionProvider>
-            <ModalsProvider>
               <FarmsProvider>
-                {children}
+                <ModalsProvider>
+                  {children}
+                </ModalsProvider>
               </FarmsProvider>
-            </ModalsProvider>
           </TransactionProvider>
         </YamProvider>
       </UseWalletProvider>
