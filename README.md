@@ -5,7 +5,7 @@
 ## The Protocol
 The whale fights the shrimp, and it has never changed since ancient times. Who said shrimp can't fight big whales? As long as we are united!
 
-Shrimp is a community that gathers all leeks. We share the latest Pump tokens and collectively discuss the latest DeFi technology! Anyone who holds 5% of Shrimp Coins can make a Advanced Pool. All Shrimp Holders will start marketing your token! why? Because we are a group of people who want to fight whales.
+Shrimp is a community that gathers all investors. We share the latest Pump tokens and collectively discuss the latest DeFi technology! Anyone who holds 5% of Shrimp Coins can make a Advanced Pool. All Shrimp Holders will start marketing your token! why? Because we are a group of people who want to fight whales.
 
 ## Shrimp strategy
 When the new token goes online, the shrimps will give back to the community. After the community votes , we will open a new pool, and the total amount of each pool will be fixed at 30,678 Shrimp. We will use the power of the shrimp community to attract more shrimps.
