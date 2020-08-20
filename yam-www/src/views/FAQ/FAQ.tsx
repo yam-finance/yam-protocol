@@ -40,8 +40,16 @@ const FAQ: React.FC = () => {
             </StyledList>
             <StyledHeading>5. What are the official Yam token addresses?</StyledHeading>
             <StyledList>
-              <StyledListItem>Yamv1: 0x0e2298e3b3390e3b945a5456fbf59ecc3f55da16</StyledListItem>
-              <StyledListItem>Yamv2: TBD</StyledListItem>
+              <StyledListItem>
+                <a href="https://etherscan.io/token/0x0e2298e3b3390e3b945a5456fbf59ecc3f55da16">
+                  Yamv1: 0x0e2298e3b3390e3b945a5456fbf59ecc3f55da16
+                </a>
+              </StyledListItem>
+              <StyledListItem>
+                <a href="https://etherscan.io/token/0xaba8cac6866b83ae4eec97dd07ed254282f6ad8a">
+                  Yamv2: 0xaba8cac6866b83ae4eec97dd07ed254282f6ad8a
+                </a>
+              </StyledListItem>
               <StyledListItem>Yamv3: TBD</StyledListItem>
             </StyledList>
             <StyledHeading>Additional Resources</StyledHeading>
