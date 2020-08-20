@@ -66,6 +66,7 @@ const Vote: React.FC = () => {
             <StyledVote>
               <Vote_Piece3 />
             </StyledVote>
+            <br/>
             <StyledVote>
               <Vote_Piece2 />
             </StyledVote>
