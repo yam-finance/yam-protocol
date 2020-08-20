@@ -4,7 +4,7 @@ networkId = "1"
 networkId2 = "1001"
 from os import listdir
 from os.path import isfile, join
-mypath = "/Users/brockelmore/YAM/build/contracts"
+mypath = dirname(dirname(abspath(__file__))) + "/build/contracts/"
 onlyfiles = [f for f in listdir(mypath) if isfile(join(mypath, f))]
 onlyfiles
 
