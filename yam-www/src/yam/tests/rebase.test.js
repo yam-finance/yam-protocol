@@ -379,8 +379,8 @@ describe("rebase_tests", () => {
 
       await yam.testing.increaseTime(i);
 
-      let r = await yam.contracts.uni_pair.methods.getReserves().call();
-      let q = await yam.contracts.uni_router.methods.quote(yam.toBigN(10**18).toString(), r[0], r[1]).call();
+      let [reserveA, reserveB] = await yam.contracts.uni_pair.methods.getReserves().call();
+      let q = await yam.contracts.uni_router.methods.quote(yam.toBigN(10**18).toString(), reserveA, reserveB).call();
       console.log("quote pre positive rebase", q);
 
       let b = await yam.contracts.rebaser.methods.rebase().send({
@@ -398,8 +398,8 @@ describe("rebase_tests", () => {
       let resycrv = await yam.contracts.ycrv.methods.balanceOf(yam.contracts.reserves.options.address).call();
 
       console.log("bal user, bal yam res, bal res crv", bal1, resYAM, resycrv);
-      r = await yam.contracts.uni_pair.methods.getReserves().call();
-      q = await yam.contracts.uni_router.methods.quote(yam.toBigN(10**18).toString(), r[0], r[1]).call();
+      [reserveA, reserveB] = await yam.contracts.uni_pair.methods.getReserves().call();
+      q = await yam.contracts.uni_router.methods.quote(yam.toBigN(10**18).toString(), reserveA, reserveB).call();
       console.log("post positive rebase quote", q);
 
       // new balance > old balance
@@ -549,8 +549,8 @@ describe("rebase_tests", () => {
 
       await yam.testing.increaseTime(i);
 
-      let r = await yam.contracts.uni_pair.methods.getReserves().call();
-      let q = await yam.contracts.uni_router.methods.quote(yam.toBigN(10**18).toString(), r[0], r[1]).call();
+      let [reserveA, reserveB] = await yam.contracts.uni_pair.methods.getReserves().call();
+      let q = await yam.contracts.uni_router.methods.quote(yam.toBigN(10**18).toString(), reserveA, reserveB).call();
       console.log("quote pre negative rebase", q);
 
       let b = await yam.contracts.rebaser.methods.rebase().send({
@@ -737,9 +737,9 @@ describe("rebase_tests", () => {
 
       await yam.testing.increaseTime(i);
 
-      let r = await yam.contracts.uni_pair.methods.getReserves().call();
-      console.log(r, r[0], r[1]);
-      let q = await yam.contracts.uni_router.methods.quote(yam.toBigN(10**18).toString(), r[0], r[1]).call();
+      let [reserveA, reserveB] = await yam.contracts.uni_pair.methods.getReserves().call();
+      console.log([reserveA, reserveB]);
+      let q = await yam.contracts.uni_router.methods.quote(yam.toBigN(10**18).toString(), reserveA, reserveB).call();
       console.log("quote pre no rebase", q);
       let b = await yam.contracts.rebaser.methods.rebase().send({
         from: user,
@@ -759,8 +759,8 @@ describe("rebase_tests", () => {
       // no increases to reserves
       expect(yam.toBigN(resYAM).toNumber()).toBe(0);
       expect(yam.toBigN(resycrv).toNumber()).toBe(0);
-      r = await yam.contracts.uni_pair.methods.getReserves().call();
-      q = await yam.contracts.uni_router.methods.quote(yam.toBigN(10**18).toString(), r[0], r[1]).call();
+      [reserveA, reserveB] = await yam.contracts.uni_pair.methods.getReserves().call();
+      q = await yam.contracts.uni_router.methods.quote(yam.toBigN(10**18).toString(), reserveA, reserveB).call();
       console.log("quote post no rebase", q);
     });
     test("rebasing with YAM in reserves", async () => {

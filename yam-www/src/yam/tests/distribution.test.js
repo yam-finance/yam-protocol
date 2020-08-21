@@ -650,8 +650,8 @@ describe("Distribution", () => {
 
           await yam.testing.increaseTime(i);
 
-          let r = await yam.contracts.uni_pair.methods.getReserves().call();
-          let q = await yam.contracts.uni_router.methods.quote(yam.toBigN(10**18).toString(), r[0], r[1]).call();
+          let [reserveA, reserveB] = await yam.contracts.uni_pair.methods.getReserves().call();
+          let q = await yam.contracts.uni_router.methods.quote(yam.toBigN(10**18).toString(), reserveA, reserveB).call();
           console.log("quote pre positive rebase", q);
 
           let b = await yam.contracts.rebaser.methods.rebase().send({
@@ -670,8 +670,8 @@ describe("Distribution", () => {
           // increases reserves
           expect(yam.toBigN(resycrv).toNumber()).toBeGreaterThan(0);
 
-          r = await yam.contracts.uni_pair.methods.getReserves().call();
-          q = await yam.contracts.uni_router.methods.quote(yam.toBigN(10**18).toString(), r[0], r[1]).call();
+          [reserveA, reserveB] = await yam.contracts.uni_pair.methods.getReserves().call();
+          q = await yam.contracts.uni_router.methods.quote(yam.toBigN(10**18).toString(), reserveA, reserveB).call();
           console.log("quote", q);
           // not below peg
           expect(yam.toBigN(q).toNumber()).toBeGreaterThan(yam.toBigN(10**18).toNumber());
@@ -905,8 +905,8 @@ describe("Distribution", () => {
 
           await yam.testing.increaseTime(i);
 
-          let r = await yam.contracts.uni_pair.methods.getReserves().call();
-          let q = await yam.contracts.uni_router.methods.quote(yam.toBigN(10**18).toString(), r[0], r[1]).call();
+          let [reserveA, reserveB] = await yam.contracts.uni_pair.methods.getReserves().call();
+          let q = await yam.contracts.uni_router.methods.quote(yam.toBigN(10**18).toString(), reserveA, reserveB).call();
           console.log("quote pre positive rebase", q);
 
           let b = await yam.contracts.rebaser.methods.rebase().send({
@@ -923,8 +923,8 @@ describe("Distribution", () => {
           expect(yam.toBigN(bal1).toNumber()).toBeLessThan(yam.toBigN(bal).toNumber());
           expect(yam.toBigN(resycrv).toNumber()).toBe(0);
 
-          r = await yam.contracts.uni_pair.methods.getReserves().call();
-          q = await yam.contracts.uni_router.methods.quote(yam.toBigN(10**18).toString(), r[0], r[1]).call();
+          [reserveA, reserveB] = await yam.contracts.uni_pair.methods.getReserves().call();
+          q = await yam.contracts.uni_router.methods.quote(yam.toBigN(10**18).toString(), reserveA, reserveB).call();
           console.log("quote", q);
           // not below peg
           expect(yam.toBigN(q).toNumber()).toBeLessThan(yam.toBigN(10**18).toNumber());
