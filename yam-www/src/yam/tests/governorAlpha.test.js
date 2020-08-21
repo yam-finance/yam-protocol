@@ -59,13 +59,8 @@ describe("governorAlpha#castVote/2", () => {
   beforeAll(async () => {
     await yam.testing.resetEVM("0x2");
     accounts = await yam.web3.eth.getAccounts();
-    yam.addAccount(accounts[0]);
-    user = accounts[0];
-    a1 = accounts[1];
-    a2 = accounts[2];
-    guy = accounts[3];
-    a3 = accounts[4];
-    a4 = accounts[5];
+    [user, a1, a2, guy, a3, a4] = accounts;
+    yam.addAccount(user);
     let one_hundred = yam.toBigN(100).times(yam.toBigN(10**18));
     // await yam.contracts.yam.methods.transfer(guy, one_hundred.toString()).send({from: user});
 

@@ -46,14 +46,10 @@ describe('YAM governance', () => {
   let guy;
   let address = "0x4BC6657283f8f24e27EAc1D21D1deE566C534A9A";
 
-
   beforeAll(async () => {
     const accounts = await yam.web3.eth.getAccounts();
-    yam.addAccount(accounts[0]);
-    user = accounts[0];
-    a1 = accounts[1];
-    a2 = accounts[2];
-    guy = accounts[3];
+    [user, a1, a2, guy] = accounts;
+    yam.addAccount(user);
     snapshotId = await yam.testing.snapshot();
   });
 

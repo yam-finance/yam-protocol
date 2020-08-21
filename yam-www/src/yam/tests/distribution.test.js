@@ -43,10 +43,9 @@ describe("Distribution", () => {
   let yfi_account = "0x0eb4add4ba497357546da7f5d12d39587ca24606";
   beforeAll(async () => {
     const accounts = await yam.web3.eth.getAccounts();
-    yam.addAccount(accounts[0]);
-    user = accounts[0];
-    yam.addAccount(accounts[1]);
-    user2 = accounts[1];
+    [user, user2] = accounts;
+    yam.addAccount(user);
+    yam.addAccount(user2);
     snapshotId = await yam.testing.snapshot();
   });
 

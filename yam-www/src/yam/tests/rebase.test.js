@@ -37,9 +37,8 @@ describe("rebase_tests", () => {
 
   beforeAll(async () => {
     const accounts = await yam.web3.eth.getAccounts();
-    yam.addAccount(accounts[0]);
-    user = accounts[0];
-    new_user = accounts[1];
+    [user, new_user] = accounts;
+    yam.addAccount(user);
     snapshotId = await yam.testing.snapshot();
   });
 

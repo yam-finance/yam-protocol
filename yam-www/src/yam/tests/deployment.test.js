@@ -34,8 +34,8 @@ describe("post-deployment", () => {
 
   beforeAll(async () => {
     const accounts = await yam.web3.eth.getAccounts();
-    yam.addAccount(accounts[0]);
     user = accounts[0];
+    yam.addAccount(user);
     snapshotId = await yam.testing.snapshot();
   });
 
