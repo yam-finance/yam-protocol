@@ -26,7 +26,7 @@ import {
 interface VoteProps {
 }
 
-const METER_TOTAL = 280000
+const METER_TOTAL = 200000
 const WARNING_TIMESTAMP = 1598000400000
 
 const Voter: React.FC<VoteProps> = () => {
@@ -89,7 +89,7 @@ const Voter: React.FC<VoteProps> = () => {
               display: 'flex',
             }}>
               <StyledTitle>
-                <div>{(Number(totalVotes)* 1.5).toLocaleString()}</div>
+                <div>{(Number(totalVotes)* 2.5).toLocaleString()}</div>
               </StyledTitle>
               <StyledDenominator>
                 <div>{`/ 224,746`}</div>
@@ -112,7 +112,7 @@ const Voter: React.FC<VoteProps> = () => {
         </div>
         <Spacer />
         <StyledCheckpoints>
-          <StyledCheckpoint left={140000 / METER_TOTAL * 100}>
+          <StyledCheckpoint left={100000 / METER_TOTAL * 100}>
             <StyledCheckpointText left={-50}>
               <div>Proposal Passed</div>
               <div>100,000</div>
@@ -120,7 +120,7 @@ const Voter: React.FC<VoteProps> = () => {
           </StyledCheckpoint>
         </StyledCheckpoints>
         <StyledMeter>
-          <StyledMeterInner width={(Math.max(1000) / 1000 * 100) * (Number(totalVotes) * 1.5 )/ 224746} />
+          <StyledMeterInner width={(Math.max(1000) / 1000 * 100) * (Number(totalVotes) * 2.5 )/ 200000} />
         </StyledMeter>
         <Spacer />
         <Button text="I do solemnly swear" onClick={y_vote} />

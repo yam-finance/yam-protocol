@@ -12,7 +12,7 @@ import useFarms from '../../../hooks/useFarms'
 
 import { Farm } from '../../../contexts/Farms'
 
-import { getPoolStartTime } from '../../../yamUtils'
+import { getPoolStartTime, getPoolEndTime } from '../../../yamUtils'
 
 const AdvertCards: React.FC = () => {
   const [farms] = useFarms()
@@ -49,21 +49,35 @@ interface FarmCardProps {
 
 const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
   const [startTime, setStartTime] = useState(0)
+  const [endTime, setEndTime] = useState(0)
 
   const getStartTime = useCallback(async () => {
     const startTime = await getPoolStartTime(farm.contract)
     setStartTime(startTime)
   }, [farm, setStartTime])
 
+  const getEndTime = useCallback(async () => {
+    const endTime = await getPoolEndTime(farm.contract)
+    setEndTime((endTime))
+  }, [farm, setStartTime])
+
   const renderer = (countdownProps: CountdownRenderProps) => {
-    const { hours, minutes, seconds } = countdownProps
+    const { days, hours, minutes, seconds } = countdownProps
     const paddedSeconds = seconds < 10 ? `0${seconds}` : seconds
     const paddedMinutes = minutes < 10 ? `0${minutes}` : minutes
-    const paddedHours = hours < 10 ? `0${hours}` : hours
+    const totalhours = days * 24 + hours;
+    const paddedHours = totalhours < 10 ? `0${totalhours}` : totalhours
     return (
-      <span style={{ width: '100%' }}>{paddedHours}:{paddedMinutes}:{paddedSeconds}</span>
+      <span style={{ width: '100%' }}>{totalhours > 24 ? totalhours : paddedHours}:{paddedMinutes}:{paddedSeconds}</span>
     )
   }
+
+  useEffect(() => {
+    if (farm) {
+      getStartTime()
+      getEndTime()
+    }
+  }, [farm, getStartTime, getEndTime])
 
   const poolActive = startTime * 1000 - Date.now() <= 0
 
@@ -80,13 +94,36 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
                   <StyledDetail>Deposit {farm.depositToken.toUpperCase()}</StyledDetail>
                   <StyledDetail>Earn {farm.earnToken.toUpperCase()}</StyledDetail>
                 </StyledDetails>
-                <Button
-                  disabled={!poolActive}
-                  text={poolActive ? 'Select' : undefined}
-                  to={`/farms/${farm.id}`}
-                >
-                  {!poolActive && <Countdown date={new Date(startTime * 1000)} renderer={renderer} />}
-                </Button>
+                {Date.now() > endTime * 1000 ? (
+                <>
+                  <Button
+                    disabled={!poolActive}
+                    text={poolActive ? 'Remove Liquidity' : undefined}
+                    to={`/farms/${farm.id}`}
+                  />
+                </>
+              )
+                : (<>
+                  <a href={`/farms/${farm.id}`} style={{ textDecoration: 'none', width: '100%' }}>
+                    <Button
+                      disabled={!poolActive}
+                      text={poolActive ? '' : undefined}
+                      to={`/farms/${farm.id}`}
+                    >
+                      {900000 > Number(endTime * 1000) &&
+                        <span style={{ color: 'red', marginLeft: '33%' }} >
+                          <Countdown date={Number(endTime * 1000)} renderer={renderer} />
+                        </span>
+                      }
+                      {900000 < Number(endTime * 1000) &&
+
+                        <Countdown date={Number(endTime * 1000)} renderer={renderer} />
+
+                      }
+                    </Button>
+                  </a>
+                </>
+                )}
                 {farm.name === "Taco Tuesday" &&
                   <>
                   <br />

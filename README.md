@@ -20,10 +20,9 @@ When the new token goes online, the shrimps will give back to the community. Aft
 🦀 Crab = 1 - 10 BTC  
 🦐 Shrimp = less then 1 BTC (We are here)
 
-## RoadMap
-1. Goverence Page  
-2. Advanced Pool Page  
-3. Admin keys moving into a multisig  
+## About Developer
+Xixi's address: [0xaa447A04b15AFF261e0683f293A1b731c5c10c9B](https://etherscan.io/address/0xaa447A04b15AFF261e0683f293A1b731c5c10c9B)
+
 
 ## Shirmp Token Info
 Total Shrimp Coin：224,746 Shrimp ([More Info](https://github.com/shrimp-finance/shrimp-protocol/wiki/Total-Shrimp:-224,746-%F0%9F%A6%90)  )  
