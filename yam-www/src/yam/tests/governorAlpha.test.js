@@ -37,8 +37,8 @@ const oneEther = 10 ** 18;
 const EIP712 = require('./EIP712');
 
 describe("governorAlpha#castVote/2", () => {
-  let name = "YAM";
-  let chainId = 1001;
+  const name = "YAM";
+  const chainId = 1001;
   let snapshotId;
   let user;
   let a1;
@@ -46,7 +46,7 @@ describe("governorAlpha#castVote/2", () => {
   let a3;
   let a4;
   let guy;
-  let address = "0x4BC6657283f8f24e27EAc1D21D1deE566C534A9A";
+  const address = "0x4BC6657283f8f24e27EAc1D21D1deE566C534A9A";
   let targets, values, signatures, callDatas, proposalId;
   let accounts;
   // we publish the mnemonic. its is a well known test mnemonic so these pvks
@@ -61,7 +61,7 @@ describe("governorAlpha#castVote/2", () => {
     accounts = await yam.web3.eth.getAccounts();
     [user, a1, a2, guy, a3, a4] = accounts;
     yam.addAccount(user);
-    let one_hundred = yam.toBigN(100).times(yam.toBigN(10**18));
+    const one_hundred = yam.toBigN(100).times(yam.toBigN(10**18));
     // await yam.contracts.yam.methods.transfer(guy, one_hundred.toString()).send({from: user});
 
     snapshotId = await yam.testing.snapshot();
@@ -124,11 +124,11 @@ describe("governorAlpha#castVote/2", () => {
 
         proposalId = await yam.contracts.gov.methods.latestProposalIds(actor).call();
 
-        let beforeFors = (await yam.contracts.gov.methods.proposals(proposalId).call()).forVotes;
+        const beforeFors = (await yam.contracts.gov.methods.proposals(proposalId).call()).forVotes;
         await yam.testing.mineBlock();
         await yam.contracts.gov.methods.castVote(proposalId, true).send({ from: actor });
 
-        let afterFors = (await yam.contracts.gov.methods.proposals(proposalId).call()).forVotes;
+        const afterFors = (await yam.contracts.gov.methods.proposals(proposalId).call()).forVotes;
         expect(yam.toBigN(afterFors).toString()).toBe(yam.toBigN(beforeFors).plus(yam.toBigN(400001).times(10**24)).toString());
       })
 
@@ -142,11 +142,11 @@ describe("governorAlpha#castVote/2", () => {
 
         proposalId = await yam.contracts.gov.methods.latestProposalIds(actor).call();
 
-        let beforeFors = (await yam.contracts.gov.methods.proposals(proposalId).call()).againstVotes;
+        const beforeFors = (await yam.contracts.gov.methods.proposals(proposalId).call()).againstVotes;
         await yam.testing.mineBlock();
         await yam.contracts.gov.methods.castVote(proposalId, false).send({ from: actor });
 
-        let afterFors = (await yam.contracts.gov.methods.proposals(proposalId).call()).againstVotes;
+        const afterFors = (await yam.contracts.gov.methods.proposals(proposalId).call()).againstVotes;
         expect(yam.toBigN(afterFors).toString()).toBe(yam.toBigN(beforeFors).plus(yam.toBigN(400001).times(10**24)).toString());
       });
     });
@@ -178,7 +178,7 @@ describe("governorAlpha#castVote/2", () => {
              },
          };
 
-        let sigHash = EIP712.encodeTypedData(typedData)
+        const sigHash = EIP712.encodeTypedData(typedData)
         const sig = ethUtil.ecsign(ethUtil.toBuffer(sigHash, 'hex'), ethUtil.toBuffer(pvk_a1, 'hex'));
 
         await yam.testing.expectThrow(
@@ -218,16 +218,16 @@ describe("governorAlpha#castVote/2", () => {
              },
          };
 
-        let sigHash = EIP712.encodeTypedData(typedData)
+        const sigHash = EIP712.encodeTypedData(typedData)
         const sig = ethUtil.ecsign(ethUtil.toBuffer(sigHash, 'hex'), ethUtil.toBuffer(pvk_a4, 'hex'));
 
-        let beforeFors = (await yam.contracts.gov.methods.proposals(proposalId).call()).forVotes;
+        const beforeFors = (await yam.contracts.gov.methods.proposals(proposalId).call()).forVotes;
         await yam.testing.mineBlock();
         const tx = await yam.contracts.gov.methods.castVoteBySig(proposalId, true, sig.v, sig.r, sig.s).send({from: a4, gas: 100000});
         console.log(tx.events)
         expect(tx.gasUsed < 80000);
 
-        let afterFors = (await yam.contracts.gov.methods.proposals(proposalId).call()).forVotes;
+        const afterFors = (await yam.contracts.gov.methods.proposals(proposalId).call()).forVotes;
         expect(yam.toBigN(afterFors).toString()).toBe(yam.toBigN(beforeFors).plus(yam.toBigN(400001).times(10**24)).toString());
       });
     });

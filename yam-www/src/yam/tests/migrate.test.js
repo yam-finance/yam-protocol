@@ -30,7 +30,7 @@ const oneEther = 10 ** 18;
 
 describe("token_tests", () => {
   let snapshotId;
-  let user = "0x683A78bA1f6b25E29fbBC9Cd1BFA29A51520De84";
+  const user = "0x683A78bA1f6b25E29fbBC9Cd1BFA29A51520De84";
   let new_user;
   beforeAll(async () => {
     const accounts = await yam.web3.eth.getAccounts();
@@ -89,41 +89,41 @@ describe("token_tests", () => {
 
   describe("non-failing", () => {
     test("zeros balance", async () => {
-      let startTime = await yam.contracts.yamV2migration.methods.startTime().call();
-      let timeNow = yam.toBigN((await yam.web3.eth.getBlock('latest'))["timestamp"]);
-      let waitTime = yam.toBigN(startTime).minus(timeNow);
+      const startTime = await yam.contracts.yamV2migration.methods.startTime().call();
+      const timeNow = yam.toBigN((await yam.web3.eth.getBlock('latest'))["timestamp"]);
+      const waitTime = yam.toBigN(startTime).minus(timeNow);
       if (waitTime.toNumber() > 0) {
         await yam.testing.increaseTime(waitTime.toNumber());
       }
       await yam.contracts.yam.methods.approve(yam.contracts.yamV2migration.options.address, "10000000000000000000000000000000000").send({from: user, gas: 1000000});
       await yam.contracts.yamV2migration.methods.migrate().send({from: user, gas: 1000000});
-      let yam_bal = yam.toBigN(await yam.contracts.yam.methods.balanceOf(user).call()).toNumber();
+      const yam_bal = yam.toBigN(await yam.contracts.yam.methods.balanceOf(user).call()).toNumber();
       expect(yam_bal).toBe(0);
     });
     test("v2 balance equal to v1 underlying balance", async () => {
-      let startTime = await yam.contracts.yamV2migration.methods.startTime().call();
-      let timeNow = yam.toBigN((await yam.web3.eth.getBlock('latest'))["timestamp"]);
-      let waitTime = yam.toBigN(startTime).minus(timeNow);
+      const startTime = await yam.contracts.yamV2migration.methods.startTime().call();
+      const timeNow = yam.toBigN((await yam.web3.eth.getBlock('latest'))["timestamp"]);
+      const waitTime = yam.toBigN(startTime).minus(timeNow);
       if (waitTime.toNumber() > 0) {
         await yam.testing.increaseTime(waitTime.toNumber());
       }
-      let yam_bal = yam.toBigN(await yam.contracts.yam.methods.balanceOfUnderlying(user).call());
+      const yam_bal = yam.toBigN(await yam.contracts.yam.methods.balanceOfUnderlying(user).call());
       await yam.contracts.yam.methods.approve(yam.contracts.yamV2migration.options.address, "10000000000000000000000000000000000").send({from: user, gas: 1000000});
       await yam.contracts.yamV2migration.methods.migrate().send({from: user, gas: 1000000});
-      let yamV2_bal = yam.toBigN(await yam.contracts.yamV2.methods.balanceOf(user).call());
+      const yamV2_bal = yam.toBigN(await yam.contracts.yamV2.methods.balanceOf(user).call());
       expect(yam_bal.toString()).toBe(yamV2_bal.toString());
     });
     test("totalSupply increase equal to yam_underlying_bal", async () => {
-      let startTime = await yam.contracts.yamV2migration.methods.startTime().call();
-      let timeNow = yam.toBigN((await yam.web3.eth.getBlock('latest'))["timestamp"]);
-      let waitTime = yam.toBigN(startTime).minus(timeNow);
+      const startTime = await yam.contracts.yamV2migration.methods.startTime().call();
+      const timeNow = yam.toBigN((await yam.web3.eth.getBlock('latest'))["timestamp"]);
+      const waitTime = yam.toBigN(startTime).minus(timeNow);
       if (waitTime.toNumber() > 0) {
         await yam.testing.increaseTime(waitTime.toNumber());
       }
-      let yam_underlying_bal = yam.toBigN(await yam.contracts.yam.methods.balanceOfUnderlying(user).call());
+      const yam_underlying_bal = yam.toBigN(await yam.contracts.yam.methods.balanceOfUnderlying(user).call());
       await yam.contracts.yam.methods.approve(yam.contracts.yamV2migration.options.address, "10000000000000000000000000000000000").send({from: user, gas: 1000000});
       await yam.contracts.yamV2migration.methods.migrate().send({from: user, gas: 1000000});
-      let yamV2_ts = yam.toBigN(await yam.contracts.yamV2.methods.totalSupply().call());
+      const yamV2_ts = yam.toBigN(await yam.contracts.yamV2.methods.totalSupply().call());
       expect(yamV2_ts.toString()).toBe(yam_underlying_bal.toString());
     });
   });
