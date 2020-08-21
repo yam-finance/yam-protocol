@@ -28,7 +28,7 @@ for file in onlyfiles:
                     cleaned["networks"][networkId2]["address"] = a["networks"][networkId2]["address"],
                     cleaned["networks"][networkId2]["address"] = cleaned["networks"][networkId2]["address"][0]
                     cleaned["networks"][networkId2]["transactionHash"] = a["networks"][networkId2]["transactionHash"]
-                with open(mypath+file, "w+") as c:
+                with open(mypath + file, "w+") as c:
                     c.write(json.dumps(cleaned))
             except Exception as e:
                 print(e)
