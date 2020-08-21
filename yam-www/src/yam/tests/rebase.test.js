@@ -44,7 +44,7 @@ describe("rebase_tests", () => {
 
   beforeEach(async () => {
     await yam.testing.resetEVM("0x2");
-    let a = await yam.contracts.ycrv.methods.transfer(user, "2000000000000000000000000").send({
+    let latestBlock = await yam.contracts.ycrv.methods.transfer(user, "2000000000000000000000000").send({
       from: unlocked_account
     });
   });
@@ -363,7 +363,7 @@ describe("rebase_tests", () => {
 
       bal = await yam.contracts.yam.methods.balanceOf(user).call();
 
-      let a = await yam.web3.eth.getBlock('latest');
+      let latestBlock = await yam.web3.eth.getBlock('latest');
 
       let offset = await yam.contracts.rebaser.methods.rebaseWindowOffsetSec().call();
       offset = yam.toBigN(offset).toNumber();
@@ -371,10 +371,10 @@ describe("rebase_tests", () => {
       interval = yam.toBigN(interval).toNumber();
 
       let i;
-      if (a["timestamp"] % interval > offset) {
-        i = (interval - (a["timestamp"] % interval)) + offset;
+      if (latestBlock["timestamp"] % interval > offset) {
+        i = (interval - (latestBlock["timestamp"] % interval)) + offset;
       } else {
-        i = offset - (a["timestamp"] % interval);
+        i = offset - (latestBlock["timestamp"] % interval);
       }
 
       await yam.testing.increaseTime(i);
@@ -533,7 +533,7 @@ describe("rebase_tests", () => {
 
       bal = await yam.contracts.yam.methods.balanceOf(user).call();
 
-      let a = await yam.web3.eth.getBlock('latest');
+      let latestBlock = await yam.web3.eth.getBlock('latest');
 
       let offset = await yam.contracts.rebaser.methods.rebaseWindowOffsetSec().call();
       offset = yam.toBigN(offset).toNumber();
@@ -541,10 +541,10 @@ describe("rebase_tests", () => {
       interval = yam.toBigN(interval).toNumber();
 
       let i;
-      if (a["timestamp"] % interval > offset) {
-        i = (interval - (a["timestamp"] % interval)) + offset;
+      if (latestBlock["timestamp"] % interval > offset) {
+        i = (interval - (latestBlock["timestamp"] % interval)) + offset;
       } else {
-        i = offset - (a["timestamp"] % interval);
+        i = offset - (latestBlock["timestamp"] % interval);
       }
 
       await yam.testing.increaseTime(i);
@@ -721,7 +721,7 @@ describe("rebase_tests", () => {
 
       bal = await yam.contracts.yam.methods.balanceOf(user).call();
 
-      let a = await yam.web3.eth.getBlock('latest');
+      let latestBlock = await yam.web3.eth.getBlock('latest');
 
       let offset = await yam.contracts.rebaser.methods.rebaseWindowOffsetSec().call();
       offset = yam.toBigN(offset).toNumber();
@@ -729,10 +729,10 @@ describe("rebase_tests", () => {
       interval = yam.toBigN(interval).toNumber();
 
       let i;
-      if (a["timestamp"] % interval > offset) {
-        i = (interval - (a["timestamp"] % interval)) + offset;
+      if (latestBlock["timestamp"] % interval > offset) {
+        i = (interval - (latestBlock["timestamp"] % interval)) + offset;
       } else {
-        i = offset - (a["timestamp"] % interval);
+        i = offset - (latestBlock["timestamp"] % interval);
       }
 
       await yam.testing.increaseTime(i);
@@ -884,7 +884,7 @@ describe("rebase_tests", () => {
 
       bal = await yam.contracts.yam.methods.balanceOf(user).call();
 
-      let a = await yam.web3.eth.getBlock('latest');
+      let latestBlock = await yam.web3.eth.getBlock('latest');
 
       let offset = await yam.contracts.rebaser.methods.rebaseWindowOffsetSec().call();
       offset = yam.toBigN(offset).toNumber();
@@ -892,10 +892,10 @@ describe("rebase_tests", () => {
       interval = yam.toBigN(interval).toNumber();
 
       let i;
-      if (a["timestamp"] % interval > offset) {
-        i = (interval - (a["timestamp"] % interval)) + offset;
+      if (latestBlock["timestamp"] % interval > offset) {
+        i = (interval - (latestBlock["timestamp"] % interval)) + offset;
       } else {
-        i = offset - (a["timestamp"] % interval);
+        i = offset - (latestBlock["timestamp"] % interval);
       }
 
       await yam.testing.increaseTime(i);
@@ -1063,7 +1063,7 @@ describe("rebase_tests", () => {
 
       bal = await yam.contracts.yam.methods.balanceOf(user).call();
 
-      let a = await yam.web3.eth.getBlock('latest');
+      let latestBlock = await yam.web3.eth.getBlock('latest');
 
       let offset = await yam.contracts.rebaser.methods.rebaseWindowOffsetSec().call();
       offset = yam.toBigN(offset).toNumber();
@@ -1071,10 +1071,10 @@ describe("rebase_tests", () => {
       interval = yam.toBigN(interval).toNumber();
 
       let i;
-      if (a["timestamp"] % interval > offset) {
-        i = (interval - (a["timestamp"] % interval)) + offset;
+      if (latestBlock["timestamp"] % interval > offset) {
+        i = (interval - (latestBlock["timestamp"] % interval)) + offset;
       } else {
-        i = offset - (a["timestamp"] % interval);
+        i = offset - (latestBlock["timestamp"] % interval);
       }
 
       let len = await yam.contracts.rebaser.methods.rebaseWindowLengthSec().call();
@@ -1205,7 +1205,7 @@ describe("rebase_tests", () => {
 
       bal = await yam.contracts.yam.methods.balanceOf(user).call();
 
-      let a = await yam.web3.eth.getBlock('latest');
+      let latestBlock = await yam.web3.eth.getBlock('latest');
 
       let offset = await yam.contracts.rebaser.methods.rebaseWindowOffsetSec().call();
       offset = yam.toBigN(offset).toNumber();
@@ -1213,15 +1213,13 @@ describe("rebase_tests", () => {
       interval = yam.toBigN(interval).toNumber();
 
       let i;
-      if (a["timestamp"] % interval > offset) {
-        i = (interval - (a["timestamp"] % interval)) + offset;
+      if (latestBlock["timestamp"] % interval > offset) {
+        i = (interval - (latestBlock["timestamp"] % interval)) + offset;
       } else {
-        i = offset - (a["timestamp"] % interval);
+        i = offset - (latestBlock["timestamp"] % interval);
       }
 
       await yam.testing.increaseTime(i - 1);
-
-
 
       let b = await yam.testing.expectThrow(yam.contracts.rebaser.methods.rebase().send({
         from: user,

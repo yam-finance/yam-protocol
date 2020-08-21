@@ -56,11 +56,11 @@ describe("Distribution", () => {
   describe("pool failures", () => {
     test("cant join pool 1s early", async () => {
       await yam.testing.resetEVM("0x2");
-      let a = await yam.web3.eth.getBlock('latest');
+      let latestBlock = await yam.web3.eth.getBlock('latest');
 
       let starttime = await yam.contracts.eth_pool.methods.starttime().call();
 
-      expect(yam.toBigN(a["timestamp"]).toNumber()).toBeLessThan(yam.toBigN(starttime).toNumber());
+      expect(yam.toBigN(latestBlock["timestamp"]).toNumber()).toBeLessThan(yam.toBigN(starttime).toNumber());
 
       //console.log("starttime", a["timestamp"], starttime);
       await yam.contracts.weth.methods.approve(yam.contracts.eth_pool.options.address, -1).send({from: user});
@@ -75,11 +75,11 @@ describe("Distribution", () => {
       , "not start");
 
 
-      a = await yam.web3.eth.getBlock('latest');
+      latestBlock = await yam.web3.eth.getBlock('latest');
 
       starttime = await yam.contracts.ampl_pool.methods.starttime().call();
 
-      expect(yam.toBigN(a["timestamp"]).toNumber()).toBeLessThan(yam.toBigN(starttime).toNumber());
+      expect(yam.toBigN(latestBlock["timestamp"]).toNumber()).toBeLessThan(yam.toBigN(starttime).toNumber());
 
       //console.log("starttime", a["timestamp"], starttime);
 
@@ -99,7 +99,7 @@ describe("Distribution", () => {
 
     test("cant withdraw more than deposited", async () => {
       await yam.testing.resetEVM("0x2");
-      let a = await yam.web3.eth.getBlock('latest');
+      let latestBlock = await yam.web3.eth.getBlock('latest');
 
       await yam.contracts.weth.methods.transfer(user, yam.toBigN(2000).times(yam.toBigN(10**18)).toString()).send({
         from: weth_account
@@ -110,7 +110,7 @@ describe("Distribution", () => {
 
       let starttime = await yam.contracts.eth_pool.methods.starttime().call();
 
-      let waittime = starttime - a["timestamp"];
+      let waittime = starttime - latestBlock["timestamp"];
       if (waittime > 0) {
         await yam.testing.increaseTime(waittime);
       }
@@ -162,11 +162,11 @@ describe("Distribution", () => {
         from: weth_account
       });
 
-      let a = await yam.web3.eth.getBlock('latest');
+      let latestBlock = await yam.web3.eth.getBlock('latest');
 
       let starttime = await yam.contracts.eth_pool.methods.starttime().call();
 
-      let waittime = starttime - a["timestamp"];
+      let waittime = starttime - latestBlock["timestamp"];
       if (waittime > 0) {
         await yam.testing.increaseTime(waittime);
       } else {
@@ -262,9 +262,9 @@ describe("Distribution", () => {
 
         starttime = await yam.contracts.ycrv_pool.methods.starttime().call();
 
-        a = await yam.web3.eth.getBlock('latest');
+        latestBlock = await yam.web3.eth.getBlock('latest');
 
-        waittime = starttime - a["timestamp"];
+        waittime = starttime - latestBlock["timestamp"];
         if (waittime > 0) {
           await yam.testing.increaseTime(waittime);
         } else {
@@ -309,11 +309,11 @@ describe("Distribution", () => {
         await yam.contracts.UNIAmpl.methods.transfer(user, "5000000000000000").send({
           from: uni_ampl_account
         });
-        let a = await yam.web3.eth.getBlock('latest');
+        let latestBlock = await yam.web3.eth.getBlock('latest');
 
         let starttime = await yam.contracts.eth_pool.methods.starttime().call();
 
-        let waittime = starttime - a["timestamp"];
+        let waittime = starttime - latestBlock["timestamp"];
         if (waittime > 0) {
           await yam.testing.increaseTime(waittime);
         } else {
@@ -387,11 +387,11 @@ describe("Distribution", () => {
           from: weth_account
         });
 
-        let a = await yam.web3.eth.getBlock('latest');
+        let latestBlock = await yam.web3.eth.getBlock('latest');
 
         let starttime = await yam.contracts.eth_pool.methods.starttime().call();
 
-        let waittime = starttime - a["timestamp"];
+        let waittime = starttime - latestBlock["timestamp"];
         if (waittime > 0) {
           await yam.testing.increaseTime(waittime);
         } else {
@@ -455,11 +455,11 @@ describe("Distribution", () => {
           from: weth_account
         });
 
-        let a = await yam.web3.eth.getBlock('latest');
+        let latestBlock = await yam.web3.eth.getBlock('latest');
 
         let starttime = await yam.contracts.eth_pool.methods.starttime().call();
 
-        let waittime = starttime - a["timestamp"];
+        let waittime = starttime - latestBlock["timestamp"];
         if (waittime > 0) {
           await yam.testing.increaseTime(waittime);
         } else {
@@ -634,7 +634,7 @@ describe("Distribution", () => {
 
           bal = await yam.contracts.yam.methods.balanceOf(user).call();
 
-          a = await yam.web3.eth.getBlock('latest');
+          latestBlock = await yam.web3.eth.getBlock('latest');
 
           let offset = await yam.contracts.rebaser.methods.rebaseWindowOffsetSec().call();
           offset = yam.toBigN(offset).toNumber();
@@ -642,10 +642,10 @@ describe("Distribution", () => {
           interval = yam.toBigN(interval).toNumber();
 
           let i;
-          if (a["timestamp"] % interval > offset) {
-            i = (interval - (a["timestamp"] % interval)) + offset;
+          if (latestBlock["timestamp"] % interval > offset) {
+            i = (interval - (latestBlock["timestamp"] % interval)) + offset;
           } else {
-            i = offset - (a["timestamp"] % interval);
+            i = offset - (latestBlock["timestamp"] % interval);
           }
 
           await yam.testing.increaseTime(i);
@@ -709,11 +709,11 @@ describe("Distribution", () => {
           from: weth_account
         });
 
-        let a = await yam.web3.eth.getBlock('latest');
+        let latestBlock = await yam.web3.eth.getBlock('latest');
 
         let starttime = await yam.contracts.eth_pool.methods.starttime().call();
 
-        let waittime = starttime - a["timestamp"];
+        let waittime = starttime - latestBlock["timestamp"];
         if (waittime > 0) {
           await yam.testing.increaseTime(waittime);
         } else {
@@ -889,7 +889,7 @@ describe("Distribution", () => {
 
           bal = await yam.contracts.yam.methods.balanceOf(user).call();
 
-          a = await yam.web3.eth.getBlock('latest');
+          latestBlock = await yam.web3.eth.getBlock('latest');
 
           let offset = await yam.contracts.rebaser.methods.rebaseWindowOffsetSec().call();
           offset = yam.toBigN(offset).toNumber();
@@ -897,10 +897,10 @@ describe("Distribution", () => {
           interval = yam.toBigN(interval).toNumber();
 
           let i;
-          if (a["timestamp"] % interval > offset) {
-            i = (interval - (a["timestamp"] % interval)) + offset;
+          if (latestBlock["timestamp"] % interval > offset) {
+            i = (interval - (latestBlock["timestamp"] % interval)) + offset;
           } else {
-            i = offset - (a["timestamp"] % interval);
+            i = offset - (latestBlock["timestamp"] % interval);
           }
 
           await yam.testing.increaseTime(i);
@@ -960,11 +960,11 @@ describe("Distribution", () => {
           from: yfi_account
         });
 
-        let a = await yam.web3.eth.getBlock('latest');
+        let latestBlock = await yam.web3.eth.getBlock('latest');
 
         let starttime = await yam.contracts.yfi_pool.methods.starttime().call();
 
-        let waittime = starttime - a["timestamp"];
+        let waittime = starttime - latestBlock["timestamp"];
         if (waittime > 0) {
           await yam.testing.increaseTime(waittime);
         } else {
@@ -1026,11 +1026,11 @@ describe("Distribution", () => {
           from: comp_account
         });
 
-        let a = await yam.web3.eth.getBlock('latest');
+        let latestBlock = await yam.web3.eth.getBlock('latest');
 
         let starttime = await yam.contracts.comp_pool.methods.starttime().call();
 
-        let waittime = starttime - a["timestamp"];
+        let waittime = starttime - latestBlock["timestamp"];
         if (waittime > 0) {
           await yam.testing.increaseTime(waittime);
         } else {
@@ -1094,11 +1094,11 @@ describe("Distribution", () => {
           from: lend_account
         });
 
-        let a = await yam.web3.eth.getBlock('latest');
+        let latestBlock = await yam.web3.eth.getBlock('latest');
 
         let starttime = await yam.contracts.lend_pool.methods.starttime().call();
 
-        let waittime = starttime - a["timestamp"];
+        let waittime = starttime - latestBlock["timestamp"];
         if (waittime > 0) {
           await yam.testing.increaseTime(waittime);
         } else {
@@ -1163,11 +1163,11 @@ describe("Distribution", () => {
           from: link_account
         });
 
-        let a = await yam.web3.eth.getBlock('latest');
+        let latestBlock = await yam.web3.eth.getBlock('latest');
 
         let starttime = await yam.contracts.link_pool.methods.starttime().call();
 
-        let waittime = starttime - a["timestamp"];
+        let waittime = starttime - latestBlock["timestamp"];
         if (waittime > 0) {
           await yam.testing.increaseTime(waittime);
         } else {
@@ -1232,11 +1232,11 @@ describe("Distribution", () => {
           from: mkr_account
         });
 
-        let a = await yam.web3.eth.getBlock('latest');
+        let latestBlock = await yam.web3.eth.getBlock('latest');
 
         let starttime = await yam.contracts.mkr_pool.methods.starttime().call();
 
-        let waittime = starttime - a["timestamp"];
+        let waittime = starttime - latestBlock["timestamp"];
         if (waittime > 0) {
           await yam.testing.increaseTime(waittime);
         } else {
@@ -1309,11 +1309,11 @@ describe("Distribution", () => {
 
         console.log(snx_bal)
 
-        let a = await yam.web3.eth.getBlock('latest');
+        let latestBlock = await yam.web3.eth.getBlock('latest');
 
         let starttime = await yam.contracts.snx_pool.methods.starttime().call();
 
-        let waittime = starttime - a["timestamp"];
+        let waittime = starttime - latestBlock["timestamp"];
         if (waittime > 0) {
           await yam.testing.increaseTime(waittime);
         } else {
