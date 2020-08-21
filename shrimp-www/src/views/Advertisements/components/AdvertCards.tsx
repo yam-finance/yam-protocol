@@ -83,8 +83,9 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 
   return (
     <>
-      {farm.name === "Taco Tuesday" /*|| farm.name === "Bal_Shrimp_Dai_95" || farm.name === "Bal_Shrimp_Dai_80"*/ ?
         <StyledCardWrapper>
+        {farm.name === "Taco Tuesday" || farm.name === "Zombie Swamp" /*|| farm.name === "Bal_Shrimp_Dai_95" || farm.name === "Bal_Shrimp_Dai_80"*/ ?
+        (
           <Card>
             <CardContent>
               <StyledContent>
@@ -94,7 +95,9 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
                   <StyledDetail>Deposit {farm.depositToken.toUpperCase()}</StyledDetail>
                   <StyledDetail>Earn {farm.earnToken.toUpperCase()}</StyledDetail>
                 </StyledDetails>
-                {Date.now() > endTime * 1000 ? (
+        {farm.name !== 'Zombie Swamp' && 
+        <>
+        { Date.now() > endTime * 1000 ? (
                 <>
                   <Button
                     disabled={!poolActive}
@@ -124,6 +127,11 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
                   </a>
                 </>
                 )}
+                </>
+                    }
+                    {farm.name === 'Zombie Swamp' && 
+                    <Button text='Coming soon' />
+                    }
                 {farm.name === "Taco Tuesday" &&
                   <>
                   <br />
@@ -132,13 +140,23 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
                     <StyledDetail><a href="https://t.me/TacoGram">Telegram</a> | <a href="https://twitter.com/Taconomics101">Twitter</a></StyledDetail>
                   </>
                 }
+                {farm.name === 'Zombie Swamp' &&
+                <>
+                <br />
+                  <StyledDetail>3,000 Shrimp</StyledDetail>
+                  <StyledDetail>3 Days</StyledDetail>
+                  <StyledDetail><a href="https://t.me/defizombie">Telegram</a> | <a href="https://twitter.com/ZombieFinance">Twitter</a></StyledDetail>
+                </>
+                }
               </StyledContent>
             </CardContent>
           </Card>
+        )
+           :
+          null
+          }
         </StyledCardWrapper>
-        :
-        ''
-      }
+       
     </>
   )
 }

@@ -107,6 +107,7 @@ const Advertisements: React.FC = () => {
               <AdButton />
             </div>
           </>
+          
           <Route exact path={path}>
             <AdvertCards />
           </Route>

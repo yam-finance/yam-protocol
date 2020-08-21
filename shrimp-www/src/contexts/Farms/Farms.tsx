@@ -10,6 +10,7 @@ import Context from './context'
 import { Farm } from './types'
 
 const NAME_FOR_POOL: { [key: string]: string } = {
+  zombie_pool: 'Zombie Swamp',
   bsd95_pool: 'Bal_Shrimp_Dai_95',
   bsd80_pool: 'Bal_Shrimp_Dai_80',
   yfi_pool: 'YFI Farm',
@@ -22,6 +23,7 @@ const NAME_FOR_POOL: { [key: string]: string } = {
 }
 
 const ICON_FOR_POOL: { [key: string]: string } = {
+  zombie_pool: '🧟',
   bsd95_pool: '⛵️',
   bsd80_pool: '🌊',
   yfi_pool: '🐋',
@@ -34,15 +36,16 @@ const ICON_FOR_POOL: { [key: string]: string } = {
 }
 
 const SORT_FOR_POOL: { [key: string]: number } = {
+  zombie_pool: 2,
   bsd95_pool: 0,
   bsd80_pool: 1,  
-  taco_pool: 2,
-  yfi_pool: 3,
-  eth_pool: 4,
-  cream_pool: 5,
-  comp_pool: 6,
-  dice_pool: 7,
-  uni_pool: 8,
+  taco_pool: 3,
+  yfi_pool: 4,
+  eth_pool: 5,
+  cream_pool: 6,
+  comp_pool: 7,
+  dice_pool: 8,
+  uni_pool: 9,
 }
 
 const Farms: React.FC = ({ children }) => {
@@ -110,6 +113,10 @@ const Farms: React.FC = ({ children }) => {
         }
         //Pool 80
         if (tokenKey === 'bsd80') {
+          tokenAddress = '0x00D1793D7C3aAE506257Ba985b34C76AaF642557'
+        }
+
+        if (tokenKey === 'zombie') {
           tokenAddress = '0x00D1793D7C3aAE506257Ba985b34C76AaF642557'
         }
 

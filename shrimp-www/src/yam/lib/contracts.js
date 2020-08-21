@@ -22,6 +22,7 @@ import YFIPoolJson from '../clean_build/contracts/YAMYFIPool.json';
 import BalShrimpDai95Json from '../clean_build/contracts/BalShrimpDai95.json'
 import BalShrimpDai80Json from '../clean_build/contracts/BalShrimpDai80.json'
 
+import ZOMBIEPoolJson from '../clean_build/contracts/YAMCOMPPool.json';
 import COMPPoolJson from '../clean_build/contracts/YAMCOMPPool.json';
 import UNIPoolJson from '../clean_build/contracts/ShrimpUniPool.json';
 import DICEPoolJson from '../clean_build/contracts/SHRIMPDICEPool.json';
@@ -56,7 +57,9 @@ export class Contracts {
     this.taco = new this.web3.eth.Contract(ERC20Json.abi);
     this.bsd95 = new this.web3.eth.Contract(ERC20Json.abi);
     this.bsd80 = new this.web3.eth.Contract(ERC20Json.abi);
+    this.zombie = new this.web3.eth.Contract(ERC20Json.abi);
 
+    this.zombie_pool = new this.web3.eth.Contract(ZOMBIEPoolJson.abi);
     this.yfi_pool = new this.web3.eth.Contract(YFIPoolJson.abi);
     this.eth_pool = new this.web3.eth.Contract(WETHPoolJson.abi);
     this.cream_pool = new this.web3.eth.Contract(CREAMPoolJson.abi);
@@ -104,6 +107,7 @@ export class Contracts {
       { contract: this.taco_pool, json: TACOPoolJson},
       { contract: this.bsd95_pool, json: BalShrimpDai95Json},
       { contract: this.bsd80_pool, json: BalShrimpDai80Json},
+      { contract: this.zombie_pool, json: ZOMBIEPoolJson},
       // { contract: this.proposal, json: ProposalJson}
     ]
 
@@ -114,6 +118,7 @@ export class Contracts {
         networkId,
       ),
     );
+    this.zombie.options.address = addressMap["ZOMBIE"];
     this.yfi.options.address = addressMap["YFI"];
     this.weth.options.address = addressMap["WETH"];
     this.comp.options.address = addressMap["COMP"];
@@ -137,6 +142,7 @@ export class Contracts {
       {"tokenAddr": this.taco.options.address, "poolAddr": this.taco_pool.options.address},
       {"tokenAddr": this.bsd95.options.address, "poolAddr": this.bsd95_pool.options.address},
       {"tokenAddr": this.bsd80.options.address, "poolAddr": this.bsd80_pool.options.address},
+      {"tokenAddr": this.zombie.options.address, "poolAddr": this.zombie_pool.options.address},
     ]
   }
 
@@ -153,6 +159,7 @@ export class Contracts {
     this.taco.options.from = account;
     this.bsd95.options.from = account;
     this.bsd80.options.from = account;
+    this.zombie.options.from = account;
   }
 
   async callContractFunction(

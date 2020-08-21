@@ -73,12 +73,16 @@ const Voter: React.FC<VoteProps> = () => {
       <CardContent>
         <div style={{ alignItems: 'flex-start', display: 'flex' }}>
           <StyledCenter>
-            <Label text="Time remaining" />
             {Date.now() > WARNING_TIMESTAMP ? (
-              <StyledDenominator>{`< 10 minutes`}</StyledDenominator>
+              <>
+              <StyledDenominator>{`All Time Elapsed`}</StyledDenominator>
+              </>
             )
               : (
+                <>
+                <Label text="Time remaining" />
                 <Countdown date={WARNING_TIMESTAMP} renderer={renderer} />
+                </>
               )}
           </StyledCenter>
           <Spacer />
@@ -123,7 +127,8 @@ const Voter: React.FC<VoteProps> = () => {
           <StyledMeterInner width={(Math.max(1000) / 1000 * 100) * (Number(totalVotes) * 2.5)/ 200000} />
         </StyledMeter>
         <Spacer />
-        <Button text="Yes" onClick={y_vote} />
+        {Date.now() > WARNING_TIMESTAMP ? (<Button text="Closed" disabled={true} />):(<Button text="Yes" onClick={y_vote} />)}
+        
         {/* ) : (
           <div>
             {/* <StyledDelegatedCount>Delegating: {Number(delegatedBalance.multipliedBy(scalingFactor).toFixed(0)).toLocaleString()} YAM</StyledDelegatedCount> 

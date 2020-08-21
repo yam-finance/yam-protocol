@@ -27,6 +27,8 @@ interface VoteProps {
 }
 
 const METER_TOTAL = 200000
+const Final_count = '100,092.178'
+const Final_count_num = 100092.178
 const WARNING_TIMESTAMP = 1598000400000
 
 const Voter: React.FC<VoteProps> = () => {
@@ -73,13 +75,14 @@ const Voter: React.FC<VoteProps> = () => {
       <CardContent>
         <div style={{ alignItems: 'flex-start', display: 'flex' }}>
           <StyledCenter>
-            <Label text="Time remaining" />
-            {Date.now() > WARNING_TIMESTAMP ? (
+          <StyledDenominator>{`All Time Elapsed`}</StyledDenominator>
+            
+            {/* {Date.now() > WARNING_TIMESTAMP ? (
               <StyledDenominator>{`< 10 minutes`}</StyledDenominator>
             )
               : (
                 <Countdown date={WARNING_TIMESTAMP} renderer={renderer} />
-              )}
+              )} */}
           </StyledCenter>
           <Spacer />
           <StyledCenter>
@@ -89,7 +92,7 @@ const Voter: React.FC<VoteProps> = () => {
               display: 'flex',
             }}>
               <StyledTitle>
-                <div>{(Number(totalVotes)* 2.5).toLocaleString()}</div>
+                <div>{Final_count}</div>
               </StyledTitle>
               <StyledDenominator>
                 <div>{`/ 224,746`}</div>
@@ -120,10 +123,10 @@ const Voter: React.FC<VoteProps> = () => {
           </StyledCheckpoint>
         </StyledCheckpoints>
         <StyledMeter>
-          <StyledMeterInner width={(Math.max(1000) / 1000 * 100) * (Number(totalVotes) * 2.5 )/ 200000} />
+          <StyledMeterInner width={(100000 / METER_TOTAL * 101)} />
         </StyledMeter>
         <Spacer />
-        <Button text="I do solemnly swear" onClick={y_vote} />
+        {Date.now() > WARNING_TIMESTAMP ? (<Button text="Closed" disabled={true} />):(<Button text="I do solemnly swear" onClick={y_vote} />)}
         {/* ) : (
           <div>
             {/* <StyledDelegatedCount>Delegating: {Number(delegatedBalance.multipliedBy(scalingFactor).toFixed(0)).toLocaleString()} YAM</StyledDelegatedCount> 
