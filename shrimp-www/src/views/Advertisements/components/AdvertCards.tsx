@@ -89,7 +89,11 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
           <Card>
             <CardContent>
               <StyledContent>
-                <CardIcon>{farm.icon}</CardIcon>
+              {farm.name !== 'Zombie Swamp'  &&
+                <CardIcon>{farm.icon}</CardIcon> }
+
+              {farm.name === 'Zombie Swamp'  &&
+                <CardIcon><img style={{width: "32px"}} src="https://zombie.finance/logo2.png"/></CardIcon> }
                 <StyledTitle>{farm.name}</StyledTitle>
                 <StyledDetails>
                   <StyledDetail>Deposit {farm.depositToken.toUpperCase()}</StyledDetail>

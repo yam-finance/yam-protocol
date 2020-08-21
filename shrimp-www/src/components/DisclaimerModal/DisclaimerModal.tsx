@@ -25,7 +25,7 @@ const DisclaimerModal: React.FC<DisclaimerModal> = ({ onConfirm, onDismiss }) =>
         <div>
           <p>Audits: None. (This project is in beta. Use at your own risk.)</p>
           <p>🦐 New Advanced Pool will start on 2020/08/26 12:00:00 UTC+0, welcome <a href="https://zombie.finance" target="_blank">Zombie.Finance</a> on board. 🦐</p>
-          {/* <p>🦐 New Advanced Pool will start on 2020/09/2 12:00:00 UTC+0, welcome <a href="https://hakka.finance/" target="_blank">Hakka.Finance</a> on board. 🦐</p> */}
+          <p>🚨 For more information on the inflation of Uniswap LP pool tokens, please visit <a href="https://github.com/shrimp-finance/shrimp-protocol/wiki/Total-Shrimp:-229,240.92-%F0%9F%A6%90" target="_blank">Github Wiki</a></p>
         </div>
       )
     } else {

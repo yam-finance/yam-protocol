@@ -95,7 +95,7 @@ const Voter: React.FC<VoteProps> = () => {
                 <div>{Final_count}</div>
               </StyledTitle>
               <StyledDenominator>
-                <div>{`/ 224,746`}</div>
+                <div>{`/ 229,240.92`}</div>
               </StyledDenominator>
             </div>
             {/* <div style={{
