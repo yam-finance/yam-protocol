@@ -9,7 +9,7 @@ onlyfiles = [f for f in listdir(mypath) if isfile(join(mypath, f))]
 onlyfiles
 
 for file in onlyfiles:
-    with open(mypath+file, "r") as f:
+    with open(mypath + file, "r") as f:
         if "json" in file:
             try:
                 cleaned = {}
