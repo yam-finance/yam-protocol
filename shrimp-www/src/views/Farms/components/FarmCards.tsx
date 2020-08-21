@@ -104,7 +104,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
                 <>
                   <Button
                     disabled={!poolActive}
-                    text={poolActive ? 'Remove Liquidity' : undefined}
+                    text={poolActive ? (farm.name === "WETH_SHRIMP_UNI_LP" ? 'Select' : 'Remove Liquidity' ) : undefined}
                     to={`/farms/${farm.id}`}
                   />
                 </>
@@ -113,10 +113,10 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
                   <a href={`/farms/${farm.id}`} style={{ textDecoration: 'none', width: '100%' }}>
                     <Button
                       disabled={!poolActive}
-                      text={poolActive ? '' : undefined}
+                      text={poolActive ? 'Select' : undefined}
                       to={`/farms/${farm.id}`}
                     >
-                      {900000 > Number(endTime * 1000) &&
+                      {/* {900000 > Number(endTime * 1000) &&
                         <span style={{ color: 'red', marginLeft: '33%' }} >
                           <Countdown date={Number(endTime * 1000)} renderer={renderer} />
                         </span>
@@ -125,11 +125,20 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 
                         <Countdown date={Number(endTime * 1000)} renderer={renderer} />
 
-                      }
+                      } */}
                     </Button>
                   </a>
                 </>
                 )}
+                {farm.name === "WETH_SHRIMP_UNI_LP" ?
+                  <>
+                  <br />
+                    <StyledDetail>4494.92 Shrimp/Weekly</StyledDetail>
+                    <StyledDetail>Indefinitely</StyledDetail>
+                    {/* <StyledDetail><a href="https://t.me/TacoGram">Telegram</a> | <a href="https://twitter.com/Taconomics101">Twitter</a></StyledDetail> */}
+                  </>
+                  :<></>
+                }
             </StyledContent>
           </CardContent>
         </Card>
