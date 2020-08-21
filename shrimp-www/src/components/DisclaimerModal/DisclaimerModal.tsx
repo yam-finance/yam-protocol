@@ -24,7 +24,8 @@ const DisclaimerModal: React.FC<DisclaimerModal> = ({ onConfirm, onDismiss }) =>
       return (
         <div>
           <p>Audits: None. (This project is in beta. Use at your own risk.)</p>
-          <p>🦐 First Advanced Pool will start on 2020/08/18 12:00:00 UTC+0 (See the rules for the Advanced Pool) 🦐</p>
+          <p>🦐 New Advanced Pool will start on 2020/08/26 12:00:00 UTC+0, welcome <a href="https://zombie.finance" target="_blank">Zombie.Finance</a> on board. 🦐</p>
+          {/* <p>🦐 New Advanced Pool will start on 2020/09/2 12:00:00 UTC+0, welcome <a href="https://hakka.finance/" target="_blank">Hakka.Finance</a> on board. 🦐</p> */}
         </div>
       )
     } else {
