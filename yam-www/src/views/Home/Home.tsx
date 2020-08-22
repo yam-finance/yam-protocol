@@ -1,64 +1,20 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 
-import Button from '../../components/Button'
+import farmer from '../../assets/img/farmer.png'
+
 import Container from '../../components/Container'
 import Page from '../../components/Page'
 import PageHeader from '../../components/PageHeader'
-import Spacer from '../../components/Spacer'
-
-import useModal from '../../hooks/useModal'
-import useYam from '../../hooks/useYam'
 
 import Balances from './components/Balances'
-import Migrate from './components/Migrate'
-import MigrationInstructionsModal from './components/MigrationInstructionsModal'
-import Rebase from './components/Rebase'
-import Stats from './components/Stats'
-
-import { OverviewData } from './types'
-import { getStats } from './utils'
-
-import { bnToDec } from '../../utils'
-import { getV2Supply } from '../../yamUtils'
 
 const Home: React.FC = () => {
-
-  const [onPresentMigrationInstructionsModal] = useModal(<MigrationInstructionsModal />, 'test')
-
-  const yam = useYam()
-  const [{
-    curPrice,
-    nextRebase,
-    scalingFactor,
-    targetPrice,
-  }, setStats] = useState<OverviewData>({})
-
-  const fetchStats = useCallback(async () => {
-    const statsData = await getStats(yam)
-    setStats(statsData)
-  }, [yam, setStats])
-
-  const handleInstructionsClick = useCallback(() => {
-    onPresentMigrationInstructionsModal()
-  }, [onPresentMigrationInstructionsModal])
-
-  useEffect(() => {
-    async function fetchTotalSupply () {
-      const supply = await getV2Supply(yam)
-      console.log(bnToDec(supply, 24))
-    }
-    if (yam) {
-      fetchStats()
-      fetchTotalSupply()
-    }
-  }, [yam])
-
   return (
     <Page>
       <PageHeader
         icon={(
-          <div style={{ position: 'relative', transform: 'scaleX(-1)'}}>🌚</div>
+          <img src={farmer} height={96} />
         )}
         subtitle="YAMV3 Governance voting will begin soon."
         title="YAMV2 Migration has finished."
