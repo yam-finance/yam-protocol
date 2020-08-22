@@ -16,8 +16,8 @@ const Home: React.FC = () => {
         icon={(
           <img src={farmer} height={96} />
         )}
-        subtitle="YAMV3 Governance voting will begin soon."
-        title="YAMV2 Migration has finished."
+        subtitle="YAMV3 governance voting will begin soon."
+        title="YAMV2 migration has finished."
       />
       
       <Container>
