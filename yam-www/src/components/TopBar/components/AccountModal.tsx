@@ -38,20 +38,6 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
         <div style={{ display: 'flex' }}>
           <StyledBalanceWrapper>
             <CardIcon>
-              <span style={{ filter: 'saturate(0.5)' }}>🍠</span>
-            </CardIcon>
-            <StyledBalance>
-              <Value value={getDisplayBalance(yamBalance)} />
-              <Label text="YAMV1 Balance" />
-            </StyledBalance>
-          </StyledBalanceWrapper>
-
-          <div style={{ alignSelf: 'stretch' }}>
-            <Separator orientation="vertical" />
-          </div>
-
-          <StyledBalanceWrapper>
-            <CardIcon>
               <span>🍠</span>
             </CardIcon>
             <StyledBalance>

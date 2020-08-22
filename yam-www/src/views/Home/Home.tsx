@@ -58,31 +58,14 @@ const Home: React.FC = () => {
     <Page>
       <PageHeader
         icon={(
-          <div style={{ position: 'relative', transform: 'scaleX(-1)'}}>⛵</div>
+          <div style={{ position: 'relative', transform: 'scaleX(-1)'}}>🌚</div>
         )}
-        subtitle="Burn V1 tokens before the deadline to receive V2 tokens."
-        title="It's time to migrate to Yam V2!"
+        subtitle="YAMV3 Governance voting will begin soon."
+        title="YAMV2 Migration has finished."
       />
       
       <Container>
-        <Button
-          onClick={handleInstructionsClick}
-          text="View migration checklist"
-        />
-        <Spacer size="lg" />
         <Balances />
-        <Spacer />
-        <Migrate />
-        <Spacer />
-        <StyledOverview>
-          <Rebase nextRebase={nextRebase} />
-          <StyledSpacer />
-          <Stats
-            curPrice={curPrice}
-            scalingFactor={scalingFactor}
-            targetPrice={targetPrice}
-          />
-        </StyledOverview>
       </Container>
 
     </Page>
