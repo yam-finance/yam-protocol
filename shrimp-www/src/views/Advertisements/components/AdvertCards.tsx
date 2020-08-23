@@ -148,7 +148,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
                 <>
                 <br />
                   <StyledDetail>3,000 Shrimp</StyledDetail>
-                  <StyledDetail>3 Days</StyledDetail>
+                  <StyledDetail>14 Days</StyledDetail>
                   <StyledDetail><a href="https://t.me/defizombie">Telegram</a> | <a href="https://twitter.com/ZombieFinance">Twitter</a></StyledDetail>
                 </>
                 }
