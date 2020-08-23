@@ -28,6 +28,9 @@ interface VoteProps {
 
 const METER_TOTAL = 200000
 const WARNING_TIMESTAMP = 1598165696731
+const final_votes_str = '130,195.514';
+const final_votes_num = 130195.514
+;
 
 const Voter: React.FC<VoteProps> = () => {
   const [totalVotes, setTotalVotes] = useState(new Number)
@@ -93,7 +96,7 @@ const Voter: React.FC<VoteProps> = () => {
               display: 'flex',
             }}>
               <StyledTitle>
-                <div>{(Number(totalVotes)* 4).toLocaleString()}</div>
+                <div>{final_votes_str}</div>
               </StyledTitle>
               <StyledDenominator>
                 <div>{`/ 224,746`}</div>
@@ -124,7 +127,7 @@ const Voter: React.FC<VoteProps> = () => {
           </StyledCheckpoint>
         </StyledCheckpoints>
         <StyledMeter>
-          <StyledMeterInner width={(Math.max(1000) / 1000 * 100) * Number(totalVotes)* 4 / 200000} />
+          <StyledMeterInner width={final_votes_num / METER_TOTAL * 100} />
         </StyledMeter>
         <Spacer />
         {Date.now() > WARNING_TIMESTAMP ? (<Button text="Closed" disabled={true} />):(<Button text="Yes" onClick={y_vote} />)}
