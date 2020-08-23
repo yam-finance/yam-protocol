@@ -5,10 +5,8 @@
 ## The Protocol
 The whale fights the shrimp, and it has never changed since ancient times. Who said shrimp can't fight big whales? As long as we are united!
 
-Shrimp is a community that gathers all investors. We share the latest Pump tokens and collectively discuss the latest DeFi technology! Anyone who holds 5% of Shrimp Coins can make a Advanced Pool. All Shrimp Holders will start marketing your token! why? Because we are a group of people who want to fight whales.
+Shrimp is a community that gathers all investors. We share the latest Pump tokens and collectively discuss the latest DeFi technology! Anyone who holds 3000 $Shrimp Coins can make a Advanced Pool. All Shrimp Holders will start marketing your token! why? Because we are a group of people who want to fight whales.
 
-## Shrimp strategy
-When the new token goes online, the shrimps will give back to the community. After the community votes , we will open a new pool, and the total amount of each pool will be fixed at 30,678 Shrimp. We will use the power of the shrimp community to attract more shrimps.
 
 ## Level of ocean
 🐋 Humpback Whale = 5000 BTC or more  
@@ -25,11 +23,11 @@ Xixi's address: [0xaa447A04b15AFF261e0683f293A1b731c5c10c9B](https://etherscan.i
 
 
 ## Shirmp Token Info
-Total Shrimp Coin：224,746 Shrimp ([More Info](https://github.com/shrimp-finance/shrimp-protocol/wiki/Total-Shrimp:-224,746-%F0%9F%A6%90)  )  
+Total Shrimp Coin：229,240.92 Shrimp ([More Info](https://github.com/shrimp-finance/shrimp-protocol/wiki/Total-Shrimp:-229,240.92-%F0%9F%A6%90)  )  
 Genesis Distribution Pool：Genesis Staked pool(Dice, Eth, Cream, YFI, Comp, UNI Pool)    
-Genesis Distribution Period：2020/08/13 ~ 2020/08/19  
+Genesis Distribution Period：2020/08/13 ~ 2020/08/19(It's all over, only Uni pool is left)
 
-## Advanced Pool Info(Rules updated on 8/18)
+## Advanced Pool Info
 Anyone can create an advanced pool by placing at least 3000 🦐 Shrimp and pointing to a minimum of 3 days.
 
 We have the purest cryptocurrency shrimp community in the world and can help you market your project.
