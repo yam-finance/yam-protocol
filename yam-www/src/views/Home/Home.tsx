@@ -3,9 +3,11 @@ import styled from 'styled-components'
 
 import farmer from '../../assets/img/farmer.png'
 
+import Button from '../../components/Button'
 import Container from '../../components/Container'
 import Page from '../../components/Page'
 import PageHeader from '../../components/PageHeader'
+import Spacer from '../../components/Spacer'
 
 import Balances from './components/Balances'
 
@@ -23,7 +25,17 @@ const Home: React.FC = () => {
       <Container>
         <Balances />
       </Container>
-
+      <Spacer size="lg" />
+        <div style={{
+          margin: '0 auto'
+        }}>
+          <Button
+            size="sm"
+            text="View V1 Farms"
+            to="/farms"
+            variant="secondary"
+           />
+        </div>
     </Page>
   )
 }
