@@ -15,14 +15,13 @@ const Home: React.FC = () => {
   return (
     <Page>
       <PageHeader
-        icon={(
-          <img src={farmer} height={96} />
-        )}
-        subtitle="YAMV3 governance voting will begin soon."
-        title="YAMV2 migration has finished."
+        icon="🗣"
+        subtitle="Vote on the future of the YAM protocol."
+        title="YAMV2 governance is live."
       />
-      
       <Container>
+        <Button href="https://snapshot.page/#/yam" text="Go to governance dashboard" />
+        <Spacer size="lg" />
         <Balances />
       </Container>
       <Spacer size="lg" />
