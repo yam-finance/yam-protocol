@@ -21,7 +21,7 @@ const Home: React.FC = () => {
       />
       <Container>
         <Button href="https://snapshot.page/#/yam" text="Go to governance dashboard" />
-        <Spacer />
+        <Spacer size="lg" />
         <Balances />
       </Container>
       <Spacer size="lg" />
