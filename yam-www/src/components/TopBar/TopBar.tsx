@@ -2,10 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import Container from '../Container'
-import IconButton from '../IconButton'
 import Logo from '../Logo'
-
-import { MenuIcon } from '../icons'
 
 import AccountButton from './components/AccountButton'
 import Nav from './components/Nav'
@@ -22,15 +19,9 @@ const TopBar: React.FC<TopBarProps> = ({ onPresentMobileMenu }) => {
           <StyledLogoWrapper>
             <Logo />
           </StyledLogoWrapper>
-          <StyledNavWrapper>
-            <Nav />
-          </StyledNavWrapper>
           <StyledAccountButtonWrapper>
             <AccountButton />
           </StyledAccountButtonWrapper>
-          <StyledMenuButton onClick={onPresentMobileMenu}>
-            <MenuIcon />
-          </StyledMenuButton>
         </StyledTopBarInner>
       </Container>
     </StyledTopBar>
