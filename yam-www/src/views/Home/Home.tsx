@@ -20,7 +20,14 @@ const Home: React.FC = () => {
         title="YAMV2 governance is live."
       />
       <Container>
-        <Button href="https://snapshot.page/#/yam" text="Go to governance dashboard" />
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+        }}>
+          <Button href="https://snapshot.page/#/yam" text="View Proposals" />
+          <Spacer />
+          <Button href="https://forum.yam.finance" text="Governance Forum" />
+        </div>
         <Spacer size="lg" />
         <Balances />
       </Container>
