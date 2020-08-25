@@ -51,6 +51,8 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
   const [startTime, setStartTime] = useState(0)
   const [endTime, setEndTime] = useState(0)
 
+  const timeStamp = 1598443200000;
+
   const getStartTime = useCallback(async () => {
     const startTime = await getPoolStartTime(farm.contract)
     setStartTime(startTime)
@@ -134,7 +136,13 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
                 </>
                     }
                     {farm.name === 'Zombie Swamp' && 
-                    <Button text='Coming soon' />
+                    <Button 
+                    disabled={timeStamp <  Date.now()}
+                      text={timeStamp >  Date.now() ? 'Select' : undefined}
+                      to={`/farms/${farm.id}`}
+                      >
+                      {/* <Countdown date={timeStamp} renderer={renderer} /> */}
+                    </Button>
                     }
                 {farm.name === "Taco Tuesday" &&
                   <>

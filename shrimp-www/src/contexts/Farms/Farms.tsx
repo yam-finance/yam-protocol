@@ -117,7 +117,7 @@ const Farms: React.FC = ({ children }) => {
         }
 
         if (tokenKey === 'zombie') {
-          tokenAddress = '0x00D1793D7C3aAE506257Ba985b34C76AaF642557'
+          tokenAddress = '0xd55BD2C12B30075b325Bc35aEf0B46363B3818f8'
         }
 
         

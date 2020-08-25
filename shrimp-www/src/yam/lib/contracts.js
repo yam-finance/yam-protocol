@@ -22,7 +22,7 @@ import YFIPoolJson from '../clean_build/contracts/YAMYFIPool.json';
 import BalShrimpDai95Json from '../clean_build/contracts/BalShrimpDai95.json'
 import BalShrimpDai80Json from '../clean_build/contracts/BalShrimpDai80.json'
 
-import ZOMBIEPoolJson from '../clean_build/contracts/YAMCOMPPool.json';
+import ZOMBIEPoolJson from '../clean_build/contracts/ZombiePool.json';
 import COMPPoolJson from '../clean_build/contracts/YAMCOMPPool.json';
 import UNIPoolJson from '../clean_build/contracts/ShrimpUniPool.json';
 import DICEPoolJson from '../clean_build/contracts/SHRIMPDICEPool.json';
