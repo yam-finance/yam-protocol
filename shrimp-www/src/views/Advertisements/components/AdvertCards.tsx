@@ -137,11 +137,11 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
                     }
                     {farm.name === 'Zombie Swamp' && 
                     <Button 
-                    disabled={timeStamp <  Date.now()}
-                      text={timeStamp >  Date.now() ? 'Select' : undefined}
+                    disabled={timeStamp >  Date.now()}
+                      text={timeStamp <  Date.now() ? 'Select' : undefined}
                       to={`/farms/${farm.id}`}
                       >
-                      {/* <Countdown date={timeStamp} renderer={renderer} /> */}
+                      {timeStamp >  Date.now() && <Countdown date={timeStamp} renderer={renderer} />}
                     </Button>
                     }
                 {farm.name === "Taco Tuesday" &&

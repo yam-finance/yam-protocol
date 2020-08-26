@@ -23,7 +23,7 @@ const NAME_FOR_POOL: { [key: string]: string } = {
 }
 
 const ICON_FOR_POOL: { [key: string]: string } = {
-  zombie_pool: '🧟',
+  zombie_pool: 'aa',
   bsd95_pool: '⛵️',
   bsd80_pool: '🌊',
   yfi_pool: '🐋',
