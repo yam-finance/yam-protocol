@@ -191,7 +191,7 @@ export class Contracts {
       }
 
       if (confirmationType === Types.ConfirmationType.Simulate) {
-        let g = txOptions.gas;
+        const g = txOptions.gas;
         return { gasEstimate, g };
       }
     }

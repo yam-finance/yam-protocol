@@ -37,23 +37,19 @@ const oneEther = 10 ** 18;
 const EIP712 = require('./EIP712.js');
 
 describe('YAM governance', () => {
-  let name = "YAM";
-  let chainId = 1001;
+  const name = "YAM";
+  const chainId = 1001;
   let snapshotId;
   let user;
   let a1;
   let a2;
   let guy;
-  let address = "0x4BC6657283f8f24e27EAc1D21D1deE566C534A9A";
-
+  const address = "0x4BC6657283f8f24e27EAc1D21D1deE566C534A9A";
 
   beforeAll(async () => {
     const accounts = await yam.web3.eth.getAccounts();
-    yam.addAccount(accounts[0]);
-    user = accounts[0];
-    a1 = accounts[1];
-    a2 = accounts[2];
-    guy = accounts[3];
+    [user, a1, a2, guy] = accounts;
+    yam.addAccount(user);
     snapshotId = await yam.testing.snapshot();
   });
 
@@ -102,7 +98,7 @@ describe('YAM governance', () => {
            },
        };
 
-      let sigHash = EIP712.encodeTypedData(typedData)
+      const sigHash = EIP712.encodeTypedData(typedData)
      const sig = ethUtil.ecsign(ethUtil.toBuffer(sigHash, 'hex'), ethUtil.toBuffer(pvk_a1, 'hex'));
 
 
@@ -141,7 +137,7 @@ describe('YAM governance', () => {
            },
        };
 
-      let sigHash = EIP712.encodeTypedData(typedData)
+      const sigHash = EIP712.encodeTypedData(typedData)
       const sig = ethUtil.ecsign(ethUtil.toBuffer(sigHash, 'hex'), ethUtil.toBuffer(pvk_a1, 'hex'));
 
 
@@ -176,22 +172,22 @@ describe('YAM governance', () => {
            },
        };
 
-      let sigHash = EIP712.encodeTypedData(typedData)
+      const sigHash = EIP712.encodeTypedData(typedData)
       const sig = ethUtil.ecsign(ethUtil.toBuffer(sigHash, 'hex'), ethUtil.toBuffer(pvk_a1, 'hex'));
 
-      let tx = await yam.contracts.yam.methods.delegateBySig(user, 0, 10e9, sig.v, sig.r, sig.s).send({from: a1, gas: 500000});
+      const tx = await yam.contracts.yam.methods.delegateBySig(user, 0, 10e9, sig.v, sig.r, sig.s).send({from: a1, gas: 500000});
       expect(tx.gasUsed < 80000);
-      let k = await yam.contracts.yam.methods.delegates(a1).call();
-      let j = await yam.contracts.yam.methods.delegates(user).call();
+      const k = await yam.contracts.yam.methods.delegates(a1).call();
+      const j = await yam.contracts.yam.methods.delegates(user).call();
       expect(k).toBe(user);
     });
 
     test('delegate', async () => {
-      let d = await yam.contracts.yam.methods.delegates(a1).call()
+      const d = await yam.contracts.yam.methods.delegates(a1).call()
       expect(d).toBe("0x0000000000000000000000000000000000000000");
-      let tx = await yam.contracts.yam.methods.delegate(user).send({from: a1});;
+      const tx = await yam.contracts.yam.methods.delegate(user).send({from: a1});;
       expect(tx.gasUsed < 80000);
-      let k = await yam.contracts.yam.methods.delegates(a1).call();
+      const k = await yam.contracts.yam.methods.delegates(a1).call();
       expect(k).toBe(user);
     });
   });
@@ -199,7 +195,7 @@ describe('YAM governance', () => {
   describe('numCheckpoints', () => {
     it('returns the number of checkpoints for a delegate', async () => {
 
-      let one_hundred = yam.toBigN(100).times(yam.toBigN(10**18));
+      const one_hundred = yam.toBigN(100).times(yam.toBigN(10**18));
       await yam.contracts.yam.methods.transfer(guy, one_hundred.toString()).send({from: user});
       let nc = await yam.contracts.yam.methods.numCheckpoints(a1).call();
       expect(nc).toBe('0');
@@ -240,7 +236,7 @@ describe('YAM governance', () => {
       // For this test to pass, you must enable blocktimes. it will fail otherwise
 
 
-      let one_hundred = yam.toBigN(100).times(yam.toBigN(10**18));
+      const one_hundred = yam.toBigN(100).times(yam.toBigN(10**18));
       await yam.contracts.yam.methods.transfer(guy, one_hundred.toString()).send({from: user});
       let nc = await yam.contracts.yam.methods.numCheckpoints(a1).call();
       expect(nc).toBe('0');
@@ -273,7 +269,7 @@ describe('YAM governance', () => {
       cs = await yam.contracts.yam.methods.checkpoints(a1, 2).call();
       expect(cs.votes).toBe("0"); // 0
 
-      let t4 = await yam.contracts.yam.methods.transfer(guy, yam.toBigN(100).times(yam.toBigN(10**18)).times(.2).toString()).send({from: user});
+      const t4 = await yam.contracts.yam.methods.transfer(guy, yam.toBigN(100).times(yam.toBigN(10**18)).times(.2).toString()).send({from: user});
 
       nc = await yam.contracts.yam.methods.numCheckpoints(a1).call();
       expect(nc).toBe('2');
@@ -294,12 +290,12 @@ describe('YAM governance', () => {
     });
 
     test('returns 0 if there are no checkpoints', async () => {
-      let pv = await yam.contracts.yam.methods.getPriorVotes(a1, 0).call();
+      const pv = await yam.contracts.yam.methods.getPriorVotes(a1, 0).call();
       expect(pv).toBe('0');
     });
 
     test('returns the latest block if >= last checkpoint block', async () => {
-      let t1 = await yam.contracts.yam.methods.delegate(a1).send({from: user});
+      const t1 = await yam.contracts.yam.methods.delegate(a1).send({from: user});
       await yam.testing.mineBlock();
       await yam.testing.mineBlock();
 
@@ -312,7 +308,7 @@ describe('YAM governance', () => {
 
     test('returns zero if < first checkpoint block', async () => {
       await yam.testing.mineBlock();
-      let t1 = await yam.contracts.yam.methods.delegate(a1).send({from: user});
+      const t1 = await yam.contracts.yam.methods.delegate(a1).send({from: user});
       await yam.testing.mineBlock();
       await yam.testing.mineBlock();
 
@@ -324,19 +320,19 @@ describe('YAM governance', () => {
     });
 
     it('generally returns the voting balance at the appropriate checkpoint', async () => {
-      let one_hundred = yam.toBigN(100).times(yam.toBigN(10**18));
+      const one_hundred = yam.toBigN(100).times(yam.toBigN(10**18));
       await yam.contracts.yam.methods.transfer(guy, one_hundred.toString()).send({from: user});
 
-      let t1 = await yam.contracts.yam.methods.delegate(a1).send({from: guy});
+      const t1 = await yam.contracts.yam.methods.delegate(a1).send({from: guy});
       await yam.testing.mineBlock();
       await yam.testing.mineBlock();
-      let t2 = await yam.contracts.yam.methods.transfer(a2, yam.toBigN(100).times(yam.toBigN(10**18)).times(.1).toString()).send({from: guy});
+      const t2 = await yam.contracts.yam.methods.transfer(a2, yam.toBigN(100).times(yam.toBigN(10**18)).times(.1).toString()).send({from: guy});
       await yam.testing.mineBlock();
       await yam.testing.mineBlock();
-      let t3 = await yam.contracts.yam.methods.transfer(a2, yam.toBigN(100).times(yam.toBigN(10**18)).times(.1).toString()).send({from: guy});
+      const t3 = await yam.contracts.yam.methods.transfer(a2, yam.toBigN(100).times(yam.toBigN(10**18)).times(.1).toString()).send({from: guy});
       await yam.testing.mineBlock();
       await yam.testing.mineBlock();
-      let t4 = await yam.contracts.yam.methods.transfer(guy, yam.toBigN(100).times(yam.toBigN(10**18)).times(.2).toString()).send({from: a2});
+      const t4 = await yam.contracts.yam.methods.transfer(guy, yam.toBigN(100).times(yam.toBigN(10**18)).times(.2).toString()).send({from: a2});
       await yam.testing.mineBlock();
       await yam.testing.mineBlock();
 
