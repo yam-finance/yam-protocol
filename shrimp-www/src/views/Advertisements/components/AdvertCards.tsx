@@ -182,6 +182,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
                       <StyledDetail>1,000 Shrimp</StyledDetail>
                       <StyledDetail>5 Days</StyledDetail>
                       <StyledDetail><a href="https://t.me/DOGEFI_army">Telegram</a> | <a href="https://twitter.com/DOGEFI_Army">Twitter</a></StyledDetail>
+                      <StyledDetail>Maximum Dogefi is 150,000</StyledDetail>
                     </>
                   }
                 </StyledContent>
