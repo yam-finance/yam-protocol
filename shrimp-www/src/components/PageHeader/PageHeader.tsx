@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-
+import doge from '../../assets/img/doge.png';
 interface PageHeaderProps {
   icon: React.ReactNode,
   subtitle?: React.ReactNode,
@@ -11,7 +11,8 @@ const PageHeader: React.FC<PageHeaderProps> = ({ icon, subtitle, title }) => {
   return (
     <StyledPageHeader>
       {icon === "aa" && <img style={{width:"85px"}} src="https://zombie.finance/logo2.png"/>}
-      {icon !== "aa" && <StyledIcon>{icon}</StyledIcon>}
+      {icon === "dd" && <img style={{width:"45px"}} src={require(doge)}/>}
+      {icon !== "aa" ||icon !== "dd" ? <StyledIcon>{icon}</StyledIcon> : ''}
       <StyledTitle>{title}</StyledTitle>
       <StyledSubtitle>{subtitle}</StyledSubtitle>
     </StyledPageHeader>

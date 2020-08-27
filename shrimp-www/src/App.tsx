@@ -21,6 +21,7 @@ import Home from './views/Home'
 import Adverts from './views/Advertisements';
 import Vote from './views/Gov'
 import Farm from './views/Farm/Farm'
+import Stats from './views/Stats/Stats'
 
 import theme from './theme'
 
@@ -43,6 +44,9 @@ const App: React.FC = () => {
           </Route>
           <Route path="/Adverts" exact>
             <Adverts />
+          </Route>
+          <Route path="/Stats" exact>
+            <Stats />
           </Route>
         </Switch>
       </Router>

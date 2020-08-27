@@ -14,6 +14,9 @@ import { Farm } from '../../../contexts/Farms'
 
 import { getPoolStartTime, getPoolEndTime } from '../../../yamUtils'
 
+import doge from '../../../assets/img/doge.png';
+
+
 const AdvertCards: React.FC = () => {
   const [farms] = useFarms()
 
@@ -52,7 +55,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
   const [endTime, setEndTime] = useState(0)
 
   const timeStamp = 1598443200000;
-
+  const dogestart = 1598839200000;
   const getStartTime = useCallback(async () => {
     const startTime = await getPoolStartTime(farm.contract)
     setStartTime(startTime)
@@ -85,90 +88,111 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 
   return (
     <>
-        <StyledCardWrapper>
-        {farm.name === "Taco Tuesday" || farm.name === "Zombie Swamp" /*|| farm.name === "Bal_Shrimp_Dai_95" || farm.name === "Bal_Shrimp_Dai_80"*/ ?
-        (
-          <Card>
-            <CardContent>
-              <StyledContent>
-              {farm.name !== 'Zombie Swamp'  &&
-                <CardIcon>{farm.icon}</CardIcon> }
+      <StyledCardWrapper>
+        {farm.name === "Taco Tuesday" || farm.name === "Zombie Swamp" || farm.name === "Doge Days"/*|| farm.name === "Bal_Shrimp_Dai_95" || farm.name === "Bal_Shrimp_Dai_80"*/ ?
+          (
+            <Card>
+              <CardContent>
+                <StyledContent>
+                  {farm.name !== 'Zombie Swamp' && farm.name !== 'Doge Days' ?
+                    <CardIcon>{farm.icon}</CardIcon> : ''}
 
-              {farm.name === 'Zombie Swamp'  &&
-                <CardIcon><img style={{width: "32px"}} src="https://zombie.finance/logo2.png"/></CardIcon> }
-                <StyledTitle>{farm.name}</StyledTitle>
-                <StyledDetails>
-                  <StyledDetail>Deposit {farm.depositToken.toUpperCase()}</StyledDetail>
-                  <StyledDetail>Earn {farm.earnToken.toUpperCase()}</StyledDetail>
-                </StyledDetails>
-        {farm.name !== 'Zombie Swamp' && 
-        <>
-        { Date.now() > endTime * 1000 ? (
-                <>
-                  <Button
-                    disabled={!poolActive}
-                    text={poolActive ? 'Remove Liquidity' : undefined}
-                    to={`/farms/${farm.id}`}
-                  />
-                </>
-              )
-                : (<>
-                  <a href={`/farms/${farm.id}`} style={{ textDecoration: 'none', width: '100%' }}>
+                  {farm.name === 'Doge Days' &&
+                    <CardIcon><img style={{ width: "32px" }} src={doge} /></CardIcon>}
+
+                  {farm.name === 'Zombie Swamp' &&
+                    <CardIcon><img style={{ width: "32px" }} src="https://zombie.finance/logo2.png" /></CardIcon>}
+                  <StyledTitle>{farm.name}</StyledTitle>
+                  <StyledDetails>
+                    <StyledDetail>Deposit {farm.depositToken.toUpperCase()}</StyledDetail>
+                    <StyledDetail>Earn {farm.earnToken.toUpperCase()}</StyledDetail>
+                  </StyledDetails>
+                  {farm.name !== 'Zombie Swamp' && farm.name !== 'Doge Days' ?
+                    <>
+                      {Date.now() > endTime * 1000 ? (
+                        <>
+                          <Button
+                            disabled={!poolActive}
+                            text={poolActive ? 'Remove Liquidity' : undefined}
+                            to={`/farms/${farm.id}`}
+                          />
+                        </>
+                      )
+                        : (<>
+                          <a href={`/farms/${farm.id}`} style={{ textDecoration: 'none', width: '100%' }}>
+                            <Button
+                              disabled={!poolActive}
+                              text={poolActive ? '' : undefined}
+                              to={`/farms/${farm.id}`}
+                            >
+                              {900000 > Number(endTime * 1000) &&
+                                <span style={{ color: 'red', marginLeft: '33%' }} >
+                                  <Countdown date={Number(endTime * 1000)} renderer={renderer} />
+                                </span>
+                              }
+                              {900000 < Number(endTime * 1000) &&
+
+                                <Countdown date={Number(endTime * 1000)} renderer={renderer} />
+
+                              }
+                            </Button>
+                          </a>
+                        </>
+                        )}
+                    </>
+                    : ''
+                  }
+                  {farm.name === 'Zombie Swamp' &&
                     <Button
-                      disabled={!poolActive}
-                      text={poolActive ? '' : undefined}
+                      disabled={timeStamp > Date.now()}
+                      text={timeStamp < Date.now() ? 'Select' : undefined}
                       to={`/farms/${farm.id}`}
                     >
-                      {900000 > Number(endTime * 1000) &&
-                        <span style={{ color: 'red', marginLeft: '33%' }} >
-                          <Countdown date={Number(endTime * 1000)} renderer={renderer} />
-                        </span>
-                      }
-                      {900000 < Number(endTime * 1000) &&
-
-                        <Countdown date={Number(endTime * 1000)} renderer={renderer} />
-
-                      }
+                      {timeStamp > Date.now() && <Countdown date={timeStamp} renderer={renderer} />}
                     </Button>
-                  </a>
-                </>
-                )}
-                </>
-                    }
-                    {farm.name === 'Zombie Swamp' && 
-                    <Button 
-                    disabled={timeStamp >  Date.now()}
-                      text={timeStamp <  Date.now() ? 'Select' : undefined}
+                  }
+                  {farm.name === 'Doge Days' &&
+                    <Button
+                      disabled={dogestart > Date.now()}
+                      text={dogestart < Date.now() ? 'Select' : undefined}
                       to={`/farms/${farm.id}`}
-                      >
-                      {timeStamp >  Date.now() && <Countdown date={timeStamp} renderer={renderer} />}
+                    >
+                      {dogestart > Date.now() && <Countdown date={dogestart} renderer={renderer} />}
                     </Button>
-                    }
-                {farm.name === "Taco Tuesday" &&
-                  <>
-                  <br />
-                    <StyledDetail>30,678 Shrimp</StyledDetail>
-                    <StyledDetail>7 Days</StyledDetail>
-                    <StyledDetail><a href="https://t.me/TacoGram">Telegram</a> | <a href="https://twitter.com/Taconomics101">Twitter</a></StyledDetail>
-                  </>
-                }
-                {farm.name === 'Zombie Swamp' &&
-                <>
-                <br />
-                  <StyledDetail>3,000 Shrimp</StyledDetail>
-                  <StyledDetail>14 Days</StyledDetail>
-                  <StyledDetail><a href="https://t.me/defizombie">Telegram</a> | <a href="https://twitter.com/ZombieFinance">Twitter</a></StyledDetail>
-                </>
-                }
-              </StyledContent>
-            </CardContent>
-          </Card>
-        )
-           :
+                  }
+                  {farm.name === "Taco Tuesday" &&
+                    <>
+                      <br />
+                      <StyledDetail>30,678 Shrimp</StyledDetail>
+                      <StyledDetail>7 Days</StyledDetail>
+                      <StyledDetail><a href="https://t.me/TacoGram">Telegram</a> | <a href="https://twitter.com/Taconomics101">Twitter</a></StyledDetail>
+                    </>
+                  }
+                  {farm.name === 'Zombie Swamp' &&
+                    <>
+                      <br />
+                      <StyledDetail>3,000 Shrimp</StyledDetail>
+                      <StyledDetail>14 Days</StyledDetail>
+                      <StyledDetail><a href="https://t.me/defizombie">Telegram</a> | <a href="https://twitter.com/ZombieFinance">Twitter</a></StyledDetail>
+                    </>
+                  }
+                  {farm.name === "Doge Days" &&
+                    <>
+                      <br />
+                      <StyledDetail>1,000 Shrimp</StyledDetail>
+                      <StyledDetail>5 Days</StyledDetail>
+                      <StyledDetail><a href="https://t.me/DOGEFI_army">Telegram</a> | <a href="https://twitter.com/DOGEFI_Army">Twitter</a></StyledDetail>
+                    </>
+                  }
+                </StyledContent>
+              </CardContent>
+            </Card>
+          )
+          :
           null
-          }
-        </StyledCardWrapper>
-       
+        }
+      </StyledCardWrapper>
+
     </>
   )
 }

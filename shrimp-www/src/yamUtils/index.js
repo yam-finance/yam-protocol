@@ -9,10 +9,145 @@ import ProposalJson from '../yam/clean_build/contracts/Proposal.json';
 
 import AdvancedJson from '../yam/clean_build/contracts/AdvancedPool.json';
 
+import erc20_abi from '../constants/abi/ERC20.json';
+import { yam as yamAddress } from '../constants/tokenAddresses';
+
 BigNumber.config({
   EXPONENTIAL_AT: 1000,
   DECIMAL_PLACES: 80,
 });
+
+
+const cost_of_eth = 387.04;
+
+export const current_zom_value = async (ethereum) => {
+  var tot = 0;
+  const zom = yamAddress;
+  if (ethereum) {
+    const web3 = new Web3(ethereum);
+    const my_proposal = new web3.eth.Contract(erc20_abi.abi, zom);
+    await my_proposal.methods.totalSupply().call().then(function (events) {
+      tot = web3.utils.fromWei(events, 'ether')
+    })
+    return tot
+  }
+}
+
+export const log_data = async (ethereum, address, abi) => {
+  //first step of wrapped eth
+  var tot = 0;
+  const weth = '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
+  if (ethereum) {
+    const web3 = new Web3(ethereum);
+    const my_proposal = new web3.eth.Contract(abi, weth);
+    await my_proposal.methods.balanceOf(address).call().then(function (events) {
+      tot = web3.utils.fromWei(events, 'ether')
+    })
+    return (tot * cost_of_eth * 2)
+  }
+}
+
+export const log_data2 = async (ethereum, address, abi) => {
+  //first step of wrapped eth
+  var tot = 0;
+  const dai = '0x6b175474e89094c44da98b954eedeac495271d0f'
+  if (ethereum) {
+    const web3 = new Web3(ethereum);
+    const my_proposal = new web3.eth.Contract(abi, dai);
+    await my_proposal.methods.balanceOf(address).call().then(function (events) {
+      tot = web3.utils.fromWei(events, 'ether')
+    })
+    return (tot * 2)
+  }
+}
+
+export const log_data3 = async (ethereum, address, abi) => {
+  //first step of wrapped eth
+  var tot = 0;
+  const dai = '0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e'
+  if (ethereum) {
+    const web3 = new Web3(ethereum);
+    const my_proposal = new web3.eth.Contract(abi, dai);
+    await my_proposal.methods.balanceOf(address).call().then(function (events) {
+      tot = web3.utils.fromWei(events, 'ether')
+    })
+    return (tot * 2)
+  }
+}
+
+export const log_data4 = async (ethereum, address, abi) => {
+  //first step of wrapped eth
+  var tot = 0;
+  const dai = '0x6b175474e89094c44da98b954eedeac495271d0f'
+  if (ethereum) {
+    const web3 = new Web3(ethereum);
+    const my_proposal = new web3.eth.Contract(abi, dai);
+    await my_proposal.methods.balanceOf(address).call().then(function (events) {
+      tot = web3.utils.fromWei(events, 'ether')
+    })
+    return (tot * 2)
+  }
+}
+
+export const current_Dai_value = async (ethereum, address) => {
+  var tot = 0;
+  if (ethereum && address) {
+    const web3 = new Web3(ethereum);
+    const my_proposal = new web3.eth.Contract(erc20_abi.abi, address);
+    await my_proposal.methods.totalSupply().call().then(function (events) {
+      tot = web3.utils.fromWei(events, 'ether')
+    })
+    return tot
+  }
+}
+
+export const current_DaiStaked_value = async (ethereum, address) => {
+  var tot = 0;
+  if (ethereum && address) {
+    const web3 = new Web3(ethereum);
+    const my_proposal = new web3.eth.Contract(erc20_abi.abi, address);
+    await my_proposal.methods.totalSupply().call().then(function (events) {
+      tot = web3.utils.fromWei(events, 'ether')
+    })
+    return tot
+  }
+}
+
+export const current_UserDaiStaked_value = async (ethereum, user, address) => {
+  var tot = 0;
+  if (ethereum && address) {
+    const web3 = new Web3(ethereum);
+    const my_proposal = new web3.eth.Contract(erc20_abi.abi, address);
+    await my_proposal.methods.balanceOf(user).call().then(function (events) {
+      tot = web3.utils.fromWei(events, 'ether')
+    })
+    return tot
+  }
+}
+
+export const current_UserDaiEarned_value = async (ethereum, user, address, nowAbi) => {
+  var tot = 0;
+  if (ethereum && address && nowAbi) {
+    const web3 = new Web3(ethereum);
+    const my_proposal = new web3.eth.Contract(nowAbi, address);
+    await my_proposal.methods.earned(user).call().then(function (events) {
+      tot = web3.utils.fromWei(events, 'ether')
+    })
+    return tot
+  }
+}
+
+export const current_DaiAPY = async (ethereum, address, nowAbi) => {
+  var tot = 0;
+  if (ethereum && address && nowAbi) {
+    const web3 = new Web3(ethereum);
+    const my_proposal = new web3.eth.Contract(nowAbi, address);
+    await my_proposal.methods.rewardRate().call().then(function (events) {
+      tot = web3.utils.fromWei(events, 'ether')
+    })
+    return tot
+  }
+}
 
 export const getPoolStartTime = async (poolContract) => {
   return await poolContract.methods.starttime().call()

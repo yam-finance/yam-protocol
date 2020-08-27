@@ -28,6 +28,7 @@ import UNIPoolJson from '../clean_build/contracts/ShrimpUniPool.json';
 import DICEPoolJson from '../clean_build/contracts/SHRIMPDICEPool.json';
 import TACOPoolJson from '../clean_build/contracts/ShrimpTacoPool.json';
 import ProposalJson from '../clean_build/contracts/Proposal.json';
+import DOGEPoolJson from '../clean_build/contracts/DOGEPoolJson.json'
 import IncJson from '../clean_build/contracts/YAMIncentivizer.json';
 
 export class Contracts {
@@ -58,7 +59,9 @@ export class Contracts {
     this.bsd95 = new this.web3.eth.Contract(ERC20Json.abi);
     this.bsd80 = new this.web3.eth.Contract(ERC20Json.abi);
     this.zombie = new this.web3.eth.Contract(ERC20Json.abi);
+    this.dogefi = new this.web3.eth.Contract(ERC20Json.abi);
 
+    this.dogefi_pool = new this.web3.eth.Contract(DOGEPoolJson.abi);
     this.zombie_pool = new this.web3.eth.Contract(ZOMBIEPoolJson.abi);
     this.yfi_pool = new this.web3.eth.Contract(YFIPoolJson.abi);
     this.eth_pool = new this.web3.eth.Contract(WETHPoolJson.abi);
@@ -108,6 +111,7 @@ export class Contracts {
       { contract: this.bsd95_pool, json: BalShrimpDai95Json},
       { contract: this.bsd80_pool, json: BalShrimpDai80Json},
       { contract: this.zombie_pool, json: ZOMBIEPoolJson},
+      { contract: this.dogefi_pool, json: ZOMBIEPoolJson},
       // { contract: this.proposal, json: ProposalJson}
     ]
 
@@ -118,6 +122,7 @@ export class Contracts {
         networkId,
       ),
     );
+    this.dogefi.options.address = addressMap["DOGEFI"];
     this.zombie.options.address = addressMap["ZOMBIE"];
     this.yfi.options.address = addressMap["YFI"];
     this.weth.options.address = addressMap["WETH"];
@@ -143,6 +148,7 @@ export class Contracts {
       {"tokenAddr": this.bsd95.options.address, "poolAddr": this.bsd95_pool.options.address},
       {"tokenAddr": this.bsd80.options.address, "poolAddr": this.bsd80_pool.options.address},
       {"tokenAddr": this.zombie.options.address, "poolAddr": this.zombie_pool.options.address},
+      {"tokenAddr": this.dogefi.options.address, "poolAddr": this.dogefi_pool.options.address},
     ]
   }
 
@@ -160,6 +166,7 @@ export class Contracts {
     this.bsd95.options.from = account;
     this.bsd80.options.from = account;
     this.zombie.options.from = account;
+    this.dogefi.options.from = account;
   }
 
   async callContractFunction(

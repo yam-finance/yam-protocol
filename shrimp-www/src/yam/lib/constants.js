@@ -22,7 +22,7 @@ export const INTEGERS = {
   INTEREST_RATE_BASE: new BigNumber('1e18'),
 };
 
-//erc20 list/xixi
+//erc20 address list/xixi
 export const addressMap = {
   uniswapFactory : "0xc0a47dFe034B400B47bDaD5FecDa2621de6c4d95",
   uniswapFactoryV2: "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f",
@@ -35,5 +35,5 @@ export const addressMap = {
   UNI: "0xeba5d22bbeb146392d032a2f74a735d66a32aee4",
   TACO: "0x00D1793D7C3aAE506257Ba985b34C76AaF642557",
   ZOMBIE: "0xdcEe2dC9834dfbc7d24C57769ED51daf202a1b87",
-  // SHRIMPSCRV: "0x2C7a51A357d5739C5C74Bf3C96816849d2c9F726",
+  DOGEFI: "0x9B9087756eCa997C5D595C840263001c9a26646D",
 }
