@@ -23,12 +23,14 @@ Xixi's address: [0xaa447A04b15AFF261e0683f293A1b731c5c10c9B](https://etherscan.i
 
 
 ## Shirmp Token Info
-Total Shrimp Coin：229,240.92 Shrimp ([More Info](https://github.com/shrimp-finance/shrimp-protocol/wiki/Total-Shrimp:-229,240.92-%F0%9F%A6%90)  )  
+Total Shrimp Coin：233,735.84 Shrimp ([More Info](https://github.com/shrimp-finance/shrimp-protocol/wiki/Total-Shrimp:-233,735.84-%F0%9F%A6%90)  )  
+The last total amount update: 2020/08/28(+ 4,494.92 🦐)  
+
 Genesis Distribution Pool：Genesis Staked pool(Dice, Eth, Cream, YFI, Comp, UNI Pool)    
 Genesis Distribution Period：2020/08/13 ~ 2020/08/19(It's all over, only Uni pool is left)
 
 ## Advanced Pool Info
-Anyone can create an advanced pool by placing at least 3000 🦐 Shrimp and pointing to a minimum of 3 days.
+Anyone can create an advanced pool by placing at least 3000 🦐 Shrimp or equivalent to 4000 $USD and pointing to a minimum of 3 days.
 
 We have the purest cryptocurrency shrimp community in the world and can help you market your project.
 There is no more efficient marketing method than this. Hurry up and join the shrimp community. Let's take a look at your project, 👀?
