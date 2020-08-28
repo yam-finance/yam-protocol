@@ -5,7 +5,7 @@
 ## The Protocol
 The whale fights the shrimp, and it has never changed since ancient times. Who said shrimp can't fight big whales? As long as we are united!
 
-Shrimp is a community that gathers all investors. We share the latest Pump tokens and collectively discuss the latest DeFi technology! Anyone who holds 3000 $Shrimp Coins can make a Advanced Pool. All Shrimp Holders will start marketing your token! why? Because we are a group of people who want to fight whales.
+Shrimp is a community that gathers all investors. We share the latest Pump tokens and collectively discuss the latest DeFi technology! Anyone who holds 3000 $Shrimp Coins or equivalent to 4000 $USD can make a Advanced Pool. All Shrimp Holders will start marketing your token! why? Because we are a group of people who want to fight whales.
 
 
 ## Level of ocean
