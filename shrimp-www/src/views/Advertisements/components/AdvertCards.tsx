@@ -89,15 +89,15 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
   return (
     <>
       <StyledCardWrapper>
-        {farm.name === "Taco Tuesday" || farm.name === "Zombie Swamp" || farm.name === "Doge Days"/*|| farm.name === "Bal_Shrimp_Dai_95" || farm.name === "Bal_Shrimp_Dai_80"*/ ?
+        {farm.name === "Taco Tuesday" || farm.name === "Zombie Swamp" || farm.name === "DogeFi Days"/*|| farm.name === "Bal_Shrimp_Dai_95" || farm.name === "Bal_Shrimp_Dai_80"*/ ?
           (
             <Card>
               <CardContent>
                 <StyledContent>
-                  {farm.name !== 'Zombie Swamp' && farm.name !== 'Doge Days' ?
+                  {farm.name !== 'Zombie Swamp' && farm.name !== 'DogeFi Days' ?
                     <CardIcon>{farm.icon}</CardIcon> : ''}
 
-                  {farm.name === 'Doge Days' &&
+                  {farm.name === 'DogeFi Days' &&
                     <CardIcon><img style={{ width: "32px" }} src={doge} /></CardIcon>}
 
                   {farm.name === 'Zombie Swamp' &&
@@ -107,7 +107,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
                     <StyledDetail>Deposit {farm.depositToken.toUpperCase()}</StyledDetail>
                     <StyledDetail>Earn {farm.earnToken.toUpperCase()}</StyledDetail>
                   </StyledDetails>
-                  {farm.name !== 'Zombie Swamp' && farm.name !== 'Doge Days' ?
+                  {farm.name !== 'Zombie Swamp' && farm.name !== 'DogeFi Days' ?
                     <>
                       {Date.now() > endTime * 1000 ? (
                         <>
@@ -151,7 +151,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
                       {timeStamp > Date.now() && <Countdown date={timeStamp} renderer={renderer} />}
                     </Button>
                   }
-                  {farm.name === 'Doge Days' &&
+                  {farm.name === 'DogeFi Days' &&
                     <Button
                       disabled={dogestart > Date.now()}
                       text={dogestart < Date.now() ? 'Select' : undefined}
@@ -176,13 +176,12 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
                       <StyledDetail><a href="https://t.me/defizombie">Telegram</a> | <a href="https://twitter.com/ZombieFinance">Twitter</a></StyledDetail>
                     </>
                   }
-                  {farm.name === "Doge Days" &&
+                  {farm.name === "DogeFi Days" &&
                     <>
                       <br />
                       <StyledDetail>1,000 Shrimp</StyledDetail>
                       <StyledDetail>5 Days</StyledDetail>
                       <StyledDetail><a href="https://t.me/DOGEFI_army">Telegram</a> | <a href="https://twitter.com/DOGEFI_Army">Twitter</a></StyledDetail>
-                      <StyledDetail>Maximum Dogefi is 150,000</StyledDetail>
                     </>
                   }
                 </StyledContent>

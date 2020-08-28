@@ -20,7 +20,7 @@ const NAME_FOR_POOL: { [key: string]: string } = {
   dice_pool: 'Safe Haven',
   uni_pool: 'WETH_SHRIMP_UNI_LP',
   taco_pool: 'Taco Tuesday',
-  dogefi_pool: 'Doge Days'
+  dogefi_pool: 'DogeFi Days'
 }
 
 const ICON_FOR_POOL: { [key: string]: string } = {

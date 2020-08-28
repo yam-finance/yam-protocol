@@ -35,15 +35,29 @@ import {
   log_data4
 } from '../../../yamUtils'
 
+const thousands_separators = (num: Number) => {
+  var numerator = num.toFixed(2);
+  var num_parts = numerator.split(".");
+  num_parts[0] = num_parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return num_parts.join(".");
+}
+
 
 const StatCards: React.FC = () => {
   const [farms] = useFarms()
   const rows = farms.reduce<Farm[][]>((farmRows, farm) => {
     const newFarmRows = [...farmRows]
     if (newFarmRows[newFarmRows.length - 1].length) {
+      if(farm.sort === 1 || farm.sort === 0 || farm.id === 'cream' || farm.id === 'shrimp' || farm.id === 'dice' ||farm.id === 'taco' || farm.id === 'comp' || farm.id === 'yfi' || farm.id === 'dogefi' || farm.id === 'weth') {
+       } else {
       newFarmRows.push([farm])
+    }
     } else {
-      newFarmRows[newFarmRows.length - 1].push(farm)
+      if(farm.sort === 1 || farm.sort === 0 || farm.id === 'cream' || farm.id === 'shrimp' || farm.id === 'dice' ||farm.id === 'taco' || farm.id === 'comp' || farm.id === 'yfi' || farm.id === 'dogefi' || farm.id === 'weth') {
+      } else {
+        newFarmRows[newFarmRows.length - 1].push(farm)
+   }
+      
     }
     return newFarmRows
   }, [[]])
@@ -57,11 +71,7 @@ const StatCards: React.FC = () => {
         <StyledRow key={i}>
           {farmRow.map((farm, j) => (
             <React.Fragment key={j}>
-              {farm.sort === 1 || farm.sort === 0 || farm.id === 'cream' || farm.id === 'shrimp' || farm.id === 'dice' ||farm.id === 'taco' || farm.id === 'comp' || farm.id === 'yfi' || farm.id === 'weth' || farm.id === 'dogefi' ?
-              ''
-              :
               <FarmCard farm={farm} />
-            }
             </React.Fragment>
           ))}
         </StyledRow>
@@ -264,9 +274,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
   }, [])
 
   return (
-    <>{farm.sort === 1 || farm.sort === 0 || farm.id === 'cream' || farm.id === 'shrimp' || farm.id === 'dice' ||farm.id === 'taco' || farm.id === 'comp' || farm.id === 'yfi' || farm.id === 'weth' || farm.id === 'dogefi'?
-    ''
-    :
+    <>
         <StyledCardWrapper>
           <Card>
             <CardContent>
@@ -275,31 +283,29 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
               </StyledContent>
               <br />
         ========== PRICES ==========<br />
-              {currentPrice && `SHRIMP: $${Number(currentPrice).toLocaleString()}`}<br />
+              {currentPrice && `SHRIMP: $${thousands_separators(Number(currentPrice))}`}<br />
 
               {farm.id === 'zombie'
-              ? `${farm.id.toLocaleUpperCase()}: $${currentCoinPrice === '' ? Number(totalwrapped / totalDai) : Number(currentstatPrice).toLocaleString()}` : ''}
-              {farm.id === 'uni' && `WETH_SHRIMP_UNI_LP: $${currentCoinPrice === '1' ? Number(totalwrapped / totalDai).toFixed(2) : Number(currentstatPrice).toLocaleString()}`}
+              ? `${farm.id.toLocaleUpperCase()}: $${currentCoinPrice === '' ? thousands_separators(Number(totalwrapped / totalDai)) : thousands_separators(Number(currentstatPrice))}` : ''}
+              {farm.id === 'uni' && `WETH_SHRIMP_UNI_LP: $${currentCoinPrice === '1' ? thousands_separators(Number(totalwrapped / totalDai)) : thousands_separators(Number(currentstatPrice))}`}
               <br/>
-              {currentCoinPrice === '1' && `TVL: $${(Number(totalDaiStaked)*Number(totalwrapped / totalDai)).toFixed(2)}`}
+              {currentCoinPrice === '1' && `TVL: $${thousands_separators(Number(totalDaiStaked)*Number(totalwrapped / totalDai))}`}
         {farm.id === 'zombie'
-         ? `TVL: $${(Number(totalDaiStaked)*Number(currentstatPrice)).toFixed(2)}` : ''}
+         ? `TVL: $${thousands_separators(Number(totalDaiStaked)*Number(currentstatPrice))}` : ''}
          <br/>
         ========== STAKING =========<br />
               {/* Total supply of SHRIMP-{totalZom}<br/> */}
-              <> Total supply of {farm.depositToken.toLocaleUpperCase()}: {totalDai} <br />
-        Total supply of {farm.depositToken.toLocaleUpperCase()} staked in our contract: {totalDaiStaked} <br />
-        You are staking: {userStakedDai} <br />
+              <> Total supply of {farm.depositToken.toLocaleUpperCase()}: {thousands_separators(totalDai)} <br />
+        Total supply of {farm.depositToken.toLocaleUpperCase()} staked in our contract: {thousands_separators(totalDaiStaked)} <br />
+        You are staking: {thousands_separators(userStakedDai)} <br />
               </>
         ======== SHRIMP REWARDS ========<br />
-              <>Your available rewards are: {userEarnedDai}<br />
-        APY: {DaiAPY}%<br/>
-        
+              <>Your available rewards are: {thousands_separators(userEarnedDai)}<br />
+        <span style={{fontWeight: 900}}>APY: {thousands_separators(DaiAPY)}%</span><br/>
         </>
             </CardContent>
           </Card>
         </StyledCardWrapper>
-}
     </>
   )
 }
