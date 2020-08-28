@@ -24,9 +24,8 @@ const DisclaimerModal: React.FC<DisclaimerModal> = ({ onConfirm, onDismiss }) =>
       return (
         <div>
           <p>Audits: None. (This project is in beta. Use at your own risk.)</p>
-          <p>🦐 New Advanced Pool will start on 2020/08/31 10:00:00 UTC+0, welcome <a href="https://www.dogefi.army/" target="_blank">$DOGEFI ARMY</a> on board. 🦐</p>
-          <p>🚨 For more information on the inflation of Uniswap LP pool tokens, please visit <a href="https://github.com/shrimp-finance/shrimp-protocol/wiki/Total-Shrimp:-229,240.92-%F0%9F%A6%90" target="_blank">Github Wiki</a></p>
-          <br/>
+          <p>🦐 New Advanced Pool will start on 2020/08/31 10:00:00 UTC+0, welcome <a href="https://www.dogefi.army/" target="_blank">$DOGEFI ARMY</a> on board. 🦐 <br/><br/>⚠️This pool has 150,000 Cap DOGEFI tokens, please join the pool as soon as possible!</p>
+          <br/><p>🚨 For more information on the inflation of Uniswap LP pool tokens, please visit <a href="https://github.com/shrimp-finance/shrimp-protocol/wiki/Total-Shrimp:-233,735.84-%F0%9F%A6%90" target="_blank">Github Wiki</a></p>
           <p>💡 Any token in Advanced Pool does not constitute an investment opinion, Shrimp Group is only responsible for basic quick check! Please evaluate yourself carefully before buying!</p>
         </div>
       )
