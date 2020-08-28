@@ -2,8 +2,11 @@ import React, { useMemo, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import axios from "axios";
 
+import { useWallet } from 'use-wallet';
+
 import numeral from 'numeral'
 
+import TVL from './TVL';
 import Card from '../../../components/Card'
 import CardContent from '../../../components/CardContent'
 import Label from '../../../components/Label'
@@ -24,6 +27,8 @@ const Stats: React.FC<StatsProps> = ({
   totalSupply,
 }) => {
   const [currentPrice, setCurrentPrice] = useState(new Number)
+  
+  const { account, ethereum } = useWallet()
 
   const formattedTotalSupply = useMemo(() => {
     if (totalSupply) {
@@ -53,14 +58,24 @@ const Stats: React.FC<StatsProps> = ({
 
       <StyledSpacer />
 
-      {/* <Card>
+      <Card>
         <CardContent>
           <StyledStat>
-            <StyledValue>$100</StyledValue>
-            <Label text="Target Price" />
+          {!account ? (
+           <>
+           <StyledValue>
+             {"unlock wallet"}
+            </StyledValue>
+         </>
+          ) : (
+            <StyledValue>
+             <TVL/>
+            </StyledValue>
+          )}
+            <Label text="Total Locked Value" />
           </StyledStat>
         </CardContent>
-      </Card> */}
+      </Card>
 
       <StyledSpacer />
 
