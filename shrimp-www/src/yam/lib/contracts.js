@@ -116,7 +116,7 @@ export class Contracts {
       { contract: this.bsd95_pool, json: BalShrimpDai95Json},
       { contract: this.bsd80_pool, json: BalShrimpDai80Json},
       { contract: this.zombie_pool, json: ZOMBIEPoolJson},
-      { contract: this.dogefi_pool, json: ZOMBIEPoolJson},
+      { contract: this.dogefi_pool, json: DOGEPoolJson},
       { contract: this.sushi_pool, json: SUSHIPoolJson},
       // { contract: this.proposal, json: ProposalJson}
     ]
