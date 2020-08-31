@@ -64,9 +64,6 @@ const StatCards: React.FC = () => {
     return newFarmRows
   }, [[]])
 
-
-
-
   return (
     <StyledCards>
       {rows.map((farmRow, i) => (

@@ -159,11 +159,11 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
                   }
                   {farm.name === 'DogeFi Days' &&
                     <Button
-                      disabled={dogestart > Date.now()}
-                      text={dogestart < Date.now() ? 'Select' : undefined}
+                      disabled={dogestart < Date.now()}
+                      text={dogestart > Date.now() ? 'Select' : undefined}
                       to={`/farms/${farm.id}`}
                     >
-                      {dogestart > Date.now() && <Countdown date={dogestart} renderer={renderer} />}
+                      {dogestart < Date.now() && <Countdown date={dogestart} renderer={renderer} />}
                     </Button>
                   }
                   {farm.name === 'Sushi swap' &&
