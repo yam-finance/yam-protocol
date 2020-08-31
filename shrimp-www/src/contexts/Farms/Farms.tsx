@@ -21,7 +21,7 @@ const NAME_FOR_POOL: { [key: string]: string } = {
   uni_pool: 'WETH_SHRIMP_UNI_LP',
   taco_pool: 'Taco Tuesday',
   dogefi_pool: 'DogeFi Days',
-  sushi_pool: 'Shrimp sushi'
+  sushi_pool: 'Sushi swap'
 }
 
 const ICON_FOR_POOL: { [key: string]: string } = {
@@ -40,18 +40,18 @@ const ICON_FOR_POOL: { [key: string]: string } = {
 }
 
 const SORT_FOR_POOL: { [key: string]: number } = {
-  dogefi_pool: 2,
-  zombie_pool: 3,
+  dogefi_pool: 4, //2
+  zombie_pool: 11, //1
   bsd95_pool: 0,
   bsd80_pool: 1,  
-  taco_pool: 4,
+  taco_pool: 2, //4
   yfi_pool: 5,
   eth_pool: 6,
   cream_pool: 7,
   comp_pool: 8,
   dice_pool: 9,
   uni_pool: 10,
-  sushi_pool: 11,
+  sushi_pool: 3, //3
 }
 
 const Farms: React.FC = ({ children }) => {

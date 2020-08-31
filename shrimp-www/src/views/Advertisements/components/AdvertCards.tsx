@@ -23,9 +23,14 @@ const AdvertCards: React.FC = () => {
   const rows = farms.reduce<Farm[][]>((farmRows, farm) => {
     const newFarmRows = [...farmRows]
     if (newFarmRows[newFarmRows.length - 1].length === 3) {
-      newFarmRows.push([farm])
+      if (farm.name === "Sushi swap" || farm.name === "Taco Tuesday" || farm.name === "Zombie Swamp" || farm.name === "DogeFi Days"){
+        newFarmRows.push([farm])
+      }
+
     } else {
-      newFarmRows[newFarmRows.length - 1].push(farm)
+      if (farm.name === "Sushi swap" || farm.name === "Taco Tuesday" || farm.name === "Zombie Swamp" || farm.name === "DogeFi Days"){
+        newFarmRows[newFarmRows.length - 1].push(farm)
+      }
     }
     return newFarmRows
   }, [[]])
@@ -56,6 +61,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 
   const timeStamp = 1598443200000;
   const dogestart = 1598839200000;
+  const sushistart = 1598954400503;
   const getStartTime = useCallback(async () => {
     const startTime = await getPoolStartTime(farm.contract)
     setStartTime(startTime)
@@ -89,7 +95,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
   return (
     <>
       <StyledCardWrapper>
-        {farm.name === "Taco Tuesday" || farm.name === "Zombie Swamp" || farm.name === "DogeFi Days"/*|| farm.name === "Bal_Shrimp_Dai_95" || farm.name === "Bal_Shrimp_Dai_80"*/ ?
+        {farm.name === "Sushi swap" || farm.name === "Taco Tuesday" || farm.name === "Zombie Swamp" || farm.name === "DogeFi Days" ?
           (
             <Card>
               <CardContent>
@@ -107,7 +113,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
                     <StyledDetail>Deposit {farm.depositToken.toUpperCase()}</StyledDetail>
                     <StyledDetail>Earn {farm.earnToken.toUpperCase()}</StyledDetail>
                   </StyledDetails>
-                  {farm.name !== 'Zombie Swamp' && farm.name !== 'DogeFi Days' ?
+                  {farm.name !== 'Sushi swap' && farm.name !== 'Zombie Swamp' && farm.name !== 'DogeFi Days' ?
                     <>
                       {Date.now() > endTime * 1000 ? (
                         <>
@@ -160,6 +166,15 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
                       {dogestart > Date.now() && <Countdown date={dogestart} renderer={renderer} />}
                     </Button>
                   }
+                  {farm.name === 'Sushi swap' &&
+                    <Button
+                      disabled={sushistart > Date.now()}
+                      text={sushistart < Date.now() ? 'Select' : undefined}
+                      to={`/farms/${farm.id}`}
+                    >
+                      {sushistart > Date.now() && <Countdown date={sushistart} renderer={renderer} />}
+                    </Button>
+                  }
                   {farm.name === "Taco Tuesday" &&
                     <>
                       <br />
@@ -182,6 +197,14 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
                       <StyledDetail>1,000 Shrimp</StyledDetail>
                       <StyledDetail>5 Days</StyledDetail>
                       <StyledDetail><a href="https://t.me/DOGEFI_army">Telegram</a> | <a href="https://twitter.com/DOGEFI_Army">Twitter</a></StyledDetail>
+                    </>
+                  }
+                  {farm.name === "Sushi swap" &&
+                    <>
+                      <br />
+                      <StyledDetail>3,000 Shrimp</StyledDetail>
+                      <StyledDetail>7 Days</StyledDetail>
+                      <StyledDetail><a href="https://discord.com/invite/hJ2p555">Discord</a> | <a href="https://twitter.com/SushiSwap">Twitter</a></StyledDetail>
                     </>
                   }
                 </StyledContent>

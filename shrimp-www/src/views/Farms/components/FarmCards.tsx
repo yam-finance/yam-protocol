@@ -20,10 +20,15 @@ const FarmCards: React.FC = () => {
   const rows = farms.reduce<Farm[][]>((farmRows, farm) => {
     const newFarmRows = [...farmRows]
     if (newFarmRows[newFarmRows.length - 1].length === 3) {
-      if (farm.name === "Taco Tuesday" || farm.name === "Bal_Shrimp_Dai_95" || farm.name === "Bal_Shrimp_Dai_80" || farm.name === "Zombie Swamp" || farm.name === "DogeFi Days"){}
-      newFarmRows.push([farm])
+      if (farm.name === "Sushi swap" || farm.name === "Taco Tuesday" || farm.name === "Bal_Shrimp_Dai_95" || farm.name === "Bal_Shrimp_Dai_80" || farm.name === "Zombie Swamp" || farm.name === "DogeFi Days"){
+      } else {
+        newFarmRows.push([farm])
+      }
     } else {
+      if (farm.name === "Sushi swap" || farm.name === "Taco Tuesday" || farm.name === "Bal_Shrimp_Dai_95" || farm.name === "Bal_Shrimp_Dai_80" || farm.name === "Zombie Swamp" || farm.name === "DogeFi Days"){
+      } else {
       newFarmRows[newFarmRows.length - 1].push(farm)
+      }
     }
     return newFarmRows
   }, [[]])
