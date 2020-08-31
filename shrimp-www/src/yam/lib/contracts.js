@@ -29,6 +29,8 @@ import DICEPoolJson from '../clean_build/contracts/SHRIMPDICEPool.json';
 import TACOPoolJson from '../clean_build/contracts/ShrimpTacoPool.json';
 import ProposalJson from '../clean_build/contracts/Proposal.json';
 import DOGEPoolJson from '../clean_build/contracts/DOGEPoolJson.json'
+import SUSHIPoolJson from '../clean_build/contracts/SUSHIPoolJson.json';
+
 import IncJson from '../clean_build/contracts/YAMIncentivizer.json';
 
 export class Contracts {
@@ -60,6 +62,8 @@ export class Contracts {
     this.bsd80 = new this.web3.eth.Contract(ERC20Json.abi);
     this.zombie = new this.web3.eth.Contract(ERC20Json.abi);
     this.dogefi = new this.web3.eth.Contract(ERC20Json.abi);
+    this.sushi = new this.web3.eth.Contract(ERC20Json.abi);
+
 
     this.dogefi_pool = new this.web3.eth.Contract(DOGEPoolJson.abi);
     this.zombie_pool = new this.web3.eth.Contract(ZOMBIEPoolJson.abi);
@@ -70,6 +74,7 @@ export class Contracts {
     this.dice_pool = new this.web3.eth.Contract(DICEPoolJson.abi);
     this.taco_pool = new this.web3.eth.Contract(TACOPoolJson.abi);
     this.uni_pool = new this.web3.eth.Contract(UNIPoolJson.abi);
+    this.sushi_pool = new this.web3.eth.Contract(SUSHIPoolJson.abi);
     this.bsd95_pool = new this.web3.eth.Contract(BalShrimpDai95Json.abi)
     this.bsd80_pool = new this.web3.eth.Contract(BalShrimpDai80Json.abi)
     this.proposal = new this.web3.eth.Contract(ProposalJson.abi);
@@ -112,6 +117,7 @@ export class Contracts {
       { contract: this.bsd80_pool, json: BalShrimpDai80Json},
       { contract: this.zombie_pool, json: ZOMBIEPoolJson},
       { contract: this.dogefi_pool, json: ZOMBIEPoolJson},
+      { contract: this.sushi_pool, json: SUSHIPoolJson},
       // { contract: this.proposal, json: ProposalJson}
     ]
 
@@ -133,6 +139,7 @@ export class Contracts {
     this.dice.options.address = addressMap["DICE"];
     this.cream.options.address = addressMap["CREAM"];
     this.uni.options.address = addressMap["UNI"];
+    this.sushi.options.address = addressMap["SUSHI"];
     this.uni_fact.options.address = addressMap["uniswapFactoryV2"];
     this.uni_router.options.address = addressMap["UNIRouter"];
     // this.shrimp_scrv_uni_lp.options.address = addressMap["SHRIMPsCRV"];
@@ -149,6 +156,7 @@ export class Contracts {
       {"tokenAddr": this.bsd80.options.address, "poolAddr": this.bsd80_pool.options.address},
       {"tokenAddr": this.zombie.options.address, "poolAddr": this.zombie_pool.options.address},
       {"tokenAddr": this.dogefi.options.address, "poolAddr": this.dogefi_pool.options.address},
+      {"tokenAddr": this.sushi.options.address, "poolAddr": this.sushi_pool.options.address},
     ]
   }
 
@@ -167,6 +175,7 @@ export class Contracts {
     this.bsd80.options.from = account;
     this.zombie.options.from = account;
     this.dogefi.options.from = account;
+    this.sushi.options.from = account;
   }
 
   async callContractFunction(

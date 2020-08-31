@@ -20,6 +20,7 @@ const FarmCards: React.FC = () => {
   const rows = farms.reduce<Farm[][]>((farmRows, farm) => {
     const newFarmRows = [...farmRows]
     if (newFarmRows[newFarmRows.length - 1].length === 3) {
+      if (farm.name === "Taco Tuesday" || farm.name === "Bal_Shrimp_Dai_95" || farm.name === "Bal_Shrimp_Dai_80" || farm.name === "Zombie Swamp" || farm.name === "DogeFi Days"){}
       newFarmRows.push([farm])
     } else {
       newFarmRows[newFarmRows.length - 1].push(farm)
@@ -87,9 +88,6 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
   const timeLeft = Number((endTime * 1000) - Date.now())
   const poolActive = ((startTime * 1000)) - Date.now() <= 0
   return (<>
-    {farm.name === "Taco Tuesday" || farm.name === "Bal_Shrimp_Dai_95" || farm.name === "Bal_Shrimp_Dai_80" || farm.name === "Zombie Swamp" || farm.name === "DogeFi Days" ?
-      ''
-      :
       <StyledCardWrapper>
         <Card>
           <CardContent>
@@ -143,7 +141,6 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
           </CardContent>
         </Card>
       </StyledCardWrapper>
-    }
   </>
   )
 }

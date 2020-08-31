@@ -12,7 +12,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({ icon, subtitle, title }) => {
     <StyledPageHeader>
       {icon === "aa" && <img style={{width:"85px"}} src="https://zombie.finance/logo2.png"/>}
       {icon === "dd" && <img style={{width:"45px"}} src={require(doge)}/>}
-      {icon !== "aa" ||icon !== "dd" ? <StyledIcon>{icon}</StyledIcon> : ''}
+      {icon !== "aa" || icon !== "dd" || icon !== 'aa' || icon !== 'dd' ? '' : <StyledIcon>{icon}</StyledIcon>}
       <StyledTitle>{title}</StyledTitle>
       <StyledSubtitle>{subtitle}</StyledSubtitle>
     </StyledPageHeader>

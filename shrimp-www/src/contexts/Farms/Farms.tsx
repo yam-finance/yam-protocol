@@ -20,7 +20,8 @@ const NAME_FOR_POOL: { [key: string]: string } = {
   dice_pool: 'Safe Haven',
   uni_pool: 'WETH_SHRIMP_UNI_LP',
   taco_pool: 'Taco Tuesday',
-  dogefi_pool: 'DogeFi Days'
+  dogefi_pool: 'DogeFi Days',
+  sushi_pool: 'Shrimp sushi'
 }
 
 const ICON_FOR_POOL: { [key: string]: string } = {
@@ -34,7 +35,8 @@ const ICON_FOR_POOL: { [key: string]: string } = {
   dice_pool: '🎲',
   uni_pool: '🌈',
   taco_pool: '🌮',
-  dogefi_pool: 'dd'
+  dogefi_pool: 'dd',
+  sushi_pool: '🍣'
 }
 
 const SORT_FOR_POOL: { [key: string]: number } = {
@@ -48,7 +50,8 @@ const SORT_FOR_POOL: { [key: string]: number } = {
   cream_pool: 7,
   comp_pool: 8,
   dice_pool: 9,
-  uni_pool: 10
+  uni_pool: 10,
+  sushi_pool: 11,
 }
 
 const Farms: React.FC = ({ children }) => {
@@ -125,6 +128,10 @@ const Farms: React.FC = ({ children }) => {
 
         if (tokenKey === 'dogefi') {
           tokenAddress = '0x9B9087756eCa997C5D595C840263001c9a26646D'
+        }
+
+        if (tokenKey === 'sushi') {
+          tokenAddress = '0x6b3595068778dd592e39a122f4f5a5cf09c90fe2'
         }
 
         
