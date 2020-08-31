@@ -14,6 +14,7 @@ import Stats from '../Home/components/Stats'
 import Vote_Piece from '../Home/components/Vote_Piece'
 import Vote_Piece2 from '../Home/components/Vote_Piece2'
 import Vote_Piece3 from '../Home/components/Vote_Piece3'
+import Vote_Piece4 from '../Home/components/Vote_Piece4'
 import Voter from '../Home/components/Vote'
 
 import VoteButton from '../../components/TopBar/components/VoteButton'
@@ -62,15 +63,18 @@ const Vote: React.FC = () => {
 
 
         {!!account && (
-          <>
+          <><StyledVote>
+            <Vote_Piece4 />
+          </StyledVote>
+            <br />
             <StyledVote>
               <Vote_Piece3 />
             </StyledVote>
-            <br/>
+            <br />
             <StyledVote>
               <Vote_Piece2 />
             </StyledVote>
-            <br/>
+            <br />
             <StyledVote>
               <Vote_Piece />
             </StyledVote>

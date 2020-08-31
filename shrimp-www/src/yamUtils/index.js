@@ -9,6 +9,9 @@ import ProposalJson from '../yam/clean_build/contracts/Proposal.json';
 
 import AdvancedJson from '../yam/clean_build/contracts/AdvancedPool.json';
 
+// import DOGEFI_UNI from '../yam/clean_build/contracts/Doge_uni.json';
+// import DOGEPoolJson from '../yam/clean_build/contracts/DOGEPoolJson.json';
+
 import erc20_abi from '../constants/abi/ERC20.json';
 import { yam as yamAddress } from '../constants/tokenAddresses';
 
@@ -18,7 +21,23 @@ BigNumber.config({
 });
 
 
-const cost_of_eth = 387.04;
+const cost_of_eth = 424.28;
+
+// export const current_price_of_dogefi = async (ethereum) => {
+//   var tot = 0;
+//   const zom = '0x9b9087756eca997c5d595c840263001c9a26646d';
+//   const weth = '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
+//   if (ethereum) {
+//     const web3 = new Web3(ethereum);
+//     const mine_proposal = new web3.eth.Contract(DOGEPoolJson.abi, weth);
+//     await mine_proposal.methods.balanceOf(weth).call().then(function (events) {
+//       console.log(events, 'qwerty')
+//       tot = web3.utils.fromWei(events, 'ether')
+//       console.log(tot * 2 / cost_of_eth)
+//     })
+//     // return tot
+//   }
+// }
 
 export const current_zom_value = async (ethereum) => {
   var tot = 0;
@@ -289,6 +308,17 @@ export const get_y_n_vote3 = async (provider, account) => {
       .send({ from: account })
   }
 }
+
+export const get_y_n_vote4 = async (provider, account) => {
+  if (provider) {
+    const web3 = new Web3(provider);
+    const my_proposal = new web3.eth.Contract(ProposalJson.abi, ProposalJson.networks[1].address);
+    console.log(my_proposal)
+    return my_proposal.methods
+      .agree_vote(3)
+      .send({ from: account })
+  }
+}
 // proposal abi call for proposing a new pool or a change to a pool
 export const sendProposal = async (provider, proposal, account) => {
   if (provider) {
@@ -482,6 +512,27 @@ export const getVotes_piece3 = async (provider) => {
     }
   });
   await my_proposal.methods.get_vote(2, votes).call().then(function (events) {
+    votes_cast = web3.utils.fromWei(events, 'ether')
+  })
+  return votes_cast
+}
+
+export const getVotes_piece4 = async (provider) => {
+  var votes_cast = 0;
+  const web3 = new Web3(provider);
+  const my_proposal = new web3.eth.Contract(ProposalJson.abi, ProposalJson.networks[1].address);
+  let votes = [];
+  await my_proposal.getPastEvents('Voter', {
+    fromBlock: 0,
+    toBlock: 'latest'
+  }, function (error, events) { }).then(function (events) {
+    for (let i = 0; i < events.length; i++) {
+      if (events[i].returnValues.id === "3") {
+        votes.push(events[i].returnValues.voter)
+      }
+    }
+  });
+  await my_proposal.methods.get_vote(3, votes).call().then(function (events) {
     votes_cast = web3.utils.fromWei(events, 'ether')
   })
   return votes_cast

@@ -60,7 +60,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
   const [endTime, setEndTime] = useState(0)
 
   const timeStamp = 1598443200000;
-  const dogestart = 1598839200000;
+  const dogestart = 1598868000000;
   const sushistart = 1598954400503;
   const getStartTime = useCallback(async () => {
     const startTime = await getPoolStartTime(farm.contract)

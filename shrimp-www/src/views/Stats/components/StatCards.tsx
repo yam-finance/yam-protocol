@@ -19,6 +19,8 @@ import CREAMPoolJson from '../../../yam/clean_build/contracts/SHRIMPCREAMPool.js
 import DICEPoolJson from '../../../yam/clean_build/contracts/SHRIMPDICEPool.json';
 import WETHPoolJson from '../../../yam/clean_build/contracts/YAMETHPool.json';
 import YFIPoolJson from '../../../yam/clean_build/contracts/YAMYFIPool.json';
+import SUSHIPoolJson from '../../../yam/clean_build/contracts/SUSHIPoolJson.json';
+import DOGEPoolJson from '../../../yam/clean_build/contracts/DOGEPoolJson.json';
 
 import doge from '../../../assets/img/doge.png'
 
@@ -32,7 +34,7 @@ import {
   log_data,
   log_data2,
   log_data3,
-  log_data4
+  log_data4,
 } from '../../../yamUtils'
 
 const thousands_separators = (num: Number) => {
@@ -48,12 +50,12 @@ const StatCards: React.FC = () => {
   const rows = farms.reduce<Farm[][]>((farmRows, farm) => {
     const newFarmRows = [...farmRows]
     if (newFarmRows[newFarmRows.length - 1].length) {
-      if(farm.sort === 1 || farm.sort === 0 || farm.id === 'cream' || farm.id === 'shrimp' || farm.id === 'dice' ||farm.id === 'taco' || farm.id === 'comp' || farm.id === 'yfi' || farm.id === 'dogefi' || farm.id === 'weth') {
+      if(farm.sort === 3 || farm.sort === 4 || farm.sort === 1 || farm.sort === 0 || farm.id === 'cream' || farm.id === 'shrimp' || farm.id === 'dice' ||farm.id === 'taco' || farm.id === 'comp' || farm.id === 'yfi' || farm.id === 'weth') {
        } else {
       newFarmRows.push([farm])
     }
     } else {
-      if(farm.sort === 1 || farm.sort === 0 || farm.id === 'cream' || farm.id === 'shrimp' || farm.id === 'dice' ||farm.id === 'taco' || farm.id === 'comp' || farm.id === 'yfi' || farm.id === 'dogefi' || farm.id === 'weth') {
+      if(farm.sort === 3 || farm.sort === 4 || farm.sort === 1 || farm.sort === 0 || farm.id === 'cream' || farm.id === 'shrimp' || farm.id === 'dice' ||farm.id === 'taco' || farm.id === 'comp' || farm.id === 'yfi' || farm.id === 'weth') {
       } else {
         newFarmRows[newFarmRows.length - 1].push(farm)
    }
@@ -109,11 +111,23 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
       var nowAbi = ZombiePool.abi
       var currentCoinPrice = 'zombie-finance'
       break;
-    case 'cream':
+    case 'dogefi':
+      var address = '0x145FF9b001A7E9a2b547f0b41813f7706a002526'
+      var cAddress = '0x9B9087756eCa997C5D595C840263001c9a26646D'
+      var nowAbi = DOGEPoolJson.abi
+      var currentCoinPrice = ''
+      break;
+      case 'dogefi':
       var address = '0xa8ed29d39Ec961Ded44451D38e56B609Fe08126e'
       var cAddress = '0x2ba592F78dB6436527729929AAf6c908497cB200'
       var nowAbi = CREAMPoolJson.abi
       var currentCoinPrice = 'cream'
+      break;
+      case 'sushi':
+      var address = '0x145FF9b001A7E9a2b547f0b41813f7706a002526'
+      var cAddress = '0x6b3595068778dd592e39a122f4f5a5cf09c90fe2'
+      var nowAbi = SUSHIPoolJson.abi
+      var currentCoinPrice = 'sushi'
       break;
     case 'dice':
       var address = '0xcec3fc05f9314528b5ef324a2e2c47f1d8bed515'
@@ -216,19 +230,27 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
   const getDaiAPY = useCallback(async (stakenum, numm, zomNum) => {
     const DaiAPY = await current_DaiAPY(ethereum, address, nowAbi);
     let num = Number(DaiAPY) * 60 * 60 * 24 * 365 * Number(zomNum);
-    
+    console.log(num)
+    console.log(numm)
+    console.log(num / (stakenum * Number(numm)) * 100)
     setDaiAPY(num / (stakenum * Number(numm)) * 100)
   }, [yam])
 
   const callPrice = useCallback(async () => {
     if (currentCoinPrice === '1' || currentCoinPrice === '2' || currentCoinPrice === '3' || currentCoinPrice === '4') {
     } else {
+      if(currentCoinPrice === ''){
+
+      } else {
+
+      
       axios.get(`https://api.coingecko.com/api/v3/simple/price?ids=Cethereum%2C${currentCoinPrice}&vs_currencies=usd`).then((res) => {
         if (res.status === 200) {
           setCurrentstatPrice(Number(res.data[`${currentCoinPrice}`].usd))
           get_prices(Number(res.data[`${currentCoinPrice}`].usd))
         }
       })
+    }
     }
   }, [setCurrentstatPrice])
 
@@ -239,7 +261,6 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
         setCurrentPrice(Number(res.data['shrimp-finance'].usd))
         if (yam) {
           gettots()
-          getdai()
           getdaistaked(num, Number(res.data['shrimp-finance'].usd))
           getUserStakedDai()
           getUserEarnedDai()
@@ -269,8 +290,6 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
     } else {
       callPrice()
     }
-
-
   }, [])
 
   return (
@@ -288,6 +307,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
               {farm.id === 'zombie'
               ? `${farm.id.toLocaleUpperCase()}: $${currentCoinPrice === '' ? thousands_separators(Number(totalwrapped / totalDai)) : thousands_separators(Number(currentstatPrice))}` : ''}
               {farm.id === 'uni' && `WETH_SHRIMP_UNI_LP: $${currentCoinPrice === '1' ? thousands_separators(Number(totalwrapped / totalDai)) : thousands_separators(Number(currentstatPrice))}`}
+              {farm.id === 'dogefi' && `${farm.id.toLocaleUpperCase()}: $0.50`}
               <br/>
               {currentCoinPrice === '1' && `TVL: $${thousands_separators(Number(totalDaiStaked)*Number(totalwrapped / totalDai))}`}
         {farm.id === 'zombie'
