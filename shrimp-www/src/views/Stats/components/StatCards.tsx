@@ -114,7 +114,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
       var nowAbi = DOGEPoolJson.abi
       var currentCoinPrice = 'dogeficoin'
       break;
-      case 'dogefi':
+      case 'cream':
       var address = '0xa8ed29d39Ec961Ded44451D38e56B609Fe08126e'
       var cAddress = '0x2ba592F78dB6436527729929AAf6c908497cB200'
       var nowAbi = CREAMPoolJson.abi
@@ -304,6 +304,8 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
               <br/>
               {currentCoinPrice === '1' && `TVL: $${thousands_separators(Number(totalDaiStaked)*Number(totalwrapped / totalDai))}`}
         {farm.id === 'zombie'
+         ? `TVL: $${thousands_separators(Number(totalDaiStaked)*Number(currentstatPrice))}` : ''}
+         {farm.id === 'dogefi'
          ? `TVL: $${thousands_separators(Number(totalDaiStaked)*Number(currentstatPrice))}` : ''}
          <br/>
         ========== STAKING =========<br />

@@ -6,6 +6,7 @@ import useYam from '../../../hooks/useYam'
 
 import ZOMBIEPoolJson from '../../../yam/clean_build/contracts/ZombiePool.json';
 import UNIPoolJson from '../../../yam/clean_build/contracts/ShrimpUniPool.json';
+import DOGEPoolJson from '../../../yam/clean_build/contracts/DOGEPoolJson.json';
 
 
 import {
@@ -41,6 +42,13 @@ const TVL: React.FC = () => {
         cAddress = '0xeba5d22bbeb146392d032a2f74a735d66a32aee4'
         nowAbi = UNIPoolJson.abi
         currentCoinPrice = '1'
+        token_name = tokenname
+        return currentCoinPrice;
+      case 'dogefi':
+        address = '0x145FF9b001A7E9a2b547f0b41813f7706a002526'
+        cAddress = '0x9B9087756eCa997C5D595C840263001c9a26646D'
+        nowAbi = DOGEPoolJson.abi
+        currentCoinPrice = 'dogefi'
         token_name = tokenname
         return currentCoinPrice;
       default:
@@ -88,20 +96,24 @@ const TVL: React.FC = () => {
       const totalDai = await current_Dai_value(ethereum, cAddress);
       get_altwrapped_value(totalDai, old_tvl)
     } else {
+      if(token_name === 'dogefi'){
+        get_prices(.5, old_tvl)
+      } else {
       axios.get(`https://api.coingecko.com/api/v3/simple/price?ids=Cethereum%2C${coin_name}&vs_currencies=usd`).then((res) => {
         if (res.status === 200) {
           get_prices(Number(res.data[`${coin_name}`].usd), old_tvl)
         }
       })
     }
+  }
   }, [yam])
 
   const get_prices_wrapped = useCallback(async (num, old_tvl) => {
-          getdaistaked(num, 0,old_tvl)
+    getdaistaked(num, 0, old_tvl)
   }, [yam])
 
   const get_prices = useCallback(async (num, old_tvl) => {
-          getdaistaked(num,0, old_tvl)
+    getdaistaked(num, 0, old_tvl)
   }, [yam])
 
   const setCurrentTVl = useCallback(async (num, stake, oldtvl) => {
@@ -111,13 +123,17 @@ const TVL: React.FC = () => {
     switch (token_name) {
       case 'zombie':
         new_tvl = oldtvl + Number(stake) * Number(num)
-        callPrice(a('uni'),new_tvl)
+        callPrice(a('dogefi'), new_tvl)
+        break;
+      case 'dogefi':
+        new_tvl = oldtvl + Number(stake) * Number(num)
+        callPrice(a('uni'), new_tvl)
         break;
       case 'uni':
         new_tvl = oldtvl + Number(stake) * Number(num)
-        if(isNaN(new_tvl)){
+        if (isNaN(new_tvl)) {
           setdicelptvl('unlock wallet');
-        }else{
+        } else {
           setdicelptvl(new_tvl.toLocaleString());
         }
         break;
@@ -128,8 +144,8 @@ const TVL: React.FC = () => {
   }, [yam])
 
   useEffect(() => {
-      callPrice(a('zombie'), 0)
-    
+    callPrice(a('zombie'), 0)
+
   }, [])
 
   return (
