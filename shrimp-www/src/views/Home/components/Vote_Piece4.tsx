@@ -14,13 +14,8 @@ import Spacer from '../../../components/Spacer'
 import useYam from '../../../hooks/useYam'
 
 import {
-  delegate,
-  didDelegate,
-  getDelegatedBalance,
-  getScalingFactor,
   getVotes_piece4,
   get_y_n_vote4,
-  get_counted_votes
 } from '../../../yamUtils'
 
 interface VoteProps {
@@ -147,7 +142,7 @@ const Voter: React.FC<VoteProps> = () => {
           <p>🚨Advanced Pool - Combat Edition 🚨</p>
           <p>As long as there are tokens that reach 3M liquidity in Uniswap within 3 days after their launch, <br/>
             we will mint 3000 Shrimp and put them in the Advanced Pool(7 days), <br/>
-             and invite their users to join Shrimp Army! <br/><br/>The first applicable token: 🍣 Sushi<br/><br/><span style={{textDecoration: "underline"}}>When voting, the smart contract will automatically calculate all your shrimp coins from Shrimp/Eth Uniswap LP, Zombie's Shrimp pool, your address's shrimp</span></p>
+             and invite their users to join Shrimp Army! <br/><br/>The first applicable token: 🍣 Sushi<br/><br/><span style={{textDecoration: "underline"}}>When voting, the smart contract will automatically calculate all your shrimp coins from Shrimp/Eth Uniswap LP, Zombie's Shrimp pool and your address's shrimp</span></p>
           {/* <div style={{
             display: 'flex',
             alignItems: 'center',

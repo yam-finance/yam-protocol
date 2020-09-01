@@ -50,12 +50,12 @@ const StatCards: React.FC = () => {
   const rows = farms.reduce<Farm[][]>((farmRows, farm) => {
     const newFarmRows = [...farmRows]
     if (newFarmRows[newFarmRows.length - 1].length) {
-      if(farm.sort === 3 || farm.sort === 4 || farm.sort === 1 || farm.sort === 0 || farm.id === 'cream' || farm.id === 'shrimp' || farm.id === 'dice' ||farm.id === 'taco' || farm.id === 'comp' || farm.id === 'yfi' || farm.id === 'weth') {
+      if(farm.sort === 3 || farm.sort === 1 || farm.sort === 0 || farm.id === 'cream' || farm.id === 'shrimp' || farm.id === 'dice' ||farm.id === 'taco' || farm.id === 'comp' || farm.id === 'yfi' || farm.id === 'weth') {
        } else {
       newFarmRows.push([farm])
     }
     } else {
-      if(farm.sort === 3 || farm.sort === 4 || farm.sort === 1 || farm.sort === 0 || farm.id === 'cream' || farm.id === 'shrimp' || farm.id === 'dice' ||farm.id === 'taco' || farm.id === 'comp' || farm.id === 'yfi' || farm.id === 'weth') {
+      if(farm.sort === 3 || farm.sort === 1 || farm.sort === 0 || farm.id === 'cream' || farm.id === 'shrimp' || farm.id === 'dice' ||farm.id === 'taco' || farm.id === 'comp' || farm.id === 'yfi' || farm.id === 'weth') {
       } else {
         newFarmRows[newFarmRows.length - 1].push(farm)
    }
@@ -112,7 +112,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
       var address = '0x145FF9b001A7E9a2b547f0b41813f7706a002526'
       var cAddress = '0x9B9087756eCa997C5D595C840263001c9a26646D'
       var nowAbi = DOGEPoolJson.abi
-      var currentCoinPrice = ''
+      var currentCoinPrice = 'dogeficoin'
       break;
       case 'dogefi':
       var address = '0xa8ed29d39Ec961Ded44451D38e56B609Fe08126e'
@@ -227,20 +227,16 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
   const getDaiAPY = useCallback(async (stakenum, numm, zomNum) => {
     const DaiAPY = await current_DaiAPY(ethereum, address, nowAbi);
     let num = Number(DaiAPY) * 60 * 60 * 24 * 365 * Number(zomNum);
-    console.log(num)
-    console.log(numm)
-    console.log(num / (stakenum * Number(numm)) * 100)
     setDaiAPY(num / (stakenum * Number(numm)) * 100)
   }, [yam])
 
   const callPrice = useCallback(async () => {
     if (currentCoinPrice === '1' || currentCoinPrice === '2' || currentCoinPrice === '3' || currentCoinPrice === '4') {
     } else {
-      if(currentCoinPrice === ''){
-
+      if(currentCoinPrice === 'dogeficoin'){
+        setCurrentstatPrice(.5)
+        get_prices(.5)
       } else {
-
-      
       axios.get(`https://api.coingecko.com/api/v3/simple/price?ids=Cethereum%2C${currentCoinPrice}&vs_currencies=usd`).then((res) => {
         if (res.status === 200) {
           setCurrentstatPrice(Number(res.data[`${currentCoinPrice}`].usd))
@@ -304,7 +300,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
               {farm.id === 'zombie'
               ? `${farm.id.toLocaleUpperCase()}: $${currentCoinPrice === '' ? thousands_separators(Number(totalwrapped / totalDai)) : thousands_separators(Number(currentstatPrice))}` : ''}
               {farm.id === 'uni' && `WETH_SHRIMP_UNI_LP: $${currentCoinPrice === '1' ? thousands_separators(Number(totalwrapped / totalDai)) : thousands_separators(Number(currentstatPrice))}`}
-              {farm.id === 'dogefi' && `${farm.id.toLocaleUpperCase()}: $0.50`}
+              {farm.id === 'dogefi' && `${farm.id.toLocaleUpperCase()}: ${thousands_separators(Number(currentstatPrice))}`}
               <br/>
               {currentCoinPrice === '1' && `TVL: $${thousands_separators(Number(totalDaiStaked)*Number(totalwrapped / totalDai))}`}
         {farm.id === 'zombie'

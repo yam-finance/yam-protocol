@@ -15,7 +15,7 @@ import Vote_Piece from '../Home/components/Vote_Piece'
 import Vote_Piece2 from '../Home/components/Vote_Piece2'
 import Vote_Piece3 from '../Home/components/Vote_Piece3'
 import Vote_Piece4 from '../Home/components/Vote_Piece4'
-import Voter from '../Home/components/Vote'
+// import Voter from '../Home/components/Vote'
 
 import VoteButton from '../../components/TopBar/components/VoteButton'
 
@@ -26,24 +26,24 @@ const Vote: React.FC = () => {
 
   const { account, connect } = useWallet()
   const yam = useYam()
-  const [{
-    circSupply,
-    curPrice,
-    // nextRebase,
-    targetPrice,
-    totalSupply,
-  }, setStats] = useState<OverviewData>({})
+  // const [{
+  //   circSupply,
+  //   curPrice,
+  //   // nextRebase,
+  //   targetPrice,
+  //   totalSupply,
+  // }, setStats] = useState<OverviewData>({})
 
-  const fetchStats = useCallback(async () => {
-    const statsData = await getStats(yam)
-    setStats(statsData)
-  }, [yam, setStats])
+  // const fetchStats = useCallback(async () => {
+  //   const statsData = await getStats(yam)
+  //   setStats(statsData)
+  // }, [yam, setStats])
 
-  useEffect(() => {
-    if (yam) {
-      fetchStats()
-    }
-  }, [yam])
+  // useEffect(() => {
+  //   if (yam) {
+  //     fetchStats()
+  //   }
+  // }, [yam])
 
   return (
     <Page>
