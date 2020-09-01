@@ -62,7 +62,7 @@ const StyledSpacer = styled.div`
 `
 
 const StyledLink = styled.a`
-  font-weight: 700l
+  font-weight: 700;
   text-decoration: none;
   color: ${props => props.theme.color.primary.main};
 `
