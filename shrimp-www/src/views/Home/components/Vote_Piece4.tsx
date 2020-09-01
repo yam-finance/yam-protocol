@@ -22,7 +22,7 @@ interface VoteProps {
 }
 
 const METER_TOTAL = 200000
-const WARNING_TIMESTAMP = 1598165696731
+const WARNING_TIMESTAMP = 1599213600000
 const start_time = 1599040800503;
 
 const Voter: React.FC<VoteProps> = () => {
