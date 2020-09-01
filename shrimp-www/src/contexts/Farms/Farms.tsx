@@ -21,7 +21,7 @@ const NAME_FOR_POOL: { [key: string]: string } = {
   uni_pool: 'WETH_SHRIMP_UNI_LP',
   taco_pool: 'Taco Tuesday',
   dogefi_pool: 'DogeFi Days',
-  sushi_pool: 'Sushi swap'
+  sushilp_pool: 'Sushi swap'
 }
 
 const ICON_FOR_POOL: { [key: string]: string } = {
@@ -36,7 +36,7 @@ const ICON_FOR_POOL: { [key: string]: string } = {
   uni_pool: '🌈',
   taco_pool: '🌮',
   dogefi_pool: 'dd',
-  sushi_pool: '🍣'
+  sushilp_pool: '🍣'
 }
 
 const SORT_FOR_POOL: { [key: string]: number } = {
@@ -51,7 +51,7 @@ const SORT_FOR_POOL: { [key: string]: number } = {
   comp_pool: 8,
   dice_pool: 9,
   uni_pool: 10,
-  sushi_pool: 3, //3
+  sushilp_pool: 3, //3
 }
 
 const Farms: React.FC = ({ children }) => {
@@ -72,20 +72,12 @@ const Farms: React.FC = ({ children }) => {
       if (tokenKey === 'eth') {
         tokenKey = 'weth'
       }
-
-      //  else if (tokenKey === 'ampl') {
-      //   tokenKey = 'ampl_eth_uni_lp'
-      // } else if (tokenKey === 'scrv') {
-      //   tokenKey = 'scrv_shrimp_uni_lp'
-      // }
-
-      // const method = pool.methods[tokenKey]
+      if (tokenKey === 'sushilp') {
+        tokenKey = 'shrimp_sushi_uni_LP'
+      }
       try {
         let tokenAddress = ''
-        // if (method) {
-        //   tokenAddress = await method().call()
-        // } 
-        
+
         if (tokenKey === 'dice') {
           tokenAddress = '0xCF67CEd76E8356366291246A9222169F4dBdBe64'
         }
@@ -130,8 +122,8 @@ const Farms: React.FC = ({ children }) => {
           tokenAddress = '0x9B9087756eCa997C5D595C840263001c9a26646D'
         }
 
-        if (tokenKey === 'sushi') {
-          tokenAddress = '0x6b3595068778dd592e39a122f4f5a5cf09c90fe2'
+        if (tokenKey === 'shrimp_sushi_uni_LP') {
+          tokenAddress = '0x335047EdC5a61f230da56e224a6555d313e961de'
         }
 
         

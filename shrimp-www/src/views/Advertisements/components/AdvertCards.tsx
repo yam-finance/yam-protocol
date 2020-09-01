@@ -10,7 +10,7 @@ import Loader from '../../../components/Loader'
 
 import useFarms from '../../../hooks/useFarms'
 
-import { Farm } from '../../../contexts/Farms'
+import { Farm } from '../../../contexts/Farms' 
 
 import { getPoolStartTime, getPoolEndTime } from '../../../yamUtils'
 
@@ -61,7 +61,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 
   const timeStamp = 1598443200000;
   const dogestart = 1598868000000;
-  const sushistart = 1598954400503;
+  const sushistart = 159895440503;
   const getStartTime = useCallback(async () => {
     const startTime = await getPoolStartTime(farm.contract)
     setStartTime(startTime)
@@ -84,6 +84,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
   }
 
   useEffect(() => {
+    console.log(endTime, farm.name)
     if (farm) {
       getStartTime()
       getEndTime()
@@ -168,11 +169,11 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
                   }
                   {farm.name === 'Sushi swap' &&
                     <Button
-                      disabled={sushistart < Date.now()}
-                      text={sushistart > Date.now() ? 'Select' : undefined}
+                      disabled={sushistart > Date.now()}
+                      text={sushistart < Date.now() ? 'Select' : undefined}
                       to={`/farms/${farm.id}`}
                     >
-                      {sushistart < Date.now() && <Countdown date={sushistart} renderer={renderer} />}
+                      {sushistart > Date.now() && <Countdown date={sushistart} renderer={renderer} />}
                     </Button>
                   }
                   {farm.name === "Taco Tuesday" &&

@@ -27,9 +27,6 @@ const start_time = 1599040800503;
 
 const Voter: React.FC<VoteProps> = () => {
   const [totalVotes, setTotalVotes] = useState(new Number)
-  // const [scalingFactor, setScalingFactor] = useState(new BigNumber(1))
-  // const [delegated, setDelegated] = useState(false)
-  // const [delegatedBalance, setDelegatedBalance] = useState(new BigNumber(0))
 
   const { account, ethereum } = useWallet()
   const yam = useYam()
@@ -95,17 +92,6 @@ const Voter: React.FC<VoteProps> = () => {
                 <div>{`/ 233,735.84`}</div>
               </StyledDenominator>
             </div>
-            {/* <div style={{
-              alignItems: 'baseline',
-              display: 'flex',
-            }}>
-              <div style={{ fontSize: 12 }}>{`${Number(totalVotes.multipliedBy(scalingFactor).toFixed(0)).toLocaleString()}`}</div>
-              <div style={{
-                  fontSize: 12,
-                  marginTop: 4,
-                  marginLeft: 4,
-                }}>{`/ ${Number(new BigNumber(160000).multipliedBy(scalingFactor).toFixed(0)).toLocaleString()} YAM`}</div>
-            </div> */}
             <br />
             <br />
           </StyledCenter>
@@ -123,15 +109,7 @@ const Voter: React.FC<VoteProps> = () => {
           <StyledMeterInner width={Number(totalVotes) / METER_TOTAL * 100} />
         </StyledMeter>
         <Spacer />
-        {/* {start_time < Date.now() ? <Button text="Closed" disabled={true} /> : '' } */}
         {Date.now() > WARNING_TIMESTAMP ? (<Button text="Coming soon" disabled={true} />):(<Button text="Yes" onClick={y_vote} />)}
-
-        {/* ) : (
-          <div>
-            {/* <StyledDelegatedCount>Delegating: {Number(delegatedBalance.multipliedBy(scalingFactor).toFixed(0)).toLocaleString()} YAM</StyledDelegatedCount> 
-            <StyledThankYou>Thank you for your vote.</StyledThankYou>
-          </div>
-        )} */}
         <div style={{
           margin: '0 auto',
           width: 512,
@@ -142,15 +120,7 @@ const Voter: React.FC<VoteProps> = () => {
           <p>🚨Advanced Pool - Combat Edition 🚨</p>
           <p>As long as there are tokens that reach 3M liquidity in Uniswap within 3 days after their launch, <br/>
             we will mint 3000 Shrimp and put them in the Advanced Pool(7 days), <br/>
-             and invite their users to join Shrimp Army! <br/><br/>The first applicable token: 🍣 Sushi<br/><br/><span style={{textDecoration: "underline"}}>When voting, the smart contract will automatically calculate all your shrimp coins from Shrimp/Eth Uniswap LP, Zombie's Shrimp pool and your address's shrimp</span></p>
-          {/* <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            marginTop: 32,
-          }}>
-            <StyledLink target="__blank" href="https://github.com/shrimp-finance/shrimp-protocol/wiki/Shrimp-Declaration-of-Independence">More Info</StyledLink>
-          </div> */}
+             and invite their users to join the Shrimp Army! <br/><br/>The first applicable token: 🍣 SHRIMP_SUSHI_UNI_LP <br/><br/><span style={{textDecoration: "underline"}}>When voting, the smart contract will automatically calculate all your shrimp coins from Shrimp/Eth Uniswap LP, Zombie's Shrimp pool and your address's shrimp</span></p>
         </div>
       </CardContent>
     </Card>
@@ -196,15 +166,6 @@ const StyledCheckpoints = styled.div`
   width: 100%;
   height: 56px;
 `
-
-/*
-          <StyledCheckpoint left={35500 / METER_TOTAL * 100}>
-            <StyledCheckpointText left={-48}>
-              <div>Target Proposal</div>
-              <div>50,000</div>
-            </StyledCheckpointText>
-          </StyledCheckpoint>
-*/
 
 interface StyledCheckpointProps {
   left: number
