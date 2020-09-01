@@ -6,6 +6,7 @@ import BigNumber from 'bignumber.js'
 import { useWallet } from 'use-wallet'
 
 import ProposalJson from '../yam/clean_build/contracts/Proposal.json';
+import newProposalJson from '../yam/clean_build/contracts/newProposal.json';
 
 import AdvancedJson from '../yam/clean_build/contracts/AdvancedPool.json';
 
@@ -312,10 +313,10 @@ export const get_y_n_vote3 = async (provider, account) => {
 export const get_y_n_vote4 = async (provider, account) => {
   if (provider) {
     const web3 = new Web3(provider);
-    const my_proposal = new web3.eth.Contract(ProposalJson.abi, ProposalJson.networks[1].address);
+    const my_proposal = new web3.eth.Contract(newProposalJson.abi, newProposalJson.networks[1].address);
     console.log(my_proposal)
     return my_proposal.methods
-      .agree_vote(3)
+      .agree_vote(0)
       .send({ from: account })
   }
 }
@@ -520,19 +521,19 @@ export const getVotes_piece3 = async (provider) => {
 export const getVotes_piece4 = async (provider) => {
   var votes_cast = 0;
   const web3 = new Web3(provider);
-  const my_proposal = new web3.eth.Contract(ProposalJson.abi, ProposalJson.networks[1].address);
+  const my_proposal = new web3.eth.Contract(newProposalJson.abi, newProposalJson.networks[1].address);
   let votes = [];
   await my_proposal.getPastEvents('Voter', {
     fromBlock: 0,
     toBlock: 'latest'
   }, function (error, events) { }).then(function (events) {
     for (let i = 0; i < events.length; i++) {
-      if (events[i].returnValues.id === "3") {
+      if (events[i].returnValues.id === "0") {
         votes.push(events[i].returnValues.voter)
       }
     }
   });
-  await my_proposal.methods.get_vote(3, votes).call().then(function (events) {
+  await my_proposal.methods.get_vote(0, votes).call().then(function (events) {
     votes_cast = web3.utils.fromWei(events, 'ether')
   })
   return votes_cast
