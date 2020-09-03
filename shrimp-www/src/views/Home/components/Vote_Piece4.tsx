@@ -38,7 +38,7 @@ const Voter: React.FC<VoteProps> = () => {
     const totalhours = days * 24 + hours;
     const paddedHours = hours < 10 ? `0${hours}` : hours
     return (
-      <StyledCountdown>{totalhours > 24 ? totalhours : paddedHours}:{paddedMinutes}:{paddedSeconds}</StyledCountdown>
+      <StyledCountdown>{totalhours > 23 ? totalhours : paddedHours}:{paddedMinutes}:{paddedSeconds}</StyledCountdown>
     )
   }
 
@@ -86,10 +86,10 @@ const Voter: React.FC<VoteProps> = () => {
               display: 'flex',
             }}>
               <StyledTitle>
-                <div>{(Number(totalVotes)).toLocaleString()}</div>
+                <div>{(Number(totalVotes) * 7.5).toLocaleString()}</div>
               </StyledTitle>
               <StyledDenominator>
-                <div>{`/ 233,735.84`}</div>
+                <div>{`/ 244,230.76`}</div>
               </StyledDenominator>
             </div>
             <br />
@@ -106,7 +106,7 @@ const Voter: React.FC<VoteProps> = () => {
           </StyledCheckpoint>
         </StyledCheckpoints>
         <StyledMeter>
-          <StyledMeterInner width={Number(totalVotes) / METER_TOTAL * 100} />
+          <StyledMeterInner width={(Number(totalVotes) * 7.5) / METER_TOTAL * 100} />
         </StyledMeter>
         <Spacer />
         {Date.now() > WARNING_TIMESTAMP ? (<Button text="Coming soon" disabled={true} />):(<Button text="Yes" onClick={y_vote} />)}

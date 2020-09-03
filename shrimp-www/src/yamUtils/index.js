@@ -96,14 +96,17 @@ export const log_data3 = async (ethereum, address, abi) => {
 }
 
 export const log_data4 = async (ethereum, address, abi) => {
-  //first step of wrapped eth
+  console.log('qwerty')
   var tot = 0;
-  const dai = '0x6b175474e89094c44da98b954eedeac495271d0f'
+  const dai = '0x6b3595068778dd592e39a122f4f5a5cf09c90fe2'
   if (ethereum) {
     const web3 = new Web3(ethereum);
     const my_proposal = new web3.eth.Contract(abi, dai);
     await my_proposal.methods.balanceOf(address).call().then(function (events) {
       tot = web3.utils.fromWei(events, 'ether')
+      console.log(tot)
+      console.log(tot*2)
+      console.log(tot*2/3.78)
     })
     return (tot * 2)
   }

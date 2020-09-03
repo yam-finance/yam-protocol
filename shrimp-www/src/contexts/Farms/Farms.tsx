@@ -21,7 +21,8 @@ const NAME_FOR_POOL: { [key: string]: string } = {
   uni_pool: 'WETH_SHRIMP_UNI_LP',
   taco_pool: 'Taco Tuesday',
   dogefi_pool: 'DogeFi Days',
-  sushilp_pool: 'Sushi swap'
+  sushilp_pool: 'Sushi swap',
+  kimchilp_pool: 'Kimchi crunch'
 }
 
 const ICON_FOR_POOL: { [key: string]: string } = {
@@ -36,12 +37,13 @@ const ICON_FOR_POOL: { [key: string]: string } = {
   uni_pool: '🌈',
   taco_pool: '🌮',
   dogefi_pool: 'dd',
-  sushilp_pool: '🍣'
+  sushilp_pool: '🍣',
+  kimchilp_pool: 'k'
 }
 
 const SORT_FOR_POOL: { [key: string]: number } = {
-  dogefi_pool: 4, //2
-  zombie_pool: 11, //1
+  dogefi_pool: 11, //2
+  zombie_pool: 12, //1
   bsd95_pool: 0,
   bsd80_pool: 1,  
   taco_pool: 2, //4
@@ -51,7 +53,8 @@ const SORT_FOR_POOL: { [key: string]: number } = {
   comp_pool: 8,
   dice_pool: 9,
   uni_pool: 10,
-  sushilp_pool: 3, //3
+  sushilp_pool: 4, //3
+  kimchilp_pool: 3
 }
 
 const Farms: React.FC = ({ children }) => {
@@ -75,6 +78,11 @@ const Farms: React.FC = ({ children }) => {
       if (tokenKey === 'sushilp') {
         tokenKey = 'shrimp_sushi_uni_LP'
       }
+
+      if (tokenKey === 'kimchilp') {
+        tokenKey = 'shrimp_kimchi_uni_LP'
+      }
+
       try {
         let tokenAddress = ''
 
@@ -124,6 +132,10 @@ const Farms: React.FC = ({ children }) => {
 
         if (tokenKey === 'shrimp_sushi_uni_LP') {
           tokenAddress = '0x335047EdC5a61f230da56e224a6555d313e961de'
+        }
+
+        if (tokenKey === 'shrimp_kimchi_uni_LP') {
+          tokenAddress = '0x1fe3b8360691996da69336c825d6446f7fb81933'
         }
 
         

@@ -30,6 +30,7 @@ import TACOPoolJson from '../clean_build/contracts/ShrimpTacoPool.json';
 import ProposalJson from '../clean_build/contracts/Proposal.json';
 import DOGEPoolJson from '../clean_build/contracts/DOGEPoolJson.json'
 import SUSHIPoolJson from '../clean_build/contracts/SUSHIPoolJson.json';
+import KIMCHIPoolJson from '../clean_build/contracts/KIMCHIPoolJson.json';
 
 import IncJson from '../clean_build/contracts/YAMIncentivizer.json';
 
@@ -63,6 +64,7 @@ export class Contracts {
     this.zombie = new this.web3.eth.Contract(ERC20Json.abi);
     this.dogefi = new this.web3.eth.Contract(ERC20Json.abi);
     this.sushilp = new this.web3.eth.Contract(ERC20Json.abi);
+    this.kimchilp = new this.web3.eth.Contract(ERC20Json.abi);
 
 
     this.dogefi_pool = new this.web3.eth.Contract(DOGEPoolJson.abi);
@@ -75,6 +77,7 @@ export class Contracts {
     this.taco_pool = new this.web3.eth.Contract(TACOPoolJson.abi);
     this.uni_pool = new this.web3.eth.Contract(UNIPoolJson.abi);
     this.sushilp_pool = new this.web3.eth.Contract(SUSHIPoolJson.abi);
+    this.kimchilp_pool = new this.web3.eth.Contract(KIMCHIPoolJson.abi);
     this.bsd95_pool = new this.web3.eth.Contract(BalShrimpDai95Json.abi)
     this.bsd80_pool = new this.web3.eth.Contract(BalShrimpDai80Json.abi)
     this.proposal = new this.web3.eth.Contract(ProposalJson.abi);
@@ -118,6 +121,7 @@ export class Contracts {
       { contract: this.zombie_pool, json: ZOMBIEPoolJson},
       { contract: this.dogefi_pool, json: DOGEPoolJson},
       { contract: this.sushilp_pool, json: SUSHIPoolJson},
+      { contract: this.kimchilp_pool, json: KIMCHIPoolJson},
       // { contract: this.proposal, json: ProposalJson}
     ]
 
@@ -140,6 +144,7 @@ export class Contracts {
     this.cream.options.address = addressMap["CREAM"];
     this.uni.options.address = addressMap["UNI"];
     this.sushilp.options.address = addressMap["SHRIMP_SUSHI_UNI_LP"];
+    this.kimchilp.options.address = addressMap["SHRIMP_KIMCHI_UNI_LP"];
     this.uni_fact.options.address = addressMap["uniswapFactoryV2"];
     this.uni_router.options.address = addressMap["UNIRouter"];
     // this.shrimp_scrv_uni_lp.options.address = addressMap["SHRIMPsCRV"];

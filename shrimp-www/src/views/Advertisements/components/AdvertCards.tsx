@@ -10,11 +10,12 @@ import Loader from '../../../components/Loader'
 
 import useFarms from '../../../hooks/useFarms'
 
-import { Farm } from '../../../contexts/Farms' 
+import { Farm } from '../../../contexts/Farms'
 
 import { getPoolStartTime, getPoolEndTime } from '../../../yamUtils'
 
 import doge from '../../../assets/img/doge.png';
+import kimchi from '../../../assets/img/kimchi.png';
 
 
 const AdvertCards: React.FC = () => {
@@ -23,12 +24,12 @@ const AdvertCards: React.FC = () => {
   const rows = farms.reduce<Farm[][]>((farmRows, farm) => {
     const newFarmRows = [...farmRows]
     if (newFarmRows[newFarmRows.length - 1].length === 3) {
-      if (farm.name === "Sushi swap" || farm.name === "Taco Tuesday" || farm.name === "Zombie Swamp" || farm.name === "DogeFi Days"){
+      if (farm.name === "Kimchi crunch" || farm.name === "Sushi swap" || farm.name === "Taco Tuesday" || farm.name === "Zombie Swamp" || farm.name === "DogeFi Days") {
         newFarmRows.push([farm])
       }
 
     } else {
-      if (farm.name === "Sushi swap" || farm.name === "Taco Tuesday" || farm.name === "Zombie Swamp" || farm.name === "DogeFi Days"){
+      if (farm.name === "Kimchi crunch" || farm.name === "Sushi swap" || farm.name === "Taco Tuesday" || farm.name === "Zombie Swamp" || farm.name === "DogeFi Days") {
         newFarmRows[newFarmRows.length - 1].push(farm)
       }
     }
@@ -61,7 +62,10 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 
   const timeStamp = 1598443200000;
   const dogestart = 1598868000000;
-  const sushistart = 159895440503;
+  const sushistart = 1598954400503;
+  const threedays = 10800000;
+  const kimchiTime = 1599213600000;
+
   const getStartTime = useCallback(async () => {
     const startTime = await getPoolStartTime(farm.contract)
     setStartTime(startTime)
@@ -79,12 +83,21 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
     const totalhours = days * 24 + hours;
     const paddedHours = totalhours < 10 ? `0${totalhours}` : totalhours
     return (
-      <span style={{ width: '100%' }}>{totalhours > 24 ? totalhours : paddedHours}:{paddedMinutes}:{paddedSeconds}</span>
+      <span style={{ width: '100%' }}>{totalhours > 23 ? totalhours : paddedHours}:{paddedMinutes}:{paddedSeconds}</span>
     )
   }
-
+  // const renderer = (countdownProps: CountdownRenderProps) => {
+  //   const { days, hours, minutes, seconds } = countdownProps
+  //   const paddedSeconds = seconds < 10 ? `0${seconds}` : seconds
+  //   const paddedMinutes = minutes < 10 ? `0${minutes}` : minutes
+  //   const totalhours = days * 24 + hours;
+  //   const paddedHours = hours < 10 ? `0${hours}` : hours
+  //   const final_hours = totalhours === 0 && hours > 0 && hours < 10 ? `0${hours}` : hours
+  //   return (
+  //     <StyledCountdown>{totalhours > 11 ? totalhours : final_hours}:{paddedMinutes}:{paddedSeconds}</StyledCountdown>
+  //   )
+  // }
   useEffect(() => {
-    console.log(endTime, farm.name)
     if (farm) {
       getStartTime()
       getEndTime()
@@ -96,16 +109,19 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
   return (
     <>
       <StyledCardWrapper>
-        {farm.name === "Sushi swap" || farm.name === "Taco Tuesday" || farm.name === "Zombie Swamp" || farm.name === "DogeFi Days" ?
+        {farm.name === "Kimchi crunch" || farm.name === "Sushi swap" || farm.name === "Taco Tuesday" || farm.name === "Zombie Swamp" || farm.name === "DogeFi Days" ?
           (
             <Card>
               <CardContent>
                 <StyledContent>
-                  {farm.name !== 'Zombie Swamp' && farm.name !== 'DogeFi Days' ?
+                  {farm.name !== 'Zombie Swamp' && farm.name !== 'DogeFi Days' && farm.name !== "Kimchi crunch" ?
                     <CardIcon>{farm.icon}</CardIcon> : ''}
 
                   {farm.name === 'DogeFi Days' &&
                     <CardIcon><img style={{ width: "32px" }} src={doge} /></CardIcon>}
+
+                  {farm.name === 'Kimchi crunch' &&
+                    <CardIcon><img style={{ width: "32px" }} src={kimchi} /></CardIcon>}
 
                   {farm.name === 'Zombie Swamp' &&
                     <CardIcon><img style={{ width: "32px" }} src="https://zombie.finance/logo2.png" /></CardIcon>}
@@ -114,7 +130,8 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
                     <StyledDetail>Deposit {farm.depositToken.toUpperCase()}</StyledDetail>
                     <StyledDetail>Earn {farm.earnToken.toUpperCase()}</StyledDetail>
                   </StyledDetails>
-                  {farm.name !== 'Sushi swap' && farm.name !== 'Zombie Swamp' && farm.name !== 'DogeFi Days' ?
+                  {farm.name !== 'Sushi swap' && farm.name !== "Kimchi crunch" && <br />}
+                  {farm.name !== 'Sushi swap' && farm.name !== 'Zombie Swamp' && farm.name !== 'DogeFi Days' && farm.name !== "Kimchi crunch" ?
                     <>
                       {Date.now() > endTime * 1000 ? (
                         <>
@@ -149,6 +166,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
                     </>
                     : ''
                   }
+                  {console.log(endTime, farm.name)}
                   {farm.name === 'Zombie Swamp' &&
                     <Button
                       disabled={timeStamp > Date.now()}
@@ -174,6 +192,15 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
                       to={`/farms/${farm.id}`}
                     >
                       {sushistart > Date.now() && <Countdown date={sushistart} renderer={renderer} />}
+                    </Button>
+                  }
+                  {farm.name === 'Kimchi crunch' &&
+                    <Button
+                      disabled={kimchiTime > Date.now()}
+                      text={kimchiTime < Date.now() ? 'Select' : undefined}
+                      to={`/farms/${farm.id}`}
+                    >
+                      {kimchiTime > Date.now() && <Countdown date={kimchiTime} renderer={renderer} />}
                     </Button>
                   }
                   {farm.name === "Taco Tuesday" &&
@@ -206,6 +233,14 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
                       <StyledDetail>3,000 Shrimp</StyledDetail>
                       <StyledDetail>7 Days</StyledDetail>
                       <StyledDetail><a href="https://discord.com/invite/hJ2p555">Discord</a> | <a href="https://twitter.com/SushiSwap">Twitter</a></StyledDetail>
+                    </>
+                  }
+                  {farm.name === "Kimchi crunch" &&
+                    <>
+                      <br />
+                      <StyledDetail>3,000 Shrimp</StyledDetail>
+                      <StyledDetail>7 Days</StyledDetail>
+                      <StyledDetail><a href="https://discord.com/invite/ypafxfP">Discord</a> | <a href="https://twitter.com/kimchi_finance">Twitter</a></StyledDetail>
                     </>
                   }
                 </StyledContent>
