@@ -22,23 +22,7 @@ BigNumber.config({
 });
 
 
-const cost_of_eth = 424.28;
-
-// export const current_price_of_dogefi = async (ethereum) => {
-//   var tot = 0;
-//   const zom = '0x9b9087756eca997c5d595c840263001c9a26646d';
-//   const weth = '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
-//   if (ethereum) {
-//     const web3 = new Web3(ethereum);
-//     const mine_proposal = new web3.eth.Contract(DOGEPoolJson.abi, weth);
-//     await mine_proposal.methods.balanceOf(weth).call().then(function (events) {
-//       console.log(events, 'qwerty')
-//       tot = web3.utils.fromWei(events, 'ether')
-//       console.log(tot * 2 / cost_of_eth)
-//     })
-//     // return tot
-//   }
-// }
+const cost_of_eth = 383.21;
 
 export const current_zom_value = async (ethereum) => {
   var tot = 0;
@@ -54,6 +38,7 @@ export const current_zom_value = async (ethereum) => {
 }
 
 export const log_data = async (ethereum, address, abi) => {
+  
   //first step of wrapped eth
   var tot = 0;
   const weth = '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
@@ -61,6 +46,7 @@ export const log_data = async (ethereum, address, abi) => {
     const web3 = new Web3(ethereum);
     const my_proposal = new web3.eth.Contract(abi, weth);
     await my_proposal.methods.balanceOf(address).call().then(function (events) {
+      // alert(web3.utils.fromWei("1422970340907466064412", 'ether'))
       tot = web3.utils.fromWei(events, 'ether')
     })
     return (tot * cost_of_eth * 2)
@@ -84,7 +70,7 @@ export const log_data2 = async (ethereum, address, abi) => {
 export const log_data3 = async (ethereum, address, abi) => {
   //first step of wrapped eth
   var tot = 0;
-  const dai = '0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e'
+  const dai = '0x38c4102D11893351cED7eF187fCF43D33eb1aBE6'
   if (ethereum) {
     const web3 = new Web3(ethereum);
     const my_proposal = new web3.eth.Contract(abi, dai);
@@ -96,17 +82,14 @@ export const log_data3 = async (ethereum, address, abi) => {
 }
 
 export const log_data4 = async (ethereum, address, abi) => {
-  console.log('qwerty')
   var tot = 0;
-  const dai = '0x6b3595068778dd592e39a122f4f5a5cf09c90fe2'
+  const dai = '0x335047EdC5a61f230da56e224a6555d313e961de'
+  const shrimp = "0x38c4102d11893351ced7ef187fcf43d33eb1abe6"
   if (ethereum) {
     const web3 = new Web3(ethereum);
-    const my_proposal = new web3.eth.Contract(abi, dai);
-    await my_proposal.methods.balanceOf(address).call().then(function (events) {
+    const my_proposal = new web3.eth.Contract(abi, shrimp);
+    await my_proposal.methods.balanceOf(dai).call().then(function (events) {
       tot = web3.utils.fromWei(events, 'ether')
-      console.log(tot)
-      console.log(tot*2)
-      console.log(tot*2/3.78)
     })
     return (tot * 2)
   }
