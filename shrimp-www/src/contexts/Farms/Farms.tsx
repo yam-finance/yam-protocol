@@ -22,7 +22,8 @@ const NAME_FOR_POOL: { [key: string]: string } = {
   taco_pool: 'Taco Tuesday',
   dogefi_pool: 'DogeFi Days',
   sushilp_pool: 'Sushi swap',
-  kimchilp_pool: 'Kimchi crunch'
+  kimchilp_pool: 'Kimchi crunch',
+  frens_pool: 'Frens 4evur'
 }
 
 const ICON_FOR_POOL: { [key: string]: string } = {
@@ -38,12 +39,13 @@ const ICON_FOR_POOL: { [key: string]: string } = {
   taco_pool: '🌮',
   dogefi_pool: 'dd',
   sushilp_pool: '🍣',
-  kimchilp_pool: 'k'
+  kimchilp_pool: 'k',
+  frens_pool: 'f'
 }
 
 const SORT_FOR_POOL: { [key: string]: number } = {
-  dogefi_pool: 11, //2
-  zombie_pool: 12, //1
+  dogefi_pool: 3, //2
+  zombie_pool: 13, //1
   bsd95_pool: 0,
   bsd80_pool: 1,  
   taco_pool: 2, //4
@@ -53,8 +55,9 @@ const SORT_FOR_POOL: { [key: string]: number } = {
   comp_pool: 8,
   dice_pool: 9,
   uni_pool: 10,
-  sushilp_pool: 4, //3
-  kimchilp_pool: 3
+  sushilp_pool: 11, //3
+  kimchilp_pool: 4,
+  frens_pool: 12
 }
 
 const Farms: React.FC = ({ children }) => {
@@ -138,9 +141,10 @@ const Farms: React.FC = ({ children }) => {
           tokenAddress = '0x1fe3b8360691996da69336c825d6446f7fb81933'
         }
 
+        if (tokenKey === 'frens') {
+          tokenAddress = '0x907cb97615b7cD7320Bc89bb7CDB46e37432eBe7'
+        }
         
-        // alert(tokenAddress);
-
         farmsArr.push({
           contract: pool,
           name: NAME_FOR_POOL[poolKey],

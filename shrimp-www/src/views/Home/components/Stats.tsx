@@ -83,7 +83,7 @@ const Stats: React.FC<StatsProps> = ({
         <CardContent>
           <StyledStat>
             <StyledValue>
-              233,735.84
+            244,230.76
             </StyledValue>
             <Label text="Total Supply" />
           </StyledStat>

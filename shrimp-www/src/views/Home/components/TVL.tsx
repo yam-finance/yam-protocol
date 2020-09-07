@@ -7,13 +7,15 @@ import useYam from '../../../hooks/useYam'
 import ZOMBIEPoolJson from '../../../yam/clean_build/contracts/ZombiePool.json';
 import UNIPoolJson from '../../../yam/clean_build/contracts/ShrimpUniPool.json';
 import DOGEPoolJson from '../../../yam/clean_build/contracts/DOGEPoolJson.json';
+import SUSHIPoolJson from '../../../yam/clean_build/contracts/SUSHIPoolJson.json';
 
 
 import {
   current_Dai_value,
   current_DaiStaked_value,
   log_data,
-  log_data2
+  log_data2,
+  log_data4
 } from '../../../yamUtils'
 
 const TVL: React.FC = () => {
@@ -51,6 +53,13 @@ const TVL: React.FC = () => {
         currentCoinPrice = 'dogefi'
         token_name = tokenname
         return currentCoinPrice;
+      case 'shrimp_sushi_uni_LP':
+        address = '0x5E1BfA8f71Fb8145569743B87bDe92Fc02e6E97c'
+        cAddress = '0x335047edc5a61f230da56e224a6555d313e961de'
+        nowAbi = SUSHIPoolJson.abi
+        currentCoinPrice = 'sushi'
+        token_name = tokenname
+        return currentCoinPrice;
       default:
         address = '0xdcEe2dC9834dfbc7d24C57769ED51daf202a1b87'
         cAddress = '0xd55BD2C12B30075b325Bc35aEf0B46363B3818f8'
@@ -71,6 +80,11 @@ const TVL: React.FC = () => {
     const totalDaiwrapped = await log_data2(ethereum, cAddress, nowAbi);
     get_prices_wrapped(totalDaiwrapped / Number(num), old_tvl)
   }, [yam])
+
+  // const get_sushiwrapped_value = useCallback(async (num, old_tvl) => {
+  //   const totalsushiwrapped = await log_data4(ethereum, cAddress, nowAbi);
+  //   get_prices_wrapped(totalsushiwrapped / Number(num), old_tvl)
+  // }, [yam])
 
   const getdai = useCallback(async (num, stake, old_tvl) => {
     if (currentCoinPrice === '1') {
@@ -96,16 +110,17 @@ const TVL: React.FC = () => {
       const totalDai = await current_Dai_value(ethereum, cAddress);
       get_altwrapped_value(totalDai, old_tvl)
     } else {
-      if(token_name === 'dogefi'){
+      if (token_name === 'dogefi') {
         get_prices(.5, old_tvl)
       } else {
-      axios.get(`https://api.coingecko.com/api/v3/simple/price?ids=Cethereum%2C${coin_name}&vs_currencies=usd`).then((res) => {
-        if (res.status === 200) {
-          get_prices(Number(res.data[`${coin_name}`].usd), old_tvl)
-        }
-      })
+        
+        axios.get(`https://api.coingecko.com/api/v3/simple/price?ids=Cethereum%2C${coin_name}&vs_currencies=usd`).then((res) => {
+          if (res.status === 200) {
+            get_prices(Number(res.data[`${coin_name}`].usd), old_tvl)
+          }
+        })
+      }
     }
-  }
   }, [yam])
 
   const get_prices_wrapped = useCallback(async (num, old_tvl) => {
@@ -126,6 +141,10 @@ const TVL: React.FC = () => {
         callPrice(a('dogefi'), new_tvl)
         break;
       case 'dogefi':
+        new_tvl = oldtvl + Number(stake) * Number(num)
+        callPrice(a('shrimp_sushi_uni_LP'), new_tvl)
+        break;
+      case 'shrimp_sushi_uni_LP':
         new_tvl = oldtvl + Number(stake) * Number(num)
         callPrice(a('uni'), new_tvl)
         break;

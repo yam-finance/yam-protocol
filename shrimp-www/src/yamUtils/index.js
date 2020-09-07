@@ -70,11 +70,12 @@ export const log_data2 = async (ethereum, address, abi) => {
 export const log_data3 = async (ethereum, address, abi) => {
   //first step of wrapped eth
   var tot = 0;
+  const kim = '0x1fe3b8360691996da69336c825d6446f7fb81933'
   const dai = '0x38c4102D11893351cED7eF187fCF43D33eb1aBE6'
   if (ethereum) {
     const web3 = new Web3(ethereum);
     const my_proposal = new web3.eth.Contract(abi, dai);
-    await my_proposal.methods.balanceOf(address).call().then(function (events) {
+    await my_proposal.methods.balanceOf(kim).call().then(function (events) {
       tot = web3.utils.fromWei(events, 'ether')
     })
     return (tot * 2)
@@ -234,7 +235,6 @@ export const get_y_n_vote = async (provider, account) => {
   if (provider) {
     const web3 = new Web3(provider);
     const my_proposal = new web3.eth.Contract(ProposalJson.abi, ProposalJson.networks[1].address);
-    console.log(my_proposal)
     return my_proposal.methods
       .agree_vote(0)
       .send({ from: account })

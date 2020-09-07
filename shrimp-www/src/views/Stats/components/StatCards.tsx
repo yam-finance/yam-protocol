@@ -21,8 +21,12 @@ import WETHPoolJson from '../../../yam/clean_build/contracts/YAMETHPool.json';
 import YFIPoolJson from '../../../yam/clean_build/contracts/YAMYFIPool.json';
 import SUSHIPoolJson from '../../../yam/clean_build/contracts/SUSHIPoolJson.json';
 import DOGEPoolJson from '../../../yam/clean_build/contracts/DOGEPoolJson.json';
+import KIMCHIPoolJson from '../../../yam/clean_build/contracts/KIMCHIPoolJson.json';
+import FRENSPoolJson from '../../../yam/clean_build/contracts/FRENSPoolJson.json';
 
 import doge from '../../../assets/img/doge.png'
+import kimchi from '../../../assets/img/kimchi.png'
+import frens from '../../../assets/img/frens.png'
 
 import {
   current_zom_value,
@@ -50,16 +54,16 @@ const StatCards: React.FC = () => {
   const rows = farms.reduce<Farm[][]>((farmRows, farm) => {
     const newFarmRows = [...farmRows]
     if (newFarmRows[newFarmRows.length - 1].length) {
-      if(farm.sort === 3 || farm.sort === 1 || farm.sort === 0 || farm.id === 'cream' || farm.id === 'shrimp' || farm.id === 'dice' ||farm.id === 'taco' || farm.id === 'comp' || farm.id === 'yfi' || farm.id === 'weth') {
-       } else {
-      newFarmRows.push([farm])
-    }
+      if (farm.id === 'frens' || farm.sort === 1 || farm.sort === 0 || farm.id === 'cream' || farm.id === 'shrimp' || farm.id === 'dice' || farm.id === 'taco' || farm.id === 'comp' || farm.id === 'yfi' || farm.id === 'weth') {
+      } else {
+        newFarmRows.push([farm])
+      }
     } else {
-      if(farm.sort === 3 || farm.sort === 1 || farm.sort === 0 || farm.id === 'cream' || farm.id === 'shrimp' || farm.id === 'dice' ||farm.id === 'taco' || farm.id === 'comp' || farm.id === 'yfi' || farm.id === 'weth') {
+      if (farm.id === 'frens' || farm.sort === 1 || farm.sort === 0 || farm.id === 'cream' || farm.id === 'shrimp' || farm.id === 'dice' || farm.id === 'taco' || farm.id === 'comp' || farm.id === 'yfi' || farm.id === 'weth') {
       } else {
         newFarmRows[newFarmRows.length - 1].push(farm)
-   }
-      
+      }
+
     }
     return newFarmRows
   }, [[]])
@@ -93,6 +97,8 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
   const [DaiAPY, setDaiAPY] = useState(0)
   const [totalwrapped, settotalwrapped] = useState(0)
   const [totalDaiwrapped, settotalDaiwrapped] = useState(0)
+  const [totalsushiwrapped, settotalsushiwrapped] = useState(0)
+  const [totalkimchiwrapped, settotalkimchiwrapped] = useState(0)
 
   const [currentPrice, setCurrentPrice] = useState(new Number)
   const [currentstatPrice, setCurrentstatPrice] = useState(new Number)
@@ -100,7 +106,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
   const yam = useYam()
   const { account, ethereum } = useWallet()
 
-  
+
   switch (farm.depositToken) {
     case 'zombie':
       var address = '0xdcEe2dC9834dfbc7d24C57769ED51daf202a1b87'
@@ -112,27 +118,39 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
       var address = '0x145FF9b001A7E9a2b547f0b41813f7706a002526'
       var cAddress = '0x9B9087756eCa997C5D595C840263001c9a26646D'
       var nowAbi = DOGEPoolJson.abi
-      var currentCoinPrice = 'dogeficoin'
+      var currentCoinPrice = 'dogefi'
       break;
-      case 'cream':
+    case 'cream':
       var address = '0xa8ed29d39Ec961Ded44451D38e56B609Fe08126e'
       var cAddress = '0x2ba592F78dB6436527729929AAf6c908497cB200'
       var nowAbi = CREAMPoolJson.abi
       var currentCoinPrice = 'cream'
       break;
-      case 'sushi':
-      var address = '0x145FF9b001A7E9a2b547f0b41813f7706a002526'
-      var cAddress = '0x6b3595068778dd592e39a122f4f5a5cf09c90fe2'
+    case 'shrimp_sushi_uni_LP':
+      var address = '0x5E1BfA8f71Fb8145569743B87bDe92Fc02e6E97c'
+      var cAddress = '0x335047edc5a61f230da56e224a6555d313e961de'
       var nowAbi = SUSHIPoolJson.abi
       var currentCoinPrice = 'sushi'
       break;
+    case 'shrimp_kimchi_uni_LP':
+        var address = '0x3447123eb0Cb68bAe9367Ca36b79B086eC5eDa6A'
+        var cAddress = '0x1fe3b8360691996da69336c825d6446f7fb81933'
+        var nowAbi = KIMCHIPoolJson.abi
+        var currentCoinPrice = 'kimchi-finance'
+        break;
     case 'dice':
       var address = '0xcec3fc05f9314528b5ef324a2e2c47f1d8bed515'
       var cAddress = '0xCF67CEd76E8356366291246A9222169F4dBdBe64'
       var nowAbi = DICEPoolJson.abi
       var currentCoinPrice = 'dice-finance'
       break;
-      case 'weth':
+      case 'frens':
+      var address = '0x7127ee43fafba873ce985683ab79df2ce2912198'//update
+      var cAddress = '0x907cb97615b7cD7320Bc89bb7CDB46e37432eBe7'
+      var nowAbi = FRENSPoolJson.abi
+      var currentCoinPrice = 'frens-community'
+      break;
+    case 'weth':
       var address = '0x7127ee43fafba873ce985683ab79df2ce2912198'
       var cAddress = '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
       var nowAbi = WETHPoolJson.abi
@@ -144,17 +162,11 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
       var nowAbi = UNIPoolJson.abi
       var currentCoinPrice = '1'
       break;
-    case 'yfi': 
+    case 'yfi':
       var address = '0x9f83883fd3cadb7d2a83a1de51f9bf483438122e'
       var cAddress = '0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e'
       var nowAbi = YFIPoolJson.abi
       var currentCoinPrice = 'yearn-finance'
-      break;
-    case 'taco':
-      var address = '0x934929f34c7b7611AbC1aEcA15769Da3ca47A097'
-      var cAddress = '0xc585cc7b9e77aea3371764320740c18e9aec9c55'
-      var nowAbi = DICEPoolJson.abi
-      var currentCoinPrice = 'tacos'
       break;
     default:
       var address = '0x934929f34c7b7611AbC1aEcA15769Da3ca47A097'
@@ -164,29 +176,17 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
   }
 
 
-  
+
   const get_wrapped_value = useCallback(async (num) => {
     const totalwrapped = await log_data(ethereum, cAddress, nowAbi);
     settotalwrapped(totalwrapped);
-    get_prices_wrapped(totalwrapped/Number(num))
+    get_prices_wrapped(totalwrapped / Number(num))
   }, [yam])
 
   const get_altwrapped_value = useCallback(async (num) => {
     const totalDaiwrapped = await log_data2(ethereum, cAddress, nowAbi);
     settotalDaiwrapped(totalDaiwrapped);
-    get_prices_wrapped(totalDaiwrapped/Number(num))
-  }, [yam])
-
-  const get_yfiwrapped_value = useCallback(async (num) => {
-    const totalDaiwrapped = await log_data3(ethereum, cAddress, nowAbi);
-    settotalDaiwrapped(totalDaiwrapped);
-    get_prices_wrapped(totalDaiwrapped/Number(num))
-  }, [yam])
-
-  const get_crvwrapped_value = useCallback(async (num) => {
-    const totalDaiwrapped = await log_data4(ethereum, cAddress, nowAbi);
-    settotalDaiwrapped(totalDaiwrapped);
-    get_prices_wrapped(totalDaiwrapped/Number(num))
+    get_prices_wrapped(totalDaiwrapped / Number(num))
   }, [yam])
 
   const gettots = useCallback(async () => {
@@ -195,17 +195,14 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
   }, [yam])
 
   const getdai = useCallback(async () => {
-    const totalDai = await current_Dai_value(ethereum, cAddress);
-    setTotalDai(Number(totalDai))
-    if(currentCoinPrice === '1'){
+      const totalDai = await current_Dai_value(ethereum, cAddress);
+      setTotalDai(Number(totalDai))  
+    if (currentCoinPrice === '1') {
       get_wrapped_value(totalDai)
-    } else if(currentCoinPrice === '2'){
+    } else if (currentCoinPrice === '2') {
       get_altwrapped_value(totalDai)
-    } else if(currentCoinPrice === '3'){
-      get_yfiwrapped_value(totalDai)
-    } else if(currentCoinPrice === '4'){
-      get_crvwrapped_value(totalDai)
     }
+    
   }, [yam])
 
   const getdaistaked = useCallback(async (num, zomNum) => {
@@ -231,12 +228,8 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
   }, [yam])
 
   const callPrice = useCallback(async () => {
-    if (currentCoinPrice === '1' || currentCoinPrice === '2' || currentCoinPrice === '3' || currentCoinPrice === '4') {
+    if (currentCoinPrice === '1' || currentCoinPrice === '2' || currentCoinPrice === '3') {
     } else {
-      if(currentCoinPrice === 'dogeficoin'){
-        setCurrentstatPrice(.5)
-        get_prices(.5)
-      } else {
       axios.get(`https://api.coingecko.com/api/v3/simple/price?ids=Cethereum%2C${currentCoinPrice}&vs_currencies=usd`).then((res) => {
         if (res.status === 200) {
           setCurrentstatPrice(Number(res.data[`${currentCoinPrice}`].usd))
@@ -244,11 +237,9 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
         }
       })
     }
-    }
   }, [setCurrentstatPrice])
 
   const get_prices_wrapped = useCallback(async (num) => {
-    //seconds step
     axios.get('https://api.coingecko.com/api/v3/simple/price?ids=Cethereum%2Cshrimp-finance&vs_currencies=usd').then((res) => {
       if (res.status === 200) {
         setCurrentPrice(Number(res.data['shrimp-finance'].usd))
@@ -287,40 +278,39 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 
   return (
     <>
-        <StyledCardWrapper>
-          <Card>
-            <CardContent>
-              <StyledContent>
-                <span>{farm.icon === 'dd' ? <img style={{ width: "25px" }} src={doge} /> : farm.icon === "aa" ? <img style={{width:"25px"}} src="https://zombie.finance/logo2.png"/> : farm.icon} {farm.name}</span>
-              </StyledContent>
-              <br />
+      <StyledCardWrapper>
+        <Card>
+          <CardContent>
+            <StyledContent>
+              <span>{farm.icon === 'dd' ? <img style={{ width: "25px" }} src={doge} /> : farm.icon === 'f' ? <img style={{ width: "42px", position: "absolute", left: "41%", top: "5%" }} src={frens} /> : farm.icon === "aa" ? <img style={{ width: "25px" }} src="https://zombie.finance/logo2.png" /> :farm.icon === 'k' ? <img style={{ width: "25px" }} src={kimchi} /> : farm.icon} {farm.name}</span>
+            </StyledContent>
+            <br />
         ========== PRICES ==========<br />
-              {currentPrice && `SHRIMP: $${thousands_separators(Number(currentPrice))}`}<br />
+            {currentPrice && `SHRIMP: $${thousands_separators(Number(currentPrice))}`}<br />
 
-              {farm.id === 'zombie'
+            {farm.id === 'zombie'
               ? `${farm.id.toLocaleUpperCase()}: $${currentCoinPrice === '' ? thousands_separators(Number(totalwrapped / totalDai)) : thousands_separators(Number(currentstatPrice))}` : ''}
-              {farm.id === 'uni' && `WETH_SHRIMP_UNI_LP: $${currentCoinPrice === '1' ? thousands_separators(Number(totalwrapped / totalDai)) : thousands_separators(Number(currentstatPrice))}`}
-              {farm.id === 'dogefi' && `${farm.id.toLocaleUpperCase()}: ${thousands_separators(Number(currentstatPrice))}`}
-              <br/>
-              {currentCoinPrice === '1' && `TVL: $${thousands_separators(Number(totalDaiStaked)*Number(totalwrapped / totalDai))}`}
-        {farm.id === 'zombie'
-         ? `TVL: $${thousands_separators(Number(totalDaiStaked)*Number(currentstatPrice))}` : ''}
-         {farm.id === 'dogefi'
-         ? `TVL: $${thousands_separators(Number(totalDaiStaked)*Number(currentstatPrice))}` : ''}
-         <br/>
+            {farm.id === 'uni' && `WETH_SHRIMP_UNI_LP: $${currentCoinPrice === '1' ? thousands_separators(Number(totalwrapped / totalDai)) : thousands_separators(Number(currentstatPrice))}`}
+            {farm.sort === 4 && `SHRIMP_SUSHI_UNI_LP: $${thousands_separators(Number(currentstatPrice))}`}
+            {farm.name === 'Frens 4evur' && `FRENS: $${thousands_separators(Number(currentstatPrice))}`}
+            {farm.sort === 3 && `SHRIMP_KIMCHI_UNI_LP: $${thousands_separators(Number(currentstatPrice))}`}
+            {farm.id === 'dogefi' && `${farm.id.toLocaleUpperCase()}: ${thousands_separators(Number(currentstatPrice))}`}
+            <br />
+            {currentCoinPrice === '1' && `TVL: $${thousands_separators(Number(totalDaiStaked) * Number(totalwrapped / totalDai))}`}
+            {currentCoinPrice !== '1' && `TVL: $${thousands_separators(Number(totalDaiStaked) * Number(currentstatPrice))}`}
+            <br />
         ========== STAKING =========<br />
-              {/* Total supply of SHRIMP-{totalZom}<br/> */}
-              <> Total supply of {farm.depositToken.toLocaleUpperCase()}: {thousands_separators(totalDai)} <br />
+            <> Total supply of {farm.depositToken.toLocaleUpperCase()}: {thousands_separators(totalDai)} <br />
         Total supply of {farm.depositToken.toLocaleUpperCase()} staked in our contract: {thousands_separators(totalDaiStaked)} <br />
         You are staking: {thousands_separators(userStakedDai)} <br />
-              </>
+            </>
         ======== SHRIMP REWARDS ========<br />
-              <>Your available rewards are: {thousands_separators(userEarnedDai)}<br />
-        <span style={{fontWeight: 900}}>APY: {thousands_separators(DaiAPY)}%</span><br/>
-        </>
-            </CardContent>
-          </Card>
-        </StyledCardWrapper>
+            <>Your available rewards are: {thousands_separators(userEarnedDai)}<br />
+              <span style={{ fontWeight: 900 }}>APY: {thousands_separators(DaiAPY)}%</span><br />
+            </>
+          </CardContent>
+        </Card>
+      </StyledCardWrapper>
     </>
   )
 }

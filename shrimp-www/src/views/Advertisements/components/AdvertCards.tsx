@@ -16,6 +16,7 @@ import { getPoolStartTime, getPoolEndTime } from '../../../yamUtils'
 
 import doge from '../../../assets/img/doge.png';
 import kimchi from '../../../assets/img/kimchi.png';
+import frens from '../../../assets/img/frens.png';
 
 
 const AdvertCards: React.FC = () => {
@@ -24,12 +25,12 @@ const AdvertCards: React.FC = () => {
   const rows = farms.reduce<Farm[][]>((farmRows, farm) => {
     const newFarmRows = [...farmRows]
     if (newFarmRows[newFarmRows.length - 1].length === 3) {
-      if (farm.name === "Kimchi crunch" || farm.name === "Sushi swap" || farm.name === "Taco Tuesday" || farm.name === "Zombie Swamp" || farm.name === "DogeFi Days") {
+      if (farm.name === "Frens 4evur" || farm.name === "Kimchi crunch" || farm.name === "Sushi swap" || farm.name === "Taco Tuesday" || farm.name === "Zombie Swamp" || farm.name === "DogeFi Days") {
         newFarmRows.push([farm])
       }
 
     } else {
-      if (farm.name === "Kimchi crunch" || farm.name === "Sushi swap" || farm.name === "Taco Tuesday" || farm.name === "Zombie Swamp" || farm.name === "DogeFi Days") {
+      if (farm.name === "Frens 4evur" || farm.name === "Kimchi crunch" || farm.name === "Sushi swap" || farm.name === "Taco Tuesday" || farm.name === "Zombie Swamp" || farm.name === "DogeFi Days") {
         newFarmRows[newFarmRows.length - 1].push(farm)
       }
     }
@@ -64,7 +65,8 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
   const dogestart = 1598868000000;
   const sushistart = 1598954400503;
   const threedays = 10800000;
-  const kimchiTime = 599213600000;
+  const kimchiTime = 1599213600000;
+  const frensWhen = 1599732000000;
 
   const getStartTime = useCallback(async () => {
     const startTime = await getPoolStartTime(farm.contract)
@@ -109,16 +111,19 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
   return (
     <>
       <StyledCardWrapper>
-        {farm.name === "Kimchi crunch" || farm.name === "Sushi swap" || farm.name === "Taco Tuesday" || farm.name === "Zombie Swamp" || farm.name === "DogeFi Days" ?
+        {farm.name === "Kimchi crunch" || farm.name === "Sushi swap" || farm.name === "Taco Tuesday" || farm.name === "Frens 4evur" || farm.name === "Zombie Swamp" || farm.name === "DogeFi Days" ?
           (
             <Card>
               <CardContent>
                 <StyledContent>
-                  {farm.name !== 'Zombie Swamp' && farm.name !== 'DogeFi Days' && farm.name !== "Kimchi crunch" ?
+                  {farm.name !== 'Frens 4evur' && farm.name !== 'Zombie Swamp' && farm.name !== 'DogeFi Days' && farm.name !== "Kimchi crunch" ?
                     <CardIcon>{farm.icon}</CardIcon> : ''}
 
                   {farm.name === 'DogeFi Days' &&
                     <CardIcon><img style={{ width: "32px" }} src={doge} /></CardIcon>}
+
+                    {farm.name === 'Frens 4evur' &&
+                    <CardIcon><img style={{ width: "64px" }} src={frens} /></CardIcon>}      
 
                   {farm.name === 'Kimchi crunch' &&
                     <CardIcon><img style={{ width: "32px" }} src={kimchi} /></CardIcon>}
@@ -131,7 +136,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
                     <StyledDetail>Earn {farm.earnToken.toUpperCase()}</StyledDetail>
                   </StyledDetails>
                   {farm.name !== 'Sushi swap' && farm.name !== "Kimchi crunch" && <br />}
-                  {farm.name !== 'Sushi swap' && farm.name !== 'Zombie Swamp' && farm.name !== 'DogeFi Days' && farm.name !== "Kimchi crunch" ?
+                  {farm.name !== 'Sushi swap' && farm.name !== 'Zombie Swamp' && farm.name !== 'DogeFi Days' && farm.name !== "Kimchi crunch" && farm.name !== "Frens 4evur" ?
                     <>
                       {Date.now() > endTime * 1000 ? (
                         <>
@@ -166,6 +171,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
                     </>
                     : ''
                   }
+                  {console.log(endTime, farm.name)}
                   {farm.name === 'Zombie Swamp' &&
                     <Button
                       disabled={timeStamp > Date.now()}
@@ -178,11 +184,11 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
                   {farm.name === 'DogeFi Days' &&
                     <Button
                       disabled={dogestart > Date.now()}
-                      text={dogestart < Date.now() ? 'Select' : undefined}
+                      text={'Remove liquidity'}
                       to={`/farms/${farm.id}`}
-                    >
-                      {dogestart > Date.now() && <Countdown date={dogestart} renderer={renderer} />}
-                    </Button>
+                    />
+                    //  {dogestart > Date.now() && <Countdown date={dogestart} renderer={renderer} />}
+                    //</Button>
                   }
                   {farm.name === 'Sushi swap' &&
                     <Button
@@ -200,6 +206,15 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
                       to={`/farms/${farm.id}`}
                     >
                       {kimchiTime > Date.now() && <Countdown date={kimchiTime} renderer={renderer} />}
+                    </Button>
+                  }
+                  {farm.name === 'Frens 4evur' &&
+                    <Button
+                      disabled={frensWhen > Date.now()}
+                      text={frensWhen < Date.now() ? 'Select' : undefined}
+                      to={`/farms/${farm.id}`}
+                    >
+                     {frensWhen > Date.now() && <Countdown date={frensWhen} renderer={renderer} />}
                     </Button>
                   }
                   {farm.name === "Taco Tuesday" &&
@@ -240,6 +255,14 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
                       <StyledDetail>3,000 Shrimp</StyledDetail>
                       <StyledDetail>7 Days</StyledDetail>
                       <StyledDetail><a href="https://discord.com/invite/ypafxfP">Discord</a> | <a href="https://twitter.com/kimchi_finance">Twitter</a></StyledDetail>
+                    </>
+                  }
+                  {farm.name === "Frens 4evur" &&
+                    <>
+                      <br />
+                      <StyledDetail>1,000 Shrimp</StyledDetail>
+                      <StyledDetail>14 Days</StyledDetail>
+                      <StyledDetail><a href="https://t.me/frenslink">Telegram</a> | <a href="https://twitter.com/frenscommunity">Twitter</a></StyledDetail>
                     </>
                   }
                 </StyledContent>

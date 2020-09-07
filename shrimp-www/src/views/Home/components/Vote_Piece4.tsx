@@ -59,7 +59,8 @@ const Voter: React.FC<VoteProps> = () => {
     const refetch = setInterval(fetchVotes, 10000)
     return () => clearInterval(refetch)
   }, [fetchVotes, yam])
-
+//101,295.412
+// 244,230.76
 
   return (
     <Card>
@@ -68,7 +69,7 @@ const Voter: React.FC<VoteProps> = () => {
           <StyledCenter>
             {Date.now() > WARNING_TIMESTAMP ? (
               <>
-              <StyledDenominator>{`All Time Elapsed`}</StyledDenominator>
+              <StyledDenominator>{`Voting over`}</StyledDenominator>
               </>
             )
               : (
@@ -86,7 +87,7 @@ const Voter: React.FC<VoteProps> = () => {
               display: 'flex',
             }}>
               <StyledTitle>
-                <div>{(Number(totalVotes) * 7.5).toLocaleString()}</div>
+                <div>{"101,295.412"}</div>
               </StyledTitle>
               <StyledDenominator>
                 <div>{`/ 244,230.76`}</div>
@@ -106,10 +107,11 @@ const Voter: React.FC<VoteProps> = () => {
           </StyledCheckpoint>
         </StyledCheckpoints>
         <StyledMeter>
-          <StyledMeterInner width={(Number(totalVotes) * 7.5) / METER_TOTAL * 100} />
+          <StyledMeterInner width={(101295.412) / METER_TOTAL * 100} />
         </StyledMeter>
         <Spacer />
-        {Date.now() > WARNING_TIMESTAMP ? (<Button text="Coming soon" disabled={true} />):(<Button text="Yes" onClick={y_vote} />)}
+        <Button text="Over" disabled={true} />
+        {/* {Date.now() > WARNING_TIMESTAMP ? (<Button text="Coming soon" disabled={true} />):(<Button text="Yes" onClick={y_vote} />)} */}
         <div style={{
           margin: '0 auto',
           width: 512,
