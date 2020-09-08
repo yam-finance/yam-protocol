@@ -66,7 +66,8 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
   const sushistart = 1598954400503;
   const threedays = 10800000;
   const kimchiTime = 1599213600000;
-  const frensWhen = 599645600000;
+  const frensWhen = 1599645600000;
+  const deadline = 1599559200000;
 
   const getStartTime = useCallback(async () => {
     const startTime = await getPoolStartTime(farm.contract)
@@ -171,14 +172,12 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
                     </>
                     : ''
                   }
-                  {console.log(endTime, farm.name)}
                   {farm.name === 'Zombie Swamp' &&
                     <Button
-                      disabled={timeStamp > Date.now()}
-                      text={timeStamp < Date.now() ? 'Select' : undefined}
+                      text={deadline < Date.now() ? 'Remove liquidity' : undefined}
                       to={`/farms/${farm.id}`}
                     >
-                      {timeStamp > Date.now() && <Countdown date={timeStamp} renderer={renderer} />}
+                      {deadline > Date.now() && <Countdown date={deadline} renderer={renderer} />}
                     </Button>
                   }
                   {farm.name === 'DogeFi Days' &&
@@ -192,11 +191,10 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
                   }
                   {farm.name === 'Sushi swap' &&
                     <Button
-                      disabled={sushistart > Date.now()}
-                      text={sushistart < Date.now() ? 'Select' : undefined}
+                      text={deadline < Date.now() ? 'Remove liquidity' : undefined}
                       to={`/farms/${farm.id}`}
                     >
-                      {sushistart > Date.now() && <Countdown date={sushistart} renderer={renderer} />}
+                      {deadline > Date.now() && <Countdown date={deadline} renderer={renderer} />}
                     </Button>
                   }
                   {farm.name === 'Kimchi crunch' &&

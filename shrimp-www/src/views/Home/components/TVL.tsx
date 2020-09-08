@@ -8,6 +8,7 @@ import ZOMBIEPoolJson from '../../../yam/clean_build/contracts/ZombiePool.json';
 import UNIPoolJson from '../../../yam/clean_build/contracts/ShrimpUniPool.json';
 import DOGEPoolJson from '../../../yam/clean_build/contracts/DOGEPoolJson.json';
 import SUSHIPoolJson from '../../../yam/clean_build/contracts/SUSHIPoolJson.json';
+import FRENSPoolJson from '../../../yam/clean_build/contracts/FRENSPoolJson.json';
 
 
 import {
@@ -52,6 +53,13 @@ const TVL: React.FC = () => {
         nowAbi = DOGEPoolJson.abi
         currentCoinPrice = 'dogefi'
         token_name = tokenname
+        return currentCoinPrice;
+      case 'frens':
+        address = '0x3bBDEAb3ea527e6C59C1cC89fDD6297e5C629840'
+        cAddress = '0x907cb97615b7cD7320Bc89bb7CDB46e37432eBe7'
+        nowAbi = FRENSPoolJson.abi
+        token_name = tokenname
+        currentCoinPrice = 'frens-community'
         return currentCoinPrice;
       case 'shrimp_sushi_uni_LP':
         address = '0x5E1BfA8f71Fb8145569743B87bDe92Fc02e6E97c'
@@ -113,7 +121,7 @@ const TVL: React.FC = () => {
       if (token_name === 'dogefi') {
         get_prices(.5, old_tvl)
       } else {
-        
+
         axios.get(`https://api.coingecko.com/api/v3/simple/price?ids=Cethereum%2C${coin_name}&vs_currencies=usd`).then((res) => {
           if (res.status === 200) {
             get_prices(Number(res.data[`${coin_name}`].usd), old_tvl)
@@ -141,6 +149,10 @@ const TVL: React.FC = () => {
         callPrice(a('dogefi'), new_tvl)
         break;
       case 'dogefi':
+        new_tvl = oldtvl + Number(stake) * Number(num)
+        callPrice(a('frens'), new_tvl)
+        break;
+      case 'frens':
         new_tvl = oldtvl + Number(stake) * Number(num)
         callPrice(a('shrimp_sushi_uni_LP'), new_tvl)
         break;

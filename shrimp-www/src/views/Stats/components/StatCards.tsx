@@ -54,12 +54,12 @@ const StatCards: React.FC = () => {
   const rows = farms.reduce<Farm[][]>((farmRows, farm) => {
     const newFarmRows = [...farmRows]
     if (newFarmRows[newFarmRows.length - 1].length) {
-      if (farm.id === 'frens' || farm.sort === 1 || farm.sort === 0 || farm.id === 'cream' || farm.id === 'shrimp' || farm.id === 'dice' || farm.id === 'taco' || farm.id === 'comp' || farm.id === 'yfi' || farm.id === 'weth') {
+      if (farm.sort === 1 || farm.sort === 0 || farm.id === 'cream' || farm.id === 'shrimp' || farm.id === 'dice' || farm.id === 'taco' || farm.id === 'comp' || farm.id === 'yfi' || farm.id === 'weth') {
       } else {
         newFarmRows.push([farm])
       }
     } else {
-      if (farm.id === 'frens' || farm.sort === 1 || farm.sort === 0 || farm.id === 'cream' || farm.id === 'shrimp' || farm.id === 'dice' || farm.id === 'taco' || farm.id === 'comp' || farm.id === 'yfi' || farm.id === 'weth') {
+      if (farm.sort === 1 || farm.sort === 0 || farm.id === 'cream' || farm.id === 'shrimp' || farm.id === 'dice' || farm.id === 'taco' || farm.id === 'comp' || farm.id === 'yfi' || farm.id === 'weth') {
       } else {
         newFarmRows[newFarmRows.length - 1].push(farm)
       }
@@ -145,7 +145,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
       var currentCoinPrice = 'dice-finance'
       break;
       case 'frens':
-      var address = '0x7127ee43fafba873ce985683ab79df2ce2912198'//update
+      var address = '0x3bBDEAb3ea527e6C59C1cC89fDD6297e5C629840'//update
       var cAddress = '0x907cb97615b7cD7320Bc89bb7CDB46e37432eBe7'
       var nowAbi = FRENSPoolJson.abi
       var currentCoinPrice = 'frens-community'
@@ -291,9 +291,9 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
             {farm.id === 'zombie'
               ? `${farm.id.toLocaleUpperCase()}: $${currentCoinPrice === '' ? thousands_separators(Number(totalwrapped / totalDai)) : thousands_separators(Number(currentstatPrice))}` : ''}
             {farm.id === 'uni' && `WETH_SHRIMP_UNI_LP: $${currentCoinPrice === '1' ? thousands_separators(Number(totalwrapped / totalDai)) : thousands_separators(Number(currentstatPrice))}`}
-            {farm.sort === 4 && `SHRIMP_SUSHI_UNI_LP: $${thousands_separators(Number(currentstatPrice))}`}
+            {farm.sort === 11 && `SHRIMP_SUSHI_UNI_LP: $${thousands_separators(Number(currentstatPrice))}`}
             {farm.name === 'Frens 4evur' && `FRENS: $${thousands_separators(Number(currentstatPrice))}`}
-            {farm.sort === 3 && `SHRIMP_KIMCHI_UNI_LP: $${thousands_separators(Number(currentstatPrice))}`}
+            {farm.sort === 4 && `SHRIMP_KIMCHI_UNI_LP: $${thousands_separators(Number(currentstatPrice))}`}
             {farm.id === 'dogefi' && `${farm.id.toLocaleUpperCase()}: ${thousands_separators(Number(currentstatPrice))}`}
             <br />
             {currentCoinPrice === '1' && `TVL: $${thousands_separators(Number(totalDaiStaked) * Number(totalwrapped / totalDai))}`}
