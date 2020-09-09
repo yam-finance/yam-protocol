@@ -65,9 +65,13 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
   const dogestart = 1598868000000;
   const sushistart = 1598954400503;
   const threedays = 10800000;
+  const oneDay = 3600000;
   const kimchiTime = 1599213600000;
   const frensWhen = 1599645600000;
   const deadline = 1599559200000;
+  const kimchiclose = 1599818400000;
+  const kimchi24hleft = 1599732000000;
+  const frensens = 1600855200000
 
   const getStartTime = useCallback(async () => {
     const startTime = await getPoolStartTime(farm.contract)
@@ -197,8 +201,16 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
                       {deadline > Date.now() && <Countdown date={deadline} renderer={renderer} />}
                     </Button>
                   }
-                  {farm.name === 'Kimchi crunch' &&
-                    <Button
+
+                  {kimchi24hleft < Date.now() ? 
+                  farm.name === 'Kimchi crunch' && <Button
+                  text={kimchiclose < Date.now() ? 'Remove liquidity' : undefined}
+                  to={`/farms/${farm.id}`}
+                >
+                  {kimchiclose > Date.now() && <Countdown date={kimchiclose} renderer={renderer} />}
+                </Button> 
+                  :
+                  farm.name === 'Kimchi crunch' && <Button
                       disabled={kimchiTime > Date.now()}
                       text={kimchiTime < Date.now() ? 'Select' : undefined}
                       to={`/farms/${farm.id}`}
@@ -206,7 +218,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
                       {kimchiTime > Date.now() && <Countdown date={kimchiTime} renderer={renderer} />}
                     </Button>
                   }
-                  {farm.name === 'Frens 4evur' &&
+                  {farm.name === 'Frens 4evur' && 
                     <Button
                       disabled={frensWhen > Date.now()}
                       text={frensWhen < Date.now() ? 'Select' : undefined}
@@ -214,6 +226,13 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
                     >
                      {frensWhen > Date.now() && <Countdown date={frensWhen} renderer={renderer} />}
                     </Button>
+                    //  <Button
+                    //   disabled={frensens > Date.now()}
+                    //   text={frensens < Date.now() ? 'Remove liquidity' : undefined}
+                    //   to={`/farms/${farm.id}`}
+                    // >
+                    //  {frensWhen > Date.now() && <Countdown date={frensens} renderer={renderer} />}
+                    // </Button>
                   }
                   {farm.name === "Taco Tuesday" &&
                     <>
