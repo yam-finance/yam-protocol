@@ -8,7 +8,6 @@ import AdButton from '../../components/TopBar/components/AdvertisementFormButton
 import {
   Route,
   useParams,
-  Switch,
   useRouteMatch,
 } from 'react-router-dom'
 import { useWallet } from 'use-wallet'
@@ -24,9 +23,6 @@ import Page from '../../components/Page'
 import useFarm from '../../hooks/useFarm'
 import useRedeem from '../../hooks/useRedeem'
 import { getContract } from '../../utils/erc20'
-import Card from '../../components/Card'
-import CardContent from '../../components/CardContent'
-import CardIcon from '../../components/CardIcon'
 
 import AdvertCards from './components/AdvertCards'
 

@@ -24,9 +24,9 @@ const DisclaimerModal: React.FC<DisclaimerModal> = ({ onConfirm, onDismiss }) =>
       return (
         <div>
           <p>Audits: None. (This project is in beta. Use at your own risk.)</p>
-          <p>🦐 New Advanced Pool will start on 2020/09/09 10:00:00 UTC+0, welcome our new <a href="https://frens.link/" target="_blank">Frens</a> on board. 🦐 </p>
+          <p>🦐 New Advanced Pool will start on 2020/09/12 10:00:00 UTC+0, welcome <a href="https://sashimi.cool/" target="_blank">Sashimi</a> onto the plate. 🦐 </p>
           {/* <p>🍣 New Advanced Pool will start on 2020/09/01 10:00:00 UTC+0, welcome <a href="https://app.sushiswap.org/" target="_blank">SHRIMP_SUSHI_UNI_LP</a> on board. 🍣 </p> */}
-          <br/><p>🚨 For more information on the inflation of Uniswap LP pool tokens, please visit <a href="https://github.com/shrimp-finance/shrimp-protocol/wiki/Total-Shrimp:-244,230.76-%F0%9F%A6%90" target="_blank">Github Wiki</a></p>
+          <br/><p>🚨 For more information on the inflation of Uniswap LP pool tokens, please visit <a href="https://github.com/shrimp-finance/shrimp-protocol/wiki/Total-Shrimp:-248,725.6-%F0%9F%A6%90" target="_blank">Github Wiki</a></p>
           <p>💡 Any token in Advanced Pool does not constitute an investment opinion, Shrimp Group is only responsible for basic quick check! Please evaluate yourself carefully before buying!</p>
         </div>
       )

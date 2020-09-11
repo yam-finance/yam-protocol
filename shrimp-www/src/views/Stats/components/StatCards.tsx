@@ -27,6 +27,7 @@ import FRENSPoolJson from '../../../yam/clean_build/contracts/FRENSPoolJson.json
 import doge from '../../../assets/img/doge.png'
 import kimchi from '../../../assets/img/kimchi.png'
 import frens from '../../../assets/img/frens.png'
+import sashimi from '../../../assets/img/sashimi.png'
 
 import {
   current_zom_value,
@@ -54,12 +55,12 @@ const StatCards: React.FC = () => {
   const rows = farms.reduce<Farm[][]>((farmRows, farm) => {
     const newFarmRows = [...farmRows]
     if (newFarmRows[newFarmRows.length - 1].length) {
-      if (farm.sort === 1 || farm.sort === 0 || farm.id === 'cream' || farm.id === 'shrimp' || farm.id === 'dice' || farm.id === 'taco' || farm.id === 'comp' || farm.id === 'yfi' || farm.id === 'weth') {
+      if (farm.sort === 14 || farm.sort === 1 || farm.sort === 0 || farm.id === 'cream' || farm.id === 'shrimp' || farm.id === 'dice' || farm.id === 'taco' || farm.id === 'comp' || farm.id === 'yfi' || farm.id === 'weth') {
       } else {
         newFarmRows.push([farm])
       }
     } else {
-      if (farm.sort === 1 || farm.sort === 0 || farm.id === 'cream' || farm.id === 'shrimp' || farm.id === 'dice' || farm.id === 'taco' || farm.id === 'comp' || farm.id === 'yfi' || farm.id === 'weth') {
+      if (farm.sort === 14 || farm.sort === 1 || farm.sort === 0 || farm.id === 'cream' || farm.id === 'shrimp' || farm.id === 'dice' || farm.id === 'taco' || farm.id === 'comp' || farm.id === 'yfi' || farm.id === 'weth') {
       } else {
         newFarmRows[newFarmRows.length - 1].push(farm)
       }
@@ -282,7 +283,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
         <Card>
           <CardContent>
             <StyledContent>
-              <span>{farm.icon === 'dd' ? <img style={{ width: "25px" }} src={doge} /> : farm.icon === 'f' ? <img style={{ width: "42px", position: "absolute", left: "41%", top: "5%" }} src={frens} /> : farm.icon === "aa" ? <img style={{ width: "25px" }} src="https://zombie.finance/logo2.png" /> :farm.icon === 'k' ? <img style={{ width: "25px" }} src={kimchi} /> : farm.icon} {farm.name}</span>
+              <span>{farm.icon === 'ns' ? <img style={{ width: "25px" }} src={sashimi} /> : farm.icon === 'dd' ? <img style={{ width: "25px" }} src={doge} /> : farm.icon === 'f' ? <img style={{ width: "42px", position: "absolute", left: "41%", top: "5%" }} src={frens} /> : farm.icon === "aa" ? <img style={{ width: "25px" }} src="https://zombie.finance/logo2.png" /> :farm.icon === 'k' ? <img style={{ width: "25px" }} src={kimchi} /> : farm.icon} {farm.name}</span>
             </StyledContent>
             <br />
         ========== PRICES ==========<br />

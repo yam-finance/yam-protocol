@@ -6,7 +6,6 @@ import Button from '../../../components/Button'
 import Card from '../../../components/Card'
 import CardContent from '../../../components/CardContent'
 import CardIcon from '../../../components/CardIcon'
-import Loader from '../../../components/Loader'
 
 import useFarms from '../../../hooks/useFarms'
 
@@ -17,6 +16,7 @@ import { getPoolStartTime, getPoolEndTime } from '../../../yamUtils'
 import doge from '../../../assets/img/doge.png';
 import kimchi from '../../../assets/img/kimchi.png';
 import frens from '../../../assets/img/frens.png';
+import sashimi from '../../../assets/img/sashimi.png';
 
 
 const AdvertCards: React.FC = () => {
@@ -25,12 +25,12 @@ const AdvertCards: React.FC = () => {
   const rows = farms.reduce<Farm[][]>((farmRows, farm) => {
     const newFarmRows = [...farmRows]
     if (newFarmRows[newFarmRows.length - 1].length === 3) {
-      if (farm.name === "Frens 4evur" || farm.name === "Kimchi crunch" || farm.name === "Sushi swap" || farm.name === "Taco Tuesday" || farm.name === "Zombie Swamp" || farm.name === "DogeFi Days") {
+      if (farm.id === 'sashimi' || farm.name === "Frens 4evur" || farm.name === "Kimchi crunch" || farm.name === "Sushi swap" || farm.name === "Taco Tuesday" || farm.name === "Zombie Swamp" || farm.name === "DogeFi Days") {
         newFarmRows.push([farm])
       }
 
     } else {
-      if (farm.name === "Frens 4evur" || farm.name === "Kimchi crunch" || farm.name === "Sushi swap" || farm.name === "Taco Tuesday" || farm.name === "Zombie Swamp" || farm.name === "DogeFi Days") {
+      if (farm.id === "sashimi" || farm.name === "Frens 4evur" || farm.name === "Kimchi crunch" || farm.name === "Sushi swap" || farm.name === "Taco Tuesday" || farm.name === "Zombie Swamp" || farm.name === "DogeFi Days") {
         newFarmRows[newFarmRows.length - 1].push(farm)
       }
     }
@@ -71,7 +71,8 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
   const deadline = 1599559200000;
   const kimchiclose = 1599818400000;
   const kimchi24hleft = 1599732000000;
-  const frensens = 1600855200000
+  const frensens = 1600855200000;
+  const sashimistart = 599904800000;
 
   const getStartTime = useCallback(async () => {
     const startTime = await getPoolStartTime(farm.contract)
@@ -116,12 +117,12 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
   return (
     <>
       <StyledCardWrapper>
-        {farm.name === "Kimchi crunch" || farm.name === "Sushi swap" || farm.name === "Taco Tuesday" || farm.name === "Frens 4evur" || farm.name === "Zombie Swamp" || farm.name === "DogeFi Days" ?
+        {farm.id === 'sashimi' || farm.name === "Kimchi crunch" || farm.name === "Sushi swap" || farm.name === "Taco Tuesday" || farm.name === "Frens 4evur" || farm.name === "Zombie Swamp" || farm.name === "DogeFi Days" ?
           (
             <Card>
               <CardContent>
                 <StyledContent>
-                  {farm.name !== 'Frens 4evur' && farm.name !== 'Zombie Swamp' && farm.name !== 'DogeFi Days' && farm.name !== "Kimchi crunch" ?
+                  {farm.id !== 'sashimi' && farm.name !== 'Frens 4evur' && farm.name !== 'Zombie Swamp' && farm.name !== 'DogeFi Days' && farm.name !== "Kimchi crunch" ?
                     <CardIcon>{farm.icon}</CardIcon> : ''}
 
                   {farm.name === 'DogeFi Days' &&
@@ -133,6 +134,10 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
                   {farm.name === 'Kimchi crunch' &&
                     <CardIcon><img style={{ width: "32px" }} src={kimchi} /></CardIcon>}
 
+                  {farm.id === 'sashimi' &&
+                    <CardIcon><img style={{ width: "64px" }} src={sashimi} /></CardIcon>}
+
+
                   {farm.name === 'Zombie Swamp' &&
                     <CardIcon><img style={{ width: "32px" }} src="https://zombie.finance/logo2.png" /></CardIcon>}
                   <StyledTitle>{farm.name}</StyledTitle>
@@ -141,7 +146,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
                     <StyledDetail>Earn {farm.earnToken.toUpperCase()}</StyledDetail>
                   </StyledDetails>
                   {farm.name !== 'Sushi swap' && farm.name !== "Kimchi crunch" && <br />}
-                  {farm.name !== 'Sushi swap' && farm.name !== 'Zombie Swamp' && farm.name !== 'DogeFi Days' && farm.name !== "Kimchi crunch" && farm.name !== "Frens 4evur" ?
+                  {farm.name !== 'Sushi swap' && farm.name !== 'Zombie Swamp' && farm.name !== 'DogeFi Days' && farm.name !== "Kimchi crunch" && farm.name !== "Frens 4evur" && farm.id !== "sashimi" ?
                     <>
                       {Date.now() > endTime * 1000 ? (
                         <>
@@ -234,6 +239,15 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
                     //  {frensWhen > Date.now() && <Countdown date={frensens} renderer={renderer} />}
                     // </Button>
                   }
+                  {farm.id === 'sashimi' &&
+                    <Button
+                    disabled={sashimistart > Date.now()}
+                      text={sashimistart < Date.now() ? 'Select' : undefined}
+                      to={`/farms/${farm.id}`}
+                    >
+                      {sashimistart > Date.now() && <Countdown date={sashimistart} renderer={renderer} />}
+                    </Button>
+                  }
                   {farm.name === "Taco Tuesday" &&
                     <>
                       <br />
@@ -280,6 +294,14 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
                       <StyledDetail>1,000 Shrimp</StyledDetail>
                       <StyledDetail>14 Days</StyledDetail>
                       <StyledDetail><a href="https://t.me/frenslink">Telegram</a> | <a href="https://twitter.com/frenscommunity">Twitter</a></StyledDetail>
+                    </>
+                  }
+                  {farm.id === "sashimi" &&
+                    <>
+                      <br />
+                      <StyledDetail>3,000 Shrimp</StyledDetail>
+                      <StyledDetail>7 Days</StyledDetail>
+                      <StyledDetail><a href="https://t.me/joinchat/KABj-Bz6CVzyi23HK2rjzA">Telegram</a> | <a href="https://twitter.com/SASHIMISASHIMI5">Twitter</a></StyledDetail>
                     </>
                   }
                 </StyledContent>

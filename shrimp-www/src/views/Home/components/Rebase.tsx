@@ -25,7 +25,7 @@ const Rebase: React.FC<RebaseProps> = ({ nextRebase }) => {
   }
 
   const dialValue = nextRebase / (1000 * 60 * 60 * 12) * 100
-
+  
   return (
     <StyledRebase>
       <Card>
