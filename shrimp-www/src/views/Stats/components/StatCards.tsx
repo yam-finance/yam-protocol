@@ -124,8 +124,8 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
       var currentCoinPrice = 'dogefi'
       break;
     case 'pickle':
-      var address = '0x145FF9b001A7E9a2b547f0b41813f7706a002526'
-      var cAddress = '0x9B9087756eCa997C5D595C840263001c9a26646D'
+      var address = '0x532E68FDd932811F35577EdC6653F4852acE5c64'
+      var cAddress = '0xb82D62d494527ba0555bF818b1c7E133C05188b6'
       var nowAbi = PICKLEPoolJson.abi
       var currentCoinPrice = 'pickle-finance'
       break;

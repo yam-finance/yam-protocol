@@ -157,7 +157,7 @@ const Farms: React.FC = ({ children }) => {
         }
 
         if (tokenKey === 'shrimp_pickle_uni_lp') {
-          tokenAddress = '0x429881672B9AE42b8EbA0E26cD9C73711b891Ca5'
+          tokenAddress = '0xb82D62d494527ba0555bF818b1c7E133C05188b6'
         }
         
         farmsArr.push({

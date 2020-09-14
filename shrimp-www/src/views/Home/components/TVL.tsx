@@ -56,9 +56,9 @@ const TVL: React.FC = () => {
         currentCoinPrice = 'sashimi'
         token_name = tokenname
         return currentCoinPrice;
-        case 'pickle':
-        address = '0xF46485B3fecC87c73821aE310b579d3c6390821a'
-        cAddress = '0x429881672B9AE42b8EbA0E26cD9C73711b891Ca5'
+      case 'pickle':
+        address = '0x532E68FDd932811F35577EdC6653F4852acE5c64'
+        cAddress = '0xb82D62d494527ba0555bF818b1c7E133C05188b6'
         nowAbi = PICKLEPoolJson.abi
         currentCoinPrice = 'pickle-finance'
         token_name = tokenname
@@ -169,6 +169,10 @@ const TVL: React.FC = () => {
         callPrice(a('sashimi'), new_tvl)
         break;
       case 'sashimi':
+        new_tvl = oldtvl + Number(stake) * Number(num)
+        callPrice(a('pickle'), new_tvl)
+        break;
+      case 'pickle':
         new_tvl = oldtvl + Number(stake) * Number(num)
         callPrice(a('frens'), new_tvl)
         break;
