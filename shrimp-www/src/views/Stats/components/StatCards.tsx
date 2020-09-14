@@ -23,6 +23,7 @@ import SUSHIPoolJson from '../../../yam/clean_build/contracts/SUSHIPoolJson.json
 import DOGEPoolJson from '../../../yam/clean_build/contracts/DOGEPoolJson.json';
 import KIMCHIPoolJson from '../../../yam/clean_build/contracts/KIMCHIPoolJson.json';
 import FRENSPoolJson from '../../../yam/clean_build/contracts/FRENSPoolJson.json';
+import SASHIMIPoolJson from '../../../yam/clean_build/contracts/SASHIMIPoolJson.json';
 
 import doge from '../../../assets/img/doge.png'
 import kimchi from '../../../assets/img/kimchi.png'
@@ -55,12 +56,12 @@ const StatCards: React.FC = () => {
   const rows = farms.reduce<Farm[][]>((farmRows, farm) => {
     const newFarmRows = [...farmRows]
     if (newFarmRows[newFarmRows.length - 1].length) {
-      if (farm.sort === 14 || farm.sort === 1 || farm.sort === 0 || farm.id === 'cream' || farm.id === 'shrimp' || farm.id === 'dice' || farm.id === 'taco' || farm.id === 'comp' || farm.id === 'yfi' || farm.id === 'weth') {
+      if (farm.sort === 1 || farm.sort === 0 || farm.id === 'cream' || farm.id === 'shrimp' || farm.id === 'dice' || farm.id === 'taco' || farm.id === 'comp' || farm.id === 'yfi' || farm.id === 'weth') {
       } else {
         newFarmRows.push([farm])
       }
     } else {
-      if (farm.sort === 14 || farm.sort === 1 || farm.sort === 0 || farm.id === 'cream' || farm.id === 'shrimp' || farm.id === 'dice' || farm.id === 'taco' || farm.id === 'comp' || farm.id === 'yfi' || farm.id === 'weth') {
+      if (farm.sort === 1 || farm.sort === 0 || farm.id === 'cream' || farm.id === 'shrimp' || farm.id === 'dice' || farm.id === 'taco' || farm.id === 'comp' || farm.id === 'yfi' || farm.id === 'weth') {
       } else {
         newFarmRows[newFarmRows.length - 1].push(farm)
       }
@@ -121,6 +122,12 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
       var nowAbi = DOGEPoolJson.abi
       var currentCoinPrice = 'dogefi'
       break;
+      case 'sashimi':
+        var address = '0xF46485B3fecC87c73821aE310b579d3c6390821a'
+        var cAddress = '0xC28E27870558cF22ADD83540d2126da2e4b464c2'
+        var nowAbi = SASHIMIPoolJson.abi
+        var currentCoinPrice = 'sashimi'
+        break;
     case 'cream':
       var address = '0xa8ed29d39Ec961Ded44451D38e56B609Fe08126e'
       var cAddress = '0x2ba592F78dB6436527729929AAf6c908497cB200'
@@ -295,6 +302,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
             {farm.sort === 11 && `SHRIMP_SUSHI_UNI_LP: $${thousands_separators(Number(currentstatPrice))}`}
             {farm.name === 'Frens 4evur' && `FRENS: $${thousands_separators(Number(currentstatPrice))}`}
             {farm.sort === 4 && `SHRIMP_KIMCHI_UNI_LP: $${thousands_separators(Number(currentstatPrice))}`}
+            {farm.sort === 14 && `Sashimi Surprise: $${thousands_separators(Number(currentstatPrice))}`}
             {farm.id === 'dogefi' && `${farm.id.toLocaleUpperCase()}: ${thousands_separators(Number(currentstatPrice))}`}
             <br />
             {currentCoinPrice === '1' && `TVL: $${thousands_separators(Number(totalDaiStaked) * Number(totalwrapped / totalDai))}`}

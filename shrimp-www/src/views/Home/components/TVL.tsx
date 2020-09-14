@@ -9,6 +9,7 @@ import UNIPoolJson from '../../../yam/clean_build/contracts/ShrimpUniPool.json';
 import DOGEPoolJson from '../../../yam/clean_build/contracts/DOGEPoolJson.json';
 import SUSHIPoolJson from '../../../yam/clean_build/contracts/SUSHIPoolJson.json';
 import FRENSPoolJson from '../../../yam/clean_build/contracts/FRENSPoolJson.json';
+import SASHIMIPoolJson from '../../../yam/clean_build/contracts/SASHIMIPoolJson.json';
 
 
 import {
@@ -45,6 +46,13 @@ const TVL: React.FC = () => {
         cAddress = '0xeba5d22bbeb146392d032a2f74a735d66a32aee4'
         nowAbi = UNIPoolJson.abi
         currentCoinPrice = '1'
+        token_name = tokenname
+        return currentCoinPrice;
+      case 'sashimi':
+        address = '0xF46485B3fecC87c73821aE310b579d3c6390821a'
+        cAddress = '0xC28E27870558cF22ADD83540d2126da2e4b464c2'
+        nowAbi = SASHIMIPoolJson.abi
+        currentCoinPrice = 'sashimi'
         token_name = tokenname
         return currentCoinPrice;
       case 'dogefi':
@@ -149,6 +157,10 @@ const TVL: React.FC = () => {
         callPrice(a('dogefi'), new_tvl)
         break;
       case 'dogefi':
+        new_tvl = oldtvl + Number(stake) * Number(num)
+        callPrice(a('sashimi'), new_tvl)
+        break;
+      case 'sashimi':
         new_tvl = oldtvl + Number(stake) * Number(num)
         callPrice(a('frens'), new_tvl)
         break;

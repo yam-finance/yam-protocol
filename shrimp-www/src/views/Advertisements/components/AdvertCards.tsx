@@ -72,7 +72,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
   const kimchiclose = 1599818400000;
   const kimchi24hleft = 1599732000000;
   const frensens = 1600855200000;
-  const sashimistart = 599904800000;
+  const sashimistart = 1599904800000;
 
   const getStartTime = useCallback(async () => {
     const startTime = await getPoolStartTime(farm.contract)
