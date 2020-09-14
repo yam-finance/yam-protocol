@@ -10,6 +10,7 @@ import DOGEPoolJson from '../../../yam/clean_build/contracts/DOGEPoolJson.json';
 import SUSHIPoolJson from '../../../yam/clean_build/contracts/SUSHIPoolJson.json';
 import FRENSPoolJson from '../../../yam/clean_build/contracts/FRENSPoolJson.json';
 import SASHIMIPoolJson from '../../../yam/clean_build/contracts/SASHIMIPoolJson.json';
+import PICKLEPoolJson from '../../../yam/clean_build/contracts/PICKLEPoolJson.json';
 
 
 import {
@@ -53,6 +54,13 @@ const TVL: React.FC = () => {
         cAddress = '0xC28E27870558cF22ADD83540d2126da2e4b464c2'
         nowAbi = SASHIMIPoolJson.abi
         currentCoinPrice = 'sashimi'
+        token_name = tokenname
+        return currentCoinPrice;
+        case 'pickle':
+        address = '0xF46485B3fecC87c73821aE310b579d3c6390821a'
+        cAddress = '0x429881672B9AE42b8EbA0E26cD9C73711b891Ca5'
+        nowAbi = PICKLEPoolJson.abi
+        currentCoinPrice = 'pickle-finance'
         token_name = tokenname
         return currentCoinPrice;
       case 'dogefi':

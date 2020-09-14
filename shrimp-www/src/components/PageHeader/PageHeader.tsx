@@ -4,6 +4,7 @@ import doge from '../../assets/img/doge.png';
 import kimchi from '../../assets/img/kimchi.png';
 import frens from '../../assets/img/frens.png';
 import sashimi from '../../assets/img/sashimi.png';
+import pickle from '../../assets/img/pickle.png';
 interface PageHeaderProps {
   icon: React.ReactNode,
   subtitle?: React.ReactNode,
@@ -18,7 +19,8 @@ const PageHeader: React.FC<PageHeaderProps> = ({ icon, subtitle, title }) => {
       {icon === "k" && <img style={{width:"85px"}} src={kimchi}/>}
       {icon === "f" && <img style={{width:"85px"}} src={frens}/>}
       {icon === "ns" && <img style={{width:"85px"}} src={sashimi}/>}
-      {icon !== "ns" || icon !== "aa" || icon !== "dd" || icon !== "k" || icon !== 'f' ? '' : <StyledIcon>{icon}</StyledIcon>}
+      {icon === "p" && <img style={{width:"85px"}} src={pickle}/>}
+      {icon !== "p" || icon !== "ns" || icon !== "aa" || icon !== "dd" || icon !== "k" || icon !== 'f' ? '' : <StyledIcon>{icon}</StyledIcon>}
       <StyledTitle>{title}</StyledTitle>
       <StyledSubtitle>{subtitle}</StyledSubtitle>
     </StyledPageHeader>

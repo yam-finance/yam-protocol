@@ -33,6 +33,7 @@ import SUSHIPoolJson from '../clean_build/contracts/SUSHIPoolJson.json';
 import KIMCHIPoolJson from '../clean_build/contracts/KIMCHIPoolJson.json';
 import FRENSPoolJson from '../clean_build/contracts/FRENSPoolJson.json';
 import SASHIMIPoolJson from '../clean_build/contracts/SASHIMIPoolJson.json';
+import PICKLEPoolJson from '../clean_build/contracts/PICKLEPoolJson.json';
 
 import IncJson from '../clean_build/contracts/YAMIncentivizer.json';
 
@@ -69,6 +70,7 @@ export class Contracts {
     this.kimchilp = new this.web3.eth.Contract(ERC20Json.abi);
     this.frens = new this.web3.eth.Contract(ERC20Json.abi);
     this.sashimi = new this.web3.eth.Contract(ERC20Json.abi);
+    this.shrimp_pickle_uni_lp = new this.web3.eth.Contract(ERC20Json.abi);
 
 
     this.dogefi_pool = new this.web3.eth.Contract(DOGEPoolJson.abi);
@@ -84,6 +86,7 @@ export class Contracts {
     this.kimchilp_pool = new this.web3.eth.Contract(KIMCHIPoolJson.abi);
     this.frens_pool = new this.web3.eth.Contract(FRENSPoolJson.abi);
     this.sashimi_pool = new this.web3.eth.Contract(SASHIMIPoolJson.abi);
+    this.shrimp_pickle_uni_lp_pool = new this.web3.eth.Contract(PICKLEPoolJson.abi);
     this.bsd95_pool = new this.web3.eth.Contract(BalShrimpDai95Json.abi)
     this.bsd80_pool = new this.web3.eth.Contract(BalShrimpDai80Json.abi)
     this.proposal = new this.web3.eth.Contract(ProposalJson.abi);
@@ -130,6 +133,7 @@ export class Contracts {
       { contract: this.kimchilp_pool, json: KIMCHIPoolJson},
       { contract: this.frens_pool, json: FRENSPoolJson},
       { contract: this.sashimi_pool, json: SASHIMIPoolJson},
+      { contract: this.shrimp_pickle_uni_lp_pool, json: PICKLEPoolJson},
       // { contract: this.proposal, json: ProposalJson}
     ]
 
@@ -140,6 +144,7 @@ export class Contracts {
         networkId,
       ),
     );
+    this.shrimp_pickle_uni_lp.options.address = addressMap["PICKLE"];
     this.dogefi.options.address = addressMap["DOGEFI"];
     this.zombie.options.address = addressMap["ZOMBIE"];
     this.yfi.options.address = addressMap["YFI"];
@@ -174,6 +179,7 @@ export class Contracts {
       {"tokenAddr": this.sushilp.options.address, "poolAddr": this.sushilp_pool.options.address},
       {"tokenAddr": this.frens.options.address, "poolAddr": this.frens_pool.options.address},
       {"tokenAddr": this.sashimi.options.address, "poolAddr": this.sashimi_pool.options.address},
+      {"tokenAddr": this.shrimp_pickle_uni_lp.options.address, "poolAddr": this.shrimp_pickle_uni_lp_pool.options.address},
     ]
   }
 
@@ -195,6 +201,7 @@ export class Contracts {
     this.sushilp.options.from = account;
     this.frens.options.from = account;
     this.sashimi.options.from = account;
+    this.shrimp_pickle_uni_lp.options.from = account;
   }
 
   async callContractFunction(

@@ -24,7 +24,8 @@ const NAME_FOR_POOL: { [key: string]: string } = {
   sushilp_pool: 'Sushi swap',
   kimchilp_pool: 'Kimchi crunch',
   frens_pool: 'Frens 4evur',
-  sashimi_pool: 'Sashimi Surprise'
+  sashimi_pool: 'Sashimi Surprise',
+  shrimp_pickle_uni_lp_pool: 'Pickle Shrimp Party'
 }
 
 const ICON_FOR_POOL: { [key: string]: string } = {
@@ -42,7 +43,8 @@ const ICON_FOR_POOL: { [key: string]: string } = {
   sushilp_pool: '🍣',
   kimchilp_pool: 'k',
   frens_pool: 'f',
-  sashimi_pool: 'ns'
+  sashimi_pool: 'ns',
+  shrimp_pickle_uni_lp_pool: 'p',
 }
 
 const SORT_FOR_POOL: { [key: string]: number } = {
@@ -60,7 +62,8 @@ const SORT_FOR_POOL: { [key: string]: number } = {
   sushilp_pool: 11, //3
   kimchilp_pool: 4,
   frens_pool: 12,
-  sashimi_pool: 14
+  sashimi_pool: 14,
+  shrimp_pickle_uni_lp_pool: 15
   
 }
 
@@ -151,6 +154,10 @@ const Farms: React.FC = ({ children }) => {
 
         if (tokenKey === 'sashimi') {
           tokenAddress = '0xC28E27870558cF22ADD83540d2126da2e4b464c2'
+        }
+
+        if (tokenKey === 'shrimp_pickle_uni_lp') {
+          tokenAddress = '0x429881672B9AE42b8EbA0E26cD9C73711b891Ca5'
         }
         
         farmsArr.push({

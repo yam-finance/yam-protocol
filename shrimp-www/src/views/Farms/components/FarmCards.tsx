@@ -20,12 +20,12 @@ const FarmCards: React.FC = () => {
   const rows = farms.reduce<Farm[][]>((farmRows, farm) => {
     const newFarmRows = [...farmRows]
     if (newFarmRows[newFarmRows.length - 1].length === 3) {
-      if (farm.id === 'sashimi' || farm.name === "Kimchi crunch" || farm.name === "Sushi swap" || farm.name === "Taco Tuesday" || farm.name === "Bal_Shrimp_Dai_95" || farm.name === "Bal_Shrimp_Dai_80" || farm.name === "Zombie Swamp" || farm.name === "DogeFi Days" || farm.name === "Frens 4evur"){
+      if (farm.sort === 15 || farm.id === 'sashimi' || farm.name === "Kimchi crunch" || farm.name === "Sushi swap" || farm.name === "Taco Tuesday" || farm.name === "Bal_Shrimp_Dai_95" || farm.name === "Bal_Shrimp_Dai_80" || farm.name === "Zombie Swamp" || farm.name === "DogeFi Days" || farm.name === "Frens 4evur"){
       } else {
         newFarmRows.push([farm])
       }
     } else {
-      if (farm.id === 'sashimi' || farm.name === "Kimchi crunch" || farm.name === "Sushi swap" || farm.name === "Taco Tuesday" || farm.name === "Bal_Shrimp_Dai_95" || farm.name === "Bal_Shrimp_Dai_80" || farm.name === "Zombie Swamp" || farm.name === "DogeFi Days" || farm.name === "Frens 4evur"){
+      if (farm.sort === 15 || farm.id === 'sashimi' || farm.name === "Kimchi crunch" || farm.name === "Sushi swap" || farm.name === "Taco Tuesday" || farm.name === "Bal_Shrimp_Dai_95" || farm.name === "Bal_Shrimp_Dai_80" || farm.name === "Zombie Swamp" || farm.name === "DogeFi Days" || farm.name === "Frens 4evur"){
       } else {
       newFarmRows[newFarmRows.length - 1].push(farm)
       }

@@ -24,11 +24,13 @@ import DOGEPoolJson from '../../../yam/clean_build/contracts/DOGEPoolJson.json';
 import KIMCHIPoolJson from '../../../yam/clean_build/contracts/KIMCHIPoolJson.json';
 import FRENSPoolJson from '../../../yam/clean_build/contracts/FRENSPoolJson.json';
 import SASHIMIPoolJson from '../../../yam/clean_build/contracts/SASHIMIPoolJson.json';
+import PICKLEPoolJson from '../../../yam/clean_build/contracts/PICKLEPoolJson.json';
 
 import doge from '../../../assets/img/doge.png'
 import kimchi from '../../../assets/img/kimchi.png'
 import frens from '../../../assets/img/frens.png'
 import sashimi from '../../../assets/img/sashimi.png'
+import pickle from '../../../assets/img/pickle.png'
 
 import {
   current_zom_value,
@@ -56,12 +58,12 @@ const StatCards: React.FC = () => {
   const rows = farms.reduce<Farm[][]>((farmRows, farm) => {
     const newFarmRows = [...farmRows]
     if (newFarmRows[newFarmRows.length - 1].length) {
-      if (farm.sort === 1 || farm.sort === 0 || farm.id === 'cream' || farm.id === 'shrimp' || farm.id === 'dice' || farm.id === 'taco' || farm.id === 'comp' || farm.id === 'yfi' || farm.id === 'weth') {
+      if (farm.sort === 15 || farm.sort === 1 || farm.sort === 0 || farm.id === 'cream' || farm.id === 'shrimp' || farm.id === 'dice' || farm.id === 'taco' || farm.id === 'comp' || farm.id === 'yfi' || farm.id === 'weth') {
       } else {
         newFarmRows.push([farm])
       }
     } else {
-      if (farm.sort === 1 || farm.sort === 0 || farm.id === 'cream' || farm.id === 'shrimp' || farm.id === 'dice' || farm.id === 'taco' || farm.id === 'comp' || farm.id === 'yfi' || farm.id === 'weth') {
+      if (farm.sort === 15 || farm.sort === 1 || farm.sort === 0 || farm.id === 'cream' || farm.id === 'shrimp' || farm.id === 'dice' || farm.id === 'taco' || farm.id === 'comp' || farm.id === 'yfi' || farm.id === 'weth') {
       } else {
         newFarmRows[newFarmRows.length - 1].push(farm)
       }
@@ -90,7 +92,6 @@ interface FarmCardProps {
 }
 
 const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
-  // const [startTime, setStartTime] = useState(0)
   const [totalZom, setTotalZom] = useState(0)
   const [totalDai, setTotalDai] = useState(0)
   const [totalDaiStaked, setTotalDaiStaked] = useState(0)
@@ -122,12 +123,18 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
       var nowAbi = DOGEPoolJson.abi
       var currentCoinPrice = 'dogefi'
       break;
-      case 'sashimi':
-        var address = '0xF46485B3fecC87c73821aE310b579d3c6390821a'
-        var cAddress = '0xC28E27870558cF22ADD83540d2126da2e4b464c2'
-        var nowAbi = SASHIMIPoolJson.abi
-        var currentCoinPrice = 'sashimi'
-        break;
+    case 'pickle':
+      var address = '0x145FF9b001A7E9a2b547f0b41813f7706a002526'
+      var cAddress = '0x9B9087756eCa997C5D595C840263001c9a26646D'
+      var nowAbi = PICKLEPoolJson.abi
+      var currentCoinPrice = 'pickle-finance'
+      break;
+    case 'sashimi':
+      var address = '0xF46485B3fecC87c73821aE310b579d3c6390821a'
+      var cAddress = '0xC28E27870558cF22ADD83540d2126da2e4b464c2'
+      var nowAbi = SASHIMIPoolJson.abi
+      var currentCoinPrice = 'sashimi'
+      break;
     case 'cream':
       var address = '0xa8ed29d39Ec961Ded44451D38e56B609Fe08126e'
       var cAddress = '0x2ba592F78dB6436527729929AAf6c908497cB200'
@@ -141,19 +148,19 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
       var currentCoinPrice = 'sushi'
       break;
     case 'shrimp_kimchi_uni_LP':
-        var address = '0x3447123eb0Cb68bAe9367Ca36b79B086eC5eDa6A'
-        var cAddress = '0x1fe3b8360691996da69336c825d6446f7fb81933'
-        var nowAbi = KIMCHIPoolJson.abi
-        var currentCoinPrice = 'kimchi-finance'
-        break;
+      var address = '0x3447123eb0Cb68bAe9367Ca36b79B086eC5eDa6A'
+      var cAddress = '0x1fe3b8360691996da69336c825d6446f7fb81933'
+      var nowAbi = KIMCHIPoolJson.abi
+      var currentCoinPrice = 'kimchi-finance'
+      break;
     case 'dice':
       var address = '0xcec3fc05f9314528b5ef324a2e2c47f1d8bed515'
       var cAddress = '0xCF67CEd76E8356366291246A9222169F4dBdBe64'
       var nowAbi = DICEPoolJson.abi
       var currentCoinPrice = 'dice-finance'
       break;
-      case 'frens':
-      var address = '0x3bBDEAb3ea527e6C59C1cC89fDD6297e5C629840'//update
+    case 'frens':
+      var address = '0x3bBDEAb3ea527e6C59C1cC89fDD6297e5C629840'
       var cAddress = '0x907cb97615b7cD7320Bc89bb7CDB46e37432eBe7'
       var nowAbi = FRENSPoolJson.abi
       var currentCoinPrice = 'frens-community'
@@ -203,14 +210,14 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
   }, [yam])
 
   const getdai = useCallback(async () => {
-      const totalDai = await current_Dai_value(ethereum, cAddress);
-      setTotalDai(Number(totalDai))  
+    const totalDai = await current_Dai_value(ethereum, cAddress);
+    setTotalDai(Number(totalDai))
     if (currentCoinPrice === '1') {
       get_wrapped_value(totalDai)
     } else if (currentCoinPrice === '2') {
       get_altwrapped_value(totalDai)
     }
-    
+
   }, [yam])
 
   const getdaistaked = useCallback(async (num, zomNum) => {
@@ -290,7 +297,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
         <Card>
           <CardContent>
             <StyledContent>
-              <span>{farm.icon === 'ns' ? <img style={{ width: "25px" }} src={sashimi} /> : farm.icon === 'dd' ? <img style={{ width: "25px" }} src={doge} /> : farm.icon === 'f' ? <img style={{ width: "42px", position: "absolute", left: "41%", top: "5%" }} src={frens} /> : farm.icon === "aa" ? <img style={{ width: "25px" }} src="https://zombie.finance/logo2.png" /> :farm.icon === 'k' ? <img style={{ width: "25px" }} src={kimchi} /> : farm.icon} {farm.name}</span>
+              <span>{farm.icon === 'p' ? <img style={{ width: "25px" }} src={pickle} /> : farm.icon === 'ns' ? <img style={{ width: "25px" }} src={sashimi} /> : farm.icon === 'dd' ? <img style={{ width: "25px" }} src={doge} /> : farm.icon === 'f' ? <img style={{ width: "42px", position: "absolute", left: "41%", top: "5%" }} src={frens} /> : farm.icon === "aa" ? <img style={{ width: "25px" }} src="https://zombie.finance/logo2.png" /> : farm.icon === 'k' ? <img style={{ width: "25px" }} src={kimchi} /> : farm.icon} {farm.name}</span>
             </StyledContent>
             <br />
         ========== PRICES ==========<br />
