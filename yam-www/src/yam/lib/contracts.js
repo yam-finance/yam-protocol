@@ -27,7 +27,11 @@ import COMPPoolJson from '../clean_build/contracts/YAMCOMPPool.json';
 import SNXPoolJson from '../clean_build/contracts/YAMSNXPool.json';
 import LINKPoolJson from '../clean_build/contracts/YAMLINKPool.json';
 
+import IncOldJson from '../clean_build/contracts/YAMIncentivizerOld.json';
 import IncJson from '../clean_build/contracts/YAMIncentivizer.json';
+
+import MigratorJson from "../clean_build/contracts/Migrator.json"
+import YAMv3Json from "../clean_build/contracts/YAMDelegatorV3.json"
 
 export class Contracts {
   constructor(
@@ -49,12 +53,14 @@ export class Contracts {
     this.yfi = new this.web3.eth.Contract(ERC20Json.abi);
     this.UNIAmpl = new this.web3.eth.Contract(ERC20Json.abi);
     this.ycrv = new this.web3.eth.Contract(ERC20Json.abi);
+    this.yycrv = new this.web3.eth.Contract(ERC20Json.abi);
     this.yam = new this.web3.eth.Contract(YAMJson.abi);
 
     this.yfi_pool = new this.web3.eth.Contract(YFIPoolJson.abi);
     this.eth_pool = new this.web3.eth.Contract(WETHPoolJson.abi);
     this.ampl_pool = new this.web3.eth.Contract(AMPLPoolJson.abi);
-    this.ycrv_pool = new this.web3.eth.Contract(IncJson.abi);
+    this.ycrv_pool = new this.web3.eth.Contract(IncOldJson.abi);
+    this.yycrv_pool = new this.web3.eth.Contract(IncJson.abi);
 
     this.comp_pool = new this.web3.eth.Contract(COMPPoolJson.abi);
     this.link_pool = new this.web3.eth.Contract(LINKPoolJson.abi);
@@ -68,6 +74,7 @@ export class Contracts {
     this.snx = new this.web3.eth.Contract(ERC20Json.abi);
     this.mkr = new this.web3.eth.Contract(ERC20Json.abi);
     this.yam_ycrv_uni_lp = new this.web3.eth.Contract(ERC20Json.abi);
+    this.yam_yycrv_uni_lp = new this.web3.eth.Contract(ERC20Json.abi);
 
     this.erc20 = new this.web3.eth.Contract(ERC20Json.abi);
     this.pool = new this.web3.eth.Contract(LENDPoolJson.abi);
@@ -75,6 +82,9 @@ export class Contracts {
 
     this.yamV2 = new this.web3.eth.Contract(YAMv2Json.abi);
     this.yamV2migration = new this.web3.eth.Contract(YAMv2MigrationJson.abi);
+
+    this.yamV3 = new this.web3.eth.Contract(YAMv3Json.abi);
+    this.migrator = new this.web3.eth.Contract(Migrator.abi);
 
     this.rebaser = new this.web3.eth.Contract(YAMRebaserJson.abi);
     this.reserves = new this.web3.eth.Contract(YAMReservesJson.abi);
@@ -101,7 +111,8 @@ export class Contracts {
       { contract: this.reserves, json: YAMReservesJson },
       { contract: this.gov, json: YAMGovJson },
       { contract: this.timelock, json: YAMTimelockJson },
-      { contract: this.ycrv_pool, json: IncJson },
+      { contract: this.ycrv_pool, json: IncOldJson },
+      { contract: this.yycrv_pool, json: IncJson },
       { contract: this.eth_pool, json: WETHPoolJson },
       { contract: this.yfi_pool, json: YFIPoolJson },
       { contract: this.ampl_pool, json: AMPLPoolJson },
@@ -112,6 +123,8 @@ export class Contracts {
       { contract: this.comp_pool, json: COMPPoolJson },
       { contract: this.yamV2, json: YAMv2Json },
       { contract: this.yamV2migration, json: YAMv2MigrationJson },
+      { contract: this.yamV3, json: YAMv3Json },
+      { contract: this.migrator, json: MigratorJson },
     ]
 
     contracts.forEach(contract => this.setContractProvider(
@@ -123,6 +136,7 @@ export class Contracts {
     );
     this.yfi.options.address = addressMap["YFI"];
     this.ycrv.options.address = addressMap["YCRV"];
+    this.yycrv.options.address = addressMap["YYCRV"];
     this.weth.options.address = addressMap["WETH"];
     this.snx.options.address = addressMap["SNX"];
     this.comp.options.address = addressMap["COMP"];
@@ -133,6 +147,7 @@ export class Contracts {
     this.uni_fact.options.address = addressMap["uniswapFactoryV2"];
     this.uni_router.options.address = addressMap["UNIRouter"];
     this.yam_ycrv_uni_lp.options.address = addressMap["YAMYCRV"];
+    this.yam_yycrv_uni_lp.options.address = addressMap["YAMYYCRV"];
 
     this.pools = [
       {"tokenAddr": this.yfi.options.address, "poolAddr": this.yfi_pool.options.address},

@@ -219,3 +219,36 @@ export const getMigrationEndTime = async (yam) => {
 export const getV2Supply = async (yam) => {
   return new BigNumber(await yam.contracts.yamV2.methods.totalSupply().call())
 }
+
+export const migrationStarted = async (yam) => {
+  let now = new Date().getTime() / 1000; // get current time
+  let startTime = await yam.contracts.migrator.methods.startTime().call();
+  let token_initialized = await yam.contracts.migrator.methods.token_initialized().call();
+  let delegatorRewardsSet = await yam.contracts.migrator.methods.delegatorRewardsSet().call();
+  if (now >= startTime && token_initialized && delegatorRewardsSet) {
+    return true;
+  }
+  return false;
+}
+
+export const currVested = async (yam, account) => {
+  let BASE = new BigNumber(10).pow(24);
+
+  let vested = new BigNumber(await yam.contracts.migrator.methods.vested(account).call()).div(BASE);
+  return vested;
+}
+
+export const delegatorRewards = async (yam, account) => {
+  let BASE = new BigNumber(10).pow(24);
+
+  let rewards = new BigNumber(await yam.contracts.migrator.methods.delegator_vesting(account).call()).div(BASE);
+  return rewards;
+}
+
+export const migrateV3 = async (yam, account) => {
+    return await yam.contracts.migrator.methods.migrate().send({from: account, gas: 240000});
+}
+
+export const claimVested = async (yam, account) => {
+  return await yam.contracts.migrator.methods.claimVested().send({from: account, gas: 240000});
+}
