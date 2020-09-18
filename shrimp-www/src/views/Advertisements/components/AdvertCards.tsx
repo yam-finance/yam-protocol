@@ -62,9 +62,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
   const [startTime, setStartTime] = useState(0)
   const [endTime, setEndTime] = useState(0)
 
-  const timeStamp = 1598443200000;
   const dogestart = 1598868000000;
-  const sushistart = 1598954400503;
   const threedays = 10800000;
   const oneDay = 3600000;
   const kimchiTime = 1599213600000;
@@ -74,7 +72,10 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
   const kimchi24hleft = 1599732000000;
   const frensens = 1600855200000;
   const sashimistart = 1599904800000;
-  const pickletime = 600164000000;
+  const sashimiStop = 1600509600000;
+  const pickletime = 1600164000000;
+  const picklestop = 1600768800000
+
 
   const getStartTime = useCallback(async () => {
     const startTime = await getPoolStartTime(farm.contract)
@@ -190,8 +191,6 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
                       text={'Remove liquidity'}
                       to={`/farms/${farm.id}`}
                     />
-                    //  {dogestart > Date.now() && <Countdown date={dogestart} renderer={renderer} />}
-                    //</Button>
                   }
                   {farm.name === 'Sushi swap' &&
                     <Button
