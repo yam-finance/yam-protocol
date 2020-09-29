@@ -52,12 +52,12 @@ const SORT_FOR_POOL: { [key: string]: number } = {
   zombie_pool: 13, //1
   bsd95_pool: 0,
   bsd80_pool: 1,  
-  taco_pool: 2, //4
-  yfi_pool: 5,
-  eth_pool: 6,
-  cream_pool: 7,
-  comp_pool: 8,
-  dice_pool: 9,
+  taco_pool: 0, //4
+  yfi_pool: 0,
+  eth_pool: 0,
+  cream_pool: 0,
+  comp_pool: 0,
+  dice_pool: 0,
   uni_pool: 10,
   sushilp_pool: 11, //3
   kimchilp_pool: 4,

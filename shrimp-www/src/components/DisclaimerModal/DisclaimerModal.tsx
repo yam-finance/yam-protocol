@@ -24,10 +24,7 @@ const DisclaimerModal: React.FC<DisclaimerModal> = ({ onConfirm, onDismiss }) =>
       return (
         <div>
           <p>Audits: None. (This project is in beta. Use at your own risk.)</p>
-          <p>🦐 New Advanced Pool will start on 2020/09/15 10:00:00 UTC+0, welcome <a href="https://pickle.finance/" target="_blank">Pickle</a> out of the jar. 🦐 </p>
-          {/* <p>🍣 New Advanced Pool will start on 2020/09/01 10:00:00 UTC+0, welcome <a href="https://app.sushiswap.org/" target="_blank">SHRIMP_SUSHI_UNI_LP</a> on board. 🍣 </p> */}
-          <br/><p>🚨 For more information on the inflation of Uniswap LP pool tokens, please visit <a href="https://github.com/shrimp-finance/shrimp-protocol/wiki/Total-Shrimp:-253,220.6-%F0%9F%A6%90" target="_blank">Github Wiki</a></p>
-          <p>💡 Any token in Advanced Pool does not constitute an investment opinion, Shrimp Group is only responsible for basic quick check! Please evaluate yourself carefully before buying!</p>
+          <p>🚨 The final inflation mint was September 25th (4494.92 Shrimp), Shrimp WETH_SHRIMP_UNI_LP Pool has removed the liquidity.</p>
         </div>
       )
     } else {
