@@ -69,7 +69,7 @@ contract Timelock {
         require(delay_ <= MAXIMUM_DELAY, "Timelock::setDelay: Delay must not exceed maximum delay.");
         delay = delay_;
 
-        emit NewDelay(delay);
+        emit NewDelay(delay_);
     }
 
 
@@ -99,7 +99,7 @@ contract Timelock {
         }
         pendingAdmin = pendingAdmin_;
 
-        emit NewPendingAdmin(pendingAdmin);
+        emit NewPendingAdmin(pendingAdmin_);
     }
 
 
